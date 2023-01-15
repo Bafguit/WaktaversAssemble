@@ -16,20 +16,24 @@ import java.util.HashMap;
 
 public class FileHandler {
 
-    // 관리
+    //Instance
+    private static FileHandler instance;
+
+    //Maps
     private static final Array<HashMap> maps = new Array<>();
 
-    @Getter
-    private static final HashMap<JsonType, JsonValue> jsonMap = new HashMap<>();
+    public static final HashMap<JsonType, JsonValue> jsonMap = new HashMap<>();
 
-    @Getter
-    private static final HashMap<String, Sprite> bg = new HashMap<>();
+    public static final HashMap<String, Sprite> bg = new HashMap<>();
 
-    @Getter
-    private static final HashMap<String, Sprite> ui = new HashMap<>();
+    public static final HashMap<String, Sprite> ui = new HashMap<>();
 
-    @Getter
-    private static final HashMap<String, Sprite> dice = new HashMap<>();
+    public static final HashMap<String, Sprite> dice = new HashMap<>();
+
+    public static FileHandler getInstance() {
+        if (instance == null) return (instance = new FileHandler());
+        return instance;
+    }
 
     /***
      * Load files which do not require being called on main thread
@@ -44,6 +48,8 @@ public class FileHandler {
      */
     public void loadResources(ResourceHandler resourceHandler) {
         generateDice(resourceHandler);
+        generateUI(resourceHandler);
+        generateBG(resourceHandler);
     }
 
     private static void generateHashMap() {
@@ -88,6 +94,36 @@ public class FileHandler {
 
             resourceHandler.requestResource(request);
         }
+    }
+
+    private void generateBG(ResourceHandler resourceHandler) {
+        bg.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        resources.put("GRID", "image/bg/grid.png");
+
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+            Texture texture = (Texture) resource;
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            String resourceName = args[0].toString();
+
+            bg.put(resourceName, new Sprite(texture));
+        }));
+    }
+
+    private void generateUI(ResourceHandler resourceHandler) {
+        ui.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        resources.put("TEMP", "image/ui/temp.png");
+
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+            Texture texture = (Texture) resource;
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            String resourceName = args[0].toString();
+
+            ui.put(resourceName, new Sprite(texture));
+        }));
     }
 
     public enum JsonType {

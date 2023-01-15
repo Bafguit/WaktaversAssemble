@@ -17,6 +17,8 @@ import java.util.regex.Pattern;
 
 import static com.badlogic.gdx.graphics.Color.*;
 import static com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
+import static com.fastcat.assemble.handlers.InputHandler.scaleX;
+import static com.fastcat.assemble.handlers.InputHandler.scaleY;
 
 public final class FontHandler implements Disposable {
 
@@ -24,7 +26,9 @@ public final class FontHandler implements Disposable {
     private static final FreeTypeFontGenerator font = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
 
     //Preload Fonts
-    public static final FontData TURN_CHANGE = new FontData(100, false);
+    public static final FontData TURN_CHANGE = new FontData(60, false);
+    public static final FontData SUB_NAME = new FontData(30, false);
+    public static final FontData SUB_DESC = new FontData(26, false);
 
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();
@@ -72,25 +76,24 @@ public final class FontHandler implements Disposable {
     }
 
     public static void renderCenter(SpriteBatch sb, FontData font, String text, float x, float y) {
+        font.font.getData().setScale(scaleX);
         layout.setText(font.font, text);
-        font.draw(sb, layout, font.alpha, x - layout.width / 2, y + layout.height / 2);
+        font.draw(sb, layout, font.alpha, x * scaleX - layout.width / 2, y * scaleY + layout.height * 0.54f);
+        font.font.getData().setScale(font.scale);
     }
 
     public static void renderCenter(
-            SpriteBatch sb, FontData fontData, String text, Vector2 vector, float bw, float bh) {
-        renderCenter(sb, fontData, text, vector.x, vector.y, bw, bh);
-    }
-
-    public static void renderCenter(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
-        layout.setText(font, text, fontData.color, bw, Align.center, false);
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        font.getData().setScale(scaleX);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.center, false);
+        float ry = y * scaleY + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
+        font.getData().setScale(fontData.scale);
     }
 
     public static void renderLineLeft(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
         Matcher matcher = COLOR_PATTERN.matcher(text);
         while (matcher.find()) {
@@ -99,42 +102,42 @@ public final class FontHandler implements Disposable {
             text = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(fontData.color));
             matcher = COLOR_PATTERN.matcher(text);
         }
-        layout.setText(font, text, fontData.color, bw, Align.left, false);
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.left, false);
+        float ry = y * scaleY + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 
     public static void renderLineRight(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
-        layout.setText(font, text, fontData.color, bw, Align.right, false);
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.right, false);
+        float ry = y * scaleY + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 
     public static void renderLineBotLeft(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
-        layout.setText(font, text, fontData.color, bw, Align.left, false);
-        fontData.draw(sb, layout, fontData.alpha, x, y);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.left, false);
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, y * scaleY);
     }
 
     public static void renderLineTopLeft(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
-        layout.setText(font, text, fontData.color, bw, Align.topLeft, true);
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.topLeft, true);
+        float ry = y * scaleY + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 
     public static void renderKeywordCenter(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         renderLine(sb, fontData, text, x, y, bw);
     }
 /*
     public static void renderCardCenter(
-            SpriteBatch sb, AbstractCard card, FontData fontData, String text, Vector2 vector, float bw, float bh) {
-        renderCardCenter(sb, card, fontData, text, vector.x, vector.y, bw, bh);
+            SpriteBatch sb, AbstractCard card, FontData fontData, String text, Vector2 vector, float bw) {
+        renderCardCenter(sb, card, fontData, text, vector.x, vector.y, bw);
     }
 */
     public static void renderColorLeft(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
@@ -147,8 +150,8 @@ public final class FontHandler implements Disposable {
             matcher = COLOR_PATTERN.matcher(text);
         }
         font.getData().setScale(fontData.scale);
-        layout.setText(font, text, fontData.color, bw, Align.topLeft, true);
-        fontData.draw(sb, layout, fontData.alpha, x, y);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.topLeft, true);
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, y * scaleY);
     }
 
     public static void renderColorCenter(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
@@ -161,9 +164,9 @@ public final class FontHandler implements Disposable {
             matcher = COLOR_PATTERN.matcher(text);
         }
         font.getData().setScale(fontData.scale);
-        layout.setText(font, text, fontData.color, bw, Align.center, true);
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
+        float ry = y * scaleY + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 /*
     public static void renderCardLeft(
@@ -184,12 +187,12 @@ public final class FontHandler implements Disposable {
         }
         font.getData().setScale(fontData.scale);
         font.getData().setLineHeight(fontData.size * 1.3f);
-        layout.setText(font, text, fontData.color, bw, Align.topLeft, true);
-        if(layout.runs.size * font.getLineHeight() > bh) {
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.topLeft, true);
+        if(layout.runs.size * font.getLineHeight() > bh * scaleY) {
         	font.getData().setScale(font.getScaleY() * 0.8f);
-        	layout.setText(font, text, fontData.color, bw, Align.topLeft, true);
+        	layout.setText(font, text, fontData.color, bw * scaleX, Align.topLeft, true);
         }
-        fontData.draw(sb, layout, fontData.alpha, x, y);
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, y * scaleX);
     }
 
     public static void renderCardCenter(
@@ -212,8 +215,8 @@ public final class FontHandler implements Disposable {
         font.getData().setScale(fontData.scale);
         font.getData().setLineHeight(scale * 1.3f);
         while (true) {
-            layout.setText(font, text, fontData.color, bw, Align.center, true);
-            if (layout.height > bh && scale > 0.5f) {
+            layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
+            if (layout.height > bh * scaleY && scale > 0.5f) {
                 scale *= 0.9f;
                 font.getData().setScale(scale);
                 font.getData().setLineHeight(scale * 1.3f);
@@ -221,16 +224,16 @@ public final class FontHandler implements Disposable {
                 break;
             }
         }
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        float ry = y * scaleY + (layout.height) * 0.65f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 */
     private static void renderLine(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
         font.getData().setScale(fontData.scale);
-        layout.setText(font, text, fontData.color, bw, Align.center, true);
-        float ry = y + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
+        float ry = y * scaleY + (layout.height) * 0.65f;
+        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 
     public static String getHexColor(Color color) {
@@ -289,7 +292,7 @@ public final class FontHandler implements Disposable {
         }
 
         public FontData(int size, boolean shadow, boolean border, Color color, Color bColor) {
-            this.size = (int) (size * InputHandler.scaleX);
+            this.size = size;
             this.color = color.cpy();
             this.bColor = bColor.cpy();
             this.font = generate(this.size, this.color, this.bColor, shadow, border);

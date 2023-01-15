@@ -33,15 +33,14 @@ public final class ResourceHandler {
      * @param <R> expected return type of resource
      */
     public <R> void requestResource(ResourceRequest<R> resourceRequest) {
-        if (resourceRequest instanceof MultipleResourceRequest) {
-            MultipleResourceRequest<R> m = (MultipleResourceRequest<R>) resourceRequest;
-            for (String value : m.getResourceNames().values()) {
-                assetManager.load(value, resourceRequest.getResourceType());
+        if (resourceRequest instanceof MultipleResourceRequest<R> m) {
+            for (String value : m.resourceNames.values()) {
+                assetManager.load(value, resourceRequest.resourceType);
                 queuedRequests.addLast(resourceRequest);
             }
             return;
         }
-        assetManager.load(resourceRequest.getResourceName(), resourceRequest.getResourceType());
+        assetManager.load(resourceRequest.resourceName, resourceRequest.resourceType);
         queuedRequests.addLast(resourceRequest);
     }
 
@@ -60,14 +59,14 @@ public final class ResourceHandler {
                     MultipleResourceRequest<?> multipleReq = (MultipleResourceRequest<?>) req;
 
                     for (Map.Entry<String, String> resourceName :
-                            multipleReq.getResourceNames().entrySet()) {
-                        Object loadedResource = assetManager.get(resourceName.getValue(), req.getResourceType());
-                        req.getCallback().onResourceLoaded(loadedResource, resourceName.getKey());
+                            multipleReq.resourceNames.entrySet()) {
+                        Object loadedResource = assetManager.get(resourceName.getValue(), req.resourceType);
+                        req.callback.onResourceLoaded(loadedResource, resourceName.getKey());
                     }
                     continue;
                 }
-                Object loadedResource = assetManager.get(req.getResourceName(), req.getResourceType());
-                req.getCallback().onResourceLoaded(loadedResource, req.getArgs());
+                Object loadedResource = assetManager.get(req.resourceName, req.resourceType);
+                req.callback.onResourceLoaded(loadedResource, req.args);
             }
             assetManager.finishLoading();
             return actualProcessing;
@@ -89,23 +88,17 @@ public final class ResourceHandler {
 
     public static class ResourceRequest<R> {
 
-        @Setter
         @NotNull
-        @Getter
-        private String resourceName;
+        public String resourceName;
 
         @NotNull
-        @Getter
-        private final Class<R> resourceType;
+        public final Class<R> resourceType;
 
         @NotNull
-        @Getter
-        private final ResourceCallback callback;
+        public final ResourceCallback callback;
 
         @Nullable
-        @Setter
-        @Getter
-        private Object[] args;
+        public Object[] args;
 
         public ResourceRequest(String resourceName, Class<R> resourceType, ResourceCallback callback, Object... args) {
             this.resourceName = resourceName;
@@ -116,8 +109,7 @@ public final class ResourceHandler {
     }
 
     public static class MultipleResourceRequest<R> extends ResourceHandler.ResourceRequest<R> {
-        @Getter
-        private final HashMap<String, String> resourceNames;
+        public final HashMap<String, String> resourceNames;
 
         public MultipleResourceRequest(
                 HashMap<String, String> resourceNames, Class<R> resourceType, ResourceHandler.ResourceCallback callback) {

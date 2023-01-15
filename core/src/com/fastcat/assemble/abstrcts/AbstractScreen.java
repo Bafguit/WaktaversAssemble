@@ -1,9 +1,12 @@
 package com.fastcat.assemble.abstrcts;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.WaktaAssemble;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -17,13 +20,19 @@ public abstract class AbstractScreen implements Screen {
 
     public abstract void update();
 
-    public abstract void render(SpriteBatch sb);
+    protected abstract void render(SpriteBatch sb);
 
     @Override
     public final void render(float delta) {
+        WaktaAssemble.application.sb.setColor(Color.WHITE);
         if(background != null) {
-
+            WaktaAssemble.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
+        render(WaktaAssemble.application.sb);
+    }
+
+    public void setBg(Sprite s) {
+        background = s;
     }
 
     @Override

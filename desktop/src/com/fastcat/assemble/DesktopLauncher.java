@@ -9,6 +9,9 @@ public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
+		config.setResizable(false);
+		config.setWindowedMode(1600, 900);
+		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 20);
 		config.setTitle("WaktaverseAssemble");
 		new Lwjgl3Application(new WaktaAssemble(), config);
 	}

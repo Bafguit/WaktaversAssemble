@@ -342,9 +342,9 @@ public abstract class AbstractUI implements Disposable {
         public SubText(String name, String desc) {
             this.name = name;
             this.desc = desc;
-            top = new TempUI(FileHandler.getUi().get("SUB_TOP"));
-            mid = new TempUI(FileHandler.getUi().get("SUB_MID"));
-            bot = new TempUI(FileHandler.getUi().get("SUB_BOT"));
+            top = new TempUI(FileHandler.ui.get("TEMP"));
+            mid = new TempUI(FileHandler.ui.get("TEMP"));
+            bot = new TempUI(FileHandler.ui.get("TEMP"));
             nameLayout = new GlyphLayout();
             descLayout = new GlyphLayout();
             nameFont = SUB_NAME;

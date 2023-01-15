@@ -43,7 +43,7 @@ public final class InputHandler {
         isDesktop = Gdx.app.getType() == Application.ApplicationType.Desktop;
         mx = 0;
         my = 0;
-        scaleY = (float) Gdx.graphics.getWidth() / 1920.0f;
+        scaleX = (float) Gdx.graphics.getWidth() / 1920.0f;
         scaleY = (float) Gdx.graphics.getHeight() / 1080.0f;
 
         Gdx.input.setInputProcessor(new InputAdapter() {

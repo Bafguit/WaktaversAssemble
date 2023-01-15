@@ -2,35 +2,153 @@ package com.fastcat.assemble;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.Viewport;
+import com.fastcat.assemble.abstrcts.AbstractGame;
+import com.fastcat.assemble.abstrcts.AbstractScreen;
+import com.fastcat.assemble.handlers.*;
+import com.fastcat.assemble.screens.temp.DiceRollScreen;
+import com.fastcat.assemble.utils.FillViewport;
+import com.google.common.util.concurrent.FutureCallback;
+import lombok.Getter;
 
 public class WaktaAssemble extends ApplicationAdapter {
 
-	public static WaktaAssemble game;
+	private static LifeCycle phase;
 
+	public static WaktaAssemble application;
+
+	public static OrthographicCamera camera;
+	public static Viewport viewport;
+
+	public AbstractGame game;
+	public AbstractScreen screen;
+	public Array<AbstractScreen> tempScreen = new Array<>();
 	public static float tick;
 	public static boolean fading;
+
+	@Getter
+	private AssetManager assetManager;
+
+	private Queue<Runnable> queuedTasks = new Queue<>();
+
+	public ResourceHandler resourceHandler;
 
 	public SpriteBatch sb;
 	Texture img;
 	
 	@Override
 	public void create () {
-		game = this;
+		phase = LifeCycle.STARTED;
+		InputHandler.getInstance();
+		assetManager = new AssetManager();
+		resourceHandler = new ResourceHandler(assetManager);
+
+		application = this;
 		sb = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		camera = new OrthographicCamera();
+		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+		camera.setToOrtho(false, w, h);
+		viewport = new FillViewport(w, h);
+		FileHandler.getInstance();
+		FontHandler.getInstance();
+		init();
+	}
+
+	private void init() {
+
+		AsyncHandler.scheduleAsyncTask(
+				() -> {
+					FileHandler.getInstance().loadFiles();
+					FileHandler.getInstance().loadResources(resourceHandler);
+					return new Object();
+				},
+				new FutureCallback<Object>() {
+					@Override
+					public void onSuccess(Object result) {
+						phase = LifeCycle.LOADING;
+						System.out.println("phase : " + phase);
+					}
+
+					@Override
+					public void onFailure(Throwable t) {
+						throw new RuntimeException(t);
+					}
+				});
+	}
+
+	private void load() {
+		screen = new DiceRollScreen();
+		game = new AbstractGame();
+	}
+
+	private void update() {
+		camera.update();
+		InputHandler.getInstance().update();
+
+		if (tempScreen.size > 0) {
+			AbstractScreen s = tempScreen.get(tempScreen.size - 1);
+			if (s != null) {
+				s.update();
+			}
+		} else if(screen != null) {
+			screen.update();
+		}
 	}
 
 	@Override
 	public void render () {
+		if (phase == LifeCycle.STARTED) {
+			return;
+		}
+
+		if (phase == LifeCycle.LOADING) {
+			if (resourceHandler.process()) phase = LifeCycle.FINISHING;
+		}
+		if (phase == LifeCycle.FINISHING) {
+			load();
+			phase = LifeCycle.ENDED;
+		}
+
 		ScreenUtils.clear(0, 0, 0, 1);
 
 		tick = Gdx.graphics.getDeltaTime();
 
+		if (phase == LifeCycle.ENDED) {
+			/** Update */
+			update();
+		}
+		sb.setProjectionMatrix(camera.combined);
+		sb.enableBlending();
 		sb.begin();
-		sb.draw(img, 0, 0);
+
+		/** Render Methods */
+		// actionHandler.render(sb);
+		super.render();
+
+		if (phase == LifeCycle.ENDED) {
+			if(screen != null) screen.render(tick);
+			if (tempScreen.size > 0) {
+				for (AbstractScreen s : tempScreen) {
+					if (s != null) s.render(tick);
+				}
+			}
+
+        /*
+        		sb.setColor(Color.WHITE);
+        		sb.draw(cursor.img, InputHandler.mx, InputHandler.my - cursor.height / 2, cursor.width / 2, cursor.height / 2);
+        */
+		} else {
+			float p = resourceHandler.getProgress();
+			FontHandler.renderCenter(sb, FontHandler.SUB_NAME, "리소스 불러오는 중\n" + p * 100 + "%", 960, 540);
+		}
 		sb.end();
 	}
 	
@@ -38,5 +156,12 @@ public class WaktaAssemble extends ApplicationAdapter {
 	public void dispose () {
 		sb.dispose();
 		img.dispose();
+	}
+
+	public enum LifeCycle {
+		STARTED,
+		LOADING,
+		FINISHING,
+		ENDED
 	}
 }

@@ -5,12 +5,14 @@ public abstract class AbstractDice {
     public String id;
     public String name;
     public String desc;
+    public DiceRarity rarity;
     public int counter = -1;
 
-    protected int number;
+    protected int number = 0;
 
     public AbstractDice(String id, DiceRarity rarity) {
-
+        this.id = id;
+        this.rarity = rarity;
     }
 
     public void roll() {

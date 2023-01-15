@@ -15,10 +15,6 @@ buildscript {
     }
 }
 
-plugins{
-    id "io.freefair.lombok" version "6.5.1" apply false
-}
-
 allprojects {
     apply plugin: "eclipse"
 
@@ -83,8 +79,9 @@ project(":android") {
 project(":core") {
     apply plugin: "java-library"
 
-
     dependencies {
+
+        implementation "com.google.guava:guava:31.1-jre"
         implementation "com.badlogicgames.gdx-video:gdx-video:$videoVersion"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.esotericsoftware.spine:spine-libgdx:3.8.55.1"
