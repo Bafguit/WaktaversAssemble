@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -30,6 +31,8 @@ public class FileHandler {
 
     public static final HashMap<String, Sprite> dice = new HashMap<>();
 
+    public static final HashMap<String, TextureAtlas> diceAtlas = new HashMap<>();
+
     public static FileHandler getInstance() {
         if (instance == null) return (instance = new FileHandler());
         return instance;
@@ -48,6 +51,7 @@ public class FileHandler {
      */
     public void loadResources(ResourceHandler resourceHandler) {
         generateDice(resourceHandler);
+        generateDiceAtlas(resourceHandler);
         generateUI(resourceHandler);
         generateBG(resourceHandler);
     }
@@ -94,6 +98,24 @@ public class FileHandler {
 
             resourceHandler.requestResource(request);
         }
+    }
+
+    private void generateDiceAtlas(ResourceHandler resourceHandler) {
+        diceAtlas.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        resources.put("Dice", "atlas/dice/Dice/Dice.atlas");
+        resources.put("Fraud3", "atlas/dice/Fraud3/Fraud3.atlas");
+
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, TextureAtlas.class, (resource, args) -> {
+            TextureAtlas texture = (TextureAtlas) resource;
+            for(Texture t : texture.getTextures()) {
+                t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            }
+            String resourceName = args[0].toString();
+
+            diceAtlas.put(resourceName, texture);
+        }));
     }
 
     private void generateBG(ResourceHandler resourceHandler) {

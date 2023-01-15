@@ -5,7 +5,7 @@ import com.fastcat.assemble.abstrcts.AbstractGame;
 
 public class NormalDice extends AbstractDice {
     public NormalDice() {
-        super("Basic", DiceRarity.BASIC);
+        super("Dice", DiceRarity.BASIC);
     }
 
     @Override

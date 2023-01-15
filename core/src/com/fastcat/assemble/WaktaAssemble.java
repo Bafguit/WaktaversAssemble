@@ -147,7 +147,7 @@ public class WaktaAssemble extends ApplicationAdapter {
         */
 		} else {
 			float p = resourceHandler.getProgress();
-			FontHandler.renderCenter(sb, FontHandler.SUB_NAME, "리소스 불러오는 중\n" + p * 100 + "%", 960, 540);
+			FontHandler.renderCenter(sb, FontHandler.SUB_NAME, "리소스 불러오는 중\n" + p * 100 + "%", 0, 540, 1920);
 		}
 		sb.end();
 	}

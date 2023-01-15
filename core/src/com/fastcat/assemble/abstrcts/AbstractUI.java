@@ -81,13 +81,13 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void update() {
+        width = originWidth * scaleX * uiScale;
+        height = originHeight * scaleY * uiScale;
         setLocalPosition();
         if (parent != null) {
             x += parent.x;
             y += parent.y;
         }
-        width = originWidth * scaleX * uiScale;
-        height = originHeight * scaleY * uiScale;
         hasOver = mx > x && mx < x + width && my > y && my < y + height;
         if(isDesktop) {
             clicked = isLeftClick;
