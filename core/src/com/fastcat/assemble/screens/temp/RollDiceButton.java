@@ -1,7 +1,6 @@
 package com.fastcat.assemble.screens.temp;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -10,9 +9,9 @@ import com.fastcat.assemble.handlers.FontHandler;
 public class RollDiceButton extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
-    private final DiceRollScreen screen;
+    private final BattleScreen screen;
 
-    public RollDiceButton(DiceRollScreen screen) {
+    public RollDiceButton(BattleScreen screen) {
         super(FileHandler.dice.get("Dice"));
         this.screen = screen;
     }

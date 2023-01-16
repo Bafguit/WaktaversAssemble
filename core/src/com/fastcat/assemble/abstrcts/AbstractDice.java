@@ -46,6 +46,6 @@ public abstract class AbstractDice {
     }
 
     public enum DiceRarity {
-        BASIC, NORMAL, RARE, LEGEND, EVENT
+        BASIC, COMMON, RARE, LEGEND, EVENT
     }
 }

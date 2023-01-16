@@ -175,7 +175,7 @@ public abstract class AbstractUI implements Disposable {
     }
 
     private void setLocalPosition(){
-        if(trackable != TrackType.NONE && overable && clickable && clicking) {
+        if(trackable != TrackType.NONE && over && clickable && clicking) {
             tracking = true;
             if(trackable == TrackType.CENTER) {
                 localX = mx;

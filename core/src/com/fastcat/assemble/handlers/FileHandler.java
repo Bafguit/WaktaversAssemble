@@ -29,6 +29,8 @@ public class FileHandler {
 
     public static final HashMap<String, Sprite> ui = new HashMap<>();
 
+    public static final HashMap<String, Sprite> character = new HashMap<>();
+
     public static final HashMap<String, Sprite> dice = new HashMap<>();
 
     public static final HashMap<String, TextureAtlas> diceAtlas = new HashMap<>();
@@ -54,6 +56,7 @@ public class FileHandler {
         generateDiceAtlas(resourceHandler);
         generateUI(resourceHandler);
         generateBG(resourceHandler);
+        generateChar(resourceHandler);
     }
 
     private static void generateHashMap() {
@@ -146,6 +149,21 @@ public class FileHandler {
             String resourceName = args[0].toString();
 
             ui.put(resourceName, new Sprite(texture));
+        }));
+    }
+
+    private void generateChar(ResourceHandler resourceHandler) {
+        character.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        resources.put("Test", "image/char/Test.png");
+
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+            Texture texture = (Texture) resource;
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            String resourceName = args[0].toString();
+
+            character.put(resourceName, new Sprite(texture));
         }));
     }
 

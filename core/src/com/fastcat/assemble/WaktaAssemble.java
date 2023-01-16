@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.handlers.*;
-import com.fastcat.assemble.screens.temp.DiceRollScreen;
+import com.fastcat.assemble.screens.temp.BattleScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import com.google.common.util.concurrent.FutureCallback;
 import lombok.Getter;
@@ -85,7 +85,7 @@ public class WaktaAssemble extends ApplicationAdapter {
 	}
 
 	private void load() {
-		screen = new DiceRollScreen();
+		screen = new BattleScreen();
 		game = new AbstractGame();
 	}
 

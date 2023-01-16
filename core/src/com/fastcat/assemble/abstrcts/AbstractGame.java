@@ -19,7 +19,7 @@ public class AbstractGame {
     public static RandomXC diceRandom;
     public static RandomXC battleRandom;
 
-    public static AbstractCharacter[] chars;
+    public static AbstractEntity[] chars;
     public static Array<AbstractDice> dices;
     public static Array<AbstractCard> cards;
     public static Array<AbstractItem> items;
@@ -29,7 +29,7 @@ public class AbstractGame {
         dices = new Array<>();
         cards = new Array<>();
         items = new Array<>();
-        chars = new AbstractCharacter[12];
+        chars = new AbstractEntity[12];
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);
