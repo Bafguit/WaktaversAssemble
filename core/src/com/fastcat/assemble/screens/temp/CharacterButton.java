@@ -7,6 +7,9 @@ import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.character.TestChar;
 import com.fastcat.assemble.handlers.FileHandler;
 
+import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.CENTER;
+import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.NONE;
+
 public class CharacterButton extends AbstractUI {
 
     public BattleScreen screen;
@@ -24,12 +27,14 @@ public class CharacterButton extends AbstractUI {
         this.character = dice;
         this.index = index;
         this.screen = screen;
-        trackable = TrackType.CENTER;
+        clickEnd = screen.phase == BattleScreen.BattlePhase.DEPLOY;
+        trackable = clickEnd ? CENTER : NONE;
     }
 
     @Override
     protected void updateButton() {
-
+        clickEnd = screen.phase == BattleScreen.BattlePhase.DEPLOY;
+        trackable = clickEnd ? CENTER : NONE;
     }
 
     @Override
@@ -65,6 +70,14 @@ public class CharacterButton extends AbstractUI {
                 tile.character = null;
                 tile = null;
             }
+        }
+    }
+
+    public void reset() {
+        setPosition(150 * (index + 1), 270);
+        if(tile != null) {
+            tile.character = null;
+            tile = null;
         }
     }
 }

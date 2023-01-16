@@ -9,8 +9,10 @@ import com.fastcat.assemble.screens.TempScreen;
 
 public class BattleScreen extends TempScreen {
 
+    public BattlePhase phase;
     public ResizeButton resizeButton;
     public RollDiceButton rollButton;
+    public PhaseButton phaseButton;
     public Array<DiceButton> dice = new Array<>();
     public Array<CharacterButton> chars = new Array<>();
     public AbstractUI tracking;
@@ -19,10 +21,13 @@ public class BattleScreen extends TempScreen {
     public int wSize = 6, hSize = 6;
 
     public BattleScreen() {
+        phase = BattlePhase.READY;
         //setBg(FileHandler.bg.get("GRID"));
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
-        rollButton.setPosition(480, 600);
+        rollButton.setPosition(480, 650);
+        phaseButton = new PhaseButton(this);
+        phaseButton.setPosition(480, 500);
         for(int i = 1; i <= 3; i++) {
             DiceButton b = new DiceButton(this, new Fraud3(), i - 1);
             b.setPosition(150 * i, 810);
@@ -52,7 +57,7 @@ public class BattleScreen extends TempScreen {
     public void update() {
         resizeButton.update();
         rollButton.update();
-
+        phaseButton.update();
         for(int i = 0; i < dice.size; i++) {
             DiceButton b = dice.get(i);
             b.update();
@@ -83,6 +88,7 @@ public class BattleScreen extends TempScreen {
     public void render(SpriteBatch sb) {
         resizeButton.render(sb);
         rollButton.render(sb);
+        phaseButton.render(sb);
         for(int i = 0; i < wSize; i++) {
             for(int j = 0; j < hSize; j++) {
                 TileSquare t = tiles[i][j];
@@ -107,5 +113,29 @@ public class BattleScreen extends TempScreen {
         for(DiceButton b : dice) {
             b.dice.roll();
         }
+        phase = BattlePhase.CARD;
+    }
+
+    public void resetDice() {
+        for(DiceButton b : dice) {
+            b.reset();
+        }
+    }
+
+    public void resetChar() {
+        for(CharacterButton b : chars) {
+            b.reset();
+        }
+    }
+
+    public enum BattlePhase {
+        READY,
+        DEPLOY,
+        DICE,
+        CARD,
+        END_TURN,
+        TURN_CHANGE,
+        ENEMY,
+        END
     }
 }

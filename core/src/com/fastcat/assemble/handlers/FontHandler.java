@@ -27,6 +27,7 @@ public final class FontHandler implements Disposable {
 
     //Preload Fonts
     public static final FontData TURN_CHANGE = new FontData(60, false);
+    public static final FontData ROLL = new FontData(40, false);
     public static final FontData SUB_NAME = new FontData(30, false);
     public static final FontData SUB_DESC = new FontData(26, false);
 

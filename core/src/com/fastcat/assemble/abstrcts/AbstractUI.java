@@ -45,6 +45,7 @@ public abstract class AbstractUI implements Disposable {
     private boolean hasClick = false;
     public boolean hasOver = false;
     public boolean overable = true;
+    public boolean clickEnd = true;
     public boolean enabled;
     public boolean showImg = true;
 
@@ -122,7 +123,7 @@ public abstract class AbstractUI implements Disposable {
                         }
                     }
                     if (clicking) onClicking();
-                    else if (hasClick) onClickEnd();
+                    else if (hasClick && clickEnd) onClickEnd();
                 } else over = false;
             }
             updateButton();
