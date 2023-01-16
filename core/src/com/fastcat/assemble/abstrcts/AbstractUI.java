@@ -52,9 +52,9 @@ public abstract class AbstractUI implements Disposable {
     public boolean clicked;
     public boolean clicking;
     public boolean clickable = true;
-    public boolean trackable = false;
     public boolean tracking = false;
     public boolean mute = false;
+    public TrackType trackable = TrackType.NONE;
 
     public AbstractUI(Sprite texture) {
         this(texture, -10000, -10000);
@@ -90,9 +90,10 @@ public abstract class AbstractUI implements Disposable {
         }
         hasOver = mx > x && mx < x + width && my > y && my < y + height;
         if(isDesktop) {
-            clicked = isLeftClick;
-            clicking = isLeftClicking;
-            over = hasClick = hasOver;
+            over = hasOver;
+            clicked = over && isLeftClick;
+            hasClick = clicked || clicking;
+            clicking = over && hasClick && isLeftClicking;
         } else {
             clicked = hasClick && hasOver && isLeftClick;
             clicking = hasClick && hasOver && isLeftClicking;
@@ -111,16 +112,17 @@ public abstract class AbstractUI implements Disposable {
 
             if (over) {
                 if (overable) {
-                    cursorX = mx - x;
-                    cursorY = my - y;
                     subTexts = getSubText();
                     if (clicked) {
                         if (clickable) {
+                            cursorX = mx - localX;
+                            cursorY = my - localY;
                             if (!mute) SoundHandler.playSfx("CLICK");
                             onClick();
                         }
                     }
                     if (clicking) onClicking();
+                    else if (hasClick) onClickEnd();
                 } else over = false;
             }
             updateButton();
@@ -173,8 +175,20 @@ public abstract class AbstractUI implements Disposable {
     }
 
     private void setLocalPosition(){
-        localX = originX * scaleX;
-        localY = originY * scaleY;
+        if(trackable != TrackType.NONE && overable && clickable && clicking) {
+            tracking = true;
+            if(trackable == TrackType.CENTER) {
+                localX = mx;
+                localY = my;
+            } else if(trackable == TrackType.CLICKED) {
+                localX = mx - cursorX;
+                localY = my - cursorY;
+            }
+        } else {
+            tracking = false;
+            localX = originX * scaleX;
+            localY = originY * scaleY;
+        }
         if(basis == BasisType.CENTER) {
             x = localX - width / 2;
             y = localY - height / 2;
@@ -252,7 +266,7 @@ public abstract class AbstractUI implements Disposable {
     }
 
     protected void trackCursor(boolean center) {
-        if (trackable && isCursorInScreen) {
+        if (trackable != TrackType.NONE && isCursorInScreen) {
             tracking = true;
             if (center) setPosition(mx - width / 2, my - height / 2);
             else setPosition(mx - cursorX, my - cursorY);
@@ -296,6 +310,8 @@ public abstract class AbstractUI implements Disposable {
 
     protected void onClicking() {}
 
+    protected void onClickEnd() {}
+
     public static class TempUI extends AbstractUI {
         public TempUI(Sprite texture) {
             super(texture);
@@ -323,6 +339,12 @@ public abstract class AbstractUI implements Disposable {
         TOP_RIGHT,
         BOTTOM_LEFT,
         BOTTOM_RIGHT
+    }
+
+    public enum TrackType {
+        NONE,
+        CENTER,
+        CLICKED
     }
 
     public static class SubText {

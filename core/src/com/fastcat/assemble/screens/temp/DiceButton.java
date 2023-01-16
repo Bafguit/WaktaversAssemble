@@ -12,17 +12,27 @@ import com.fastcat.assemble.handlers.FontHandler;
 
 public class DiceButton extends AbstractUI {
 
+    public DiceRollScreen screen;
     public AbstractDice dice;
+    public TileSquare tile;
+    public int index;
 
-    public DiceButton() {
-        this(new NormalDice());
+    public DiceButton(DiceRollScreen screen, int index) {
+        this(screen, new NormalDice(), index);
     }
 
-    public DiceButton(AbstractDice dice) {
+    public DiceButton(DiceRollScreen screen, AbstractDice dice, int index) {
         super(FileHandler.dice.get("Dice"));
         pix();
         this.dice = dice;
-        clickable = false;
+        this.index = index;
+        this.screen = screen;
+        trackable = TrackType.CLICKED;
+    }
+
+    @Override
+    protected void updateButton() {
+
     }
 
     @Override
@@ -34,7 +44,30 @@ public class DiceButton extends AbstractUI {
     }
 
     @Override
-    public void onClick() {
-        dice.roll();
+    protected void onClickEnd() {
+        if(tracking && screen.overTile != null) {
+            if(screen.overTile.dice == null) {
+                setPosition(screen.overTile.originX, screen.overTile.originY);
+                if (tile != null) {
+                    tile.dice = null;
+                }
+                tile = screen.overTile;
+                tile.dice = this;
+            } else if(tile != null) {
+                setPosition(tile.originX, tile.originY);
+            } else {
+                setPosition(150 * (index + 1), 810);
+                if(tile != null) {
+                    tile.dice = null;
+                    tile = null;
+                }
+            }
+        } else {
+            setPosition(150 * (index + 1), 810);
+            if(tile != null) {
+                tile.dice = null;
+                tile = null;
+            }
+        }
     }
 }
