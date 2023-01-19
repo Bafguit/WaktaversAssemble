@@ -19,6 +19,8 @@ public abstract class AbstractEntity {
     public int baseAttack;
     public int baseSpell;
     public int baseValue;
+    public boolean isDie;
+    public boolean isDead;
 
     //temporary
     public int attack;
@@ -35,6 +37,10 @@ public abstract class AbstractEntity {
     public abstract String getDesc(int num);
 
     public abstract void useCard(int num);
+
+    public final boolean isAlive() {
+        return !isDead && !isDie;
+    }
 
     public enum EntityRarity {
         BASIC,

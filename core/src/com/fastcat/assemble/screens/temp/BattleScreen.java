@@ -3,8 +3,10 @@ package com.fastcat.assemble.screens.temp;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.cards.basic.TestCard;
 import com.fastcat.assemble.dices.basic.NormalDice;
 import com.fastcat.assemble.dices.legend.Fraud3;
+import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.screens.TempScreen;
 
 public class BattleScreen extends TempScreen {
@@ -15,14 +17,15 @@ public class BattleScreen extends TempScreen {
     public PhaseButton phaseButton;
     public Array<DiceButton> dice = new Array<>();
     public Array<CharacterButton> chars = new Array<>();
+    public Array<CardButton> hand = new Array<>();
     public AbstractUI tracking;
     public TileSquare overTile;
     public TileSquare[][] tiles;
-    public int wSize = 6, hSize = 6;
+    public int wSize = 6, hSize = 4;
 
     public BattleScreen() {
         phase = BattlePhase.READY;
-        //setBg(FileHandler.bg.get("GRID"));
+        setBg(FileHandler.bg.get("GRID"));
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
         rollButton.setPosition(480, 650);
@@ -51,6 +54,11 @@ public class BattleScreen extends TempScreen {
                 tiles[i][j] = t;
             }
         }
+        for(int i = 0; i < 5; i++) {
+            CardButton c = new CardButton(this, new TestCard());
+            c.setPosition(300 + (250 * i), 0);
+            hand.add(c);
+        }
     }
 
     @Override
@@ -58,17 +66,36 @@ public class BattleScreen extends TempScreen {
         resizeButton.update();
         rollButton.update();
         phaseButton.update();
+        boolean tr = false;
         for(int i = 0; i < dice.size; i++) {
             DiceButton b = dice.get(i);
             b.update();
-            if(b.tracking) tracking = b;
+            if(b.tracking && !tr) {
+                tracking = b;
+                tr = true;
+            }
         }
 
         for(int i = 0; i < chars.size; i++) {
             CharacterButton b = chars.get(i);
             b.update();
-            if(b.tracking) tracking = b;
+            if(b.tracking && !tr) {
+                tracking = b;
+                tr = true;
+            }
         }
+
+        for(int i = 0; i < hand.size; i++) {
+            CardButton b = hand.get(i);
+            b.setPosition(300 + (250 * i), 0);
+            b.update();
+            if(b.tracking && !tr) {
+                tracking = b;
+                tr = true;
+            }
+        }
+
+        if(!tr) tracking = null;
 
         boolean hasOver = false;
         for(int i = 0; i < wSize; i++) {
@@ -80,8 +107,6 @@ public class BattleScreen extends TempScreen {
         }
 
         if(!hasOver) overTile = null;
-
-        tracking = null;
     }
 
     @Override
@@ -105,6 +130,12 @@ public class BattleScreen extends TempScreen {
             if(!b.tracking) b.render(sb);
         }
         for(CharacterButton b : chars) {
+            if(b.tracking) b.render(sb);
+        }
+        for(CardButton b : hand) {
+            if(!b.tracking) b.render(sb);
+        }
+        for(CardButton b : hand) {
             if(b.tracking) b.render(sb);
         }
     }

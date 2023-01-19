@@ -2,6 +2,8 @@ package com.fastcat.assemble.abstrcts;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
+import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -21,13 +23,18 @@ public class AbstractGame {
 
     public static AbstractEntity[] chars;
     public static Array<AbstractDice> dices;
-    public static Array<AbstractCard> cards;
+    public static Array<AbstractCard> deck;
     public static Array<AbstractItem> items;
+
+    public static Queue<AbstractCard> drawPile;
+    public static Array<AbstractCard> discardPile;
+    public static Array<AbstractCard> exhaustPile;
+    public static Array<AbstractCard> hand;
 
 
     public AbstractGame() {
         dices = new Array<>();
-        cards = new Array<>();
+        deck = new Array<>();
         items = new Array<>();
         chars = new AbstractEntity[12];
         seed = generateRandomSeed();
@@ -67,5 +74,33 @@ public class AbstractGame {
         return Long.parseLong(sb.toString());
     }
 
+    public static void prepareDeck() {
+        drawPile = new Queue<>();
+        exhaustPile = new Array<>();
+        discardPile = new Array<>();
+        hand = new Array<>();
+        for(AbstractCard c : deck) {
+            deck.add(c.clone());
+        }
+    }
 
+    public static void turnDraw(int amount) {
+        if(drawPile.size >= amount) {
+            for(int i = 0; i < amount; i++) {
+                hand.add(drawPile.removeFirst());
+            }
+        } else {
+            if(drawPile.size > 0) {
+                for(int i = 0; i < drawPile.size; i++) {
+                    hand.add(drawPile.removeFirst());
+                }
+            } else {
+                FastCatUtils.staticShuffle(discardPile, AbstractGame.battleRandom, AbstractCard.class);
+                for(AbstractCard c : discardPile) {
+                    drawPile.addLast(c);
+                }
+                discardPile.clear();
+            }
+        }
+    }
 }

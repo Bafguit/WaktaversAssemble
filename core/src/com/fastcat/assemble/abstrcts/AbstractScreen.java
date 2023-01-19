@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.handlers.EffectHandler;
 
 public abstract class AbstractScreen implements Screen {
+
+    private final EffectHandler effectHandler = new EffectHandler();
 
     public final Array<AbstractUI> ui = new Array<>();
     public final ScreenType type;
@@ -63,6 +66,10 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public final EffectHandler getEffectHandler() {
+        return effectHandler;
     }
 
     public enum ScreenType {

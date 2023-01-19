@@ -7,6 +7,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
+import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.interfaces.OnMouseScrolled;
 
 import java.nio.ByteBuffer;
 import java.util.zip.Deflater;
@@ -23,10 +25,14 @@ public final class InputHandler {
     public static boolean info;
     public static boolean sc;
 
+    public static float scaleA;
     public static float scaleX;
     public static float scaleY;
+    public static float scrollH;
     public static int mx;
     public static int my;
+
+    public static Array<OnMouseScrolled> scrollListener = new Array<>();
 
     public static boolean textInputMode;
     private static String typedText = "";
@@ -43,8 +49,16 @@ public final class InputHandler {
         isDesktop = Gdx.app.getType() == Application.ApplicationType.Desktop;
         mx = 0;
         my = 0;
-        scaleX = (float) Gdx.graphics.getWidth() / 1920.0f;
-        scaleY = (float) Gdx.graphics.getHeight() / 1080.0f;
+        int w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+        scaleX = (float) w / 1920.0f;
+        scaleY = (float) h / 1080.0f;
+        float a = ((float) h) / ((float) w);
+
+        if(a <= 0.5625f) {
+            scaleA = scaleY;
+        } else {
+            scaleA = scaleX;
+        }
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean keyTyped(char c) {
@@ -56,6 +70,17 @@ public final class InputHandler {
                         typedText += c;
                     } else if (c >= 'a' && c <= 'z') {
                         typedText += (char) (c - 32);
+                    }
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean scrolled (float amountX, float amountY) {
+                if(amountY != 0) {
+                    for(OnMouseScrolled s : scrollListener) {
+                        s.scrolled(amountY);
                     }
                     return true;
                 }
@@ -93,6 +118,13 @@ public final class InputHandler {
         int gx = Gdx.input.getX(), gy = Gdx.input.getY(), sw = Gdx.graphics.getWidth(), sh = Gdx.graphics.getHeight();
         scaleX = (float) sw / 1920.0f;
         scaleY = (float) sh / 1080.0f;
+        float a = ((float) sh) / ((float) sw);
+        if(a <= 0.5625f) {
+            scaleA = scaleY;
+        } else {
+            scaleA = scaleX;
+        }
+
         if (isDesktop) {
             isLeftClick = Gdx.input.isButtonJustPressed(Buttons.LEFT);
             isLeftClicking = Gdx.input.isButtonPressed(Buttons.LEFT);

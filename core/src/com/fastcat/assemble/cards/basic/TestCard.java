@@ -5,9 +5,9 @@ import com.fastcat.assemble.abstrcts.AbstractCard;
 public class TestCard extends AbstractCard {
 
     public TestCard() {
-        id = "test";
+        super("Test", CardRarity.BASIC);
         name = "테스트";
-        desc = "테스트입니다.";
+        desc = "아무튼 설명 매우엄청난 설명";
     }
 
     @Override

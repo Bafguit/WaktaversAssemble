@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
 
 import static com.badlogic.gdx.graphics.Color.WHITE;
@@ -69,8 +68,8 @@ public abstract class AbstractUI implements Disposable {
         this.img = new Sprite(img);
         originWidth = width;
         originHeight = height;
-        this.width = width * scaleX;
-        this.height = height * scaleY;
+        this.width = width * scaleA;
+        this.height = height * scaleA;
         originX = x;
         originY = y;
         setLocalPosition();
@@ -82,8 +81,8 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void update() {
-        width = originWidth * scaleX * uiScale;
-        height = originHeight * scaleY * uiScale;
+        width = originWidth * scaleA * uiScale;
+        height = originHeight * scaleA * uiScale;
         setLocalPosition();
         if (parent != null) {
             x += parent.x;
@@ -91,7 +90,7 @@ public abstract class AbstractUI implements Disposable {
         }
         hasOver = mx > x && mx < x + width && my > y && my < y + height;
         if(isDesktop) {
-            over = hasOver;
+            over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;
             hasClick = clicked || clicking;
             clicking = over && hasClick && isLeftClicking;
@@ -153,19 +152,19 @@ public abstract class AbstractUI implements Disposable {
                 sb.setColor(WHITE);
                 float sc, subP;
                 if (subWay == SubText.SubWay.DOWN) {
-                    sc = -10 * scaleY;
+                    sc = -10 * scaleA;
                     subP = y + sc;
                     for (SubText s : subTexts) {
                         subP = s.render(sb, x + width / 2, subP, subWay).y + sc;
                     }
                 } else if (subWay == SubText.SubWay.UP) {
-                    sc = 10 * scaleY;
+                    sc = 10 * scaleA;
                     subP = y + originHeight + sc;
                     for (SubText s : subTexts) {
                         subP = s.render(sb, x + width / 2, subP, subWay).y + sc;
                     }
                 } else if (subWay == SubText.SubWay.LEFT) {
-                    sc = -10 * scaleX;
+                    sc = -10 * scaleA;
                     subP = x + sc;
                     for (SubText s : subTexts) {
                         subP = s.render(sb, subP, y + width, subWay).x + sc;
@@ -175,7 +174,7 @@ public abstract class AbstractUI implements Disposable {
         }
     }
 
-    private void setLocalPosition(){
+    protected void setLocalPosition(){
         if(trackable != TrackType.NONE && over && clickable && clicking) {
             tracking = true;
             if(trackable == TrackType.CENTER) {
@@ -193,10 +192,10 @@ public abstract class AbstractUI implements Disposable {
         if(basis == BasisType.CENTER) {
             x = localX - width / 2;
             y = localY - height / 2;
-        } else if(basis == BasisType.CENTER_TOP) {
+        } else if(basis == BasisType.TOP) {
             x = localX - width / 2;
             y = localY - height;
-        } else if(basis == BasisType.CENTER_BOTTOM) {
+        } else if(basis == BasisType.BOTTOM) {
             x = localX - width / 2;
             y = localY;
         } else if(basis == BasisType.CENTER_LEFT) {
@@ -262,8 +261,8 @@ public abstract class AbstractUI implements Disposable {
 
     public void setScale(float scale) {
         uiScale = scale;
-        width = originWidth * scaleX * uiScale;
-        height = originHeight * scaleY * uiScale;
+        width = originWidth * scaleA * uiScale;
+        height = originHeight * scaleA * uiScale;
     }
 
     protected void trackCursor(boolean center) {
@@ -332,8 +331,8 @@ public abstract class AbstractUI implements Disposable {
 
     public enum BasisType {
         CENTER,
-        CENTER_TOP,
-        CENTER_BOTTOM,
+        TOP,
+        BOTTOM,
         CENTER_LEFT,
         CENTER_RIGHT,
         TOP_LEFT,

@@ -1,13 +1,10 @@
 package com.fastcat.assemble.abstrcts;
-/*
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.labyrintale.Labyrintale;
-import com.fastcat.labyrintale.handlers.ActionHandler;
-import com.fastcat.labyrintale.handlers.SettingHandler;
-import com.fastcat.labyrintale.interfaces.EventCallback;
+import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.handlers.SettingHandler;
 
 public abstract class AbstractAction implements Cloneable {
-
+/*
     protected static final float DUR_DEFAULT = 0.5f;
 
     public AbstractEntity actor;
@@ -59,9 +56,7 @@ public abstract class AbstractAction implements Cloneable {
             else if (duration == baseDuration)
                 if (preAction != null) target = preAction.target;
                 else if (tar != AbstractSkill.SkillTarget.NONE) target = AbstractSkill.getTargets(actor, tar);
-            onStart();
             updateAction();
-            onComplete();
             TickDuration();
         }
     }
@@ -77,28 +72,7 @@ public abstract class AbstractAction implements Cloneable {
 
     protected void TickDuration() {
         if (duration > 0) {
-            duration -= Labyrintale.tick;
-        }
-    }
-
-    protected void registerListener(EventCallback<AbstractAction> callback) {
-        ActionHandler.getListeners().add(callback);
-    }
-
-    private void onStart() {
-        if (!ActionHandler.getListeners().isEmpty()) {
-            for (EventCallback<AbstractAction> listener : ActionHandler.getListeners()) {
-                listener.onStart(this);
-            }
-        }
-    }
-
-    private void onComplete() {
-
-        if (!ActionHandler.getListeners().isEmpty()) {
-            for (EventCallback<AbstractAction> listener : ActionHandler.getListeners()) {
-                listener.onComplete(this);
-            }
+            duration -= WaktaAssemble.tick;
         }
     }
 
@@ -109,5 +83,5 @@ public abstract class AbstractAction implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
-    }
-}*/
+    }*/
+}

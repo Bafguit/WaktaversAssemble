@@ -31,6 +31,8 @@ public class FileHandler {
 
     public static final HashMap<String, Sprite> character = new HashMap<>();
 
+    public static final HashMap<String, Sprite> card = new HashMap<>();
+
     public static final HashMap<String, Sprite> dice = new HashMap<>();
 
     public static final HashMap<String, TextureAtlas> diceAtlas = new HashMap<>();
@@ -57,6 +59,7 @@ public class FileHandler {
         generateUI(resourceHandler);
         generateBG(resourceHandler);
         generateChar(resourceHandler);
+        generateCard(resourceHandler);
     }
 
     private static void generateHashMap() {
@@ -79,7 +82,10 @@ public class FileHandler {
     }
 
     private void loadJson() {
+        jsonMap.clear();
+
         jsonMap.put(JsonType.DICE, generateJson("json/dice.json"));
+        jsonMap.put(JsonType.CHAR, generateJson("json/character.json"));
         //StringHandler.generate();
     }
 
@@ -167,7 +173,24 @@ public class FileHandler {
         }));
     }
 
+    private void generateCard(ResourceHandler resourceHandler) {
+        card.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        resources.put("Test", "image/card/Test.png");
+
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+            Texture texture = (Texture) resource;
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            String resourceName = args[0].toString();
+
+            card.put(resourceName, new Sprite(texture));
+        }));
+    }
+
     public enum JsonType {
-        DICE
+        DICE,
+        CHAR,
+
     }
 }
