@@ -20,7 +20,11 @@ public final class EffectHandler {
         WaktaAssemble.application.screen.getEffectHandler().effectList.addLast(e);
     }
 
-    public void update() {
+    public void addEffect(AbstractEffect e) {
+        effectList.addLast(e);
+    }
+
+    public void render(SpriteBatch sb) {
         if (effectList.size > 0) {
             Iterator<AbstractEffect> it = effectList.iterator();
             while (it.hasNext()) {
@@ -33,9 +37,6 @@ public final class EffectHandler {
                 }
             }
         }
-    }
-
-    public void render(SpriteBatch sb) {
         for (AbstractEffect e : effectList) {
             e.render(sb);
         }

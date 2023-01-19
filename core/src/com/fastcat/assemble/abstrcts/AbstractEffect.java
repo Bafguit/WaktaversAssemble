@@ -15,8 +15,13 @@ public abstract class AbstractEffect implements Disposable {
     public AbstractEffect(float x, float y, float duration) {
         this.x = x;
         this.y = y;
-        this.duration = SettingHandler.setting.fastMode ? duration * 0.5f : duration;
+        this.duration = duration;
+        //this.duration = SettingHandler.setting.fastMode ? duration * 0.5f : duration;
         this.baseDuration = this.duration;
+    }
+
+    public AbstractEffect(float duration) {
+        this(-10000, -10000, duration);
     }
 
     public final void update() {

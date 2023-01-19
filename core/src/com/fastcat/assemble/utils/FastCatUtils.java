@@ -16,4 +16,9 @@ public class FastCatUtils {
         array.addAll(items);
         return array;
     }
+
+    public static float getAngle(float fromX, float fromY, float toX, float toY) {
+
+        return (float) Math.toDegrees(Math.atan2(toY - fromY, toX - fromX)) - 90;
+    }
 }

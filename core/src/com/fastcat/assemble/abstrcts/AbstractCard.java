@@ -1,5 +1,7 @@
 package com.fastcat.assemble.abstrcts;
 
+import com.fastcat.assemble.handlers.ActionHandler;
+
 public abstract class AbstractCard implements Cloneable {
 
     //local static
@@ -71,5 +73,9 @@ public abstract class AbstractCard implements Cloneable {
 
     public enum CardRarity {
         BASIC, COMMON, RARE, LEGEND, EVENT
+    }
+
+    public enum CardTarget {
+        DICE, CHARACTER, ALL_DICE, ALL_CHARACTER, NONE
     }
 }

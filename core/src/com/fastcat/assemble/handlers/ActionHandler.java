@@ -9,9 +9,8 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class ActionHandler {
-/*
+
     public static boolean isRunning = false;
     private static ActionHandler instance;
 
@@ -56,5 +55,5 @@ public final class ActionHandler {
         } else isRunning = false;
     }
 
-    public void render(SpriteBatch sb) {}*/
+    public void render(SpriteBatch sb) {}
 }

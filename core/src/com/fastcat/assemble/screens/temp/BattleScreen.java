@@ -1,7 +1,10 @@
 package com.fastcat.assemble.screens.temp;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.cards.basic.TestCard;
 import com.fastcat.assemble.dices.basic.NormalDice;
@@ -107,6 +110,16 @@ public class BattleScreen extends TempScreen {
         }
 
         if(!hasOver) overTile = null;
+    }
+
+    @Override
+    public void render(float delta) {
+        WaktaAssemble.application.sb.setColor(Color.WHITE);
+        if(background != null) {
+            WaktaAssemble.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        }
+        render(WaktaAssemble.application.sb);
+        effectHandler.render(WaktaAssemble.application.sb);
     }
 
     @Override
