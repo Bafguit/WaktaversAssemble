@@ -29,16 +29,13 @@ public final class EffectHandler {
             Iterator<AbstractEffect> it = effectList.iterator();
             while (it.hasNext()) {
                 AbstractEffect e = it.next();
-                e.update();
+                e.render(sb);
                 if (e.isDone) {
                     e.onRemove();
                     e.dispose();
                     it.remove();
                 }
             }
-        }
-        for (AbstractEffect e : effectList) {
-            e.render(sb);
         }
     }
 

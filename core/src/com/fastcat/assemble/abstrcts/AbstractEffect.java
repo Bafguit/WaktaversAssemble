@@ -24,12 +24,12 @@ public abstract class AbstractEffect implements Disposable {
         this(-10000, -10000, duration);
     }
 
-    public final void update() {
+    public final void render(SpriteBatch sb) {
         if (duration <= 0) {
             isDone = true;
             duration = 0;
         }
-        updateEffect();
+        renderEffect(sb);
         TickDuration();
     }
 
@@ -39,9 +39,7 @@ public abstract class AbstractEffect implements Disposable {
         }
     }
 
-    protected abstract void updateEffect();
-
-    public abstract void render(SpriteBatch sb);
+    protected abstract void renderEffect(SpriteBatch sb);
 
     public void onRemove() {}
 

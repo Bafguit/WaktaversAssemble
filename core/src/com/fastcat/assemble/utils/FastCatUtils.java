@@ -1,5 +1,6 @@
 package com.fastcat.assemble.utils;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
 public class FastCatUtils {
@@ -18,7 +19,10 @@ public class FastCatUtils {
     }
 
     public static float getAngle(float fromX, float fromY, float toX, float toY) {
-
         return (float) Math.toDegrees(Math.atan2(toY - fromY, toX - fromX)) - 90;
+    }
+
+    public static float distance(float fromX, float fromY, float toX, float toY) {
+        return (float) Math.sqrt(Math.abs(fromX - toX) + Math.abs(fromY - toY));
     }
 }

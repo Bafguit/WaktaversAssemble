@@ -1,16 +1,13 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.abstrcts.AbstractCard;
 import com.fastcat.assemble.abstrcts.AbstractUI;
-import com.fastcat.assemble.actions.MoveCardToDiscardPileAction;
 import com.fastcat.assemble.effects.MoeSmallCardEffect;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
+import com.fastcat.assemble.handlers.FontHandler;
 
 import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.CENTER;
 import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.NONE;
@@ -30,10 +27,10 @@ public class CardButton extends AbstractUI {
         basis = BasisType.CENTER;
         clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
         trackable = clickEnd ? CENTER : NONE;
-        uiScale = 0.7f;
+        setScale(0.8f);
         itp = 0;
         acc = 0;
-        tar = height * 0.4f;
+        tar = height * 0.35f;
     }
 
     @Override
@@ -41,7 +38,7 @@ public class CardButton extends AbstractUI {
         overable = !isUsed && (screen.tracking == this || screen.tracking == null);
         clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
         trackable = clickEnd ? CENTER : NONE;
-        tar = height * 0.4f;
+        tar = height * 0.35f;
     }
 
     protected void renderUi(SpriteBatch sb) {
@@ -50,23 +47,26 @@ public class CardButton extends AbstractUI {
                 if(over) {
                     if(itp < 1) {
                         itp += WaktaAssemble.tick * 10;
-                        acc = Interpolation.exp5.apply(0, tar, itp);
                         if(itp >= 1) {
                             itp = 1;
                         }
+                        acc = Interpolation.exp5.apply(0, tar, itp);
                     }
                 } else {
                     if(itp > 0) {
                         itp -= WaktaAssemble.tick * 10;
-                        acc = Interpolation.exp5.apply(0, tar, itp);
                         if(itp <= 0) {
                             itp = 0;
                         }
+                        acc = Interpolation.exp5.apply(0, tar, itp);
                     }
                 }
                 y += acc;
             }
             sb.draw(img, x, y, width, height);
+            FontHandler.renderCenter(sb, FontHandler.SUB_NAME, card.name, x, y + height * 0.94f, width);
+            FontHandler.renderCenterWrap(sb, FontHandler.SUB_DESC, card.desc, x + width * 0.05f,
+                    y + height * 0.21f, width * 0.9f, height * 0.35f);
         }
     }
 
@@ -76,7 +76,6 @@ public class CardButton extends AbstractUI {
             card.use();
             screen.effectHandler.addEffect(new MoeSmallCardEffect(this, mx, my, 1800 * scaleX, 100 * scaleY));
             isUsed = true;
-            screen.hand.removeValue(this, false);
         } else {
             itp = 1;
             acc = tar;

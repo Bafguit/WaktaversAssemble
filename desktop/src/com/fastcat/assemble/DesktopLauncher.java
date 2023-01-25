@@ -10,7 +10,6 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setResizable(false);
-		config.setWindowedMode(1280, 720);
 		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 20);
 		config.setTitle("WaktaverseAssemble");
 		new Lwjgl3Application(new WaktaAssemble(), config);

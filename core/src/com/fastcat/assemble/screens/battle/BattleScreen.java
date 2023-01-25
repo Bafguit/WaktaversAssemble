@@ -1,18 +1,20 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.abstrcts.AbstractGame;
+import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.cards.basic.TestCard;
 import com.fastcat.assemble.dices.basic.NormalDice;
 import com.fastcat.assemble.dices.legend.Fraud3;
-import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.screens.TempScreen;
 
-public class BattleScreen extends TempScreen {
+import java.util.Iterator;
+
+public class BattleScreen extends AbstractScreen {
 
     public BattlePhase phase;
     public ResizeButton resizeButton;
@@ -27,21 +29,17 @@ public class BattleScreen extends TempScreen {
     public int wSize = 6, hSize = 4;
 
     public BattleScreen() {
+        super(ScreenType.BASE);
+        WaktaAssemble.game = new AbstractGame();
         phase = BattlePhase.READY;
-        setBg(FileHandler.bg.get("GRID"));
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
         rollButton.setPosition(480, 650);
         phaseButton = new PhaseButton(this);
         phaseButton.setPosition(480, 500);
-        for(int i = 1; i <= 3; i++) {
-            DiceButton b = new DiceButton(this, new Fraud3(), i - 1);
-            b.setPosition(150 * i, 810);
-            dice.add(b);
-        }
-        for(int i = 4; i <= 6; i++) {
-            DiceButton b = new DiceButton(this, new NormalDice(), i - 1);
-            b.setPosition(150 * i, 810);
+        for(int i = 0; i < 6; i++) {
+            DiceButton b = new DiceButton(this, new NormalDice(), i);
+            b.setPosition(60, 920 - 100 * i);
             dice.add(b);
         }
         for(int i = 1; i <= 6; i++) {
@@ -57,9 +55,11 @@ public class BattleScreen extends TempScreen {
                 tiles[i][j] = t;
             }
         }
+        float start = 960 - (((float) (hand.size - 1) / 2) * 250);
         for(int i = 0; i < 5; i++) {
             CardButton c = new CardButton(this, new TestCard());
-            c.setPosition(300 + (250 * i), 0);
+            c.setPosition(start + (250 * i), 50);
+            c.fluid = true;
             hand.add(c);
         }
     }
@@ -88,13 +88,19 @@ public class BattleScreen extends TempScreen {
             }
         }
 
-        for(int i = 0; i < hand.size; i++) {
-            CardButton b = hand.get(i);
-            b.setPosition(300 + (250 * i), 0);
-            b.update();
-            if(b.tracking && !tr) {
-                tracking = b;
-                tr = true;
+        if(hand.size > 0) {
+            Iterator<CardButton> itr = hand.iterator();
+            int cnt = 0;
+            float start = 960 - (((float) (hand.size - 1) / 2) * hand.get(0).originWidth);
+            while (itr.hasNext()) {
+                CardButton b = itr.next();
+                b.setPosition(start + (b.originWidth * cnt++), 50);
+                b.update();
+                if (b.tracking && !tr) {
+                    tracking = b;
+                    tr = true;
+                }
+                if (b.isUsed) itr.remove();
             }
         }
 
@@ -136,21 +142,14 @@ public class BattleScreen extends TempScreen {
         for(DiceButton b : dice) {
             if(!b.tracking) b.render(sb);
         }
-        for(DiceButton b : dice) {
-            if(b.tracking) b.render(sb);
-        }
         for(CharacterButton b : chars) {
             if(!b.tracking) b.render(sb);
-        }
-        for(CharacterButton b : chars) {
-            if(b.tracking) b.render(sb);
         }
         for(CardButton b : hand) {
             if(!b.tracking) b.render(sb);
         }
-        for(CardButton b : hand) {
-            if(b.tracking) b.render(sb);
-        }
+        //FontHandler.renderCenter(sb, FontHandler.LOGO, "WAKTAVERSE ASSEMBLE", 0, 980 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
+        if(tracking != null) tracking.render(sb);
     }
 
     public void rollDice() {

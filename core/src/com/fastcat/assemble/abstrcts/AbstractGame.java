@@ -8,35 +8,34 @@ import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
 
-    public static String seed;
-    public static long seedLong;
+    public String seed;
+    public long seedLong;
 
-    public static RandomXC publicRandom;
-    public static RandomXC cardRandom;
-    public static RandomXC mapRandom;
-    public static RandomXC itemRandom;
-    public static RandomXC charRandom;
-    public static RandomXC roomRandom;
-    public static RandomXC shopRandom;
-    public static RandomXC diceRandom;
-    public static RandomXC battleRandom;
+    public RandomXC publicRandom;
+    public RandomXC cardRandom;
+    public RandomXC mapRandom;
+    public RandomXC itemRandom;
+    public RandomXC charRandom;
+    public RandomXC roomRandom;
+    public RandomXC shopRandom;
+    public RandomXC diceRandom;
+    public RandomXC battleRandom;
 
-    public static AbstractEntity[] chars;
-    public static Array<AbstractDice> dices;
-    public static Array<AbstractCard> deck;
-    public static Array<AbstractItem> items;
+    public Array<AbstractEntity> chars;
+    public Array<AbstractDice> dices;
+    public Array<AbstractCard> deck;
+    public Array<AbstractItem> items;
 
-    public static Queue<AbstractCard> drawPile;
-    public static Array<AbstractCard> discardPile;
-    public static Array<AbstractCard> exhaustPile;
-    public static Array<AbstractCard> hand;
+    public AbstractBattle battle;
 
+    public AbstractFloor[] floors;
+    public int floorNum;
 
     public AbstractGame() {
         dices = new Array<>();
         deck = new Array<>();
         items = new Array<>();
-        chars = new AbstractEntity[12];
+        chars = new Array<>();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);
@@ -48,6 +47,10 @@ public class AbstractGame {
         diceRandom = new RandomXC(seedLong);
         publicRandom = new RandomXC(seedLong);
         battleRandom = new RandomXC(seedLong);
+    }
+
+    public AbstractFloor currentFloor() {
+        return floors[floorNum];
     }
 
     private static String generateRandomSeed() {
@@ -72,35 +75,5 @@ public class AbstractGame {
             sb.append((int) c);
         }
         return Long.parseLong(sb.toString());
-    }
-
-    public static void prepareDeck() {
-        drawPile = new Queue<>();
-        exhaustPile = new Array<>();
-        discardPile = new Array<>();
-        hand = new Array<>();
-        for(AbstractCard c : deck) {
-            deck.add(c.clone());
-        }
-    }
-
-    public static void turnDraw(int amount) {
-        if(drawPile.size >= amount) {
-            for(int i = 0; i < amount; i++) {
-                hand.add(drawPile.removeFirst());
-            }
-        } else {
-            if(drawPile.size > 0) {
-                for(int i = 0; i < drawPile.size; i++) {
-                    hand.add(drawPile.removeFirst());
-                }
-            } else {
-                FastCatUtils.staticShuffle(discardPile, AbstractGame.battleRandom, AbstractCard.class);
-                for(AbstractCard c : discardPile) {
-                    drawPile.addLast(c);
-                }
-                discardPile.clear();
-            }
-        }
     }
 }

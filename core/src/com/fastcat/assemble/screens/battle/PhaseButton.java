@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -27,7 +27,7 @@ public class PhaseButton extends AbstractUI {
             if(!overable) sb.setColor(Color.DARK_GRAY);
             else if (!over) sb.setColor(Color.LIGHT_GRAY);
             sb.draw(img, x, y, width, height);
-            FontHandler.renderCenter(sb, font, screen.phase.name(), originX, originY);
+            FontHandler.renderCenter(sb, font, screen.phase.name(), x + width * 0.5f, y + height * 0.5f);
         }
     }
 
