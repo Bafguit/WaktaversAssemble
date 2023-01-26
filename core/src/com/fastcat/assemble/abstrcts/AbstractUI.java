@@ -214,8 +214,8 @@ public abstract class AbstractUI implements Disposable {
             localY = originY * scaleY;
         }
 
-        x = basis.getPosX();
-        y = basis.getPosY();
+        x = basis.getPosX(localX, width);
+        y = basis.getPosY(localY, height);
     }
 
     public Color getSpritePixColor() {
@@ -351,53 +351,35 @@ public abstract class AbstractUI implements Disposable {
         TOP_LEFT,
         TOP_RIGHT,
         BOTTOM_LEFT,
-        BOTTOM_RIGHT
+        BOTTOM_RIGHT;
 
-        public float getPosX(float localX) {
+        public float getPosX(float localX, float width) {
             switch(this) {
                 case CENTER:
+                case TOP:
+                case BOTTOM:
                     return localX - width / 2;
-                case CENTER_TOP:
-                    return localX - width / 2;
-                case CENTER_BOTTOM:
-                    return localX - width / 2;
-                case CENTER_LEFT:
-                    return localX;
                 case CENTER_RIGHT:
-                    return localX - width;
-                case TOP_LEFT:
-                    return localX;
                 case TOP_RIGHT:
-                    return localX - width;
                 case BOTTOM_RIGHT:
                     return localX - width;
                 default:
                     return localX;
-                }
             }
         }
 
-        public float getPosY(float localY) {
+        public float getPosY(float localY, float height) {
             switch(this) {
                 case CENTER:
-                    return localY - height / 2;
-                case CENTER_TOP:
-                    return localY - height;
-                case CENTER_BOTTOM:
-                    return localY;
                 case CENTER_LEFT:
-                    return localY - height / 2;
                 case CENTER_RIGHT:
                     return localY - height / 2;
+                case TOP:
                 case TOP_LEFT:
-                    return localY - height;
                 case TOP_RIGHT:
                     return localY - height;
-                case BOTTOM_RIGHT:
-                    return localY;
                 default:
                     return localY;
-                }
             }
         }
     }
