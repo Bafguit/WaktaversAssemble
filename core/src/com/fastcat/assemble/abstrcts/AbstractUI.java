@@ -9,11 +9,13 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
 import com.fastcat.assemble.utils.FastCatUtils;
 
@@ -57,6 +59,7 @@ public abstract class AbstractUI implements Disposable {
     public boolean clickEnd = true;
     public boolean enabled;
     public boolean showImg = true;
+    public boolean is3D = true;
     private boolean hasClick = false;
 
     public float uiScale;
@@ -102,7 +105,10 @@ public abstract class AbstractUI implements Disposable {
             x += parent.x;
             y += parent.y;
         }
-        hasOver = mx > x && mx < x + width && my > y && my < y + height;
+        Vector2 v;
+        if(is3D) v = InputHandler.getMouseCam();
+        else v = new Vector2(mx, my);
+        hasOver = v.x > x && v.x < x + width && v.y > y && v.y < y + height;
         if(isDesktop) {
             over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;
@@ -129,8 +135,8 @@ public abstract class AbstractUI implements Disposable {
                     subTexts = getSubText();
                     if (clicked) {
                         if (clickable) {
-                            cursorX = mx - localX;
-                            cursorY = my - localY;
+                            cursorX = v.x - localX;
+                            cursorY = v.y - localY;
                             if (!mute) SoundHandler.playSfx("CLICK");
                             onClick();
                         }

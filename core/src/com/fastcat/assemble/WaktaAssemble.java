@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -26,6 +27,7 @@ public class WaktaAssemble extends ApplicationAdapter {
 	public static WaktaAssemble application;
 
 	public static OrthographicCamera camera;
+	public static PerspectiveCamera cam;
 	public static Viewport viewport;
 
 	public static BattleScreen battleScreen;
@@ -60,6 +62,15 @@ public class WaktaAssemble extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
 		camera.setToOrtho(false, w, h);
+
+
+		cam = new PerspectiveCamera(90, w, h);
+		cam.position.set(w * 0.5f, h * 0.4f, 480 * InputHandler.scaleA);
+		cam.lookAt(w * 0.5f, h * 0.5f,0);
+		cam.near = 1f;
+		cam.far = 1080f;
+		cam.update();
+
 		viewport = new FillViewport(w, h);
 		FileHandler.getInstance();
 		FontHandler.getInstance();
@@ -96,6 +107,10 @@ public class WaktaAssemble extends ApplicationAdapter {
 
 	private void update() {
 		camera.update();
+		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
+		cam.lookAt(w * 0.5f, h * 0.5f,0);
+		cam.update();
 		InputHandler.getInstance().update();
 
 		if (tempScreen.size > 0) {
@@ -130,7 +145,7 @@ public class WaktaAssemble extends ApplicationAdapter {
 			/** Update */
 			update();
 		}
-		sb.setProjectionMatrix(camera.combined);
+		sb.setProjectionMatrix(cam.combined);
 		sb.enableBlending();
 		sb.begin();
 

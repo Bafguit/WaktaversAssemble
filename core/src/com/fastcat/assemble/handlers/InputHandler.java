@@ -7,7 +7,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.interfaces.OnMouseScrolled;
 
 import java.nio.ByteBuffer;
@@ -134,6 +137,8 @@ public final class InputHandler {
         }
         isCursorInScreen = gx < sw && gx > 0 && gy < sh && gy > 0;
 
+        Ray ray = WaktaAssemble.cam.getPickRay(gx, gy);
+
         mx = Math.max(Math.min(gx, sw), 0);
         my = sh - Math.max(Math.min(gy, sh), 0);
         cancel = Gdx.input.isKeyJustPressed(Buttons.BACK) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.BACK);
@@ -163,5 +168,15 @@ public final class InputHandler {
             PixmapIO.writePNG(Gdx.files.local("screen.png"), pixmap, Deflater.DEFAULT_COMPRESSION, true);
             pixmap.dispose();
         }
+    }
+
+    public static Vector2 getMouseCam() {
+        Ray ray = WaktaAssemble.cam.getPickRay(mx, my);
+
+        float t = -ray.origin.z/ray.direction.z;
+        float convertedX = ray.origin.x+ray.direction.x*t;
+        float convertedY = ray.origin.y+ray.direction.y*t;
+
+        return new Vector2((int) convertedX, (int) convertedY);
     }
 }
