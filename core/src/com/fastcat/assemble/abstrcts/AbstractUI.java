@@ -190,34 +190,9 @@ public abstract class AbstractUI implements Disposable {
             localX = originX * scaleX;
             localY = originY * scaleY;
         }
-        if(basis == BasisType.CENTER) {
-            x = localX - width / 2;
-            y = localY - height / 2;
-        } else if(basis == BasisType.CENTER_TOP) {
-            x = localX - width / 2;
-            y = localY - height;
-        } else if(basis == BasisType.CENTER_BOTTOM) {
-            x = localX - width / 2;
-            y = localY;
-        } else if(basis == BasisType.CENTER_LEFT) {
-            x = localX;
-            y = localY - height / 2;
-        } else if(basis == BasisType.CENTER_RIGHT) {
-            x = localX - width;
-            y = localY - height / 2;
-        } else if(basis == BasisType.TOP_LEFT) {
-            x = localX;
-            y = localY - height;
-        } else if(basis == BasisType.TOP_RIGHT) {
-            x = localX - width;
-            y = localY - height;
-        } else if(basis == BasisType.BOTTOM_RIGHT) {
-            x = localX - width;
-            y = localY;
-        } else {
-            x = localX;
-            y = localY;
-        }
+
+        x = basis.getPosX();
+        y = basis.getPosY();
     }
 
     public Color getSpritePixColor() {
@@ -340,6 +315,54 @@ public abstract class AbstractUI implements Disposable {
         TOP_RIGHT,
         BOTTOM_LEFT,
         BOTTOM_RIGHT
+
+        public float getPosX(float localX) {
+            switch(this) {
+                case CENTER:
+                    return localX - width / 2;
+                case CENTER_TOP:
+                    return localX - width / 2;
+                case CENTER_BOTTOM:
+                    return localX - width / 2;
+                case CENTER_LEFT:
+                    return localX;
+                case CENTER_RIGHT:
+                    return localX - width;
+                case TOP_LEFT:
+                    return localX;
+                case TOP_RIGHT:
+                    return localX - width;
+                case BOTTOM_RIGHT:
+                    return localX - width;
+                default:
+                    return localX;
+                }
+            }
+        }
+
+        public float getPosY(float localY) {
+            switch(this) {
+                case CENTER:
+                    return localY - height / 2;
+                case CENTER_TOP:
+                    return localY - height;
+                case CENTER_BOTTOM:
+                    return localY;
+                case CENTER_LEFT:
+                    return localY - height / 2;
+                case CENTER_RIGHT:
+                    return localY - height / 2;
+                case TOP_LEFT:
+                    return localY - height;
+                case TOP_RIGHT:
+                    return localY - height;
+                case BOTTOM_RIGHT:
+                    return localY;
+                default:
+                    return localY;
+                }
+            }
+        }
     }
 
     public enum TrackType {
