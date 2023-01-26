@@ -60,6 +60,8 @@ public abstract class AbstractUI implements Disposable {
     public boolean is3D = true;
     private boolean hasClick = false;
 
+    private Vector2 mouse;
+
     public float uiScale;
     public boolean clicked;
     public boolean clicking;
@@ -85,6 +87,7 @@ public abstract class AbstractUI implements Disposable {
         originX = x;
         originY = y;
         setLocalPosition();
+        mouse = new Vector2(mx, my);
         over = false;
         enabled = true;
         uiScale = 1.0f;
@@ -95,6 +98,8 @@ public abstract class AbstractUI implements Disposable {
     public final void update() {
         width = originWidth * scaleA;
         height = originHeight * scaleA;
+        if(is3D) mouse = InputHandler.getProjectedMousePos();
+        else mouse.set(mx, my);
         if(fluid && fluiding) {
             fluidPosition();
         }
@@ -103,10 +108,7 @@ public abstract class AbstractUI implements Disposable {
             x += parent.x;
             y += parent.y;
         }
-        Vector2 v;
-        if(is3D) v = InputHandler.getProjectedMousePos();
-        else v = new Vector2(mx, my);
-        hasOver = v.x > x && v.x < x + width && v.y > y && v.y < y + height;
+        hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height;
         if(isDesktop) {
             over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;
@@ -133,8 +135,8 @@ public abstract class AbstractUI implements Disposable {
                     subTexts = getSubText();
                     if (clicked) {
                         if (clickable) {
-                            cursorX = v.x - localX;
-                            cursorY = v.y - localY;
+                            cursorX = mouse.x - localX;
+                            cursorY = mouse.y - localY;
                             if (!mute) SoundHandler.playSfx("CLICK");
                             onClick();
                         }
@@ -206,11 +208,11 @@ public abstract class AbstractUI implements Disposable {
         if(trackable != TrackType.NONE && over && clickable && clicking) {
             tracking = true;
             if(trackable == TrackType.CENTER) {
-                localX = mx;
-                localY = my;
+                localX = mouse.x;
+                localY = mouse.y;
             } else if(trackable == TrackType.CLICKED) {
-                localX = mx - cursorX;
-                localY = my - cursorY;
+                localX = mouse.x - cursorX;
+                localY = mouse.y - cursorY;
             }
         } else {
             tracking = false;
@@ -225,9 +227,9 @@ public abstract class AbstractUI implements Disposable {
     public Color getSpritePixColor() {
         Texture texture = img.getTexture();
 
-        int LocalX = (int) ((mx - x) / scaleX);
+        int LocalX = (int) ((mouse.x - x) / scaleX);
         // we need to "invert" Y, because the screen coordinate origin is top-left
-        int LocalY = (int) (((Gdx.graphics.getHeight() - my) - (Gdx.graphics.getHeight() - (y + height))) / scaleY);
+        int LocalY = (int) (((Gdx.graphics.getHeight() - mouse.y) - (Gdx.graphics.getHeight() - (y + height))) / scaleY);
 
         if (!texture.getTextureData().isPrepared()) {
             texture.getTextureData().prepare();
@@ -285,8 +287,8 @@ public abstract class AbstractUI implements Disposable {
     protected void trackCursor(boolean center) {
         if (trackable != TrackType.NONE && isCursorInScreen) {
             tracking = true;
-            if (center) setPosition(mx - width / 2, my - height / 2);
-            else setPosition(mx - cursorX, my - cursorY);
+            if (center) setPosition(mouse.x - width / 2, mouse.y - height / 2);
+            else setPosition(mouse.x - cursorX, mouse.y - cursorY);
         }
     }
 

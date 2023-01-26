@@ -65,10 +65,10 @@ public class WaktaAssemble extends ApplicationAdapter {
 
 
 		cam = new PerspectiveCamera(90, w, h);
-		cam.position.set(w * 0.5f, h * 0.4f, 480 * InputHandler.scaleA);
+		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
 		cam.lookAt(w * 0.5f, h * 0.5f,0);
 		cam.near = 1f;
-		cam.far = 1080f;
+		cam.far = 1300 * InputHandler.scaleA;
 		cam.update();
 
 		viewport = new FillViewport(w, h);
