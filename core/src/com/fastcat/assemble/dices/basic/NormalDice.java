@@ -1,5 +1,6 @@
 package com.fastcat.assemble.dices.basic;
 
+import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.abstrcts.AbstractDice;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 
@@ -10,6 +11,6 @@ public class NormalDice extends AbstractDice {
 
     @Override
     protected void rollDice() {
-        number = AbstractGame.diceRandom.random(1, 6);
+        number = WaktaAssemble.game.diceRandom.random(1, 6);
     }
 }

@@ -2,34 +2,40 @@ package com.fastcat.assemble.abstrcts;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
+import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
 
-    public static String seed;
-    public static long seedLong;
+    public String seed;
+    public long seedLong;
 
-    public static RandomXC publicRandom;
-    public static RandomXC cardRandom;
-    public static RandomXC mapRandom;
-    public static RandomXC itemRandom;
-    public static RandomXC charRandom;
-    public static RandomXC roomRandom;
-    public static RandomXC shopRandom;
-    public static RandomXC diceRandom;
-    public static RandomXC battleRandom;
+    public RandomXC publicRandom;
+    public RandomXC cardRandom;
+    public RandomXC mapRandom;
+    public RandomXC itemRandom;
+    public RandomXC charRandom;
+    public RandomXC roomRandom;
+    public RandomXC shopRandom;
+    public RandomXC diceRandom;
+    public RandomXC battleRandom;
 
-    public static AbstractEntity[] chars;
-    public static Array<AbstractDice> dices;
-    public static Array<AbstractCard> cards;
-    public static Array<AbstractItem> items;
+    public Array<AbstractEntity> chars;
+    public Array<AbstractDice> dices;
+    public Array<AbstractCard> deck;
+    public Array<AbstractItem> items;
 
+    public AbstractBattle battle;
+
+    public AbstractFloor[] floors;
+    public int floorNum;
 
     public AbstractGame() {
         dices = new Array<>();
-        cards = new Array<>();
+        deck = new Array<>();
         items = new Array<>();
-        chars = new AbstractEntity[12];
+        chars = new Array<>();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);
@@ -41,6 +47,10 @@ public class AbstractGame {
         diceRandom = new RandomXC(seedLong);
         publicRandom = new RandomXC(seedLong);
         battleRandom = new RandomXC(seedLong);
+    }
+
+    public AbstractFloor currentFloor() {
+        return floors[floorNum];
     }
 
     private static String generateRandomSeed() {
@@ -66,6 +76,4 @@ public class AbstractGame {
         }
         return Long.parseLong(sb.toString());
     }
-
-
 }

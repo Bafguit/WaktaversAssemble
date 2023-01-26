@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;

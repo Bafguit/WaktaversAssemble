@@ -26,6 +26,7 @@ public final class FontHandler implements Disposable {
     private static final FreeTypeFontGenerator font = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
 
     //Preload Fonts
+    public static final FontData LOGO = new FontData(100, false);
     public static final FontData TURN_CHANGE = new FontData(60, false);
     public static final FontData ROLL = new FontData(40, false);
     public static final FontData SUB_NAME = new FontData(30, false);
@@ -79,17 +80,35 @@ public final class FontHandler implements Disposable {
     public static void renderCenter(SpriteBatch sb, FontData font, String text, float x, float y) {
         font.font.getData().setScale(scaleX);
         layout.setText(font.font, text);
-        font.draw(sb, layout, font.alpha, x * scaleX - layout.width / 2, y * scaleY + layout.height * 0.54f);
+        font.draw(sb, layout, font.alpha, x - layout.width / 2, y + layout.height * 0.54f);
         font.font.getData().setScale(font.scale);
     }
 
-    public static void renderCenter(
-            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
+    public static void renderCenter(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
         font.getData().setScale(scaleX);
-        layout.setText(font, text, fontData.color, bw * scaleX, Align.center, false);
-        float ry = y * scaleY + (layout.height) * 0.54f;
-        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
+        layout.setText(font, text, fontData.color, bw, Align.center, false);
+        float ry = y + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x, ry);
+        font.getData().setScale(fontData.scale);
+    }
+
+    public static void renderCenterWrap(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, float bh) {
+        BitmapFont font = fontData.font;
+        font.getData().setScale(scaleX);
+        float scale = 1;
+        while (true) {
+            layout.setText(font, text, fontData.color, bw, Align.center, true);
+            if (layout.height > bh && scale > 0.5f) {
+                scale *= 0.9f;
+                font.getData().setScale(scale);
+            } else {
+                break;
+            }
+        }
+        layout.setText(font, text, fontData.color, bw, Align.center, true);
+        float ry = y + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x, ry);
         font.getData().setScale(fontData.scale);
     }
 
@@ -264,6 +283,10 @@ public final class FontHandler implements Disposable {
     public void dispose() {
         font.dispose();
         TURN_CHANGE.dispose();
+        LOGO.dispose();
+        ROLL.dispose();
+        SUB_DESC.dispose();
+        SUB_NAME.dispose();
     }
 
     public static class FontData implements Disposable {

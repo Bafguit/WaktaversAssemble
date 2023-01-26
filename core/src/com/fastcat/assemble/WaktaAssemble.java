@@ -13,7 +13,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.handlers.*;
-import com.fastcat.assemble.screens.temp.BattleScreen;
+import com.fastcat.assemble.screens.battle.BattleScreen;
+import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import com.google.common.util.concurrent.FutureCallback;
 import lombok.Getter;
@@ -27,7 +28,9 @@ public class WaktaAssemble extends ApplicationAdapter {
 	public static OrthographicCamera camera;
 	public static Viewport viewport;
 
-	public AbstractGame game;
+	public static BattleScreen battleScreen;
+
+	public static AbstractGame game;
 	public AbstractScreen screen;
 	public Array<AbstractScreen> tempScreen = new Array<>();
 	public static float tick;
@@ -46,6 +49,7 @@ public class WaktaAssemble extends ApplicationAdapter {
 	@Override
 	public void create () {
 		phase = LifeCycle.STARTED;
+		SettingHandler.initialize();
 		InputHandler.getInstance();
 		assetManager = new AssetManager();
 		resourceHandler = new ResourceHandler(assetManager);
@@ -85,7 +89,8 @@ public class WaktaAssemble extends ApplicationAdapter {
 	}
 
 	private void load() {
-		screen = new BattleScreen();
+		battleScreen = new BattleScreen();
+		screen = battleScreen;
 		game = new AbstractGame();
 	}
 
@@ -147,7 +152,8 @@ public class WaktaAssemble extends ApplicationAdapter {
         */
 		} else {
 			float p = resourceHandler.getProgress();
-			FontHandler.renderCenter(sb, FontHandler.SUB_NAME, "리소스 불러오는 중\n" + p * 100 + "%", 0, 540, 1920);
+			FontHandler.renderCenter(sb, FontHandler.SUB_NAME, "리소스 불러오는 중\n" + p * 100 + "%", 0,
+					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
 		}
 		sb.end();
 	}

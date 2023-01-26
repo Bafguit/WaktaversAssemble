@@ -7,8 +7,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.handlers.EffectHandler;
 
 public abstract class AbstractScreen implements Screen {
+
+    public final EffectHandler effectHandler = new EffectHandler();
 
     public final Array<AbstractUI> ui = new Array<>();
     public final ScreenType type;
@@ -22,13 +25,13 @@ public abstract class AbstractScreen implements Screen {
 
     protected abstract void render(SpriteBatch sb);
 
-    @Override
-    public final void render(float delta) {
+    public void render(float delta) {
         WaktaAssemble.application.sb.setColor(Color.WHITE);
         if(background != null) {
             WaktaAssemble.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
         render(WaktaAssemble.application.sb);
+        effectHandler.render(WaktaAssemble.application.sb);
     }
 
     public void setBg(Sprite s) {
@@ -63,6 +66,10 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public final EffectHandler getEffectHandler() {
+        return effectHandler;
     }
 
     public enum ScreenType {

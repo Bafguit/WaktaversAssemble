@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -58,14 +58,14 @@ public class DiceButton extends AbstractUI {
             } else if(tile != null) {
                 setPosition(tile.originX, tile.originY);
             } else {
-                setPosition(150 * (index + 1), 810);
+                setPosition(60, 920 - 100 * index);
                 if(tile != null) {
                     tile.dice = null;
                     tile = null;
                 }
             }
         } else {
-            setPosition(150 * (index + 1), 810);
+            setPosition(60, 920 - 100 * index);
             if(tile != null) {
                 tile.dice = null;
                 tile = null;
@@ -75,7 +75,7 @@ public class DiceButton extends AbstractUI {
 
     public void reset() {
         dice.reset();
-        setPosition(150 * (index + 1), 810);
+        setPosition(60, 920 - 100 * index);
         if(tile != null) {
             tile.dice = null;
             tile = null;

@@ -7,14 +7,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
+import com.fastcat.assemble.utils.FastCatUtils;
 
 import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.fastcat.assemble.handlers.FontHandler.*;
@@ -38,16 +39,25 @@ public abstract class AbstractUI implements Disposable {
     protected float cursorY;
     public float width;
     public float height;
+    public final float realWidth;
+    public final float realHeight;
     public float originWidth;
     public float originHeight;
+    private float fromX;
+    private float fromY;
+    private float toX;
+    private float toY;
+    private float distCount;
     public boolean over;
+    public boolean fluid = false;
+    public boolean fluiding = false;
     public boolean isPixmap = false;
-    private boolean hasClick = false;
     public boolean hasOver = false;
     public boolean overable = true;
     public boolean clickEnd = true;
     public boolean enabled;
     public boolean showImg = true;
+    private boolean hasClick = false;
 
     public float uiScale;
     public boolean clicked;
@@ -67,10 +77,10 @@ public abstract class AbstractUI implements Disposable {
 
     public AbstractUI(Sprite img, float x, float y, float width, float height) {
         this.img = new Sprite(img);
-        originWidth = width;
-        originHeight = height;
-        this.width = width * scaleX;
-        this.height = height * scaleY;
+        realWidth = originWidth = width;
+        realHeight = originHeight = height;
+        this.width = width * scaleA;
+        this.height = height * scaleA;
         originX = x;
         originY = y;
         setLocalPosition();
@@ -82,8 +92,11 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void update() {
-        width = originWidth * scaleX * uiScale;
-        height = originHeight * scaleY * uiScale;
+        width = originWidth * scaleA;
+        height = originHeight * scaleA;
+        if(fluid && fluiding) {
+            fluidPosition();
+        }
         setLocalPosition();
         if (parent != null) {
             x += parent.x;
@@ -91,7 +104,7 @@ public abstract class AbstractUI implements Disposable {
         }
         hasOver = mx > x && mx < x + width && my > y && my < y + height;
         if(isDesktop) {
-            over = hasOver;
+            over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;
             hasClick = clicked || clicking;
             clicking = over && hasClick && isLeftClicking;
@@ -153,19 +166,19 @@ public abstract class AbstractUI implements Disposable {
                 sb.setColor(WHITE);
                 float sc, subP;
                 if (subWay == SubText.SubWay.DOWN) {
-                    sc = -10 * scaleY;
+                    sc = -10 * scaleA;
                     subP = y + sc;
                     for (SubText s : subTexts) {
                         subP = s.render(sb, x + width / 2, subP, subWay).y + sc;
                     }
                 } else if (subWay == SubText.SubWay.UP) {
-                    sc = 10 * scaleY;
+                    sc = 10 * scaleA;
                     subP = y + originHeight + sc;
                     for (SubText s : subTexts) {
                         subP = s.render(sb, x + width / 2, subP, subWay).y + sc;
                     }
                 } else if (subWay == SubText.SubWay.LEFT) {
-                    sc = -10 * scaleX;
+                    sc = -10 * scaleA;
                     subP = x + sc;
                     for (SubText s : subTexts) {
                         subP = s.render(sb, subP, y + width, subWay).x + sc;
@@ -175,7 +188,17 @@ public abstract class AbstractUI implements Disposable {
         }
     }
 
-    private void setLocalPosition(){
+    private void fluidPosition() {
+        distCount += WaktaAssemble.tick * 10;
+        if(distCount > 1) {
+            distCount = 1;
+            fluiding = false;
+        }
+        originX = Interpolation.circleOut.apply(fromX, toX, distCount);
+        originY = Interpolation.circleOut.apply(fromY, toY, distCount);
+    }
+
+    protected void setLocalPosition(){
         if(trackable != TrackType.NONE && over && clickable && clicking) {
             tracking = true;
             if(trackable == TrackType.CENTER) {
@@ -231,14 +254,28 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public void setPosition(float x, float y) {
-        setX(x);
-        setY(y);
+        if(!fluiding) {
+            if(fluid) {
+                toX = x;
+                fromX = originX;
+                toY = y;
+                fromY = originY;
+
+                fluiding = true;
+                distCount = 0;
+            } else {
+                setX(x);
+                setY(y);
+            }
+        }
     }
 
     public void setScale(float scale) {
         uiScale = scale;
-        width = originWidth * scaleX * uiScale;
-        height = originHeight * scaleY * uiScale;
+        originWidth = realWidth * uiScale;
+        originHeight = realHeight * uiScale;
+        width = originWidth * scaleA;
+        height = originHeight * scaleA;
     }
 
     protected void trackCursor(boolean center) {
@@ -307,8 +344,8 @@ public abstract class AbstractUI implements Disposable {
 
     public enum BasisType {
         CENTER,
-        CENTER_TOP,
-        CENTER_BOTTOM,
+        TOP,
+        BOTTOM,
         CENTER_LEFT,
         CENTER_RIGHT,
         TOP_LEFT,

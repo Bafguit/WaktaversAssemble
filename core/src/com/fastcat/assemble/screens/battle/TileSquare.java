@@ -1,12 +1,12 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 
-import static com.fastcat.assemble.screens.temp.BattleScreen.BattlePhase.CARD;
-import static com.fastcat.assemble.screens.temp.BattleScreen.BattlePhase.DEPLOY;
+import static com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase.CARD;
+import static com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase.DEPLOY;
 
 public class TileSquare extends AbstractUI {
 

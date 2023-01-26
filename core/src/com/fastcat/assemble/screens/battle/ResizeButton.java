@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.temp;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,8 +16,8 @@ public class ResizeButton extends AbstractUI {
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
     private final HashMap<Integer, Integer> resolution = new HashMap<>();
     private final Array<Integer> w = new Array<>();
-    private int ww = 1280, hh = 720;
-    private int index = 0;
+    private int ww = 1600, hh = 900;
+    private int index = 2;
 
     public ResizeButton() {
         super(FileHandler.dice.get("Dice"));
@@ -35,7 +35,7 @@ public class ResizeButton extends AbstractUI {
         if (enabled) {
             if (overable && !over) sb.setColor(Color.LIGHT_GRAY);
             sb.draw(img, x, y, width, height);
-            FontHandler.renderCenter(sb, font, ww + "x" + hh, originX, originY);
+            FontHandler.renderCenter(sb, font, ww + "x" + hh, x + width * 0.5f, y + height * 0.5f);
         }
     }
 
