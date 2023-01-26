@@ -137,8 +137,6 @@ public final class InputHandler {
         }
         isCursorInScreen = gx < sw && gx > 0 && gy < sh && gy > 0;
 
-        Ray ray = WaktaAssemble.cam.getPickRay(gx, gy);
-
         mx = Math.max(Math.min(gx, sw), 0);
         my = sh - Math.max(Math.min(gy, sh), 0);
         cancel = Gdx.input.isKeyJustPressed(Buttons.BACK) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.BACK);
@@ -170,8 +168,8 @@ public final class InputHandler {
         }
     }
 
-    public static Vector2 getMouseCam() {
-        Ray ray = WaktaAssemble.cam.getPickRay(mx, my);
+    public static Vector2 getProjectedMousePos() {
+        Ray ray = WaktaAssemble.cam.getPickRay(mx, Gdx.graphics.getHeight() - my);
 
         float t = -ray.origin.z/ray.direction.z;
         float convertedX = ray.origin.x+ray.direction.x*t;

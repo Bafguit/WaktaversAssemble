@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
@@ -17,7 +16,6 @@ import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
-import com.fastcat.assemble.utils.FastCatUtils;
 
 import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.fastcat.assemble.handlers.FontHandler.*;
@@ -106,7 +104,7 @@ public abstract class AbstractUI implements Disposable {
             y += parent.y;
         }
         Vector2 v;
-        if(is3D) v = InputHandler.getMouseCam();
+        if(is3D) v = InputHandler.getProjectedMousePos();
         else v = new Vector2(mx, my);
         hasOver = v.x > x && v.x < x + width && v.y > y && v.y < y + height;
         if(isDesktop) {
