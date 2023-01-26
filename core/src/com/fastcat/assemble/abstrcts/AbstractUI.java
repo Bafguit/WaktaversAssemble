@@ -219,34 +219,9 @@ public abstract class AbstractUI implements Disposable {
             localX = originX * scaleX;
             localY = originY * scaleY;
         }
-        if(basis == BasisType.CENTER) {
-            x = localX - width / 2;
-            y = localY - height / 2;
-        } else if(basis == BasisType.TOP) {
-            x = localX - width / 2;
-            y = localY - height;
-        } else if(basis == BasisType.BOTTOM) {
-            x = localX - width / 2;
-            y = localY;
-        } else if(basis == BasisType.CENTER_LEFT) {
-            x = localX;
-            y = localY - height / 2;
-        } else if(basis == BasisType.CENTER_RIGHT) {
-            x = localX - width;
-            y = localY - height / 2;
-        } else if(basis == BasisType.TOP_LEFT) {
-            x = localX;
-            y = localY - height;
-        } else if(basis == BasisType.TOP_RIGHT) {
-            x = localX - width;
-            y = localY - height;
-        } else if(basis == BasisType.BOTTOM_RIGHT) {
-            x = localX - width;
-            y = localY;
-        } else {
-            x = localX;
-            y = localY;
-        }
+
+        x = basis.getPosX(localX, width);
+        y = basis.getPosY(localY, height);
     }
 
     public Color getSpritePixColor() {
@@ -382,7 +357,37 @@ public abstract class AbstractUI implements Disposable {
         TOP_LEFT,
         TOP_RIGHT,
         BOTTOM_LEFT,
-        BOTTOM_RIGHT
+        BOTTOM_RIGHT;
+
+        public float getPosX(float localX, float width) {
+            switch(this) {
+                case CENTER:
+                case TOP:
+                case BOTTOM:
+                    return localX - width / 2;
+                case CENTER_RIGHT:
+                case TOP_RIGHT:
+                case BOTTOM_RIGHT:
+                    return localX - width;
+                default:
+                    return localX;
+            }
+        }
+
+        public float getPosY(float localY, float height) {
+            switch(this) {
+                case CENTER:
+                case CENTER_LEFT:
+                case CENTER_RIGHT:
+                    return localY - height / 2;
+                case TOP:
+                case TOP_LEFT:
+                case TOP_RIGHT:
+                    return localY - height;
+                default:
+                    return localY;
+            }
+        }
     }
 
     public enum TrackType {
