@@ -36,7 +36,7 @@ public abstract class AbstractEntity {
 
     public abstract String getDesc(int num);
 
-    public abstract void useCard(int num);
+    public abstract void useSkill(int num);
 
     public final boolean isAlive() {
         return !isDead && !isDie;

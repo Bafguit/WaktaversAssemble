@@ -4,6 +4,8 @@ import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.abstrcts.AbstractCard;
 import com.fastcat.assemble.abstrcts.AbstractDice;
+import com.fastcat.assemble.actions.RollRandomDiceAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.screens.battle.DiceButton;
 
 public class TestCard extends AbstractCard {
@@ -16,16 +18,7 @@ public class TestCard extends AbstractCard {
 
     @Override
     protected void useCard() {
-        Array<AbstractDice> dices = new Array<>();
-
-        for(DiceButton d : WaktaAssemble.battleScreen.dice) {
-            if(d.tile == null) dices.add(d.dice);
-        }
-
-        if(dices.size > 0) {
-            dices.get(WaktaAssemble.game.battleRandom.random(0, dices.size - 1)).roll();
-            System.out.println("ROLL!");
-        }
+        ActionHandler.top(new RollRandomDiceAction());
     }
 
     @Override

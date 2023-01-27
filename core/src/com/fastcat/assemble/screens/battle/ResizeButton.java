@@ -8,6 +8,7 @@ import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 
 import java.util.HashMap;
 
@@ -27,7 +28,7 @@ public class ResizeButton extends AbstractUI {
         resolution.put(1280, 720);
         resolution.put(1366, 768);
         resolution.put(1600, 900);
-        setPosition(1440, 810);
+        setPosition(1640, 810);
     }
 
     @Override

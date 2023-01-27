@@ -62,6 +62,7 @@ public class WaktaAssemble extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
 		camera.setToOrtho(false, w, h);
+		camera.update();
 
 
 		cam = new PerspectiveCamera(90, w, h);
@@ -100,9 +101,9 @@ public class WaktaAssemble extends ApplicationAdapter {
 	}
 
 	private void load() {
+		game = new AbstractGame();
 		battleScreen = new BattleScreen();
 		screen = battleScreen;
-		game = new AbstractGame();
 	}
 
 	private void update() {
@@ -112,6 +113,10 @@ public class WaktaAssemble extends ApplicationAdapter {
 		cam.lookAt(w * 0.5f, h * 0.5f,0);
 		cam.update();
 		InputHandler.getInstance().update();
+
+		if(game != null) {
+			game.update();
+		}
 
 		if (tempScreen.size > 0) {
 			AbstractScreen s = tempScreen.get(tempScreen.size - 1);
@@ -160,6 +165,7 @@ public class WaktaAssemble extends ApplicationAdapter {
 					if (s != null) s.render(tick);
 				}
 			}
+			if(game != null) game.render(sb);
 
         /*
         		sb.setColor(Color.WHITE);

@@ -1,15 +1,8 @@
 package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Preferences;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 
 public final class SettingHandler {
 
@@ -32,10 +25,12 @@ public final class SettingHandler {
         setting.shake = prefs.getBoolean("shake", true);
         setting.fastMode = prefs.getBoolean("fastMode", false);
         save();
+        Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
+        Gdx.graphics.setForegroundFPS(displayMode.refreshRate);
         if(setting.screenMode == 0) {
             Gdx.graphics.setWindowedMode(setting.width, setting.height);
         } else if(setting.screenMode == 1) {
-            Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+            Gdx.graphics.setFullscreenMode(displayMode);
         } else {
             Gdx.graphics.setWindowedMode(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             Gdx.graphics.setUndecorated(true);

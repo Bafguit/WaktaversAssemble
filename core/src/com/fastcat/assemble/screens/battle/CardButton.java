@@ -5,7 +5,8 @@ import com.badlogic.gdx.math.Interpolation;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.abstrcts.AbstractCard;
 import com.fastcat.assemble.abstrcts.AbstractUI;
-import com.fastcat.assemble.effects.MoeSmallCardEffect;
+import com.fastcat.assemble.actions.UseCardAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
@@ -31,6 +32,7 @@ public class CardButton extends AbstractUI {
         itp = 0;
         acc = 0;
         tar = height * 0.35f;
+        is3D = false;
     }
 
     @Override
@@ -39,6 +41,7 @@ public class CardButton extends AbstractUI {
         clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
         trackable = clickEnd ? CENTER : NONE;
         tar = height * 0.35f;
+        //tracking = tracking || isUsed;
     }
 
     protected void renderUi(SpriteBatch sb) {
@@ -73,8 +76,7 @@ public class CardButton extends AbstractUI {
     @Override
     protected void onClickEnd() {
         if(card.canUse() && localY > (300 * scaleY)) {
-            card.use();
-            screen.effectHandler.addEffect(new MoeSmallCardEffect(this, mx, my, 1800 * scaleX, 100 * scaleY));
+            ActionHandler.bot(new UseCardAction(this));
             isUsed = true;
         } else {
             itp = 1;

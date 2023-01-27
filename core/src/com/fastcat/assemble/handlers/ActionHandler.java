@@ -17,27 +17,24 @@ public final class ActionHandler {
     private final Queue<AbstractAction> actionList = new Queue<>();
     private AbstractAction current;
 
-    public static ActionHandler getInstance() {
-        if (instance == null) return (instance = new ActionHandler());
-        return instance;
-    }
-
     public static void clear() {
-        getInstance().actionList.clear();
+        if(WaktaAssemble.game != null) WaktaAssemble.game.actionHandler.actionList.clear();
     }
 
     public static void reset() {
-        ActionHandler a = getInstance();
-        a.actionList.clear();
-        a.current = null;
+        if(WaktaAssemble.game != null) {
+            ActionHandler a = WaktaAssemble.game.actionHandler;
+            a.actionList.clear();
+            a.current = null;
+        }
     }
 
     public static void bot(AbstractAction action) {
-        getInstance().actionList.addLast(action);
+        if(WaktaAssemble.game != null) WaktaAssemble.game.actionHandler.actionList.addLast(action);
     }
 
     public static void top(AbstractAction action) {
-        getInstance().actionList.addFirst(action);
+        if(WaktaAssemble.game != null) WaktaAssemble.game.actionHandler.actionList.addFirst(action);
     }
 
     public void update() {
@@ -55,5 +52,14 @@ public final class ActionHandler {
         } else isRunning = false;
     }
 
-    public void render(SpriteBatch sb) {}
+    public void render(SpriteBatch sb) {
+        if(current != null) {
+            current.render(sb);
+        }
+        if(actionList.size > 0) {
+            for(AbstractAction a : actionList) {
+                a.render(sb);
+            }
+        }
+    }
 }

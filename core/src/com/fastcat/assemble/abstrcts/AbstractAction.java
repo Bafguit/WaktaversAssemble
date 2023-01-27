@@ -1,4 +1,5 @@
 package com.fastcat.assemble.abstrcts;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WaktaAssemble;
 import com.fastcat.assemble.handlers.SettingHandler;
@@ -53,6 +54,10 @@ public abstract class AbstractAction implements Cloneable {
         }
     }
 
+    public final void render(SpriteBatch sb) {
+        renderAction(sb);
+    }
+
     protected void applySetting() {
         /*
         if (SettingHandler.setting.fastMode) {
@@ -62,6 +67,8 @@ public abstract class AbstractAction implements Cloneable {
     }
 
     protected abstract void updateAction();
+
+    protected void renderAction(SpriteBatch sb) {}
 
     protected void TickDuration() {
         if (duration > 0) {

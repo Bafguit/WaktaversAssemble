@@ -8,7 +8,7 @@ import com.fastcat.assemble.WaktaAssemble;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
-		config.setForegroundFPS(144);
+		config.useVsync(true);
 		config.setResizable(false);
 		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 20);
 		config.setTitle("WaktaverseAssemble");

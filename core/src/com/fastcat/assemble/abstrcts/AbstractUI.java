@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -96,6 +97,7 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void update() {
+        foreUpdate();
         width = originWidth * scaleA;
         height = originHeight * scaleA;
         if(is3D) mouse = InputHandler.getProjectedMousePos();
@@ -155,6 +157,9 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void render(SpriteBatch sb) {
+        Matrix4 mat = sb.getProjectionMatrix();
+        if(is3D && mat != WaktaAssemble.cam.combined) sb.setProjectionMatrix(WaktaAssemble.cam.combined);
+        else if(!is3D && mat != WaktaAssemble.camera.combined) sb.setProjectionMatrix(WaktaAssemble.camera.combined);
         sb.setColor(WHITE);
         renderUi(sb);
     }
@@ -322,6 +327,8 @@ public abstract class AbstractUI implements Disposable {
         clicked = false;
         clicking = false;
     }
+
+    protected void foreUpdate() {}
 
     protected void updateButton() {}
 

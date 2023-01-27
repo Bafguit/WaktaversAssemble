@@ -11,6 +11,7 @@ import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.cards.basic.TestCard;
 import com.fastcat.assemble.dices.basic.NormalDice;
 import com.fastcat.assemble.dices.legend.Fraud3;
+import com.fastcat.assemble.handlers.InputHandler;
 
 import java.util.Iterator;
 
@@ -26,7 +27,7 @@ public class BattleScreen extends AbstractScreen {
     public AbstractUI tracking;
     public TileSquare overTile;
     public TileSquare[][] tiles;
-    public int wSize = 6, hSize = 4;
+    public int wSize = 8, hSize = 6;
 
     public BattleScreen() {
         super(ScreenType.BASE);
@@ -34,24 +35,24 @@ public class BattleScreen extends AbstractScreen {
         phase = BattlePhase.READY;
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
-        rollButton.setPosition(480, 650);
+        rollButton.setPosition(320, 650);
         phaseButton = new PhaseButton(this);
-        phaseButton.setPosition(480, 500);
+        phaseButton.setPosition(320, 500);
         for(int i = 0; i < 6; i++) {
             DiceButton b = new DiceButton(this, new NormalDice(), i);
             b.setPosition(60, 920 - 100 * i);
             dice.add(b);
         }
-        for(int i = 1; i <= 6; i++) {
-            CharacterButton b = new CharacterButton(this, i - 1);
-            b.setPosition(150 * i, 270);
+        for(int i = 0; i < 6; i++) {
+            CharacterButton b = new CharacterButton(this, i);
+            b.setPosition(710 + 100 * i, 270);
             chars.add(b);
         }
         tiles = new TileSquare[wSize][hSize];
         for (int i = 0; i < wSize; i++) {
             for(int j = 0; j < hSize; j++) {
                 TileSquare t = new TileSquare(this);
-                t.setPosition(1100 + 100 * i, 600 - 100 * j);
+                t.setPosition(610 + 100 * i, 890 - 100 * j);
                 tiles[i][j] = t;
             }
         }

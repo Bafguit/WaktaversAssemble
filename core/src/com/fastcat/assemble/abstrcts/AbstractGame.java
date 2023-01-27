@@ -1,8 +1,10 @@
 package com.fastcat.assemble.abstrcts;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.RandomXC;
 
@@ -10,6 +12,8 @@ public class AbstractGame {
 
     public String seed;
     public long seedLong;
+
+    public ActionHandler actionHandler;
 
     public RandomXC publicRandom;
     public RandomXC cardRandom;
@@ -47,6 +51,15 @@ public class AbstractGame {
         diceRandom = new RandomXC(seedLong);
         publicRandom = new RandomXC(seedLong);
         battleRandom = new RandomXC(seedLong);
+        actionHandler = new ActionHandler();
+    }
+
+    public void update() {
+        actionHandler.update();
+    }
+
+    public void render(SpriteBatch sb) {
+        actionHandler.render(sb);
     }
 
     public AbstractFloor currentFloor() {

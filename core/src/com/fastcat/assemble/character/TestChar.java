@@ -13,7 +13,7 @@ public class TestChar extends AbstractEntity {
     }
 
     @Override
-    public void useCard(int num) {
+    public void useSkill(int num) {
 
     }
 }

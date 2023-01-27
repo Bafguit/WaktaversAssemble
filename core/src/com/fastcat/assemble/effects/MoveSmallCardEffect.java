@@ -6,12 +6,12 @@ import com.fastcat.assemble.abstrcts.AbstractEffect;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.utils.FastCatUtils;
 
-public class MoeSmallCardEffect extends AbstractEffect {
+public class MoveSmallCardEffect extends AbstractEffect {
 
     private final AbstractUI ui;
     private final float fx, fy, tx, ty, angle;
 
-    public MoeSmallCardEffect(AbstractUI card, float fromX, float fromY, float toX, float toY) {
+    public MoveSmallCardEffect(AbstractUI card, float fromX, float fromY, float toX, float toY) {
         super(fromX, fromY, 0.4f);
         ui = card;
         ui.basis = AbstractUI.BasisType.CENTER;
