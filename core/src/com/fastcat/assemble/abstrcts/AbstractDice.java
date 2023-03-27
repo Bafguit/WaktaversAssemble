@@ -1,8 +1,7 @@
 package com.fastcat.assemble.abstrcts;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
 
 public abstract class AbstractDice {
@@ -11,41 +10,58 @@ public abstract class AbstractDice {
     public String name;
     public String desc;
     public DiceRarity rarity;
-    public Sprite img;
     public int counter = -1;
 
     protected TextureAtlas atlas;
-    protected Array<Sprite> images;
+    protected AbstractSkill[] skills = new AbstractSkill[7];
     protected int number = 0;
 
     public AbstractDice(String id, DiceRarity rarity) {
         this.id = id;
         this.rarity = rarity;
         atlas = FileHandler.diceAtlas.get(id);
-        images = new Array<>();
-        for(int i = 0; i < atlas.getRegions().size; i++) {
-            images.add(atlas.createSprite(Integer.toString(i)));
-        }
+        defineSkill();
         reset();
     }
 
     public void roll() {
-        rollDice();
-        img = images.get(number);
+        number = MouseAdventure.game.diceRandom.random(1, 6);
     }
 
-    protected abstract void rollDice();
+    public final void use() {
+        useDice();
+    }
+
+    protected void useDice() {
+
+    }
+
+    public boolean canUse() {
+        return true;
+    }
+
+    public void beforeRoll() {}
+
+    public void afterRoll() {}
 
     public final int getNumber() {
         return number;
     }
 
-    public void reset() {
-        number = 0;
-        img = images.get(number);
+    public final AbstractSkill getSkill() {
+        return skills[number];
     }
 
+    public void reset() {
+        number = 0;
+        for(AbstractSkill s : skills) {
+            s.resetAttribute();
+        }
+    }
+
+    protected abstract void defineSkill();
+
     public enum DiceRarity {
-        BASIC, COMMON, RARE, LEGEND, EVENT
+        BASIC, NORMAL, ENEMY
     }
 }

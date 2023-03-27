@@ -1,13 +1,9 @@
 package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAction;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 
 public final class ActionHandler {
 
@@ -18,23 +14,23 @@ public final class ActionHandler {
     private AbstractAction current;
 
     public static void clear() {
-        if(WaktaAssemble.game != null) WaktaAssemble.game.actionHandler.actionList.clear();
+        if(MouseAdventure.game != null) MouseAdventure.game.actionHandler.actionList.clear();
     }
 
     public static void reset() {
-        if(WaktaAssemble.game != null) {
-            ActionHandler a = WaktaAssemble.game.actionHandler;
+        if(MouseAdventure.game != null) {
+            ActionHandler a = MouseAdventure.game.actionHandler;
             a.actionList.clear();
             a.current = null;
         }
     }
 
     public static void bot(AbstractAction action) {
-        if(WaktaAssemble.game != null) WaktaAssemble.game.actionHandler.actionList.addLast(action);
+        if(MouseAdventure.game != null) MouseAdventure.game.actionHandler.actionList.addLast(action);
     }
 
     public static void top(AbstractAction action) {
-        if(WaktaAssemble.game != null) WaktaAssemble.game.actionHandler.actionList.addFirst(action);
+        if(MouseAdventure.game != null) MouseAdventure.game.actionHandler.actionList.addFirst(action);
     }
 
     public void update() {
@@ -43,7 +39,7 @@ public final class ActionHandler {
             if (current == null) {
                 current = actionList.removeFirst();
             }
-            if (!WaktaAssemble.fading) {
+            if (!MouseAdventure.fading) {
                 current.update();
             }
             if (current.isDone) {

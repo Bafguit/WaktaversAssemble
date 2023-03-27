@@ -148,6 +148,10 @@ public class FileHandler {
         HashMap<String, String> resources = new HashMap<>();
         resources.put("TEMP", "image/ui/temp.png");
         resources.put("TILE", "image/ui/tile.png");
+        resources.put("DIR", "image/ui/direction.png");
+        resources.put("SUB_TOP", "image/ui/sub_t.png");
+        resources.put("SUB_MID", "image/ui/sub_m.png");
+        resources.put("SUB_BOT", "image/ui/sub_b.png");
 
         resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
             Texture texture = (Texture) resource;

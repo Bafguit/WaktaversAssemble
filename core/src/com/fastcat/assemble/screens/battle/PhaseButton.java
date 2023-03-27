@@ -18,7 +18,7 @@ public class PhaseButton extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        overable = screen.phase != BattleScreen.BattlePhase.DICE;
+        overable = screen.phase != BattleScreen.BattlePhase.DIRECTION && screen.phase != BattleScreen.BattlePhase.DEPLOY;
     }
 
     @Override
@@ -36,10 +36,10 @@ public class PhaseButton extends AbstractUI {
         if(screen.phase == BattleScreen.BattlePhase.READY) {
             screen.phase = BattleScreen.BattlePhase.DEPLOY;
         } else if(screen.phase == BattleScreen.BattlePhase.DEPLOY) {
-            screen.phase = BattleScreen.BattlePhase.DICE;
-        } else if(screen.phase == BattleScreen.BattlePhase.DICE) {
-            screen.phase = BattleScreen.BattlePhase.CARD;
-        } else if(screen.phase == BattleScreen.BattlePhase.CARD) {
+            screen.phase = BattleScreen.BattlePhase.DRAW;
+        } else if(screen.phase == BattleScreen.BattlePhase.DRAW) {
+            screen.phase = BattleScreen.BattlePhase.SKILL;
+        } else if(screen.phase == BattleScreen.BattlePhase.SKILL) {
             screen.phase = BattleScreen.BattlePhase.READY;
             screen.resetDice();
             screen.resetChar();

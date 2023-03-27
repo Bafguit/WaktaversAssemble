@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
+import com.fastcat.assemble.character.TestChar;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.RandomXC;
@@ -25,9 +26,8 @@ public class AbstractGame {
     public RandomXC diceRandom;
     public RandomXC battleRandom;
 
-    public Array<AbstractEntity> chars;
+    public AbstractEntity player;
     public Array<AbstractDice> dices;
-    public Array<AbstractCard> deck;
     public Array<AbstractItem> items;
 
     public AbstractBattle battle;
@@ -37,9 +37,8 @@ public class AbstractGame {
 
     public AbstractGame() {
         dices = new Array<>();
-        deck = new Array<>();
         items = new Array<>();
-        chars = new Array<>();
+        player = new TestChar();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);

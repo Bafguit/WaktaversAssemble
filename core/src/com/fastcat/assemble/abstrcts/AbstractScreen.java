@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.handlers.EffectHandler;
 
 public abstract class AbstractScreen implements Screen {
@@ -26,12 +26,12 @@ public abstract class AbstractScreen implements Screen {
     protected abstract void render(SpriteBatch sb);
 
     public void render(float delta) {
-        WaktaAssemble.application.sb.setColor(Color.WHITE);
+        MouseAdventure.application.sb.setColor(Color.WHITE);
         if(background != null) {
-            WaktaAssemble.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            MouseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
-        render(WaktaAssemble.application.sb);
-        effectHandler.render(WaktaAssemble.application.sb);
+        render(MouseAdventure.application.sb);
+        effectHandler.render(MouseAdventure.application.sb);
     }
 
     public void setBg(Sprite s) {

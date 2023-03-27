@@ -4,11 +4,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 
 import java.util.HashMap;
 
@@ -51,6 +50,6 @@ public class ResizeButton extends AbstractUI {
         hh = resolution.get(ww);
 
         Gdx.graphics.setWindowedMode(ww, hh);
-        WaktaAssemble.camera.setToOrtho(false, ww, hh);
+        MouseAdventure.camera.setToOrtho(false, ww, hh);
     }
 }

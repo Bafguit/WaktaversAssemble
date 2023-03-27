@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.interfaces.OnMouseScrolled;
 
 import java.nio.ByteBuffer;
@@ -20,6 +20,8 @@ public final class InputHandler {
 
     public static boolean isLeftClick;
     public static boolean isLeftClicking;
+    public static boolean isRightClick;
+    public static boolean isRightClicking;
     public static boolean isCursorInScreen;
     public static boolean isDesktop;
 
@@ -127,19 +129,23 @@ public final class InputHandler {
         } else {
             scaleA = scaleX;
         }
-
-        if (isDesktop) {
-            isLeftClick = Gdx.input.isButtonJustPressed(Buttons.LEFT);
-            isLeftClicking = Gdx.input.isButtonPressed(Buttons.LEFT);
-        } else {
-            isLeftClick = Gdx.input.justTouched();
-            isLeftClicking = Gdx.input.isTouched();
-        }
         isCursorInScreen = gx < sw && gx > 0 && gy < sh && gy > 0;
 
         mx = Math.max(Math.min(gx, sw), 0);
         my = sh - Math.max(Math.min(gy, sh), 0);
         cancel = Gdx.input.isKeyJustPressed(Buttons.BACK) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.BACK);
+
+        if (isDesktop) {
+            isLeftClick = Gdx.input.isButtonJustPressed(Buttons.LEFT);
+            isLeftClicking = Gdx.input.isButtonPressed(Buttons.LEFT);
+            isRightClick = Gdx.input.isButtonJustPressed(Buttons.RIGHT);
+            isRightClicking = Gdx.input.isButtonPressed(Buttons.RIGHT);
+        } else {
+            isLeftClick = Gdx.input.justTouched();
+            isLeftClicking = Gdx.input.isTouched();
+            isRightClick = cancel;
+            isRightClicking = cancel;
+        }
 
         if (textInputMode && (isLeftClick || Gdx.input.isKeyJustPressed(Keys.ENTER) || cancel)) {
             textInputMode = false;
@@ -169,7 +175,7 @@ public final class InputHandler {
     }
 
     public static Vector2 getProjectedMousePos() {
-        Ray ray = WaktaAssemble.cam.getPickRay(mx, Gdx.graphics.getHeight() - my);
+        Ray ray = MouseAdventure.cam.getPickRay(mx, Gdx.graphics.getHeight() - my);
 
         float t = -ray.origin.z/ray.direction.z;
         float convertedX = ray.origin.x+ray.direction.x*t;

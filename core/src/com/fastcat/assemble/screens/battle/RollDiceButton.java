@@ -14,12 +14,12 @@ public class RollDiceButton extends AbstractUI {
     public RollDiceButton(BattleScreen screen) {
         super(FileHandler.dice.get("Dice"));
         this.screen = screen;
-        overable = screen.phase == BattleScreen.BattlePhase.DICE;
+        overable = screen.phase == BattleScreen.BattlePhase.DRAW;
     }
 
     @Override
     protected void updateButton() {
-        overable = screen.phase == BattleScreen.BattlePhase.DICE;
+        overable = screen.phase == BattleScreen.BattlePhase.DRAW;
     }
 
     @Override

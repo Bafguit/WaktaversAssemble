@@ -1,9 +1,7 @@
 package com.fastcat.assemble.cards.basic;
 
-import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractCard;
-import com.fastcat.assemble.abstrcts.AbstractDice;
 import com.fastcat.assemble.actions.RollRandomDiceAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.screens.battle.DiceButton;
@@ -23,7 +21,7 @@ public class TestCard extends AbstractCard {
 
     @Override
     public boolean canUse() {
-        for(DiceButton d : WaktaAssemble.battleScreen.dice) {
+        for(DiceButton d : MouseAdventure.battleScreen.dice) {
             if(d.tile == null) return true;
         }
         return false;

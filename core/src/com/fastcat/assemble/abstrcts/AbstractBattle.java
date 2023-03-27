@@ -1,37 +1,40 @@
 package com.fastcat.assemble.abstrcts;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.WaktaAssemble;
-import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.utils.FastCatUtils;
 
-public class AbstractBattle {
+import java.util.HashMap;
 
-    public Array<AbstractEntity> chars;
+public abstract class AbstractBattle {
+
+    public AbstractEntity player;
+    public Array<AbstractEnemy> enemies;
     public Array<AbstractDice> dices;
-    public Array<AbstractCard> deck;
 
-    public Queue<AbstractCard> drawPile;
-    public Array<AbstractCard> discardPile;
-    public Array<AbstractCard> exhaustPile;
-    public Array<AbstractCard> hand;
+    public Queue<AbstractDice> drawPile;
+    public Array<AbstractDice> discardPile;
+    public Array<AbstractDice> exhaustPile;
+    public Array<AbstractDice> hand;
+    public int wSize = 8, hSize = 6;
 
     public void prepareDeck() {
-        deck = new Array<>();
+        enemies = new Array<>();
         dices = new Array<>();
-        chars = new Array<>();
         drawPile = new Queue<>();
         exhaustPile = new Array<>();
         discardPile = new Array<>();
         hand = new Array<>();
-        for(AbstractCard c : WaktaAssemble.game.deck) {
-            deck.add(c.clone());
-        }
-        FastCatUtils.staticShuffle(deck, WaktaAssemble.game.publicRandom, AbstractCard.class);
-        for(AbstractCard c : deck) {
+        FastCatUtils.staticShuffle(dices, MouseAdventure.game.publicRandom, AbstractDice.class);
+        for(AbstractDice c : dices) {
             drawPile.addLast(c);
         }
+    }
+
+    public void turnDraw() {
+        turnDraw(1);
     }
 
     public void turnDraw(int amount) {
@@ -46,12 +49,19 @@ public class AbstractBattle {
                     hand.add(drawPile.removeFirst());
                 }
             } else {
-                FastCatUtils.staticShuffle(discardPile, WaktaAssemble.game.battleRandom, AbstractCard.class);
-                for(AbstractCard c : discardPile) {
+                FastCatUtils.staticShuffle(discardPile, MouseAdventure.game.battleRandom, AbstractDice.class);
+                for(AbstractDice c : discardPile) {
                     drawPile.addLast(c);
                 }
                 discardPile.clear();
             }
         }
+    }
+
+    public abstract void setEnemies();
+
+    protected void addEnemy(AbstractEnemy e, int x, int y) {
+        enemies.add(e);
+        e.pos = new Vector2(x, y);
     }
 }

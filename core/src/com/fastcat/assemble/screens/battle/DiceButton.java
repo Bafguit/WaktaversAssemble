@@ -4,7 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstrcts.AbstractDice;
 import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.actions.UseSkillAction;
 import com.fastcat.assemble.dices.basic.NormalDice;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 
 import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.CENTER;
@@ -27,22 +29,26 @@ public class DiceButton extends AbstractUI {
         this.dice = dice;
         this.index = index;
         this.screen = screen;
-        clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
-        trackable = clickEnd ? CENTER : NONE;
+        clickable = screen.phase == BattleScreen.BattlePhase.SKILL;
     }
 
     @Override
     protected void updateButton() {
-        clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
-        trackable = clickEnd ? CENTER : NONE;
+        overable = screen.phase != BattleScreen.BattlePhase.DIRECTION;
+        clickable = screen.phase == BattleScreen.BattlePhase.SKILL && dice.getSkill().canUse();
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled && dice != null) {
-            if (overable && !over) sb.setColor(Color.LIGHT_GRAY);
-            if (showImg) sb.draw(dice.img, x, y, width, height);
+            if (!dice.getSkill().canUse()) sb.setColor(Color.GRAY);
+            if (showImg) sb.draw(dice.getSkill().img, x, y, width, height);
         }
+    }
+
+    @Override
+    protected void onClick() {
+        ActionHandler.bot(new UseSkillAction(dice.getSkill()));
     }
 
     @Override
@@ -75,10 +81,5 @@ public class DiceButton extends AbstractUI {
 
     public void reset() {
         dice.reset();
-        setPosition(60, 920 - 100 * index);
-        if(tile != null) {
-            tile.dice = null;
-            tile = null;
-        }
     }
 }

@@ -5,11 +5,11 @@ import com.fastcat.assemble.abstrcts.AbstractGame;
 
 public class Fraud3 extends AbstractDice {
     public Fraud3() {
-        super("Fraud3", DiceRarity.LEGEND);
+        super("Fraud3", DiceRarity.NORMAL);
     }
 
     @Override
-    protected void rollDice() {
-        number = 3;
+    protected void defineSkill() {
+
     }
 }

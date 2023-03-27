@@ -1,13 +1,13 @@
 package com.fastcat.assemble.abstrcts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WaktaAssemble;
-import com.fastcat.assemble.handlers.SettingHandler;
+import com.fastcat.assemble.MouseAdventure;
 
 public abstract class AbstractAction implements Cloneable {
 
     protected static final float DUR_DEFAULT = 0.5f;
 
+    public AbstractEntity source;
     public Array<AbstractEntity> target = new Array<>();
     public AbstractCard.CardTarget tar = AbstractCard.CardTarget.NONE;
     public boolean isDone = false;
@@ -72,7 +72,7 @@ public abstract class AbstractAction implements Cloneable {
 
     protected void TickDuration() {
         if (duration > 0) {
-            duration -= WaktaAssemble.tick;
+            duration -= MouseAdventure.tick;
         }
     }
 

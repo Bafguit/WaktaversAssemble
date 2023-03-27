@@ -15,16 +15,15 @@ import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.screens.battle.BattleScreen;
-import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import com.google.common.util.concurrent.FutureCallback;
 import lombok.Getter;
 
-public class WaktaAssemble extends ApplicationAdapter {
+public class MouseAdventure extends ApplicationAdapter {
 
 	private static LifeCycle phase;
 
-	public static WaktaAssemble application;
+	public static MouseAdventure application;
 
 	public static OrthographicCamera camera;
 	public static PerspectiveCamera cam;

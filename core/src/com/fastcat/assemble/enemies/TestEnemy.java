@@ -1,15 +1,12 @@
-package com.fastcat.assemble.character;
+package com.fastcat.assemble.enemies;
 
-import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.abstrcts.AbstractEnemy;
 
-public class TestChar extends AbstractEntity {
-    public TestChar() {
-        super("Test", 10, EntityRarity.OPERATOR);
+public class TestEnemy extends AbstractEnemy {
+    public TestEnemy() {
+        super("Test", 10);
         name = "테스트";
         desc = "피해 3";
-        isPlayer = true;
-        baseAttack = 705;
-        baseMaxHealth = 2345;
     }
 
     @Override

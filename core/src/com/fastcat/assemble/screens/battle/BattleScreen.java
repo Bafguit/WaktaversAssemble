@@ -3,17 +3,19 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
+import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractUI;
-import com.fastcat.assemble.cards.basic.TestCard;
 import com.fastcat.assemble.dices.basic.NormalDice;
-import com.fastcat.assemble.dices.legend.Fraud3;
 import com.fastcat.assemble.handlers.InputHandler;
 
-import java.util.Iterator;
+import static com.fastcat.assemble.MouseAdventure.cam;
+import static com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase.SKILL;
 
 public class BattleScreen extends AbstractScreen {
 
@@ -21,17 +23,21 @@ public class BattleScreen extends AbstractScreen {
     public ResizeButton resizeButton;
     public RollDiceButton rollButton;
     public PhaseButton phaseButton;
-    public Array<DiceButton> dice = new Array<>();
-    public Array<CharacterButton> chars = new Array<>();
-    public Array<CardButton> hand = new Array<>();
+    public DiceButton[] dice = new DiceButton[6];
+    public DirectionButton[] dirButton = new DirectionButton[4];
+    public CharacterButton player;
     public AbstractUI tracking;
     public TileSquare overTile;
+    public AbstractSkill.SkillDir curDir = AbstractSkill.SkillDir.UP;
+    public Array<TileSquare> targetTiles = new Array<>();
+    public Array<EnemyButton> enemies = new Array<>();
     public TileSquare[][] tiles;
     public int wSize = 8, hSize = 6;
+    public AbstractSkill dirSkill;
 
     public BattleScreen() {
         super(ScreenType.BASE);
-        WaktaAssemble.game = new AbstractGame();
+        MouseAdventure.game = new AbstractGame();
         phase = BattlePhase.READY;
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
@@ -41,28 +47,27 @@ public class BattleScreen extends AbstractScreen {
         for(int i = 0; i < 6; i++) {
             DiceButton b = new DiceButton(this, new NormalDice(), i);
             b.setPosition(60, 920 - 100 * i);
-            dice.add(b);
+            dice[i] = b;
         }
-        for(int i = 0; i < 6; i++) {
-            CharacterButton b = new CharacterButton(this, i);
-            b.setPosition(710 + 100 * i, 270);
-            chars.add(b);
+        for(int i = 0; i < 4; i++) {
+            dirButton[i] = new DirectionButton(this, AbstractSkill.SkillDir.values()[i], -10000, -10000);
         }
+        player = new CharacterButton(this);
         tiles = new TileSquare[wSize][hSize];
-        for (int i = 0; i < wSize; i++) {
-            for(int j = 0; j < hSize; j++) {
-                TileSquare t = new TileSquare(this);
-                t.setPosition(610 + 100 * i, 890 - 100 * j);
+        for (int j = 0; j < hSize; j++) {
+            for(int i = 0; i < wSize; i++) {
+                TileSquare t = new TileSquare(this, TileSquare.TileStatus.NORMAL, i, j);
+                t.setPosition(610 + 100 * i, 390 + 100 * j);
                 tiles[i][j] = t;
             }
         }
-        float start = 960 - (((float) (hand.size - 1) / 2) * 250);
-        for(int i = 0; i < 5; i++) {
-            CardButton c = new CardButton(this, new TestCard());
-            c.setPosition(start + (250 * i), 50);
-            c.fluid = true;
-            hand.add(c);
-        }
+        EnemyButton e = new EnemyButton(this);
+        setTile(e, 3, 1);
+        TileSquare t = tiles[3][1];
+        e.tile = t;
+        e.entity.pos = new Vector2(t.x, t.y);
+        t.enemy = e;
+        enemies.add(e);
     }
 
     @Override
@@ -70,63 +75,54 @@ public class BattleScreen extends AbstractScreen {
         resizeButton.update();
         rollButton.update();
         phaseButton.update();
-        boolean tr = false;
-        for(int i = 0; i < dice.size; i++) {
-            DiceButton b = dice.get(i);
+
+        for (DiceButton b : dice) {
             b.update();
-            if(b.tracking && !tr) {
-                tracking = b;
-                tr = true;
+        }
+
+        player.update();
+
+        for(EnemyButton e : enemies) {
+            e.update();
+        }
+
+        if(phase == BattlePhase.DIRECTION) {
+            float x = player.mouse.x - player.localX;
+            float y = player.mouse.y - player.localY;
+            double radian = Math.atan2(y, x);
+            int degree = (int) (radian * 180 / Math.PI);
+            if(degree > 45 && degree <= 135) {
+                curDir = AbstractSkill.SkillDir.UP;
+            } else if(degree > 135 || degree < -135) {
+                curDir = AbstractSkill.SkillDir.LEFT;
+            } else if(degree < -45) {
+                curDir = AbstractSkill.SkillDir.DOWN;
+            } else {
+                curDir = AbstractSkill.SkillDir.RIGHT;
             }
         }
 
-        for(int i = 0; i < chars.size; i++) {
-            CharacterButton b = chars.get(i);
+        for(DirectionButton b : dirButton) {
             b.update();
-            if(b.tracking && !tr) {
-                tracking = b;
-                tr = true;
-            }
         }
 
-        if(hand.size > 0) {
-            Iterator<CardButton> itr = hand.iterator();
-            int cnt = 0;
-            float start = 960 - (((float) (hand.size - 1) / 2) * hand.get(0).originWidth);
-            while (itr.hasNext()) {
-                CardButton b = itr.next();
-                b.setPosition(start + (b.originWidth * cnt++), 50);
-                b.update();
-                if (b.tracking && !tr) {
-                    tracking = b;
-                    tr = true;
-                }
-                if (b.isUsed) itr.remove();
-            }
-        }
-
-        if(!tr) tracking = null;
-
-        boolean hasOver = false;
-        for(int i = 0; i < wSize; i++) {
-            for(int j = 0; j < hSize; j++) {
+        updateTileStatus();
+        for(int j = 0; j < hSize; j++) {
+            for(int i = 0; i < wSize; i++) {
                 TileSquare t = tiles[i][j];
                 t.update();
-                if(tracking != null && !hasOver && t.over) hasOver = true;
             }
         }
-
-        if(!hasOver) overTile = null;
     }
 
     @Override
     public void render(float delta) {
-        WaktaAssemble.application.sb.setColor(Color.WHITE);
+        MouseAdventure.application.sb.setColor(Color.WHITE);
         if(background != null) {
-            WaktaAssemble.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            MouseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
-        render(WaktaAssemble.application.sb);
-        effectHandler.render(WaktaAssemble.application.sb);
+        render(MouseAdventure.application.sb);
+        effectHandler.render(MouseAdventure.application.sb);
     }
 
     @Override
@@ -134,30 +130,65 @@ public class BattleScreen extends AbstractScreen {
         resizeButton.render(sb);
         rollButton.render(sb);
         phaseButton.render(sb);
-        for(int i = 0; i < wSize; i++) {
-            for(int j = 0; j < hSize; j++) {
+
+        for(int j = 0; j < hSize; j++) {
+            for(int i = 0; i < wSize; i++) {
                 TileSquare t = tiles[i][j];
                 t.render(sb);
             }
         }
+
+        player.render(sb);
+
+        for(EnemyButton e : enemies) {
+            e.render(sb);
+        }
+
+        for(DirectionButton b : dirButton) {
+            b.render(sb);
+        }
+
+        float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+        cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
+        cam.lookAt(w * 0.5f, h * 0.5f,0);
+        cam.update();
+
         for(DiceButton b : dice) {
-            if(!b.tracking) b.render(sb);
+            b.render(sb);
         }
-        for(CharacterButton b : chars) {
-            if(!b.tracking) b.render(sb);
+    }
+
+    public void updateTileStatus() {
+        for(TileSquare[] t1 : tiles) {
+            for(TileSquare t2 : t1) {
+                t2.status = t2.staticStatus;
+            }
         }
-        for(CardButton b : hand) {
-            if(!b.tracking) b.render(sb);
+        if(phase == BattlePhase.DIRECTION) {
+            dirSkill.setTempRange(curDir);
+            for (int i = dirSkill.tempRange.length - 1; i >= 0; i--) {
+                Vector2 pv = new Vector2(player.pos);
+                pv.add(dirSkill.tempRange[i]);
+                int x = (int) pv.x, y = (int) pv.y;
+                if (x >= 0 && x < wSize && y >= 0 && y < hSize) {
+                    TileSquare tile = tiles[x][y];
+                    tile.status = TileSquare.TileStatus.TARGET;
+                    targetTiles.add(tile);
+                }
+            }
         }
-        //FontHandler.renderCenter(sb, FontHandler.LOGO, "WAKTAVERSE ASSEMBLE", 0, 980 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
-        if(tracking != null) tracking.render(sb);
+    }
+
+    public void setTile(AbstractUI ui, int x, int y) {
+        ui.pos.set(x, y);
+        ui.setPosition(610 + 100 * x, 390 + 100 * y);
     }
 
     public void rollDice() {
         for(DiceButton b : dice) {
             b.dice.roll();
         }
-        phase = BattlePhase.CARD;
+        phase = BattlePhase.SKILL;
     }
 
     public void resetDice() {
@@ -167,16 +198,15 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void resetChar() {
-        for(CharacterButton b : chars) {
-            b.reset();
-        }
+        player.reset();
     }
 
     public enum BattlePhase {
         READY,
         DEPLOY,
-        DICE,
-        CARD,
+        DRAW,
+        SKILL,
+        DIRECTION,
         END_TURN,
         TURN_CHANGE,
         ENEMY,

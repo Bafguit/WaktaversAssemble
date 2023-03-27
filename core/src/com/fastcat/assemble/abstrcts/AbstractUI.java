@@ -8,12 +8,10 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.fastcat.assemble.WaktaAssemble;
+import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
@@ -24,18 +22,22 @@ import static com.fastcat.assemble.handlers.InputHandler.*;
 
 public abstract class AbstractUI implements Disposable {
 
-    protected final Array<SubText> subs = new Array<>();
-    public Array<SubText> subTexts;
+    protected SubText subs;
+    public SubText subTexts;
     public AbstractUI parent;
     public SubText.SubWay subWay = SubText.SubWay.UP;
     public BasisType basis = BasisType.CENTER;
     public Sprite img;
+    public Vector2 pos = new Vector2();
     public float x;
     public float y;
+    public float z;
     public float originX;
     public float originY;
+    public float originZ;
     public float localX;
     public float localY;
+    public float localZ;
     protected float cursorX;
     protected float cursorY;
     public float width;
@@ -46,8 +48,10 @@ public abstract class AbstractUI implements Disposable {
     public float originHeight;
     private float fromX;
     private float fromY;
+    private float fromZ;
     private float toX;
     private float toY;
+    private float toZ;
     private float distCount;
     public boolean over;
     public boolean fluid = false;
@@ -61,7 +65,7 @@ public abstract class AbstractUI implements Disposable {
     public boolean is3D = true;
     private boolean hasClick = false;
 
-    private Vector2 mouse;
+    public Vector2 mouse;
 
     public float uiScale;
     public boolean clicked;
@@ -125,7 +129,7 @@ public abstract class AbstractUI implements Disposable {
             }
         }
 
-        if (enabled && !WaktaAssemble.fading) {
+        if (enabled && !MouseAdventure.fading) {
 
             if (over && isPixmap) {
                 Color c = getSpritePixColor();
@@ -157,50 +161,44 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void render(SpriteBatch sb) {
-        Matrix4 mat = sb.getProjectionMatrix();
-        if(is3D && mat != WaktaAssemble.cam.combined) sb.setProjectionMatrix(WaktaAssemble.cam.combined);
-        else if(!is3D && mat != WaktaAssemble.camera.combined) sb.setProjectionMatrix(WaktaAssemble.camera.combined);
+        if(is3D) sb.setProjectionMatrix(MouseAdventure.cam.combined);
+        else sb.setProjectionMatrix(MouseAdventure.camera.combined);
         sb.setColor(WHITE);
         renderUi(sb);
+        renderSub(sb);
     }
 
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            if (overable && !over) sb.setColor(Color.LIGHT_GRAY);
-            if (showImg) sb.draw(img, x, y, width, height);
+            if (overable && !over) img.setColor(Color.LIGHT_GRAY);
+            if (showImg) {
+                sb.draw(img, x, y, width, height);
+            }
         }
     }
 
     public final void renderSub(SpriteBatch sb) {
         if (subTexts != null) {
-            if (subTexts.size > 0) {
-                sb.setColor(WHITE);
-                float sc, subP;
-                if (subWay == SubText.SubWay.DOWN) {
-                    sc = -10 * scaleA;
-                    subP = y + sc;
-                    for (SubText s : subTexts) {
-                        subP = s.render(sb, x + width / 2, subP, subWay).y + sc;
-                    }
-                } else if (subWay == SubText.SubWay.UP) {
-                    sc = 10 * scaleA;
-                    subP = y + originHeight + sc;
-                    for (SubText s : subTexts) {
-                        subP = s.render(sb, x + width / 2, subP, subWay).y + sc;
-                    }
-                } else if (subWay == SubText.SubWay.LEFT) {
-                    sc = -10 * scaleA;
-                    subP = x + sc;
-                    for (SubText s : subTexts) {
-                        subP = s.render(sb, subP, y + width, subWay).x + sc;
-                    }
-                }
+            img.setColor(WHITE);
+            float sc, subP;
+            if (subWay == SubText.SubWay.DOWN) {
+                sc = -10 * scaleA;
+                subP = y + sc;
+                subTexts.render(sb, x + width / 2, subP, subWay);
+            } else if (subWay == SubText.SubWay.UP) {
+                sc = 10 * scaleA;
+                subP = y + height + sc;
+                subTexts.render(sb, x + width / 2, subP, subWay);
+            } else if (subWay == SubText.SubWay.LEFT) {
+                sc = -10 * scaleA;
+                subP = x + sc;
+                subTexts.render(sb, x + width / 2, subP, subWay);
             }
         }
     }
 
     private void fluidPosition() {
-        distCount += WaktaAssemble.tick * 10;
+        distCount += MouseAdventure.tick * 10;
         if(distCount > 1) {
             distCount = 1;
             fluiding = false;
@@ -250,7 +248,7 @@ public abstract class AbstractUI implements Disposable {
         setLocalPosition();
     }
 
-    protected Array<SubText> getSubText() {
+    protected SubText getSubText() {
         return subs;
     }
 
@@ -404,45 +402,40 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public static class SubText {
-        private final GlyphLayout nameLayout;
         private final GlyphLayout descLayout;
         private final TempUI top;
         private final TempUI mid;
         private final TempUI bot;
-        private final FontData nameFont;
         private final FontData descFont;
         public TempUI icon;
-        public String name;
         public String desc;
         public int line;
         public float ww, hh, mh;
 
-        public SubText(String name, String desc) {
-            this.name = name;
+        public SubText(String desc) {
             this.desc = desc;
-            top = new TempUI(FileHandler.ui.get("TEMP"));
-            mid = new TempUI(FileHandler.ui.get("TEMP"));
-            bot = new TempUI(FileHandler.ui.get("TEMP"));
-            nameLayout = new GlyphLayout();
+            top = new TempUI(FileHandler.ui.get("SUB_TOP"));
+            mid = new TempUI(FileHandler.ui.get("SUB_MID"));
+            bot = new TempUI(FileHandler.ui.get("SUB_BOT"));
             descLayout = new GlyphLayout();
-            nameFont = SUB_NAME;
             descFont = SUB_DESC;
-            nameFont.font.getData().setScale(nameFont.scale);
-            descFont.font.getData().setScale(descFont.scale);
-            nameLayout.setText(nameFont.font, name, nameFont.color, mid.originWidth * 0.94f, Align.left, false);
-            descLayout.setText(descFont.font, desc, descFont.color, mid.originWidth * 0.94f, Align.bottomLeft, true);
-            line = descLayout.runs.size;
-            ww = mid.width;
-            hh = bot.height;
-            mh = mid.height * 0.35f + descLayout.height;
         }
 
-        public SubText(Sprite icon, String name, String desc) {
-            this(name, desc);
+        public SubText(Sprite icon, String desc) {
+            this(desc);
             this.icon = new TempUI(icon);
         }
 
         public Vector2 render(SpriteBatch sb, float x, float y, SubWay way) {
+            mid.update();
+            top.update();
+            bot.update();
+            descFont.font.getData().setScale(scaleA);
+            descLayout.setText(descFont.font, desc, descFont.color, mid.width * 0.94f, Align.bottomLeft, true);
+            line = descLayout.runs.size;
+            ww = mid.width;
+            hh = bot.height;
+            mh = mid.height * 0.35f + descLayout.height;
             float xx = 0, yy = 0;
             if (way == SubWay.UP) {
                 xx = x - ww * 0.5f;
@@ -451,38 +444,35 @@ public abstract class AbstractUI implements Disposable {
                 sb.draw(mid.img, xx, y + (yy += hh), ww, mh);
                 sb.draw(top.img, xx, y + (yy += mh), ww, hh);
                 yy += hh;
-                float ny = y + yy - ww * 0.03f, dy = ny - nameLayout.height * 1.5f;
-                nameFont.draw(sb, nameLayout, nameFont.alpha, x - ww * 0.47f, ny);
-                descFont.draw(sb, descLayout, descFont.alpha, x - ww * 0.47f, dy);
+                float dy = y + mid.height + mh * 0.9f;
+                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, x - descLayout.width * 0.5f, dy);
             } else if (way == SubWay.DOWN) {
                 xx = x - ww * 0.5f;
                 yy = 0;
                 sb.draw(top.img, xx, y + (yy -= hh), ww, hh);
                 sb.draw(mid.img, xx, y + (yy -= mh), ww, mh);
                 sb.draw(bot.img, xx, y + (yy -= hh), ww, hh);
-                float ny = y - ww * 0.03f, dy = ny - nameLayout.height * 1.5f;
-                nameFont.draw(sb, nameLayout, nameFont.alpha, x - ww * 0.47f, ny);
-                descFont.draw(sb, descLayout, descFont.alpha, x - ww * 0.47f, dy);
+                float dy = y - ww * 0.03f;
+                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, x - ww * 0.47f, dy);
             } else if (way == SubWay.LEFT) {
                 xx = x - ww;
                 yy = 0;
                 sb.draw(top.img, xx, y + (yy -= hh), ww, hh);
                 sb.draw(mid.img, xx, y + (yy -= mh), ww, mh);
                 sb.draw(bot.img, xx, y + (yy -= hh), ww, hh);
-                float ny = y - ww * 0.03f, dy = ny - nameLayout.height * 1.5f;
-                nameFont.draw(sb, nameLayout, nameFont.alpha, xx + ww * 0.03f, ny);
-                descFont.draw(sb, descLayout, descFont.alpha, xx + ww * 0.03f, dy);
+                float dy = y - ww * 0.03f;
+                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, xx + ww * 0.03f, dy);
             } else if (way == SubWay.RIGHT) {
                 xx = x;
                 yy = 0;
                 sb.draw(top.img, xx, y + (yy -= hh), ww, hh);
                 sb.draw(mid.img, xx, y + (yy -= mh), ww, mh);
                 sb.draw(bot.img, xx, y + (yy -= hh), ww, hh);
-                float ny = y - ww * 0.03f, dy = ny - nameLayout.height * 1.5f;
-                nameFont.draw(sb, nameLayout, nameFont.alpha, xx + ww * 0.03f, ny);
-                descFont.draw(sb, descLayout, descFont.alpha, xx + ww * 0.03f, dy);
+                float dy = y - ww * 0.03f;
+                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, xx + ww * 0.03f, dy);
                 xx += ww;
             }
+            descFont.font.getData().setScale(descFont.scale);
             return new Vector2(xx, y + yy);
         }
 

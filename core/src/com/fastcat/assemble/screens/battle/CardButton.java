@@ -2,11 +2,9 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.fastcat.assemble.WaktaAssemble;
-import com.fastcat.assemble.abstrcts.AbstractCard;
+import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.abstrcts.AbstractDice;
 import com.fastcat.assemble.abstrcts.AbstractUI;
-import com.fastcat.assemble.actions.UseCardAction;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
@@ -17,16 +15,16 @@ import static com.fastcat.assemble.handlers.InputHandler.*;
 public class CardButton extends AbstractUI {
 
     public BattleScreen screen;
-    public AbstractCard card;
+    public AbstractDice card;
     public boolean isUsed = false;
     private float itp, acc, tar;
 
-    public CardButton(BattleScreen screen, AbstractCard card) {
+    public CardButton(BattleScreen screen, AbstractDice card) {
         super(FileHandler.card.get("Test"));
         this.screen = screen;
         this.card = card;
         basis = BasisType.CENTER;
-        clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
+        clickEnd = screen.phase == BattleScreen.BattlePhase.SKILL;
         trackable = clickEnd ? CENTER : NONE;
         setScale(0.8f);
         itp = 0;
@@ -37,8 +35,8 @@ public class CardButton extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        overable = !isUsed && (screen.tracking == this || screen.tracking == null);
-        clickEnd = screen.phase == BattleScreen.BattlePhase.CARD;
+        overable = !isUsed;
+        clickEnd = screen.phase == BattleScreen.BattlePhase.SKILL;
         trackable = clickEnd ? CENTER : NONE;
         tar = height * 0.35f;
         //tracking = tracking || isUsed;
@@ -49,7 +47,7 @@ public class CardButton extends AbstractUI {
             if(!isUsed && !tracking) {
                 if(over) {
                     if(itp < 1) {
-                        itp += WaktaAssemble.tick * 10;
+                        itp += MouseAdventure.tick * 10;
                         if(itp >= 1) {
                             itp = 1;
                         }
@@ -57,7 +55,7 @@ public class CardButton extends AbstractUI {
                     }
                 } else {
                     if(itp > 0) {
-                        itp -= WaktaAssemble.tick * 10;
+                        itp -= MouseAdventure.tick * 10;
                         if(itp <= 0) {
                             itp = 0;
                         }
@@ -76,7 +74,7 @@ public class CardButton extends AbstractUI {
     @Override
     protected void onClickEnd() {
         if(card.canUse() && localY > (300 * scaleY)) {
-            ActionHandler.bot(new UseCardAction(this));
+            //ActionHandler.bot(new UseSkillAction(this));
             isUsed = true;
         } else {
             itp = 1;
