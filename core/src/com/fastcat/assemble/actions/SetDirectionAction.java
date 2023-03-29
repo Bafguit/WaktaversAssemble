@@ -6,7 +6,7 @@ import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractSkill.SkillTarget;
 import com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase;
 
-import static com.fastcat.assemble.MouseAdventure.battleScreen;
+import static com.fastcat.assemble.MousseAdventure.battleScreen;
 
 public class SetDirectionAction extends AbstractAction {
 

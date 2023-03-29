@@ -7,10 +7,8 @@ import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
-import com.fastcat.assemble.abstrcts.AbstractCard;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -29,14 +27,16 @@ public final class FontHandler implements Disposable {
     public static final FontData LOGO = new FontData(100, false);
     public static final FontData TURN_CHANGE = new FontData(60, false);
     public static final FontData ROLL = new FontData(40, false);
-    public static final FontData SUB_NAME = new FontData(30, false);
-    public static final FontData SUB_DESC = new FontData(26, false);
+    public static final FontData NB30 = new FontData(30, false);
+    public static final FontData NB26 = new FontData(26, false);
+    public static final FontData SUB_NAME = new FontData(24, false);
+    public static final FontData SUB_DESC = new FontData(21, false);
 
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();
 
     //Pattern
-    private static final Pattern COLOR_PATTERN = Pattern.compile("&([a-z])<([^>]*)>");
+    public static final Pattern COLOR_PATTERN = Pattern.compile("&([a-z])<([^>]*)>");
     private static final Pattern VAR_PATTERN = Pattern.compile("\\{([A-Z])\\}");
 
     /***
@@ -160,6 +160,14 @@ public final class FontHandler implements Disposable {
         renderCardCenter(sb, card, fontData, text, vector.x, vector.y, bw);
     }
 */
+
+    public static void renderSubText(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw, boolean wrap) {
+        BitmapFont font = fontData.font;
+        font.getData().setScale(fontData.scale * InputHandler.scaleA);
+        layout.setText(font, text, fontData.color, bw, Align.bottomLeft, wrap);
+        fontData.draw(sb, layout, fontData.alpha, x, y);
+    }
+
     public static void renderColorLeft(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
         Matcher matcher = COLOR_PATTERN.matcher(text);
@@ -169,7 +177,7 @@ public final class FontHandler implements Disposable {
             text = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(fontData.color));
             matcher = COLOR_PATTERN.matcher(text);
         }
-        font.getData().setScale(fontData.scale);
+        font.getData().setScale(fontData.scale * InputHandler.scaleA);
         layout.setText(font, text, fontData.color, bw * scaleX, Align.topLeft, true);
         fontData.draw(sb, layout, fontData.alpha, x * scaleX, y * scaleY);
     }
@@ -183,7 +191,7 @@ public final class FontHandler implements Disposable {
             text = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(fontData.color));
             matcher = COLOR_PATTERN.matcher(text);
         }
-        font.getData().setScale(fontData.scale);
+        font.getData().setScale(fontData.scale * InputHandler.scaleA);
         layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
         float ry = y * scaleY + (layout.height) * 0.54f;
         fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
@@ -260,7 +268,7 @@ public final class FontHandler implements Disposable {
         return "[" + String.format("#%06X", (0xFFFFFF & rgb888(color))) + "]";
     }
 
-    private static String getColorKey(String key) {
+    public static String getColorKey(String key) {
         switch (key) {
             case "b":
                 return getHexColor(CYAN);
@@ -285,8 +293,8 @@ public final class FontHandler implements Disposable {
         TURN_CHANGE.dispose();
         LOGO.dispose();
         ROLL.dispose();
-        SUB_DESC.dispose();
-        SUB_NAME.dispose();
+        NB26.dispose();
+        NB30.dispose();
     }
 
     public static class FontData implements Disposable {
@@ -300,19 +308,19 @@ public final class FontHandler implements Disposable {
         public boolean border;
 
         public FontData(int size, Color color, boolean shadow, boolean border) {
-            this(size, shadow, border, color, new Color(0.2f, 0.175f, 0.125f, 1));
+            this(size, shadow, border, color, new Color(0.2f, 0.2f, 0.2f, 1));
         }
 
         public FontData(int size, boolean border) {
-            this(size, true, border, new Color(1f, 0.975f, 0.925f, 1), new Color(0.2f, 0.175f, 0.125f, 1));
+            this(size, true, border, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1));
         }
 
         public FontData(int size, boolean shadow, boolean border) {
-            this(size, shadow, border, new Color(1f, 0.975f, 0.925f, 1), new Color(0.2f, 0.175f, 0.125f, 1));
+            this(size, shadow, border, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1));
         }
 
         public FontData(int size, Color color) {
-            this(size, true, false, color, new Color(0.2f, 0.175f, 0.125f, 1));
+            this(size, true, false, color, new Color(0.2f, 0.2f, 0.2f, 1));
         }
 
         public FontData(int size, boolean shadow, boolean border, Color color, Color bColor) {

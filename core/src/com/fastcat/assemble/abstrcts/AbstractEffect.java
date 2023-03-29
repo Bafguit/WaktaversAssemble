@@ -2,9 +2,12 @@ package com.fastcat.assemble.abstrcts;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.handlers.FileHandler;
 
 public abstract class AbstractEffect implements Disposable {
+
+    protected final AbstractUI ui = new AbstractUI.TempUI(FileHandler.dice.get("Dice"));
 
     public float baseDuration;
     public float duration;
@@ -12,8 +15,7 @@ public abstract class AbstractEffect implements Disposable {
     public boolean isDone;
 
     public AbstractEffect(float x, float y, float duration) {
-        this.x = x;
-        this.y = y;
+        ui.setPosition(x, y);
         this.duration = duration;
         //this.duration = SettingHandler.setting.fastMode ? duration * 0.5f : duration;
         this.baseDuration = this.duration;
@@ -34,7 +36,7 @@ public abstract class AbstractEffect implements Disposable {
 
     protected void TickDuration() {
         if (duration > 0) {
-            duration -= MouseAdventure.tick;
+            duration -= MousseAdventure.tick;
         }
     }
 

@@ -11,10 +11,12 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
+
+import java.util.regex.Matcher;
 
 import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.fastcat.assemble.handlers.FontHandler.*;
@@ -129,7 +131,7 @@ public abstract class AbstractUI implements Disposable {
             }
         }
 
-        if (enabled && !MouseAdventure.fading) {
+        if (enabled && !MousseAdventure.fading) {
 
             if (over && isPixmap) {
                 Color c = getSpritePixColor();
@@ -161,11 +163,11 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void render(SpriteBatch sb) {
-        if(is3D) sb.setProjectionMatrix(MouseAdventure.cam.combined);
-        else sb.setProjectionMatrix(MouseAdventure.camera.combined);
+        if(is3D) sb.setProjectionMatrix(MousseAdventure.cam.combined);
+        else sb.setProjectionMatrix(MousseAdventure.camera.combined);
         sb.setColor(WHITE);
         renderUi(sb);
-        renderSub(sb);
+        //renderSub(sb);
     }
 
     protected void renderUi(SpriteBatch sb) {
@@ -198,7 +200,7 @@ public abstract class AbstractUI implements Disposable {
     }
 
     private void fluidPosition() {
-        distCount += MouseAdventure.tick * 10;
+        distCount += MousseAdventure.tick * 10;
         if(distCount > 1) {
             distCount = 1;
             fluiding = false;
@@ -402,77 +404,61 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public static class SubText {
+        private final GlyphLayout nameLayout;
         private final GlyphLayout descLayout;
         private final TempUI top;
         private final TempUI mid;
         private final TempUI bot;
+        private final FontData nameFont;
         private final FontData descFont;
         public TempUI icon;
+        public String name;
         public String desc;
         public int line;
         public float ww, hh, mh;
 
-        public SubText(String desc) {
+        public SubText(String name, String desc) {
+            this.name = name;
             this.desc = desc;
             top = new TempUI(FileHandler.ui.get("SUB_TOP"));
             mid = new TempUI(FileHandler.ui.get("SUB_MID"));
             bot = new TempUI(FileHandler.ui.get("SUB_BOT"));
+            nameLayout = new GlyphLayout();
             descLayout = new GlyphLayout();
+            nameFont = SUB_NAME;
             descFont = SUB_DESC;
-        }
-
-        public SubText(Sprite icon, String desc) {
-            this(desc);
-            this.icon = new TempUI(icon);
         }
 
         public Vector2 render(SpriteBatch sb, float x, float y, SubWay way) {
             mid.update();
             top.update();
             bot.update();
-            descFont.font.getData().setScale(scaleA);
-            descLayout.setText(descFont.font, desc, descFont.color, mid.width * 0.94f, Align.bottomLeft, true);
+            String n = getColorKey("y") + name, d = desc;
+            Matcher matcher = COLOR_PATTERN.matcher(d);
+            while (matcher.find()) {
+                String mt = matcher.group(1);
+                String mmt = matcher.group(2);
+                d = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(nameFont.color));
+                matcher = COLOR_PATTERN.matcher(d);
+            }
+            nameFont.font.getData().setScale(nameFont.scale * scaleA);
+            descFont.font.getData().setScale(descFont.scale * scaleA);
+            nameLayout.setText(nameFont.font, n, nameFont.color, mid.width * 0.92f, Align.bottomLeft, true);
+            descLayout.setText(descFont.font, d, descFont.color, mid.width * 0.92f, Align.bottomLeft, true);
+            nameFont.font.getData().setScale(nameFont.scale);
+            descFont.font.getData().setScale(descFont.scale);
             line = descLayout.runs.size;
             ww = mid.width;
             hh = bot.height;
-            mh = mid.height * 0.35f + descLayout.height;
-            float xx = 0, yy = 0;
-            if (way == SubWay.UP) {
-                xx = x - ww * 0.5f;
-                yy = 0;
-                sb.draw(bot.img, xx, y, ww, hh);
-                sb.draw(mid.img, xx, y + (yy += hh), ww, mh);
-                sb.draw(top.img, xx, y + (yy += mh), ww, hh);
-                yy += hh;
-                float dy = y + mid.height + mh * 0.9f;
-                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, x - descLayout.width * 0.5f, dy);
-            } else if (way == SubWay.DOWN) {
-                xx = x - ww * 0.5f;
-                yy = 0;
-                sb.draw(top.img, xx, y + (yy -= hh), ww, hh);
-                sb.draw(mid.img, xx, y + (yy -= mh), ww, mh);
-                sb.draw(bot.img, xx, y + (yy -= hh), ww, hh);
-                float dy = y - ww * 0.03f;
-                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, x - ww * 0.47f, dy);
-            } else if (way == SubWay.LEFT) {
-                xx = x - ww;
-                yy = 0;
-                sb.draw(top.img, xx, y + (yy -= hh), ww, hh);
-                sb.draw(mid.img, xx, y + (yy -= mh), ww, mh);
-                sb.draw(bot.img, xx, y + (yy -= hh), ww, hh);
-                float dy = y - ww * 0.03f;
-                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, xx + ww * 0.03f, dy);
-            } else if (way == SubWay.RIGHT) {
-                xx = x;
-                yy = 0;
-                sb.draw(top.img, xx, y + (yy -= hh), ww, hh);
-                sb.draw(mid.img, xx, y + (yy -= mh), ww, mh);
-                sb.draw(bot.img, xx, y + (yy -= hh), ww, hh);
-                float dy = y - ww * 0.03f;
-                descFont.draw(MouseAdventure.application.sb, descLayout, descFont.alpha, xx + ww * 0.03f, dy);
-                xx += ww;
-            }
-            descFont.font.getData().setScale(descFont.scale);
+            mh = mid.height * 0.4f + descLayout.height + nameLayout.height * 1.5f;
+            float xx = x - ww * 0.5f, yy = 0;
+            sb.draw(bot.img, xx, y, ww, hh);
+            sb.draw(mid.img, xx, y + (yy += hh), ww, mh);
+            sb.draw(top.img, xx, y + (yy += mh), ww, hh);
+            yy += hh;
+            float ny = y + mid.height + mh, dy = y + mid.height + (mh - nameLayout.height * 1.5f);
+            renderSubText(sb, nameFont, n, xx + ww * 0.04f, ny, mid.width * 0.92f, false);
+            renderSubText(sb, descFont, d, xx + ww * 0.04f, dy, mid.width * 0.92f, true);
             return new Vector2(xx, y + yy);
         }
 

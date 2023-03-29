@@ -1,16 +1,13 @@
 package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.MouseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractSkill.SkillTarget;
 import com.fastcat.assemble.handlers.InputHandler;
-import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase;
 
-import static com.fastcat.assemble.MouseAdventure.battleScreen;
+import static com.fastcat.assemble.MousseAdventure.battleScreen;
 
 public class UseSkillAction extends AbstractAction {
 
@@ -27,6 +24,10 @@ public class UseSkillAction extends AbstractAction {
             if(skill.target == SkillTarget.AMOUNT || skill.target == SkillTarget.ALL) {
                 battleScreen.phase = BattlePhase.DIRECTION;
                 battleScreen.dirSkill = skill;
+            } else {
+                skill.beforeUse();
+                skill.use();
+                isDone = true;
             }
         }
 

@@ -1,7 +1,7 @@
 package com.fastcat.assemble.screens.mainmenu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
@@ -18,7 +18,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     protected void render(SpriteBatch sb) {
-        FontHandler.renderCenter(MouseAdventure.application.sb, FontHandler.LOGO, "WAKTAVERSE ASSEMBLE", 0,
+        FontHandler.renderCenter(MousseAdventure.application.sb, FontHandler.LOGO, "WAKTAVERSE ASSEMBLE", 0,
                 800 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
     }
 }

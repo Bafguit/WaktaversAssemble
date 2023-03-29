@@ -39,7 +39,7 @@ public class TileSquare extends AbstractUI {
         screen.player.tile = this;
         character = screen.player;
         character.pos = new Vector2(pos);
-        character.character.pos = new Vector2(x, y);
+        character.character.pos = new Vector2(originX, originY);
         screen.phase = DRAW;
     }
 

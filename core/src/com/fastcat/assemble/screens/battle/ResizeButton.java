@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -50,6 +50,6 @@ public class ResizeButton extends AbstractUI {
         hh = resolution.get(ww);
 
         Gdx.graphics.setWindowedMode(ww, hh);
-        MouseAdventure.camera.setToOrtho(false, ww, hh);
+        MousseAdventure.camera.setToOrtho(false, ww, hh);
     }
 }

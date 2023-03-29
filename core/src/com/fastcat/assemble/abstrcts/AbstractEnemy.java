@@ -4,8 +4,8 @@ public class AbstractEnemy extends AbstractEntity{
 
     public AbstractDice dice;
 
-    public AbstractEnemy(String id, int health) {
-        super(id, health, EntityRarity.NORMAL);
+    public AbstractEnemy(String id, int attack, int health, int def, int res) {
+        super(id, attack, health, def, res, EntityRarity.NORMAL);
     }
 
     @Override

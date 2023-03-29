@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.useVsync(true);
 		config.setResizable(false);
 		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 20);
-		config.setTitle("WaktaverseAssemble");
-		new Lwjgl3Application(new MouseAdventure(), config);
+		config.setTitle("Mousse's Adventure");
+		new Lwjgl3Application(new MousseAdventure(), config);
 	}
 }

@@ -10,7 +10,7 @@ public class SkillString {
     private final HashMap<String, SkillData> data = new HashMap<>();
 
     public SkillString() {
-        generateString(FileHandler.jsonMap.get(FileHandler.JsonType.CHAR));
+        generateString(FileHandler.jsonMap.get(FileHandler.JsonType.SKILL));
     }
 
     private void generateString(JsonValue json) {
@@ -19,14 +19,7 @@ public class SkillString {
             if (!id.equals("")) {
                 SkillData data = new SkillData();
                 data.NAME = js.get("NAME").asString();
-                JsonValue temp = js.get("DESC");
-                if (temp != null) {
-                    data.DESC = temp.asString();
-                }
-                temp = js.get("KEY");
-                if (temp != null) {
-                    data.KEY = temp.asStringArray();
-                }
+                data.DESC = js.get("DESC").asString();
                 this.data.put(id, data);
             }
         }
@@ -39,6 +32,5 @@ public class SkillString {
     public static class SkillData {
         public String NAME;
         public String DESC = "";
-        public String[] KEY;
     }
 }

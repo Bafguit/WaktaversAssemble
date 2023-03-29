@@ -2,15 +2,14 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractDice;
+import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.actions.UseSkillAction;
-import com.fastcat.assemble.dices.basic.NormalDice;
+import com.fastcat.assemble.dices.basic.Mousse;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
-
-import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.CENTER;
-import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.NONE;
 
 public class DiceButton extends AbstractUI {
 
@@ -20,12 +19,13 @@ public class DiceButton extends AbstractUI {
     public int index;
 
     public DiceButton(BattleScreen screen, int index) {
-        this(screen, new NormalDice(), index);
+        this(screen, new Mousse(), index);
     }
 
     public DiceButton(BattleScreen screen, AbstractDice dice, int index) {
         super(FileHandler.dice.get("Dice"));
         pix();
+        is3D = false;
         this.dice = dice;
         this.index = index;
         this.screen = screen;
@@ -35,14 +35,24 @@ public class DiceButton extends AbstractUI {
     @Override
     protected void updateButton() {
         overable = screen.phase != BattleScreen.BattlePhase.DIRECTION;
-        clickable = screen.phase == BattleScreen.BattlePhase.SKILL && dice.getSkill().canUse();
+        clickable = screen.phase == BattleScreen.BattlePhase.SKILL && dice.canUse();
+        if(overable && over) {
+            MousseAdventure.subText = this;
+        }
+    }
+
+    @Override
+    protected SubText getSubText() {
+        AbstractSkill s = null;
+        if(dice.getNumber() >= 0) s = dice.getSkill();
+        return s != null ? new SubText(s.name, s.desc) : subs;
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled && dice != null) {
-            if (!dice.getSkill().canUse()) sb.setColor(Color.GRAY);
-            if (showImg) sb.draw(dice.getSkill().img, x, y, width, height);
+            if (!dice.canUse()) sb.setColor(Color.GRAY);
+            sb.draw(dice.getNumber() < 0 ? dice.img : dice.getSkill().img, x, y, width, height);
         }
     }
 
@@ -64,14 +74,14 @@ public class DiceButton extends AbstractUI {
             } else if(tile != null) {
                 setPosition(tile.originX, tile.originY);
             } else {
-                setPosition(60, 920 - 100 * index);
+                setPosition(460 + 200 * index, 150);
                 if(tile != null) {
                     tile.dice = null;
                     tile = null;
                 }
             }
         } else {
-            setPosition(60, 920 - 100 * index);
+            setPosition(460 + 200 * index, 150);
             if(tile != null) {
                 tile.dice = null;
                 tile = null;

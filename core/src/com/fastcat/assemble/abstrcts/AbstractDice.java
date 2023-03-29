@@ -1,7 +1,7 @@
 package com.fastcat.assemble.abstrcts;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.fastcat.assemble.MouseAdventure;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
 
 public abstract class AbstractDice {
@@ -11,21 +11,21 @@ public abstract class AbstractDice {
     public String desc;
     public DiceRarity rarity;
     public int counter = -1;
+    public Sprite img;
 
-    protected TextureAtlas atlas;
-    protected AbstractSkill[] skills = new AbstractSkill[7];
-    protected int number = 0;
+    protected AbstractSkill[] skills = new AbstractSkill[6];
+    protected int number = -1;
 
     public AbstractDice(String id, DiceRarity rarity) {
         this.id = id;
         this.rarity = rarity;
-        atlas = FileHandler.diceAtlas.get(id);
+        img = FileHandler.dice.get(id);
         defineSkill();
         reset();
     }
 
     public void roll() {
-        number = MouseAdventure.game.diceRandom.random(1, 6);
+        number = MousseAdventure.game.diceRandom.random(0, 5);
     }
 
     public final void use() {
@@ -37,7 +37,7 @@ public abstract class AbstractDice {
     }
 
     public boolean canUse() {
-        return true;
+        return number >= 0 && getSkill().canUse();
     }
 
     public void beforeRoll() {}
@@ -53,7 +53,7 @@ public abstract class AbstractDice {
     }
 
     public void reset() {
-        number = 0;
+        number = -1;
         for(AbstractSkill s : skills) {
             s.resetAttribute();
         }

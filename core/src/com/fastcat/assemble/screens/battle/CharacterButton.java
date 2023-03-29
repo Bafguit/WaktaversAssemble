@@ -1,9 +1,8 @@
 package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -17,7 +16,7 @@ public class CharacterButton extends AbstractUI {
     public TileSquare tile;
 
     public CharacterButton(BattleScreen screen) {
-        this(screen, MouseAdventure.game.player);
+        this(screen, MousseAdventure.game.player);
     }
 
     public CharacterButton(BattleScreen screen, AbstractEntity dice) {
@@ -26,7 +25,7 @@ public class CharacterButton extends AbstractUI {
         this.character = dice;
         this.screen = screen;
         clickable = false;
-        sub.add(new SubText(dice.desc));
+        sub.add(new SubText(dice.name, dice.desc));
         setPosition(-10000, -10000);
     }
 
@@ -46,6 +45,7 @@ public class CharacterButton extends AbstractUI {
     }
 
     public void reset() {
+        character.resetAttributes();
         setPosition(-10000, -10000);
         pos.set(-100, -100);
         if(tile != null) {

@@ -3,13 +3,13 @@
     "NAME": "주사위",
     "DESC": "아주 평범한 주사위입니다."
   },
-  "Tetra": {
-    "NAME": "정사면체",
-    "DESC": "1-4 만 나옵니다."
+  "Mousse": {
+    "NAME": "무스",
+    "DESC": "짱귀요움"
   },
-  "Coin": {
-    "NAME": "동전",
-    "DESC": "1-2 만 나옵니다."
+  "LaPluma": {
+    "NAME": "라 플루마",
+    "DESC": "솜털이"
   },
   "BigDice": {
     "NAME": "큰 주사위",

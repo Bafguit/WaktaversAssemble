@@ -1,7 +1,7 @@
 package com.fastcat.assemble.abstrcts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 
 public abstract class AbstractAction implements Cloneable {
 
@@ -72,7 +72,7 @@ public abstract class AbstractAction implements Cloneable {
 
     protected void TickDuration() {
         if (duration > 0) {
-            duration -= MouseAdventure.tick;
+            duration -= MousseAdventure.tick;
         }
     }
 

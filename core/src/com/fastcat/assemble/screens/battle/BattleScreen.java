@@ -3,19 +3,17 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractUI;
-import com.fastcat.assemble.dices.basic.NormalDice;
+import com.fastcat.assemble.dices.basic.Mousse;
 import com.fastcat.assemble.handlers.InputHandler;
 
-import static com.fastcat.assemble.MouseAdventure.cam;
-import static com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase.SKILL;
+import static com.fastcat.assemble.MousseAdventure.cam;
 
 public class BattleScreen extends AbstractScreen {
 
@@ -37,7 +35,7 @@ public class BattleScreen extends AbstractScreen {
 
     public BattleScreen() {
         super(ScreenType.BASE);
-        MouseAdventure.game = new AbstractGame();
+        MousseAdventure.game = new AbstractGame();
         phase = BattlePhase.READY;
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
@@ -45,8 +43,8 @@ public class BattleScreen extends AbstractScreen {
         phaseButton = new PhaseButton(this);
         phaseButton.setPosition(320, 500);
         for(int i = 0; i < 6; i++) {
-            DiceButton b = new DiceButton(this, new NormalDice(), i);
-            b.setPosition(60, 920 - 100 * i);
+            DiceButton b = new DiceButton(this, new Mousse(), i);
+            b.setPosition(460 + 200 * i, 150);
             dice[i] = b;
         }
         for(int i = 0; i < 4; i++) {
@@ -65,7 +63,7 @@ public class BattleScreen extends AbstractScreen {
         setTile(e, 3, 1);
         TileSquare t = tiles[3][1];
         e.tile = t;
-        e.entity.pos = new Vector2(t.x, t.y);
+        e.entity.pos = new Vector2(t.originX, t.originY);
         t.enemy = e;
         enemies.add(e);
     }
@@ -117,12 +115,12 @@ public class BattleScreen extends AbstractScreen {
 
     @Override
     public void render(float delta) {
-        MouseAdventure.application.sb.setColor(Color.WHITE);
+        MousseAdventure.application.sb.setColor(Color.WHITE);
         if(background != null) {
-            MouseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            MousseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
-        render(MouseAdventure.application.sb);
-        effectHandler.render(MouseAdventure.application.sb);
+        render(MousseAdventure.application.sb);
+        effectHandler.render(MousseAdventure.application.sb);
     }
 
     @Override

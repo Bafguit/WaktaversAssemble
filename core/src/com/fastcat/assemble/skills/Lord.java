@@ -1,25 +1,23 @@
 package com.fastcat.assemble.skills;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.fastcat.assemble.MouseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractBattle;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
-import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.actions.PercentAttackAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 
-public class LordAttack extends AbstractSkill {
+public class Lord extends AbstractSkill {
 
-    public LordAttack(Sprite s) {
-        super(SkillTarget.AMOUNT, 7);
-        img = s;
+    private static final String ID = "Lord";
+
+    public Lord() {
+        super(ID, SkillTarget.AMOUNT, 7);
     }
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new PercentAttackAction(targets, MouseAdventure.game.player, 200, AbstractEntity.DamageType.PHYSICAL, false));
+        ActionHandler.top(new PercentAttackAction(targets, MousseAdventure.game.player, 80, AbstractEntity.DamageType.PHYSICAL, false));
     }
 
     @Override

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAnimation;
 
 import java.util.HashMap;
@@ -108,7 +108,7 @@ public class SpriteAnimation extends AbstractAnimation {
                         elapsed = 0;
                     }
                 } else {
-                    elapsed += MouseAdventure.tick;
+                    elapsed += MousseAdventure.tick;
                 }
             }
         }

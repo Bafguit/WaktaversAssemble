@@ -1,22 +1,22 @@
 package com.fastcat.assemble.skills;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.actions.BaseAttackAction;
 
-public class BaseAttack extends AbstractSkill {
+public class Guard extends AbstractSkill {
 
-    public BaseAttack(Sprite s) {
-        super(SkillTarget.AMOUNT, 1);
-        img = s;
+    private static final String ID = "Guard";
+
+    public Guard() {
+        super(ID, SkillTarget.AMOUNT, 1);
     }
 
     @Override
     protected void useSkill() {
-        top(new BaseAttackAction(targets, MouseAdventure.game.player, AbstractEntity.DamageType.PHYSICAL, false));
+        top(new BaseAttackAction(targets, MousseAdventure.game.player, AbstractEntity.DamageType.PHYSICAL, false));
     }
 
     @Override

@@ -9,14 +9,14 @@ public class IncreasedHealAction extends AbstractAction {
     private final float percent;
 
     public IncreasedHealAction(Array<AbstractEntity> targets, AbstractEntity source, int percent, boolean fast) {
-        super(0.5f);
+        super(fast ? 0.25f : 0.5f);
         target = targets;
         this.source = source;
         this.percent = percent / 100.0f;
     }
 
     public IncreasedHealAction(AbstractEntity target, AbstractEntity source, int percent, boolean fast) {
-        super(0.5f);
+        super(fast ? 0.25f : 0.5f);
         this.target.add(target);
         this.source = source;
         this.percent = percent / 100.0f;

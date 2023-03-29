@@ -35,6 +35,8 @@ public class FileHandler {
 
     public static final HashMap<String, Sprite> dice = new HashMap<>();
 
+    public static final HashMap<String, Sprite> skill = new HashMap<>();
+
     public static final HashMap<String, TextureAtlas> diceAtlas = new HashMap<>();
 
     public static FileHandler getInstance() {
@@ -60,10 +62,13 @@ public class FileHandler {
         generateBG(resourceHandler);
         generateChar(resourceHandler);
         generateCard(resourceHandler);
+        generateSkill(resourceHandler);
     }
 
     private static void generateHashMap() {
         maps.add(dice);
+        maps.add(character);
+        maps.add(skill);
     }
 
     @SuppressWarnings("NewApi")
@@ -86,6 +91,7 @@ public class FileHandler {
 
         jsonMap.put(JsonType.DICE, generateJson("json/dice.json"));
         jsonMap.put(JsonType.CHAR, generateJson("json/character.json"));
+        jsonMap.put(JsonType.SKILL, generateJson("json/skill.json"));
         //StringHandler.generate();
     }
 
@@ -98,10 +104,8 @@ public class FileHandler {
                     "image/dice/" + js.name + ".png",
                     Texture.class,
                     (resource, args) -> {
-                        Texture texture = (Texture) resource;
-                        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
                         String name = args[0].toString();
-                        dice.put(name, new Sprite(texture));
+                        dice.put(name, new Sprite((Texture) resource));
                     },
                     js.name);
 
@@ -177,6 +181,20 @@ public class FileHandler {
         }));
     }
 
+    private void generateSkill(ResourceHandler resourceHandler) {
+        skill.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        for(JsonValue js : jsonMap.get(JsonType.SKILL)) {
+            resources.put(js.name, "image/skill/" + js.name + ".png");
+
+            resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+                String resourceName = args[0].toString();
+                skill.put(resourceName, new Sprite((Texture) resource));
+            }));
+        }
+    }
+
     private void generateCard(ResourceHandler resourceHandler) {
         card.clear();
 
@@ -195,6 +213,6 @@ public class FileHandler {
     public enum JsonType {
         DICE,
         CHAR,
-
+        SKILL
     }
 }

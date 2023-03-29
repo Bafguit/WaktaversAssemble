@@ -20,10 +20,10 @@ public abstract class AbstractEntity {
     public Vector2 pos;
 
     public int uuid;
-    public int health;
     public int baseMaxHealth;
-    public int shield;
     public int baseAttack;
+    public int baseDefense;
+    public int baseMagicRes;
     public boolean isPlayer;
     public boolean isDie;
     public boolean isDead;
@@ -32,19 +32,33 @@ public abstract class AbstractEntity {
 
     //temporary
     public int attack;
+    public int defense;
+    public int magicRes;
+    public int health;
     public int maxHealth;
+    public int shield = 0;
+    public int physShield = 0;
+    public int magicShield = 0;
 
-    public AbstractEntity(String id, int health, EntityRarity rarity) {
+    public AbstractEntity(String id, int attack, int health, int def, int res, EntityRarity rarity) {
         this.id = id;
+        this.attack = this.baseAttack = attack;
         this.health = baseMaxHealth = health;
+        this.defense = this.baseDefense = def;
+        this.magicRes = this.baseMagicRes = res;
         this.rarity = rarity;
         img = FileHandler.character.get(id);
     }
 
     public final void resetAttributes() {
         health = maxHealth = baseMaxHealth;
+        status.clear();
+        defense = baseDefense;
+        magicRes = baseMagicRes;
         attack = baseAttack;
         shield = 0;
+        physShield = 0;
+        magicShield = 0;
     }
 
     public abstract String getDesc(int num);
@@ -54,17 +68,101 @@ public abstract class AbstractEntity {
     }
 
     public int calculatedAttack() {
-        return baseAttack;
+        int atk = baseAttack;
+        int mod = 100;
+
+        for(AbstractStatus s : status) {
+            atk += s.addFixedAttack();
+        }
+
+        for(AbstractStatus s : status) {
+            mod += s.increaseAttack();
+        }
+
+        atk *= (mod * 0.01f);
+
+        for(AbstractStatus s : status) {
+            atk += s.addAttack();
+        }
+
+        return atk;
+    }
+
+    public int calculatedDefense() {
+        int atk = baseDefense;
+        int mod = 100;
+
+        for(AbstractStatus s : status) {
+            atk += s.addFixedDefense();
+        }
+
+        for(AbstractStatus s : status) {
+            mod += s.increaseDefense();
+        }
+
+        atk *= (mod * 0.01f);
+
+        for(AbstractStatus s : status) {
+            atk += s.addDefense();
+        }
+
+        return atk;
+    }
+
+    public int calculatedMagicRes() {
+        int atk = baseMagicRes;
+        int mod = 100;
+
+        for(AbstractStatus s : status) {
+            atk += s.addFixedMagicRes();
+        }
+
+        for(AbstractStatus s : status) {
+            mod += s.increaseMagicRes();
+        }
+
+        atk *= (mod * 0.01f);
+
+        for(AbstractStatus s : status) {
+            atk += s.addMagicRes();
+        }
+
+        return atk;
     }
 
     public void takeDamage(DamageInfo info) {
-        health -= info.damage;
-        EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, info.damage, Color.SCARLET));
+        DamageType type = info.type;
+        int damage = info.damage;
+        if(type == DamageType.PHYSICAL) {
+            damage = Math.max(damage - calculatedDefense(), (int) (damage * 0.05f));
+        } else if(type == DamageType.MAGIC) {
+            damage = (int) Math.max(damage * ((100 - calculatedMagicRes()) * 0.01f), damage * 0.05f);
+        } else if(damage < 0) {
+            damage = 0;
+        }
+        health -= damage;
+        EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, damage, Color.SCARLET));
     }
 
     public void heal(int amount) {
         health = Math.min(health + amount, maxHealth);
         EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, amount, Color.CHARTREUSE));
+    }
+
+    public void applyStatus(AbstractStatus s) {
+        boolean isDone = false;
+        for(AbstractStatus st : status) {
+            if(st.id.equals(s.id)) {
+                st.apply(s.amount, s.turnLeft);
+                isDone = true;
+                break;
+            }
+        }
+
+        if(!isDone) {
+            status.add(s);
+            s.onInitial();
+        }
     }
 
     public static class DamageInfo {
@@ -77,8 +175,21 @@ public abstract class AbstractEntity {
         }
     }
 
+    public void removeStatus(String id) {
+        for(AbstractStatus s : status) {
+            if(s.id.equals(id)) {
+                status.remove(s);
+                break;
+            }
+        }
+    }
+
+    public void removeStatus(AbstractStatus s) {
+        status.remove(s);
+    }
+
     public enum DamageType {
-        PHYSICAL, ARTS, TRUE
+        PHYSICAL, MAGIC, TRUE
     }
 
     public enum EntityRarity {

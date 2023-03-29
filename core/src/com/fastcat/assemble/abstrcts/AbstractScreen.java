@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.handlers.EffectHandler;
 
 public abstract class AbstractScreen implements Screen {
@@ -26,12 +26,12 @@ public abstract class AbstractScreen implements Screen {
     protected abstract void render(SpriteBatch sb);
 
     public void render(float delta) {
-        MouseAdventure.application.sb.setColor(Color.WHITE);
+        MousseAdventure.application.sb.setColor(Color.WHITE);
         if(background != null) {
-            MouseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            MousseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
-        render(MouseAdventure.application.sb);
-        effectHandler.render(MouseAdventure.application.sb);
+        render(MousseAdventure.application.sb);
+        effectHandler.render(MousseAdventure.application.sb);
     }
 
     public void setBg(Sprite s) {

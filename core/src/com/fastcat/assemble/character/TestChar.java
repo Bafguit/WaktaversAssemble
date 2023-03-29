@@ -4,12 +4,10 @@ import com.fastcat.assemble.abstrcts.AbstractEntity;
 
 public class TestChar extends AbstractEntity {
     public TestChar() {
-        super("Test", 10, EntityRarity.OPERATOR);
+        super("Test", 705, 2345, 392, 15, EntityRarity.OPERATOR);
         name = "테스트";
         desc = "피해 3";
         isPlayer = true;
-        baseAttack = 705;
-        baseMaxHealth = 2345;
     }
 
     @Override

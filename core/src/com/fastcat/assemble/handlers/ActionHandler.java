@@ -2,7 +2,7 @@ package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAction;
 
 public final class ActionHandler {
@@ -14,23 +14,23 @@ public final class ActionHandler {
     private AbstractAction current;
 
     public static void clear() {
-        if(MouseAdventure.game != null) MouseAdventure.game.actionHandler.actionList.clear();
+        if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.clear();
     }
 
     public static void reset() {
-        if(MouseAdventure.game != null) {
-            ActionHandler a = MouseAdventure.game.actionHandler;
+        if(MousseAdventure.game != null) {
+            ActionHandler a = MousseAdventure.game.actionHandler;
             a.actionList.clear();
             a.current = null;
         }
     }
 
     public static void bot(AbstractAction action) {
-        if(MouseAdventure.game != null) MouseAdventure.game.actionHandler.actionList.addLast(action);
+        if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.addLast(action);
     }
 
     public static void top(AbstractAction action) {
-        if(MouseAdventure.game != null) MouseAdventure.game.actionHandler.actionList.addFirst(action);
+        if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.addFirst(action);
     }
 
     public void update() {
@@ -39,7 +39,7 @@ public final class ActionHandler {
             if (current == null) {
                 current = actionList.removeFirst();
             }
-            if (!MouseAdventure.fading) {
+            if (!MousseAdventure.fading) {
                 current.update();
             }
             if (current.isDone) {

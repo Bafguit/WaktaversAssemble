@@ -2,7 +2,7 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractDice;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -47,7 +47,7 @@ public class CardButton extends AbstractUI {
             if(!isUsed && !tracking) {
                 if(over) {
                     if(itp < 1) {
-                        itp += MouseAdventure.tick * 10;
+                        itp += MousseAdventure.tick * 10;
                         if(itp >= 1) {
                             itp = 1;
                         }
@@ -55,7 +55,7 @@ public class CardButton extends AbstractUI {
                     }
                 } else {
                     if(itp > 0) {
-                        itp -= MouseAdventure.tick * 10;
+                        itp -= MousseAdventure.tick * 10;
                         if(itp <= 0) {
                             itp = 0;
                         }
@@ -65,8 +65,8 @@ public class CardButton extends AbstractUI {
                 y += acc;
             }
             sb.draw(img, x, y, width, height);
-            FontHandler.renderCenter(sb, FontHandler.SUB_NAME, card.name, x, y + height * 0.94f, width);
-            FontHandler.renderCenterWrap(sb, FontHandler.SUB_DESC, card.desc, x + width * 0.05f,
+            FontHandler.renderCenter(sb, FontHandler.NB30, card.name, x, y + height * 0.94f, width);
+            FontHandler.renderCenterWrap(sb, FontHandler.NB26, card.desc, x + width * 0.05f,
                     y + height * 0.21f, width * 0.9f, height * 0.35f);
         }
     }

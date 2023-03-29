@@ -13,17 +13,18 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
+import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import com.google.common.util.concurrent.FutureCallback;
 import lombok.Getter;
 
-public class MouseAdventure extends ApplicationAdapter {
+public class MousseAdventure extends ApplicationAdapter {
 
 	private static LifeCycle phase;
 
-	public static MouseAdventure application;
+	public static MousseAdventure application;
 
 	public static OrthographicCamera camera;
 	public static PerspectiveCamera cam;
@@ -36,6 +37,8 @@ public class MouseAdventure extends ApplicationAdapter {
 	public Array<AbstractScreen> tempScreen = new Array<>();
 	public static float tick;
 	public static boolean fading;
+
+	public static AbstractUI subText;
 
 	@Getter
 	private AssetManager assetManager;
@@ -72,8 +75,9 @@ public class MouseAdventure extends ApplicationAdapter {
 		cam.update();
 
 		viewport = new FillViewport(w, h);
-		FileHandler.getInstance();
+		FileHandler.getInstance().loadFiles();
 		FontHandler.getInstance();
+		StringHandler.initialize();
 		init();
 	}
 
@@ -81,7 +85,6 @@ public class MouseAdventure extends ApplicationAdapter {
 
 		AsyncHandler.scheduleAsyncTask(
 				() -> {
-					FileHandler.getInstance().loadFiles();
 					FileHandler.getInstance().loadResources(resourceHandler);
 					return new Object();
 				},
@@ -106,6 +109,7 @@ public class MouseAdventure extends ApplicationAdapter {
 	}
 
 	private void update() {
+		subText = null;
 		camera.update();
 		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
 		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
@@ -165,14 +169,14 @@ public class MouseAdventure extends ApplicationAdapter {
 				}
 			}
 			if(game != null) game.render(sb);
-
+			if(subText != null) subText.renderSub(sb);
         /*
         		sb.setColor(Color.WHITE);
         		sb.draw(cursor.img, InputHandler.mx, InputHandler.my - cursor.height / 2, cursor.width / 2, cursor.height / 2);
         */
 		} else {
 			float p = resourceHandler.getProgress();
-			FontHandler.renderCenter(sb, FontHandler.SUB_NAME, "리소스 불러오는 중\n" + p * 100 + "%", 0,
+			FontHandler.renderCenter(sb, FontHandler.NB30, "리소스 불러오는 중\n" + p * 100 + "%", 0,
 					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
 		}
 		sb.end();

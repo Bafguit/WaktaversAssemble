@@ -4,13 +4,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
+import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.StringHandler;
 import com.fastcat.assemble.screens.battle.TileSquare;
+import com.fastcat.assemble.strings.SkillString;
 
-import static com.fastcat.assemble.MouseAdventure.battleScreen;
-import static com.fastcat.assemble.MouseAdventure.game;
+import static com.fastcat.assemble.MousseAdventure.battleScreen;
+import static com.fastcat.assemble.MousseAdventure.game;
 
 public abstract class AbstractSkill {
 
+    public final String id;
+    public final SkillString.SkillData data;
+    public AbstractUI.SubText subText;
+    public String name;
+    public String desc;
     public Sprite img;
     public int coolDown = 0;
     public int coolTime = 1;
@@ -22,7 +30,13 @@ public abstract class AbstractSkill {
     public Vector2[] tempRange;
     protected final Vector2[] range; //기준은 위쪽
 
-    public AbstractSkill(SkillTarget target, int range) {
+    public AbstractSkill(String id, SkillTarget target, int range) {
+        this.id = id;
+        data = StringHandler.skillString.get(id);
+        name = data.NAME;
+        desc = data.DESC;
+        subText = new AbstractUI.SubText(name, desc);
+        img = FileHandler.skill.get(id);
         this.target = target;
         if(target == SkillTarget.SELF || target == SkillTarget.NONE) {
             hasDir = false;

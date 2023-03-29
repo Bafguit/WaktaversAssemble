@@ -3,10 +3,8 @@ package com.fastcat.assemble.abstrcts;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.MouseAdventure;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.utils.FastCatUtils;
-
-import java.util.HashMap;
 
 public abstract class AbstractBattle {
 
@@ -27,7 +25,7 @@ public abstract class AbstractBattle {
         exhaustPile = new Array<>();
         discardPile = new Array<>();
         hand = new Array<>();
-        FastCatUtils.staticShuffle(dices, MouseAdventure.game.publicRandom, AbstractDice.class);
+        FastCatUtils.staticShuffle(dices, MousseAdventure.game.publicRandom, AbstractDice.class);
         for(AbstractDice c : dices) {
             drawPile.addLast(c);
         }
@@ -49,7 +47,7 @@ public abstract class AbstractBattle {
                     hand.add(drawPile.removeFirst());
                 }
             } else {
-                FastCatUtils.staticShuffle(discardPile, MouseAdventure.game.battleRandom, AbstractDice.class);
+                FastCatUtils.staticShuffle(discardPile, MousseAdventure.game.battleRandom, AbstractDice.class);
                 for(AbstractDice c : discardPile) {
                     drawPile.addLast(c);
                 }
