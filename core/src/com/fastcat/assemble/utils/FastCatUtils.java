@@ -1,18 +1,6 @@
 package com.fastcat.assemble.utils;
 
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.screens.battle.TileSquare;
-import org.ksdev.jps.Graph;
-import org.ksdev.jps.JPS;
-import org.ksdev.jps.JPSDiagOneObstacle;
-
-import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 
 public class FastCatUtils {
 
@@ -36,5 +24,4 @@ public class FastCatUtils {
     public static float distance(float fromX, float fromY, float toX, float toY) {
         return (float) Math.sqrt(Math.abs(fromX - toX) + Math.abs(fromY - toY));
     }
-
 }

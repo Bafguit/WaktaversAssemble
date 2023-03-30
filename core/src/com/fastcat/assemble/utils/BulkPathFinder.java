@@ -7,7 +7,6 @@ import org.ksdev.jps.JPSDiagOneObstacle;
 
 import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
