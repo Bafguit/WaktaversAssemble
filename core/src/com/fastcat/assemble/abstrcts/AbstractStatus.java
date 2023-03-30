@@ -1,16 +1,34 @@
 package com.fastcat.assemble.abstrcts;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.StringHandler;
+import com.fastcat.assemble.screens.battle.StatusIcon;
+import com.fastcat.assemble.strings.StatusString;
+
 public abstract class AbstractStatus {
 
+    public StatusIcon icon;
     public String id;
+    public Sprite img;
     public AbstractEntity owner;
     public StatusType type;
+    public StatusString.StatusData data;
+    public String name;
+    public String desc;
+    public String[] exDesc;
     public int amount;
     public int turnLeft = -1;
 
     public AbstractStatus(String id, StatusType type) {
+        this.img = FileHandler.status.get(id);
+        data = StringHandler.statusString.get(id);
+        name = data.NAME;
+        desc = data.DESC;
+        exDesc = data.EX_DESC;
         this.id = id;
         this.type = type;
+        icon = new StatusIcon(this);
     }
 
     public final void apply(int amount, int turn) {
@@ -19,13 +37,11 @@ public abstract class AbstractStatus {
         onApply();
     }
 
-    public void onInitial() {
+    public void onInitial() {}
 
-    }
+    protected void onApply() {}
 
-    protected void onApply() {
-
-    }
+    public void onAfterAttack() {}
 
     public int increaseAttack() {
         return 0;
@@ -61,6 +77,10 @@ public abstract class AbstractStatus {
 
     public int addMagicRes() {
         return 0;
+    }
+
+    public String getDescription() {
+        return desc;
     }
 
     public void endOfRound() {

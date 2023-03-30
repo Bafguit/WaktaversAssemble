@@ -2,9 +2,11 @@ package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAction;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractStatus;
+import com.fastcat.assemble.screens.battle.StatusIcon;
 
 public class ApplyStatusAction extends AbstractAction {
 
@@ -27,7 +29,9 @@ public class ApplyStatusAction extends AbstractAction {
         if(duration == baseDuration) {
             if(target.size > 0) {
                 for(AbstractEntity e : target) {
-                    if(e.isAlive()) e.applyStatus(status);
+                    if(e.isAlive()) {
+                        e.applyStatus(status);
+                    }
                 }
             } else isDone = true;
         }

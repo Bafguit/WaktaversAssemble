@@ -5,7 +5,7 @@ import com.fastcat.assemble.skills.*;
 
 public class LaPluma extends AbstractDice {
     public LaPluma() {
-        super("LaPluma", DiceRarity.BASIC);
+        super("LaPluma", DiceRarity.NORMAL);
     }
 
     @Override

@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractGame;
-import com.fastcat.assemble.abstrcts.AbstractScreen;
-import com.fastcat.assemble.abstrcts.AbstractSkill;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstrcts.*;
 import com.fastcat.assemble.dices.basic.Mousse;
+import com.fastcat.assemble.dices.normal.Cuora;
 import com.fastcat.assemble.handlers.InputHandler;
+
+import java.util.LinkedList;
 
 import static com.fastcat.assemble.MousseAdventure.cam;
 
@@ -66,6 +66,13 @@ public class BattleScreen extends AbstractScreen {
         e.entity.pos = new Vector2(t.originX, t.originY);
         t.enemy = e;
         enemies.add(e);
+        e = new EnemyButton(this);
+        setTile(e, 3, 2);
+        t = tiles[3][2];
+        e.tile = t;
+        e.entity.pos = new Vector2(t.originX, t.originY);
+        t.enemy = e;
+        enemies.add(e);
     }
 
     @Override
@@ -76,6 +83,13 @@ public class BattleScreen extends AbstractScreen {
 
         for (DiceButton b : dice) {
             b.update();
+        }
+
+        LinkedList<AbstractStatus> ss = player.character.status;
+        for(int i = 0; i < ss.size(); i++) {
+            StatusIcon s = ss.get(i).icon;
+            s.setPosition(50 + 50 * i, 1030);
+            s.update();
         }
 
         player.update();
@@ -146,10 +160,9 @@ public class BattleScreen extends AbstractScreen {
             b.render(sb);
         }
 
-        float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
-        cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
-        cam.lookAt(w * 0.5f, h * 0.5f,0);
-        cam.update();
+        for(AbstractStatus s : player.character.status) {
+            s.icon.render(sb);
+        }
 
         for(DiceButton b : dice) {
             b.render(sb);

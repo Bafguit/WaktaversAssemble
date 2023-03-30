@@ -2,24 +2,24 @@ package com.fastcat.assemble.skills;
 
 import com.badlogic.gdx.math.Vector2;
 import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.actions.ApplyStatusAction;
-import com.fastcat.assemble.status.IncreaseAttackStatus;
+import com.fastcat.assemble.actions.PercentAttackAction;
 import com.fastcat.assemble.status.IncreaseDefenseStatus;
-import com.fastcat.assemble.status.IncreaseNextAttackStatus;
 
-public class BristlingFur extends AbstractSkill {
+public class ShellDefense extends AbstractSkill {
 
-    private static final String ID = "BristlingFur";
+    private static final String ID = "ShellDefense";
 
-    public BristlingFur() {
+    public ShellDefense() {
         super(ID, SkillTarget.SELF, 1);
     }
 
     @Override
     protected void useSkill() {
-        top(new ApplyStatusAction(MousseAdventure.game.player, new IncreaseDefenseStatus(id, 75, 1), true));
-        top(new ApplyStatusAction(MousseAdventure.game.player, new IncreaseNextAttackStatus(id, 75), true));
+        //TODO 공격불가 추가
+        top(new ApplyStatusAction(MousseAdventure.game.player, new IncreaseDefenseStatus(ID, 130, 1), true));
     }
 
     @Override

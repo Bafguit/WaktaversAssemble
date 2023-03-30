@@ -106,8 +106,8 @@ public abstract class AbstractUI implements Disposable {
         foreUpdate();
         width = originWidth * scaleA;
         height = originHeight * scaleA;
-        if(is3D) mouse = InputHandler.getProjectedMousePos();
-        else mouse.set(mx, my);
+        /*if(is3D) mouse = InputHandler.getProjectedMousePos();
+        else*/ mouse.set(mx, my);
         if(fluid && fluiding) {
             fluidPosition();
         }
@@ -163,8 +163,8 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void render(SpriteBatch sb) {
-        if(is3D) sb.setProjectionMatrix(MousseAdventure.cam.combined);
-        else sb.setProjectionMatrix(MousseAdventure.camera.combined);
+        /*if(is3D) sb.setProjectionMatrix(MousseAdventure.cam.combined);
+        else*/ sb.setProjectionMatrix(MousseAdventure.camera.combined);
         sb.setColor(WHITE);
         renderUi(sb);
         //renderSub(sb);
@@ -180,6 +180,7 @@ public abstract class AbstractUI implements Disposable {
     }
 
     public final void renderSub(SpriteBatch sb) {
+        sb.setColor(WHITE);
         if (subTexts != null) {
             img.setColor(WHITE);
             float sc, subP;
@@ -190,10 +191,6 @@ public abstract class AbstractUI implements Disposable {
             } else if (subWay == SubText.SubWay.UP) {
                 sc = 10 * scaleA;
                 subP = y + height + sc;
-                subTexts.render(sb, x + width / 2, subP, subWay);
-            } else if (subWay == SubText.SubWay.LEFT) {
-                sc = -10 * scaleA;
-                subP = x + sc;
                 subTexts.render(sb, x + width / 2, subP, subWay);
             }
         }
@@ -429,7 +426,7 @@ public abstract class AbstractUI implements Disposable {
             descFont = SUB_DESC;
         }
 
-        public Vector2 render(SpriteBatch sb, float x, float y, SubWay way) {
+        public void render(SpriteBatch sb, float x, float y, SubWay way) {
             mid.update();
             top.update();
             bot.update();
@@ -451,22 +448,28 @@ public abstract class AbstractUI implements Disposable {
             ww = mid.width;
             hh = bot.height;
             mh = mid.height * 0.4f + descLayout.height + nameLayout.height * 1.5f;
-            float xx = x - ww * 0.5f, yy = 0;
-            sb.draw(bot.img, xx, y, ww, hh);
-            sb.draw(mid.img, xx, y + (yy += hh), ww, mh);
-            sb.draw(top.img, xx, y + (yy += mh), ww, hh);
+            if(way == SubWay.DOWN) y -= (hh + hh + mh);
+            float tw = ww * 0.5f, sc = 10 * scaleY, w = Gdx.graphics.getWidth();
+            if((x - tw) < sc) {
+                x = sc;
+            } else if((x + tw) > (w - sc)) {
+                x = w - sc - ww;
+            } else {
+                x -= tw;
+            }
+            float yy = 0;
+            sb.draw(bot.img, x, y, ww, hh);
+            sb.draw(mid.img, x, y + (yy += hh), ww, mh);
+            sb.draw(top.img, x, y + (yy += mh), ww, hh);
             yy += hh;
             float ny = y + mid.height + mh, dy = y + mid.height + (mh - nameLayout.height * 1.5f);
-            renderSubText(sb, nameFont, n, xx + ww * 0.04f, ny, mid.width * 0.92f, false);
-            renderSubText(sb, descFont, d, xx + ww * 0.04f, dy, mid.width * 0.92f, true);
-            return new Vector2(xx, y + yy);
+            renderSubText(sb, nameFont, n, x + ww * 0.04f, ny, mid.width * 0.92f, false);
+            renderSubText(sb, descFont, d, x + ww * 0.04f, dy, mid.width * 0.92f, true);
         }
 
         public enum SubWay {
             DOWN,
-            UP,
-            RIGHT,
-            LEFT
+            UP
         }
     }
 }
