@@ -7,7 +7,8 @@ public class IncreaseAttackStatus extends AbstractStatus {
     public static final String ID = "IncreaseAttack";
 
     public IncreaseAttackStatus(String hash, int amount, int turn) {
-        super(ID + hash, StatusType.BUFF);
+        super(ID, StatusType.BUFF);
+        id += hash;
         this.amount = amount;
         this.turnLeft = turn;
     }
@@ -15,5 +16,10 @@ public class IncreaseAttackStatus extends AbstractStatus {
     @Override
     public int increaseAttack() {
         return amount;
+    }
+
+    @Override
+    public String getDescription() {
+        return exDesc[0] + amount + exDesc[1];
     }
 }

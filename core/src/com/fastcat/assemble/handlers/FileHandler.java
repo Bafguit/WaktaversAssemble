@@ -37,6 +37,8 @@ public class FileHandler {
 
     public static final HashMap<String, Sprite> skill = new HashMap<>();
 
+    public static final HashMap<String, Sprite> status = new HashMap<>();
+
     public static final HashMap<String, TextureAtlas> diceAtlas = new HashMap<>();
 
     public static FileHandler getInstance() {
@@ -63,12 +65,14 @@ public class FileHandler {
         generateChar(resourceHandler);
         generateCard(resourceHandler);
         generateSkill(resourceHandler);
+        generateStatus(resourceHandler);
     }
 
     private static void generateHashMap() {
         maps.add(dice);
         maps.add(character);
         maps.add(skill);
+        maps.add(status);
     }
 
     @SuppressWarnings("NewApi")
@@ -92,6 +96,7 @@ public class FileHandler {
         jsonMap.put(JsonType.DICE, generateJson("json/dice.json"));
         jsonMap.put(JsonType.CHAR, generateJson("json/character.json"));
         jsonMap.put(JsonType.SKILL, generateJson("json/skill.json"));
+        jsonMap.put(JsonType.STATUS, generateJson("json/status.json"));
         //StringHandler.generate();
     }
 
@@ -152,6 +157,7 @@ public class FileHandler {
         HashMap<String, String> resources = new HashMap<>();
         resources.put("TEMP", "image/ui/temp.png");
         resources.put("TILE", "image/ui/tile.png");
+        resources.put("BACK_32", "image/ui/background32.png");
         resources.put("DIR", "image/ui/direction.png");
         resources.put("SUB_TOP", "image/ui/sub_t.png");
         resources.put("SUB_MID", "image/ui/sub_m.png");
@@ -171,13 +177,12 @@ public class FileHandler {
 
         HashMap<String, String> resources = new HashMap<>();
         resources.put("Test", "image/char/Test.png");
+        resources.put("Mousse", "image/char/Mousse.png");
 
         resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
-            Texture texture = (Texture) resource;
-            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             String resourceName = args[0].toString();
 
-            character.put(resourceName, new Sprite(texture));
+            character.put(resourceName, new Sprite((Texture) resource));
         }));
     }
 
@@ -191,6 +196,20 @@ public class FileHandler {
             resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
                 String resourceName = args[0].toString();
                 skill.put(resourceName, new Sprite((Texture) resource));
+            }));
+        }
+    }
+
+    private void generateStatus(ResourceHandler resourceHandler) {
+        status.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        for(JsonValue js : jsonMap.get(JsonType.STATUS)) {
+            resources.put(js.name, "image/status/" + js.name + ".png");
+
+            resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+                String resourceName = args[0].toString();
+                status.put(resourceName, new Sprite((Texture) resource));
             }));
         }
     }
@@ -213,6 +232,7 @@ public class FileHandler {
     public enum JsonType {
         DICE,
         CHAR,
-        SKILL
+        SKILL,
+        STATUS
     }
 }

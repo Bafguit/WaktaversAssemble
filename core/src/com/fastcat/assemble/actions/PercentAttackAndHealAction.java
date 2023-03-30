@@ -34,14 +34,7 @@ public class PercentAttackAndHealAction extends AbstractAction {
             if(source != null && source.isAlive()) {
                 AbstractEntity.DamageInfo info = new AbstractEntity.DamageInfo((int) (source.calculatedAttack() * percent), type);
 
-                if(target.size > 0) {
-                    for(AbstractEntity t : target) {
-                        if(t.isAlive()) {
-                            t.takeDamage(info);
-                            source.heal(heal);
-                        }
-                    }
-                }
+                source.attackAndHeal(target, info, heal);
             }
         }
     }

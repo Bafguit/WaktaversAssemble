@@ -66,14 +66,14 @@ public class MousseAdventure extends ApplicationAdapter {
 		camera.setToOrtho(false, w, h);
 		camera.update();
 
-
+/*
 		cam = new PerspectiveCamera(90, w, h);
 		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
 		cam.lookAt(w * 0.5f, h * 0.5f,0);
 		cam.near = 1f;
 		cam.far = 1300 * InputHandler.scaleA;
 		cam.update();
-
+*/
 		viewport = new FillViewport(w, h);
 		FileHandler.getInstance().loadFiles();
 		FontHandler.getInstance();
@@ -111,10 +111,10 @@ public class MousseAdventure extends ApplicationAdapter {
 	private void update() {
 		subText = null;
 		camera.update();
-		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+		/*float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
 		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
 		cam.lookAt(w * 0.5f, h * 0.5f,0);
-		cam.update();
+		cam.update();*/
 		InputHandler.getInstance().update();
 
 		if(game != null) {
@@ -153,7 +153,7 @@ public class MousseAdventure extends ApplicationAdapter {
 			/** Update */
 			update();
 		}
-		sb.setProjectionMatrix(cam.combined);
+		sb.setProjectionMatrix(camera.combined);
 		sb.enableBlending();
 		sb.begin();
 

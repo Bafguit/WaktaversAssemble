@@ -3,9 +3,12 @@ package com.fastcat.assemble.abstrcts;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.screens.battle.StatusIcon;
 
 import java.util.LinkedList;
 
@@ -61,10 +64,37 @@ public abstract class AbstractEntity {
         magicShield = 0;
     }
 
-    public abstract String getDesc(int num);
-
     public final boolean isAlive() {
         return !isDead && !isDie;
+    }
+
+    public void attack(Array<AbstractEntity> target, DamageInfo info) {
+        if(target.size > 0) {
+            for(AbstractEntity t : target) {
+                if(t.isAlive()) {
+                    t.takeDamage(info);
+                }
+            }
+
+            for(AbstractStatus s : status) {
+                s.onAfterAttack();
+            }
+        }
+    }
+
+    public void attackAndHeal(Array<AbstractEntity> target, DamageInfo info, int heal) {
+        if(target.size > 0) {
+            for(AbstractEntity t : target) {
+                if(t.isAlive()) {
+                    t.takeDamage(info);
+                    heal(heal);
+                }
+            }
+
+            for(AbstractStatus s : status) {
+                s.onAfterAttack();
+            }
+        }
     }
 
     public int calculatedAttack() {
@@ -160,6 +190,7 @@ public abstract class AbstractEntity {
         }
 
         if(!isDone) {
+            s.owner = this;
             status.add(s);
             s.onInitial();
         }

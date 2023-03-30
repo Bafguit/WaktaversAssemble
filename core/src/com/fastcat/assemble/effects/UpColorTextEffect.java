@@ -2,6 +2,7 @@ package com.fastcat.assemble.effects;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEffect;
 import com.fastcat.assemble.abstrcts.AbstractUI;
@@ -21,6 +22,8 @@ public class UpColorTextEffect extends AbstractEffect {
         damage = Math.max(damage, 0);
         text = String.valueOf(damage);
         ui.basis = AbstractUI.BasisType.CENTER_LEFT;
+        ui.setX(ui.originX + (MathUtils.random(0, 20) - 10) * InputHandler.scaleX);
+        ui.setY(ui.originY + MathUtils.random(0, 10) * InputHandler.scaleY);
     }
 
     @Override

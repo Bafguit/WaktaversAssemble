@@ -34,13 +34,7 @@ public class IncPerAttackAction extends AbstractAction {
             if(source.isAlive()) {
                 AbstractEntity.DamageInfo info = new AbstractEntity.DamageInfo((int) ((source.calculatedAttack() + source.baseAttack * increase) * percent), type);
 
-                if(target.size > 0) {
-                    for(AbstractEntity t : target) {
-                        if(t.isAlive()) {
-                            t.takeDamage(info);
-                        }
-                    }
-                }
+                source.attack(target, info);
             }
         }
     }
