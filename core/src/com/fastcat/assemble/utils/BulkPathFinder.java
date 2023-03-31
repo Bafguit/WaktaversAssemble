@@ -53,6 +53,7 @@ public class BulkPathFinder {
         if(y < 0 || y >= MousseAdventure.battleScreen.hSize)
             return false;
 
-        return MousseAdventure.battleScreen.tiles[x][y].status == TileSquare.TileStatus.NORMAL;
+        TileSquare.TileStatus status = MousseAdventure.battleScreen.tiles[x][y].status;
+        return status == TileSquare.TileStatus.NORMAL || status == TileSquare.TileStatus.ENTITY;
     }
 }

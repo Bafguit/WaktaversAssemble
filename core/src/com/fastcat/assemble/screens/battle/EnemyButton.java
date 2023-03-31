@@ -48,6 +48,7 @@ public class EnemyButton extends AbstractUI {
     }
 
     public void setPath(Queue<Vector2i> v) {
+        v.remove();
         path = v;
     }
 
