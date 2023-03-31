@@ -7,6 +7,7 @@ import com.fastcat.assemble.actions.ApplyStatusAction;
 import com.fastcat.assemble.status.IncreaseAttackStatus;
 import com.fastcat.assemble.status.IncreaseDefenseStatus;
 import com.fastcat.assemble.status.IncreaseNextAttackStatus;
+import com.fastcat.assemble.utils.Vector2i;
 
 public class BristlingFur extends AbstractSkill {
 
@@ -24,6 +25,6 @@ public class BristlingFur extends AbstractSkill {
 
     @Override
     protected void defineRange() {
-        range[0] = new Vector2(0, 1);
+        range[0] = new Vector2i(0, 1);
     }
 }

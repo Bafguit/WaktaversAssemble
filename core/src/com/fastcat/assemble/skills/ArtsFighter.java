@@ -5,6 +5,7 @@ import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.actions.BaseAttackAction;
+import com.fastcat.assemble.utils.Vector2i;
 
 public class ArtsFighter extends AbstractSkill {
 
@@ -21,6 +22,6 @@ public class ArtsFighter extends AbstractSkill {
 
     @Override
     protected void defineRange() {
-        range[0] = new Vector2(0, 1);
+        range[0] = new Vector2i(0, 1);
     }
 }

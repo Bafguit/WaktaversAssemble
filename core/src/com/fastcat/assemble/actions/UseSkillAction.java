@@ -21,7 +21,10 @@ public class UseSkillAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            if(skill.target == SkillTarget.AMOUNT || skill.target == SkillTarget.ALL) {
+            if(skill.target == SkillTarget.MOVE) {
+                battleScreen.phase = BattlePhase.MOVE;
+                battleScreen.dirSkill = skill;
+            } else if(skill.target == SkillTarget.AMOUNT || skill.target == SkillTarget.ALL) {
                 battleScreen.phase = BattlePhase.DIRECTION;
                 battleScreen.dirSkill = skill;
             } else {
@@ -31,12 +34,14 @@ public class UseSkillAction extends AbstractAction {
             }
         }
 
-        if(battleScreen.phase == BattlePhase.DIRECTION) {
+        if(battleScreen.phase == BattlePhase.DIRECTION || battleScreen.phase == BattlePhase.MOVE) {
             duration = 1;
             if(InputHandler.isLeftClick) {
                 skill.direction = battleScreen.curDir;
                 skill.beforeUse();
-                if(skill.targets.size > 0) {
+                if(battleScreen.phase == BattlePhase.MOVE && skill.toTile != null) {
+                    skill.use();
+                } else if(skill.targets.size > 0) {
                     skill.use();
                 }
                 battleScreen.phase = BattlePhase.SKILL;

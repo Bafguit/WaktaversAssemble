@@ -34,6 +34,7 @@ public abstract class AbstractEntity {
     public LinkedList<AbstractStatus> status = new LinkedList<>();
 
     //temporary
+    public int speed = 1;
     public int attack;
     public int defense;
     public int magicRes;
@@ -50,6 +51,7 @@ public abstract class AbstractEntity {
         this.defense = this.baseDefense = def;
         this.magicRes = this.baseMagicRes = res;
         this.rarity = rarity;
+        pos = new Vector2();
         img = FileHandler.character.get(id);
     }
 

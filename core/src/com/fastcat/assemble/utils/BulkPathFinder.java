@@ -48,9 +48,9 @@ public class BulkPathFinder {
     }
 
     private static boolean isWalkable(int x, int y) {
-        if(x < 0 || x >= MousseAdventure.battleScreen.tiles.length)
+        if(x < 0 || x >= MousseAdventure.battleScreen.wSize)
             return false;
-        if(y < 0 || y >= MousseAdventure.battleScreen.tiles[0].length)
+        if(y < 0 || y >= MousseAdventure.battleScreen.hSize)
             return false;
 
         return MousseAdventure.battleScreen.tiles[x][y].status == TileSquare.TileStatus.NORMAL;

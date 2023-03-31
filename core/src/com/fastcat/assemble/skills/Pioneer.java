@@ -4,20 +4,20 @@ import com.badlogic.gdx.math.Vector2;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
-import com.fastcat.assemble.actions.BaseAttackAction;
+import com.fastcat.assemble.actions.PercentAttackAction;
 import com.fastcat.assemble.utils.Vector2i;
 
-public class Guard extends AbstractSkill {
+public class Pioneer extends AbstractSkill {
 
-    private static final String ID = "Guard";
+    private static final String ID = "Pioneer";
 
-    public Guard() {
+    public Pioneer() {
         super(ID, SkillTarget.AMOUNT, 1);
     }
 
     @Override
     protected void useSkill() {
-        top(new BaseAttackAction(targets, MousseAdventure.game.player, AbstractEntity.DamageType.PHYSICAL, false));
+        top(new PercentAttackAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, false));
     }
 
     @Override

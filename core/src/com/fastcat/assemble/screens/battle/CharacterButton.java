@@ -31,9 +31,8 @@ public class CharacterButton extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        clickable = screen.phase != BattleScreen.BattlePhase.DIRECTION;
         if(tile != null) {
-            setPosition(tile.originX, tile.originY);
+            setPosition(character.pos.x, character.pos.y);
         }
     }
 
@@ -49,7 +48,7 @@ public class CharacterButton extends AbstractUI {
         setPosition(-10000, -10000);
         pos.set(-100, -100);
         if(tile != null) {
-            tile.character = null;
+            tile.removeEntity();
             tile = null;
         }
     }

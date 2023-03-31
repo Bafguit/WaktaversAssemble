@@ -34,8 +34,8 @@ public class DiceButton extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        overable = screen.phase != BattleScreen.BattlePhase.DIRECTION;
-        clickable = screen.phase == BattleScreen.BattlePhase.SKILL && dice.canUse();
+        overable = screen.phase != BattleScreen.BattlePhase.DIRECTION && screen.phase != BattleScreen.BattlePhase.MOVE;
+        clickable = !ActionHandler.isRunning && screen.phase == BattleScreen.BattlePhase.SKILL && dice.canUse();
         if(overable && over) {
             MousseAdventure.subText = this;
         }
@@ -59,34 +59,6 @@ public class DiceButton extends AbstractUI {
     @Override
     protected void onClick() {
         ActionHandler.bot(new UseSkillAction(dice.getSkill()));
-    }
-
-    @Override
-    protected void onClickEnd() {
-        if(tracking && screen.overTile != null) {
-            if(screen.overTile.character != null && screen.overTile.dice == null) {
-                setPosition(screen.overTile.originX, screen.overTile.originY);
-                if (tile != null) {
-                    tile.dice = null;
-                }
-                tile = screen.overTile;
-                tile.dice = this;
-            } else if(tile != null) {
-                setPosition(tile.originX, tile.originY);
-            } else {
-                setPosition(460 + 200 * index, 150);
-                if(tile != null) {
-                    tile.dice = null;
-                    tile = null;
-                }
-            }
-        } else {
-            setPosition(460 + 200 * index, 150);
-            if(tile != null) {
-                tile.dice = null;
-                tile = null;
-            }
-        }
     }
 
     public void reset() {

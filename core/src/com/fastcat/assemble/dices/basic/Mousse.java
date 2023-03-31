@@ -14,7 +14,7 @@ public class Mousse extends AbstractDice {
         skills[1] = new ArtsFighter();
         skills[2] = new CatScratch();
         skills[3] = new BristlingFur();
-        skills[4] = new Guard();
-        skills[5] = new Guard();
+        skills[4] = new Vanguard();
+        skills[5] = new Vanguard();
     }
 }

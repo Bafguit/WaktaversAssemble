@@ -15,6 +15,7 @@ import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
+import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.regex.Matcher;
 
@@ -30,7 +31,7 @@ public abstract class AbstractUI implements Disposable {
     public SubText.SubWay subWay = SubText.SubWay.UP;
     public BasisType basis = BasisType.CENTER;
     public Sprite img;
-    public Vector2 pos = new Vector2();
+    public Vector2i pos;
     public float x;
     public float y;
     public float z;
@@ -93,6 +94,7 @@ public abstract class AbstractUI implements Disposable {
         this.height = height * scaleA;
         originX = x;
         originY = y;
+        pos = new Vector2i(0, 0);
         setLocalPosition();
         mouse = new Vector2(mx, my);
         over = false;

@@ -14,7 +14,7 @@ public final class EffectHandler {
     public boolean isShaking = false;
 
     public static void add(AbstractEffect e) {
-        MousseAdventure.application.screen.getEffectHandler().effectList.addLast(e);
+        MousseAdventure.application.screen.getEffectHandler().addEffect(e);
     }
 
     public void addEffect(AbstractEffect e) {

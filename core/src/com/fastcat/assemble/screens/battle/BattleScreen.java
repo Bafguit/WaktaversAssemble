@@ -8,12 +8,9 @@ import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.*;
 import com.fastcat.assemble.dices.basic.Mousse;
-import com.fastcat.assemble.dices.normal.Cuora;
-import com.fastcat.assemble.handlers.InputHandler;
+import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.LinkedList;
-
-import static com.fastcat.assemble.MousseAdventure.cam;
 
 public class BattleScreen extends AbstractScreen {
 
@@ -21,11 +18,10 @@ public class BattleScreen extends AbstractScreen {
     public ResizeButton resizeButton;
     public RollDiceButton rollButton;
     public PhaseButton phaseButton;
+    public TurnEndButton turnEndButton;
     public DiceButton[] dice = new DiceButton[6];
     public DirectionButton[] dirButton = new DirectionButton[4];
     public CharacterButton player;
-    public AbstractUI tracking;
-    public TileSquare overTile;
     public AbstractSkill.SkillDir curDir = AbstractSkill.SkillDir.UP;
     public Array<TileSquare> targetTiles = new Array<>();
     public Array<EnemyButton> enemies = new Array<>();
@@ -42,6 +38,8 @@ public class BattleScreen extends AbstractScreen {
         rollButton.setPosition(320, 650);
         phaseButton = new PhaseButton(this);
         phaseButton.setPosition(320, 500);
+        turnEndButton = new TurnEndButton(this);
+        turnEndButton.setPosition(1640, 500);
         for(int i = 0; i < 6; i++) {
             DiceButton b = new DiceButton(this, new Mousse(), i);
             b.setPosition(460 + 200 * i, 150);
@@ -59,20 +57,8 @@ public class BattleScreen extends AbstractScreen {
                 tiles[i][j] = t;
             }
         }
-        EnemyButton e = new EnemyButton(this);
-        setTile(e, 3, 1);
-        TileSquare t = tiles[3][1];
-        e.tile = t;
-        e.entity.pos = new Vector2(t.originX, t.originY);
-        t.enemy = e;
-        enemies.add(e);
-        e = new EnemyButton(this);
-        setTile(e, 3, 2);
-        t = tiles[3][2];
-        e.tile = t;
-        e.entity.pos = new Vector2(t.originX, t.originY);
-        t.enemy = e;
-        enemies.add(e);
+        addEnemy(new EnemyButton(this), 3, 1);
+        addEnemy(new EnemyButton(this), 3, 2);
     }
 
     @Override
@@ -80,6 +66,7 @@ public class BattleScreen extends AbstractScreen {
         resizeButton.update();
         rollButton.update();
         phaseButton.update();
+        turnEndButton.update();
 
         for (DiceButton b : dice) {
             b.update();
@@ -98,7 +85,7 @@ public class BattleScreen extends AbstractScreen {
             e.update();
         }
 
-        if(phase == BattlePhase.DIRECTION) {
+        if(phase == BattlePhase.DIRECTION || phase == BattlePhase.MOVE) {
             float x = player.mouse.x - player.localX;
             float y = player.mouse.y - player.localY;
             double radian = Math.atan2(y, x);
@@ -128,20 +115,11 @@ public class BattleScreen extends AbstractScreen {
     }
 
     @Override
-    public void render(float delta) {
-        MousseAdventure.application.sb.setColor(Color.WHITE);
-        if(background != null) {
-            MousseAdventure.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-        }
-        render(MousseAdventure.application.sb);
-        effectHandler.render(MousseAdventure.application.sb);
-    }
-
-    @Override
     public void render(SpriteBatch sb) {
         resizeButton.render(sb);
         rollButton.render(sb);
         phaseButton.render(sb);
+        turnEndButton.render(sb);
 
         for(int j = 0; j < hSize; j++) {
             for(int i = 0; i < wSize; i++) {
@@ -170,29 +148,34 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void updateTileStatus() {
-        for(TileSquare[] t1 : tiles) {
-            for(TileSquare t2 : t1) {
-                t2.status = t2.staticStatus;
+        for(TileSquare[] t : tiles) {
+            for(TileSquare tt : t) {
+                tt.isTarget = false;
             }
         }
-        if(phase == BattlePhase.DIRECTION) {
+        if(phase == BattlePhase.DIRECTION || phase == BattlePhase.MOVE) {
             dirSkill.setTempRange(curDir);
             for (int i = dirSkill.tempRange.length - 1; i >= 0; i--) {
-                Vector2 pv = new Vector2(player.pos);
+                Vector2i pv = new Vector2i(player.pos);
                 pv.add(dirSkill.tempRange[i]);
                 int x = (int) pv.x, y = (int) pv.y;
                 if (x >= 0 && x < wSize && y >= 0 && y < hSize) {
                     TileSquare tile = tiles[x][y];
-                    tile.status = TileSquare.TileStatus.TARGET;
+                    tile.isTarget = true;
                     targetTiles.add(tile);
                 }
             }
         }
     }
 
-    public void setTile(AbstractUI ui, int x, int y) {
+    public void addEnemy(EnemyButton ui, int x, int y) {
+        TileSquare t = tiles[x][y];
+        t.enemy = ui;
+        t.status = TileSquare.TileStatus.ENTITY;
+        ui.tile = t;
         ui.pos.set(x, y);
-        ui.setPosition(610 + 100 * x, 390 + 100 * y);
+        ui.setPosition(t.originX, t.originY);
+        enemies.add(ui);
     }
 
     public void rollDice() {
@@ -218,6 +201,7 @@ public class BattleScreen extends AbstractScreen {
         DRAW,
         SKILL,
         DIRECTION,
+        MOVE,
         END_TURN,
         TURN_CHANGE,
         ENEMY,

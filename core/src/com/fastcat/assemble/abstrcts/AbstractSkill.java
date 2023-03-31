@@ -8,6 +8,7 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.StringHandler;
 import com.fastcat.assemble.screens.battle.TileSquare;
 import com.fastcat.assemble.strings.SkillString;
+import com.fastcat.assemble.utils.Vector2i;
 
 import static com.fastcat.assemble.MousseAdventure.battleScreen;
 import static com.fastcat.assemble.MousseAdventure.game;
@@ -27,8 +28,9 @@ public abstract class AbstractSkill {
     public SkillTarget target;
     public SkillDir direction;
     public Array<AbstractEntity> targets = new Array<>();
-    public Vector2[] tempRange;
-    protected final Vector2[] range; //기준은 위쪽
+    public TileSquare toTile;
+    public Vector2i[] tempRange;
+    protected final Vector2i[] range; //기준은 위쪽
 
     public AbstractSkill(String id, SkillTarget target, int range) {
         this.id = id;
@@ -41,8 +43,8 @@ public abstract class AbstractSkill {
         if(target == SkillTarget.SELF || target == SkillTarget.NONE) {
             hasDir = false;
         }
-        this.range = new Vector2[range];
-        tempRange = new Vector2[range];
+        this.range = new Vector2i[range];
+        tempRange = new Vector2i[range];
         defineRange();
     }
 
@@ -53,7 +55,7 @@ public abstract class AbstractSkill {
 
     public final void resetAttribute() {
         coolDown = 0;
-        tempRange = new Vector2[range.length];
+        tempRange = new Vector2i[range.length];
     }
 
     public final void coolDown(int c) {
@@ -66,39 +68,40 @@ public abstract class AbstractSkill {
     public final void setTempRange(SkillDir dir) {
         if(dir == SkillDir.DOWN) {
             for(int i = 0; i < range.length; i++) {
-                Vector2 vec = new Vector2(range[i]);
+                Vector2i vec = new Vector2i(range[i]);
                 vec.y = -vec.y;
                 tempRange[i] = vec;
             }
         } else if(dir == SkillDir.LEFT) {
             for(int i = 0; i < range.length; i++) {
-                Vector2 vec = new Vector2(range[i]);
+                Vector2i vec = new Vector2i(range[i]);
                 vec.set(-vec.y, vec.x);
                 tempRange[i] = vec;
             }
         } else if(dir == SkillDir.RIGHT) {
             for(int i = 0; i < range.length; i++) {
-                Vector2 vec = new Vector2(range[i]);
+                Vector2i vec = new Vector2i(range[i]);
                 vec.set(vec.y, vec.x);
                 tempRange[i] = vec;
             }
         } else {
             for(int i = 0; i < range.length; i++) {
-                tempRange[i] = new Vector2(range[i]);
+                tempRange[i] = new Vector2i(range[i]);
             }
         }
     }
 
     public final void beforeUse() {
+        targets.clear();
         if(target == SkillTarget.SELF) {
             targets.add(game.player);
         } else {
             setTempRange(direction);
             if (target == SkillTarget.AMOUNT) {
                 for (int i = tempRange.length - 1; i >= 0; i--) {
-                    Vector2 pv = new Vector2(battleScreen.player.pos);
+                    Vector2i pv = new Vector2i(battleScreen.player.pos);
                     pv.add(tempRange[i]);
-                    int x = (int) pv.x, y = (int) pv.y;
+                    int x = pv.x, y = pv.y;
                     if (x >= 0 && x < battleScreen.wSize && y >= 0 && y < battleScreen.hSize) {
                         TileSquare tile = battleScreen.tiles[x][y];
                         if (tile.enemy != null) {
@@ -109,13 +112,26 @@ public abstract class AbstractSkill {
                 }
             } else if (target == SkillTarget.ALL) {
                 for (int i = tempRange.length - 1; i >= 0; i--) {
-                    Vector2 pv = new Vector2(battleScreen.player.pos);
+                    Vector2i pv = new Vector2i(battleScreen.player.pos);
                     pv.add(tempRange[i]);
-                    int x = (int) pv.x, y = (int) pv.y;
+                    int x = pv.x, y = pv.y;
                     if (x >= 0 && x < battleScreen.wSize && y >= 0 && y < battleScreen.hSize) {
                         TileSquare tile = battleScreen.tiles[x][y];
                         if (tile.enemy != null) {
                             targets.add(tile.enemy.entity);
+                        }
+                    }
+                }
+            } else if (target == SkillTarget.MOVE) {
+                for (int i = tempRange.length - 1; i >= 0; i--) {
+                    Vector2i pv = new Vector2i(battleScreen.player.pos);
+                    pv.add(tempRange[i]);
+                    int x = pv.x, y = pv.y;
+                    if (x >= 0 && x < battleScreen.wSize && y >= 0 && y < battleScreen.hSize) {
+                        TileSquare tile = battleScreen.tiles[x][y];
+                        if (tile.status == TileSquare.TileStatus.NORMAL) {
+                            toTile = tile;
+                            break;
                         }
                     }
                 }
@@ -158,6 +174,6 @@ public abstract class AbstractSkill {
     }
 
     public enum SkillTarget {
-        SELF, AMOUNT, ALL, NONE
+        SELF, AMOUNT, ALL, NONE, MOVE
     }
 }

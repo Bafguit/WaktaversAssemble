@@ -8,6 +8,7 @@ import com.fastcat.assemble.actions.ApplyStatusAction;
 import com.fastcat.assemble.actions.BaseAttackAction;
 import com.fastcat.assemble.actions.PercentAttackAction;
 import com.fastcat.assemble.status.IncreaseDefenseStatus;
+import com.fastcat.assemble.utils.Vector2i;
 
 public class Defender extends AbstractSkill {
 
@@ -25,6 +26,6 @@ public class Defender extends AbstractSkill {
 
     @Override
     protected void defineRange() {
-        range[0] = new Vector2(0, 1);
+        range[0] = new Vector2i(0, 1);
     }
 }

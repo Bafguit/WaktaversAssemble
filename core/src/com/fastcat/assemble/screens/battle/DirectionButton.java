@@ -8,6 +8,7 @@ import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractSkill.SkillDir;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.utils.Vector2i;
 
 import static com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase.*;
 
@@ -24,7 +25,7 @@ public class DirectionButton extends AbstractUI {
         clickable = false;
         overable = false;
         this.dir = dir;
-        pos = new Vector2(x, y);
+        pos = new Vector2i(x, y);
         if(dir == SkillDir.RIGHT) {
             angle = -90;
         } else if(dir == SkillDir.DOWN) {
@@ -54,8 +55,10 @@ public class DirectionButton extends AbstractUI {
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            if(screen.curDir != dir) sb.setColor(Color.LIGHT_GRAY);
-            if(screen.phase == DIRECTION) sb.draw(img, x, y, 0 + width * 0.5f, 0 + height * 0.5f, width, height, 1, 1, angle);
+            if (screen.curDir != dir) sb.setColor(Color.LIGHT_GRAY);
+            if (screen.phase == DIRECTION || screen.phase == MOVE) {
+                sb.draw(img, x, y, 0 + width * 0.5f, 0 + height * 0.5f, width, height, 1, 1, angle);
+            }
         }
     }
 }
