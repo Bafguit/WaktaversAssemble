@@ -25,6 +25,9 @@ public abstract class AbstractDice {
     }
 
     public void roll() {
+        for(AbstractSkill s : skills) {
+            s.coolDown(1);
+        }
         number = MousseAdventure.game.diceRandom.random(0, 5);
     }
 

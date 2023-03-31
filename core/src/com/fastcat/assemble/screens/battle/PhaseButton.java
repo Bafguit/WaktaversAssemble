@@ -44,6 +44,8 @@ public class PhaseButton extends AbstractUI {
             screen.phase = BattlePhase.READY;
             screen.resetDice();
             screen.resetChar();
+        } else if(screen.phase == BattlePhase.END_TURN) {
+            screen.rollDice();
         }
     }
 }

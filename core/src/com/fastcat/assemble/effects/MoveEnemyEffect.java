@@ -38,6 +38,7 @@ public class MoveEnemyEffect extends AbstractEffect {
             t = MousseAdventure.battleScreen.tiles[x][y];
             if(t.status == TileSquare.TileStatus.NORMAL) {
                 to = new Vector2(t.originX, t.originY);
+                tile = MousseAdventure.battleScreen.tiles[x][y];
                 if(x == next.x && y == next.y) {
                     e.nextPath();
                 }
@@ -48,10 +49,11 @@ public class MoveEnemyEffect extends AbstractEffect {
 
         if(next.y < e.pos.y) {
             x = e.pos.x;
-            y = MathUtils.clamp(e.pos.y + speed, 0, MousseAdventure.battleScreen.hSize - 1);
+            y = MathUtils.clamp(e.pos.y - speed, 0, MousseAdventure.battleScreen.hSize - 1);
             t = MousseAdventure.battleScreen.tiles[x][y];
             if(t.status == TileSquare.TileStatus.NORMAL) {
                 to = new Vector2(t.originX, t.originY);
+                tile = MousseAdventure.battleScreen.tiles[x][y];
                 if(x == next.x && y == next.y) {
                     e.nextPath();
                 }
@@ -66,6 +68,7 @@ public class MoveEnemyEffect extends AbstractEffect {
             t = MousseAdventure.battleScreen.tiles[x][y];
             if(t.status == TileSquare.TileStatus.NORMAL) {
                 to = new Vector2(t.originX, t.originY);
+                tile = MousseAdventure.battleScreen.tiles[x][y];
                 if(x == next.x && y == next.y) {
                     e.nextPath();
                 }
@@ -80,6 +83,7 @@ public class MoveEnemyEffect extends AbstractEffect {
             t = MousseAdventure.battleScreen.tiles[x][y];
             if(t.status == TileSquare.TileStatus.NORMAL) {
                 to = new Vector2(t.originX, t.originY);
+                tile = MousseAdventure.battleScreen.tiles[x][y];
                 if(x == next.x && y == next.y) {
                     e.nextPath();
                 }
@@ -89,6 +93,7 @@ public class MoveEnemyEffect extends AbstractEffect {
     }
 
     private void setPrePosition() {
+        //System.out.println("Moved to: " + tile.pos.x + ", " + tile.pos.y);
         e.tile.removeEntity();
         e.tile = tile;
         e.pos = tile.pos;

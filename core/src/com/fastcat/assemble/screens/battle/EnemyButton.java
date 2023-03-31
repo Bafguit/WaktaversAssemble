@@ -36,7 +36,7 @@ public class EnemyButton extends AbstractUI {
     @Override
     protected void updateButton() {
         if(tile != null) {
-            entity.pos.set(originX, originY);
+            setPosition(entity.pos.x, entity.pos.y);
         }
     }
 
@@ -48,7 +48,8 @@ public class EnemyButton extends AbstractUI {
     }
 
     public void setPath(Queue<Vector2i> v) {
-        v.remove();
+        if(v.size() > 1) v.remove();
+        //path.clear();
         path = v;
     }
 

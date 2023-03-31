@@ -174,6 +174,7 @@ public class BattleScreen extends AbstractScreen {
         t.status = TileSquare.TileStatus.ENTITY;
         ui.tile = t;
         ui.pos.set(x, y);
+        ui.entity.pos = new Vector2(t.originX, t.originY);
         ui.setPosition(t.originX, t.originY);
         enemies.add(ui);
     }
