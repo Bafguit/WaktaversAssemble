@@ -8,6 +8,8 @@ import com.fastcat.assemble.effects.MoveEnemyEffect;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.screens.battle.TileSquare;
 
+import java.util.Iterator;
+
 public class MoveEnemyAction extends AbstractAction {
 
     private final Array<MoveEnemyEffect> e = new Array<>();
@@ -27,9 +29,21 @@ public class MoveEnemyAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             if(e.size > 0) {
-                for(MoveEnemyEffect m : e) {
-                    m.setRightNextPath();
-                }
+                boolean moveDone;
+                Array<MoveEnemyEffect> me = new Array<>(e);
+                do {
+                    moveDone = false;
+                    Iterator<MoveEnemyEffect> itr = me.iterator();
+                    while(itr.hasNext()) {
+                        MoveEnemyEffect m = itr.next();
+                        m.setRightNextPath();
+                        if(m.moveDone) {
+                            itr.remove();
+                            moveDone = true;
+                        }
+                    }
+                } while(moveDone);
+
                 for(MoveEnemyEffect m : e) {
                     EffectHandler.add(m);
                 }

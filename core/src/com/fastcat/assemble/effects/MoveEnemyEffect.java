@@ -5,7 +5,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractAction;
 import com.fastcat.assemble.abstrcts.AbstractEffect;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.screens.battle.TileSquare;
@@ -19,6 +18,7 @@ public class MoveEnemyEffect extends AbstractEffect {
     private Vector2 to;
     private float timer = 0;
     private final int speed;
+    public boolean moveDone = false;
 
     public MoveEnemyEffect(EnemyButton target, float duration) {
         super(duration);
@@ -28,69 +28,132 @@ public class MoveEnemyEffect extends AbstractEffect {
     }
 
     public void setRightNextPath() {
-        int x, y;
-        TileSquare t;
-        Vector2i next = e.getNextPath();
-
-        if(next.y > e.pos.y) {
-            x = e.pos.x;
-            y = MathUtils.clamp(e.pos.y + speed, 0, MousseAdventure.battleScreen.hSize - 1);
-            t = MousseAdventure.battleScreen.tiles[x][y];
-            if(t.status == TileSquare.TileStatus.NORMAL) {
-                to = new Vector2(t.originX, t.originY);
-                tile = MousseAdventure.battleScreen.tiles[x][y];
-                if(x == next.x && y == next.y) {
-                    e.nextPath();
+        for(int i = 0; i < speed; i++) {
+            TileSquare t;
+            Vector2i next = e.getNextPath();
+            int x, y, w = Math.abs(e.pos.x - next.x), h = Math.abs(e.pos.y - next.y);
+            if (h >= w) {
+                if (next.y > e.pos.y) {
+                    x = e.pos.x;
+                    y = MathUtils.clamp(e.pos.y + 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                        return;
+                    }
                 }
-                setPrePosition();
-                return;
-            }
-        }
 
-        if(next.y < e.pos.y) {
-            x = e.pos.x;
-            y = MathUtils.clamp(e.pos.y - speed, 0, MousseAdventure.battleScreen.hSize - 1);
-            t = MousseAdventure.battleScreen.tiles[x][y];
-            if(t.status == TileSquare.TileStatus.NORMAL) {
-                to = new Vector2(t.originX, t.originY);
-                tile = MousseAdventure.battleScreen.tiles[x][y];
-                if(x == next.x && y == next.y) {
-                    e.nextPath();
+                if (next.y < e.pos.y) {
+                    x = e.pos.x;
+                    y = MathUtils.clamp(e.pos.y - 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                        return;
+                    }
                 }
-                setPrePosition();
-                return;
-            }
-        }
 
-        if(next.x > e.pos.x) {
-            x = MathUtils.clamp(e.pos.x + speed, 0, MousseAdventure.battleScreen.hSize - 1);
-            y = e.pos.y;
-            t = MousseAdventure.battleScreen.tiles[x][y];
-            if(t.status == TileSquare.TileStatus.NORMAL) {
-                to = new Vector2(t.originX, t.originY);
-                tile = MousseAdventure.battleScreen.tiles[x][y];
-                if(x == next.x && y == next.y) {
-                    e.nextPath();
+                if (next.x > e.pos.x) {
+                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    y = e.pos.y;
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                        return;
+                    }
                 }
-                setPrePosition();
-                return;
-            }
-        }
 
-        if(next.x < e.pos.x) {
-            x = MathUtils.clamp(e.pos.x - speed, 0, MousseAdventure.battleScreen.hSize - 1);
-            y = e.pos.y;
-            t = MousseAdventure.battleScreen.tiles[x][y];
-            if(t.status == TileSquare.TileStatus.NORMAL) {
-                to = new Vector2(t.originX, t.originY);
-                tile = MousseAdventure.battleScreen.tiles[x][y];
-                if(x == next.x && y == next.y) {
-                    e.nextPath();
+                if (next.x < e.pos.x) {
+                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    y = e.pos.y;
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                    }
                 }
-                setPrePosition();
+            } else {
+                if (next.x > e.pos.x) {
+                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    y = e.pos.y;
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                        return;
+                    }
+                }
+
+                if (next.x < e.pos.x) {
+                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    y = e.pos.y;
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                    }
+                }
+
+                if (next.y > e.pos.y) {
+                    x = e.pos.x;
+                    y = MathUtils.clamp(e.pos.y + 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                        return;
+                    }
+                }
+
+                if (next.y < e.pos.y) {
+                    x = e.pos.x;
+                    y = MathUtils.clamp(e.pos.y - 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                        to = new Vector2(t.originX, t.originY);
+                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        if (x == next.x && y == next.y) {
+                            e.nextPath();
+                        }
+                        setPrePosition();
+                        return;
+                    }
+                }
             }
         }
     }
+
 
     private void setPrePosition() {
         //System.out.println("Moved to: " + tile.pos.x + ", " + tile.pos.y);
@@ -99,6 +162,7 @@ public class MoveEnemyEffect extends AbstractEffect {
         e.pos = tile.pos;
         tile.status = TileSquare.TileStatus.ENTITY;
         tile.enemy = e;
+        moveDone = true;
     }
 
     @Override
