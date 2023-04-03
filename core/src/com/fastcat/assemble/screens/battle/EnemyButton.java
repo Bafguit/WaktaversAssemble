@@ -21,7 +21,7 @@ public class EnemyButton extends AbstractUI {
     public AbstractEnemy entity;
     public TileSquare tile;
 
-    public boolean isMoving = false;
+    public CharacterButton target;
 
     public EnemyButton(BattleScreen screen) {
         this(screen, new TestEnemy());

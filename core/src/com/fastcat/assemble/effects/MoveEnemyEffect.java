@@ -6,9 +6,12 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractEffect;
+import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.screens.battle.TileSquare;
 import com.fastcat.assemble.utils.Vector2i;
+
+import static com.fastcat.assemble.MousseAdventure.battleScreen;
 
 public class MoveEnemyEffect extends AbstractEffect {
 
@@ -69,6 +72,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.RIGHT);
                         to = new Vector2(t.originX, t.originY);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
@@ -84,6 +88,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.LEFT);
                         to = new Vector2(t.originX, t.originY);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
@@ -98,6 +103,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.RIGHT);
                         to = new Vector2(t.originX, t.originY);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
@@ -113,6 +119,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.LEFT);
                         to = new Vector2(t.originX, t.originY);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
@@ -164,6 +171,7 @@ public class MoveEnemyEffect extends AbstractEffect {
         tile.status = TileSquare.TileStatus.ENTITY;
         tile.enemy = e;
         moveDone = true;
+        e.target = e.entity.getPlayerInRange(e, e.entity.getRange());
     }
 
     @Override

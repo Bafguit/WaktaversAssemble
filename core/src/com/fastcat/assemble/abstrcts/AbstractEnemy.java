@@ -1,6 +1,7 @@
 package com.fastcat.assemble.abstrcts;
 
 import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.effects.MoveEnemyEffect;
 import com.fastcat.assemble.screens.battle.CharacterButton;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.screens.battle.TileSquare;
@@ -16,8 +17,15 @@ public abstract class AbstractEnemy extends AbstractEntity{
     }
 
     public final AbstractEffect playAction(EnemyButton button, float duration) {
-        setDirToPlayer(button);
-        return play(button, duration);
+        AbstractEffect e = play(button, duration);
+        if(e instanceof MoveEnemyEffect) {
+
+        } else setDirToPlayer(button);
+        return e;
+    }
+
+    public int getRange() {
+        return 1;
     }
 
     protected abstract AbstractEffect play(EnemyButton button, float duration);

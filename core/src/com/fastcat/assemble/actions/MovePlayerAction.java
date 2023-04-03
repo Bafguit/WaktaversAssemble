@@ -9,6 +9,7 @@ import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.screens.battle.CharacterButton;
 import com.fastcat.assemble.screens.battle.TileSquare;
+import com.fastcat.assemble.utils.Vector2i;
 
 public class MovePlayerAction extends AbstractAction {
 
@@ -37,7 +38,7 @@ public class MovePlayerAction extends AbstractAction {
         if(isDone) {
             e.tile.removeEntity();
             e.tile = tile;
-            e.pos = tile.pos;
+            e.pos = new Vector2i(tile.pos);
             e.character.pos = to;
             tile.status = TileSquare.TileStatus.ENTITY;
             tile.character = e;

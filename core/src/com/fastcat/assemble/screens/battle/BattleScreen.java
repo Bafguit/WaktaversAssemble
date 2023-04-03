@@ -162,7 +162,7 @@ public class BattleScreen extends AbstractScreen {
             for (int i = dirSkill.tempRange.length - 1; i >= 0; i--) {
                 Vector2i pv = new Vector2i(player.pos);
                 pv.add(dirSkill.tempRange[i]);
-                int x = (int) pv.x, y = (int) pv.y;
+                int x = pv.x, y = pv.y;
                 if (x >= 0 && x < wSize && y >= 0 && y < hSize) {
                     TileSquare tile = tiles[x][y];
                     tile.isTarget = true;

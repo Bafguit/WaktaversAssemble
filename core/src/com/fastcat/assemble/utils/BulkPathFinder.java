@@ -2,6 +2,7 @@ package com.fastcat.assemble.utils;
 
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.screens.battle.TileSquare;
+import com.fastcat.assemble.screens.battle.TileSquare.TileStatus;
 import org.ksdev.jps.Graph;
 import org.ksdev.jps.JPSDiagOneObstacle;
 
@@ -53,7 +54,8 @@ public class BulkPathFinder {
         if(y < 0 || y >= MousseAdventure.battleScreen.hSize)
             return false;
 
-        TileSquare.TileStatus status = MousseAdventure.battleScreen.tiles[x][y].status;
-        return status == TileSquare.TileStatus.NORMAL || status == TileSquare.TileStatus.ENTITY;
+        TileSquare s = MousseAdventure.battleScreen.tiles[x][y];
+        return s.status == TileStatus.NORMAL ||
+                (s.character != null || (s.enemy != null && s.enemy.target == null));
     }
 }

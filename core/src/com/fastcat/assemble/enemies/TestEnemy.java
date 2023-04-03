@@ -16,11 +16,15 @@ public class TestEnemy extends AbstractEnemy {
 
     @Override
     protected AbstractEffect play(EnemyButton b, float duration) {
-        CharacterButton c = getPlayerInRange(b, 2);
-        if(c != null) {
-            return new PercentAttackEffect(c.character, this, 100, DamageType.MAGIC, true);
+        if(b.target != null) {
+            return new PercentAttackEffect(b.target.character, this, 100, DamageType.MAGIC, true);
         } else {
             return new MoveEnemyEffect(b, duration);
         }
+    }
+
+    @Override
+    public int getRange() {
+        return 2;
     }
 }

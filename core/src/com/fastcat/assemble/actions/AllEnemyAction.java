@@ -22,10 +22,8 @@ public class AllEnemyAction extends AbstractAction {
                 if(t2.enemy != null) {
                     AbstractEffect ef = t2.enemy.entity.playAction(t2.enemy, baseDuration);
                     if(ef instanceof MoveEnemyEffect) {
-                        t2.enemy.isMoving = true;
                         e.add((MoveEnemyEffect) ef);
                     } else {
-                        t2.enemy.isMoving = false;
                         EffectHandler.add(ef);
                     }
                 }

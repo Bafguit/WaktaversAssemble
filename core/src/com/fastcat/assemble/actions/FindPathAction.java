@@ -22,6 +22,11 @@ public class FindPathAction extends AbstractAction {
             BulkPathFinder.setFinishCallback(this::finishFinding);
             for(EnemyButton e : battleScreen.enemies) {
                 if(e.entity.isAlive()) {
+                    e.target = e.entity.getPlayerInRange(e, e.entity.getRange());
+                }
+            }
+            for(EnemyButton e : battleScreen.enemies) {
+                if(e.entity.isAlive()) {
                     BulkPathFinder.performPathfinding(e.pos, battleScreen.player.pos, e::setPath);
                 }
             }
