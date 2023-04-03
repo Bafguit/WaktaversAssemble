@@ -9,14 +9,14 @@ import com.fastcat.assemble.screens.battle.EnemyButton;
 
 public class TestEnemy extends AbstractEnemy {
     public TestEnemy() {
-        super("Test", 350, 2000, 100, 0);
+        super("enemy_1038_lunmag", 400, 4000, 250, 50);
         name = "테스트";
         desc = "피해 3";
     }
 
     @Override
-    public AbstractEffect playAction(EnemyButton b, float duration) {
-        CharacterButton c = getPlayerInRange(b, 3);
+    protected AbstractEffect play(EnemyButton b, float duration) {
+        CharacterButton c = getPlayerInRange(b, 2);
         if(c != null) {
             return new PercentAttackEffect(c.character, this, 100, DamageType.MAGIC, true);
         } else {

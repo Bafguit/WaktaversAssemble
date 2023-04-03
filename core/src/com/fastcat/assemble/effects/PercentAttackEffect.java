@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstrcts.AbstractAction;
 import com.fastcat.assemble.abstrcts.AbstractEffect;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.handlers.EffectHandler;
 
 public class PercentAttackEffect extends AbstractEffect {
 
@@ -34,8 +35,7 @@ public class PercentAttackEffect extends AbstractEffect {
         if(duration == baseDuration) {
             if(source.isAlive()) {
                 AbstractEntity.DamageInfo info = new AbstractEntity.DamageInfo((int) (source.calculatedAttack() * percent), type);
-
-                source.attack(target, info);
+                EffectHandler.add(new AttackEffect(source, target, info));
             }
         }
     }

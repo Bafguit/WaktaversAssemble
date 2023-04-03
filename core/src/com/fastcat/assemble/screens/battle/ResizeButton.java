@@ -16,8 +16,8 @@ public class ResizeButton extends AbstractUI {
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
     private final HashMap<Integer, Integer> resolution = new HashMap<>();
     private final Array<Integer> w = new Array<>();
-    private int ww = 1600, hh = 900;
-    private int index = 2;
+    private int ww = 1280, hh = 720;
+    private int index = 0;
 
     public ResizeButton() {
         super(FileHandler.dice.get("Dice"));

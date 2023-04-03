@@ -6,11 +6,13 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.esotericsoftware.spine.SkeletonRenderer;
 import com.fastcat.assemble.abstrcts.AbstractGame;
 import com.fastcat.assemble.abstrcts.AbstractScreen;
 import com.fastcat.assemble.abstrcts.AbstractUI;
@@ -29,6 +31,9 @@ public class MousseAdventure extends ApplicationAdapter {
 	public static OrthographicCamera camera;
 	public static PerspectiveCamera cam;
 	public static Viewport viewport;
+
+	public static PolygonSpriteBatch psb;
+	public static SkeletonRenderer sr;
 
 	public static BattleScreen battleScreen;
 
@@ -59,6 +64,8 @@ public class MousseAdventure extends ApplicationAdapter {
 		resourceHandler = new ResourceHandler(assetManager);
 
 		application = this;
+		psb = new PolygonSpriteBatch();
+		sr = new SkeletonRenderer();
 		sb = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		camera = new OrthographicCamera();

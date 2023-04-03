@@ -121,17 +121,21 @@ public class BattleScreen extends AbstractScreen {
         phaseButton.render(sb);
         turnEndButton.render(sb);
 
-        for(int j = 0; j < hSize; j++) {
-            for(int i = 0; i < wSize; i++) {
+        for(int j = hSize - 1; j >= 0; j--) {
+            for(int i = wSize - 1; i >= 0; i--) {
                 TileSquare t = tiles[i][j];
                 t.render(sb);
+                if(t.character != null) t.character.render(sb);
+                else if(t.enemy != null) t.enemy.render(sb);
             }
         }
 
-        player.render(sb);
-
-        for(EnemyButton e : enemies) {
-            e.render(sb);
+        for(int j = hSize - 1; j >= 0; j--) {
+            for(int i = wSize - 1; i >= 0; i--) {
+                TileSquare t = tiles[i][j];
+                if(t.character != null) t.character.render(sb);
+                else if(t.enemy != null) t.enemy.render(sb);
+            }
         }
 
         for(DirectionButton b : dirButton) {

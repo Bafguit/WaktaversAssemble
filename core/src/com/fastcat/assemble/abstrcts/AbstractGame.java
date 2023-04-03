@@ -3,10 +3,8 @@ package com.fastcat.assemble.abstrcts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.character.TestChar;
+import com.fastcat.assemble.character.Mousse;
 import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -38,7 +36,7 @@ public class AbstractGame {
     public AbstractGame() {
         dices = new Array<>();
         items = new Array<>();
-        player = new TestChar();
+        player = new Mousse();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);

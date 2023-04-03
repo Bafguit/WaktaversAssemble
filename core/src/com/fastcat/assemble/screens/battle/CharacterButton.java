@@ -39,7 +39,7 @@ public class CharacterButton extends AbstractUI {
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled && character != null) {
-            if (showImg) sb.draw(character.img, x, y, width, height);
+            if (showImg) character.render(sb);
         }
     }
 

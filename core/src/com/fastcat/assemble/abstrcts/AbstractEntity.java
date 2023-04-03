@@ -1,16 +1,25 @@
 package com.fastcat.assemble.abstrcts;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.esotericsoftware.spine.AnimationState;
+import com.esotericsoftware.spine.Event;
 import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
+import com.fastcat.assemble.utils.SpineAnimation;
 
 import java.util.LinkedList;
 
 public abstract class AbstractEntity {
+
+    public final Color animColor = new Color(1, 1, 1, 1);
 
     //local static
     public String id;
@@ -19,6 +28,12 @@ public abstract class AbstractEntity {
     public EntityRarity rarity;
     public Sprite img;
     public Vector2 pos;
+    public Vector2 animPos;
+
+    protected TextureAtlas atlas;
+    protected FileHandle skeleton;
+    public SpineAnimation animation;
+    public boolean isFlip = false;
 
     public int uuid;
     public int baseMaxHealth;
@@ -51,7 +66,16 @@ public abstract class AbstractEntity {
         this.magicRes = this.baseMagicRes = res;
         this.rarity = rarity;
         pos = new Vector2();
+        animPos = new Vector2(-10000, -10000);
         img = FileHandler.character.get(id);
+        setAnimation();
+    }
+
+    protected void setAnimation() {
+        atlas = FileHandler.atlas.get(id);
+        skeleton = FileHandler.skeleton.get(id);
+        animation = new SpineAnimation(atlas, skeleton);
+        animation.resetAnimation();
     }
 
     public final void resetAttributes() {
@@ -65,19 +89,28 @@ public abstract class AbstractEntity {
         magicShield = 0;
     }
 
+    public void render(SpriteBatch sb) {
+        if (!isDead) {
+            Color c = sb.getColor();
+            sb.setColor(animColor);
+            animation.render(sb, pos.x, pos.y - 50 * InputHandler.scaleY, isFlip);
+            sb.setColor(c);
+        }
+    }
+
     public final boolean isAlive() {
         return !isDead && !isDie;
     }
 
     public void attack(Array<AbstractEntity> target, DamageInfo info) {
-        if(target.size > 0) {
-            for(AbstractEntity t : target) {
-                if(t.isAlive()) {
+        if (target.size > 0) {
+            for (AbstractEntity t : target) {
+                if (t.isAlive()) {
                     t.takeDamage(info);
                 }
             }
 
-            for(AbstractStatus s : status) {
+            for (AbstractStatus s : status) {
                 s.onAfterAttack();
             }
         }
@@ -197,6 +230,14 @@ public abstract class AbstractEntity {
         }
     }
 
+    public void updateDir(AbstractSkill.SkillDir dir) {
+        if(dir == AbstractSkill.SkillDir.LEFT) {
+            isFlip = true;
+        } else if(dir == AbstractSkill.SkillDir.RIGHT) {
+            isFlip = false;
+        }
+    }
+
     public static class DamageInfo {
         public DamageType type;
         public int damage;
@@ -214,6 +255,14 @@ public abstract class AbstractEntity {
                 break;
             }
         }
+    }
+
+    public void walkEnd() {
+        animation.resetAnimation();
+    }
+
+    public void walk() {
+        animation.set("Move", true);
     }
 
     public void removeStatus(AbstractStatus s) {

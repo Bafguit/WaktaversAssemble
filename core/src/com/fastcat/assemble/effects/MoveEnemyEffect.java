@@ -19,6 +19,7 @@ public class MoveEnemyEffect extends AbstractEffect {
     private float timer = 0;
     private final int speed;
     public boolean moveDone = false;
+    public boolean pause = false;
 
     public MoveEnemyEffect(EnemyButton target, float duration) {
         super(duration);
@@ -168,6 +169,9 @@ public class MoveEnemyEffect extends AbstractEffect {
     @Override
     protected void renderEffect(SpriteBatch sb) {
         if(to != null) {
+            if(duration == baseDuration) {
+                e.entity.walk();
+            }
             if (timer < 1) {
                 timer += MousseAdventure.tick / baseDuration;
                 if (timer >= 1) timer = 1;
@@ -176,6 +180,7 @@ public class MoveEnemyEffect extends AbstractEffect {
             }
 
             if(isDone) {
+                e.entity.walkEnd();
                 e.entity.pos = to;
             }
         } else {

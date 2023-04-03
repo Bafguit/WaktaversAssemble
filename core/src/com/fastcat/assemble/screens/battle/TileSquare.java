@@ -3,6 +3,7 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.actions.FindPathAction;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -38,6 +39,7 @@ public class TileSquare extends AbstractUI {
         screen.player.tile = this;
         character = screen.player;
         character.pos = new Vector2i(pos);
+        character.character.updateDir(AbstractSkill.SkillDir.RIGHT);
         character.character.pos = new Vector2(originX, originY);
         screen.phase = DRAW;
         ActionHandler.bot(new FindPathAction());

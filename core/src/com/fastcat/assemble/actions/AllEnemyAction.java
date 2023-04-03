@@ -16,14 +16,16 @@ public class AllEnemyAction extends AbstractAction {
     private final Array<MoveEnemyEffect> e = new Array<>();
 
     public AllEnemyAction(boolean isFast) {
-        super(isFast ? 0.15f : 0.3f);
+        super(isFast ? 0.15f : 1.333f);
         for(TileSquare[] t1 : MousseAdventure.battleScreen.tiles) {
             for(TileSquare t2 : t1) {
                 if(t2.enemy != null) {
                     AbstractEffect ef = t2.enemy.entity.playAction(t2.enemy, baseDuration);
                     if(ef instanceof MoveEnemyEffect) {
+                        t2.enemy.isMoving = true;
                         e.add((MoveEnemyEffect) ef);
                     } else {
+                        t2.enemy.isMoving = false;
                         EffectHandler.add(ef);
                     }
                 }

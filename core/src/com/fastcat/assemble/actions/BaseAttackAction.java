@@ -3,6 +3,8 @@ package com.fastcat.assemble.actions;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstrcts.AbstractAction;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.effects.AttackEffect;
+import com.fastcat.assemble.handlers.EffectHandler;
 
 public class BaseAttackAction extends AbstractAction {
 
@@ -27,8 +29,7 @@ public class BaseAttackAction extends AbstractAction {
         if(duration == baseDuration) {
             if(source.isAlive()) {
                 AbstractEntity.DamageInfo info = new AbstractEntity.DamageInfo(source.calculatedAttack(), type);
-
-                source.attack(target, info);
+                EffectHandler.add(new AttackEffect(source, target, info));
             }
         }
     }

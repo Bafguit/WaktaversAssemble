@@ -21,6 +21,8 @@ public class EnemyButton extends AbstractUI {
     public AbstractEnemy entity;
     public TileSquare tile;
 
+    public boolean isMoving = false;
+
     public EnemyButton(BattleScreen screen) {
         this(screen, new TestEnemy());
     }
@@ -44,7 +46,7 @@ public class EnemyButton extends AbstractUI {
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled && entity != null) {
-            if (showImg) sb.draw(entity.img, x, y, width, height);
+            if (showImg) entity.render(sb);
         }
     }
 

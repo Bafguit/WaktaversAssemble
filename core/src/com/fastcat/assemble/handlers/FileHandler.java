@@ -41,6 +41,10 @@ public class FileHandler {
 
     public static final HashMap<String, TextureAtlas> diceAtlas = new HashMap<>();
 
+    public static final HashMap<String, FileHandle> skeleton = new HashMap<>();
+
+    public static final HashMap<String, TextureAtlas> atlas = new HashMap<>();
+
     public static FileHandler getInstance() {
         if (instance == null) return (instance = new FileHandler());
         return instance;
@@ -63,6 +67,7 @@ public class FileHandler {
         generateUI(resourceHandler);
         generateBG(resourceHandler);
         generateChar(resourceHandler);
+        generateSpine(resourceHandler);
         generateCard(resourceHandler);
         generateSkill(resourceHandler);
         generateStatus(resourceHandler);
@@ -95,6 +100,7 @@ public class FileHandler {
 
         jsonMap.put(JsonType.DICE, generateJson("json/dice.json"));
         jsonMap.put(JsonType.CHAR, generateJson("json/character.json"));
+        jsonMap.put(JsonType.ENEMY, generateJson("json/enemy.json"));
         jsonMap.put(JsonType.SKILL, generateJson("json/skill.json"));
         jsonMap.put(JsonType.STATUS, generateJson("json/status.json"));
         //StringHandler.generate();
@@ -186,6 +192,50 @@ public class FileHandler {
         }));
     }
 
+    private void generateSpine(ResourceHandler resourceHandler) {
+        skeleton.clear();
+        atlas.clear();
+
+        for (JsonValue js : jsonMap.get(JsonType.CHAR)) {
+            skeleton.put(js.name + "_front", Gdx.files.internal("atlas/char/" + js.name + "/front/" + js.name + ".skel"));
+            skeleton.put(js.name + "_back", Gdx.files.internal("atlas/char/" + js.name + "/back/" + js.name + ".skel"));
+
+            resourceHandler.requestResource(new ResourceHandler.ResourceRequest<>(
+                    "atlas/char/" + js.name + "/front/" + js.name + ".atlas",
+                    TextureAtlas.class,
+                    (resource, args) -> {
+                        TextureAtlas textureAtlas = (TextureAtlas) resource;
+                        String name = args[0].toString();
+                        atlas.put(name + "_front", textureAtlas);
+                    },
+                    js.name));
+
+            resourceHandler.requestResource(new ResourceHandler.ResourceRequest<>(
+                    "atlas/char/" + js.name + "/back/" + js.name + ".atlas",
+                    TextureAtlas.class,
+                    (resource, args) -> {
+                        TextureAtlas textureAtlas = (TextureAtlas) resource;
+                        String name = args[0].toString();
+                        atlas.put(name + "_back", textureAtlas);
+                    },
+                    js.name));
+        }
+
+        for (JsonValue js : jsonMap.get(JsonType.ENEMY)) {
+            skeleton.put(js.name, Gdx.files.internal("atlas/enemy/" + js.name + ".skel"));
+
+            resourceHandler.requestResource(new ResourceHandler.ResourceRequest<>(
+                    "atlas/enemy/" + js.name + ".atlas",
+                    TextureAtlas.class,
+                    (resource, args) -> {
+                        TextureAtlas textureAtlas = (TextureAtlas) resource;
+                        String name = args[0].toString();
+                        atlas.put(name, textureAtlas);
+                    },
+                    js.name));
+        }
+    }
+
     private void generateSkill(ResourceHandler resourceHandler) {
         skill.clear();
 
@@ -232,6 +282,7 @@ public class FileHandler {
     public enum JsonType {
         DICE,
         CHAR,
+        ENEMY,
         SKILL,
         STATUS
     }

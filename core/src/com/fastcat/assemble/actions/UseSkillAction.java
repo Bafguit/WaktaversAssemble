@@ -1,6 +1,7 @@
 package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAction;
 import com.fastcat.assemble.abstrcts.AbstractSkill;
 import com.fastcat.assemble.abstrcts.AbstractSkill.SkillTarget;
@@ -38,6 +39,7 @@ public class UseSkillAction extends AbstractAction {
             duration = 1;
             if(InputHandler.isLeftClick) {
                 skill.direction = battleScreen.curDir;
+                MousseAdventure.game.player.updateDir(battleScreen.curDir);
                 skill.beforeUse();
                 if(battleScreen.phase == BattlePhase.MOVE && skill.toTile != null) {
                     skill.use();
