@@ -3,8 +3,7 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstrcts.AbstractUI;
-import com.fastcat.assemble.actions.FindPathAction;
-import com.fastcat.assemble.actions.MoveEnemyAction;
+import com.fastcat.assemble.actions.AllEnemyAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -38,6 +37,6 @@ public class TurnEndButton extends AbstractUI {
     @Override
     public void onClick() {
         screen.phase = BattlePhase.END_TURN;
-        ActionHandler.bot(new MoveEnemyAction(false));
+        ActionHandler.bot(new AllEnemyAction(false));
     }
 }

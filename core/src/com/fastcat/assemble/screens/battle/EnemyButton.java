@@ -3,6 +3,7 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.abstrcts.AbstractEnemy;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
 import com.fastcat.assemble.abstrcts.AbstractUI;
 import com.fastcat.assemble.enemies.TestEnemy;
@@ -17,14 +18,14 @@ public class EnemyButton extends AbstractUI {
     private Queue<Vector2i> path;
 
     public BattleScreen screen;
-    public AbstractEntity entity;
+    public AbstractEnemy entity;
     public TileSquare tile;
 
     public EnemyButton(BattleScreen screen) {
         this(screen, new TestEnemy());
     }
 
-    public EnemyButton(BattleScreen screen, AbstractEntity dice) {
+    public EnemyButton(BattleScreen screen, AbstractEnemy dice) {
         super(FileHandler.character.get("Test"));
         pix();
         this.entity = dice;

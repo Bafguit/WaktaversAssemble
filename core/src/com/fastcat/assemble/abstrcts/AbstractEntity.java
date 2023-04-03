@@ -4,11 +4,9 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.screens.battle.StatusIcon;
 
 import java.util.LinkedList;
 
@@ -30,6 +28,7 @@ public abstract class AbstractEntity {
     public boolean isPlayer;
     public boolean isDie;
     public boolean isDead;
+    public boolean invisible = false;
 
     public LinkedList<AbstractStatus> status = new LinkedList<>();
 

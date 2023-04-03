@@ -1,7 +1,6 @@
 package com.fastcat.assemble.abstrcts;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -104,7 +103,7 @@ public abstract class AbstractSkill {
                     int x = pv.x, y = pv.y;
                     if (x >= 0 && x < battleScreen.wSize && y >= 0 && y < battleScreen.hSize) {
                         TileSquare tile = battleScreen.tiles[x][y];
-                        if (tile.enemy != null) {
+                        if (tile.enemy != null && !tile.enemy.entity.invisible) {
                             targets.add(tile.enemy.entity);
                             if(targets.size == targetAmount) break;
                         }
@@ -117,7 +116,7 @@ public abstract class AbstractSkill {
                     int x = pv.x, y = pv.y;
                     if (x >= 0 && x < battleScreen.wSize && y >= 0 && y < battleScreen.hSize) {
                         TileSquare tile = battleScreen.tiles[x][y];
-                        if (tile.enemy != null) {
+                        if (tile.enemy != null && !tile.enemy.entity.invisible) {
                             targets.add(tile.enemy.entity);
                         }
                     }
