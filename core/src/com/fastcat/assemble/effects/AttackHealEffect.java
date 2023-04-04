@@ -13,7 +13,6 @@ public class AttackHealEffect extends AbstractEffect {
     private final AbstractEntity attacker;
     private final Array<AbstractEntity> target;
     private final AbstractEntity.DamageInfo info;
-    private final String key;
     private final int amount;
     private final int heal;
 
@@ -29,7 +28,6 @@ public class AttackHealEffect extends AbstractEffect {
         super(2);
         this.attacker = attacker;
         this.amount = amount;
-        this.key = amount > 1 ? "Attack_2" : "Attack";
         this.target = target;
         this.info = info;
         this.heal = heal;
@@ -38,7 +36,7 @@ public class AttackHealEffect extends AbstractEffect {
     @Override
     protected void renderEffect(SpriteBatch sb) {
         if(duration == baseDuration) {
-            attacker.animation.setAndIdle(key, new AnimationState.AnimationStateAdapter() {
+            attacker.attackAnimation(amount, new AnimationState.AnimationStateAdapter() {
                 @Override
                 public void complete(AnimationState.TrackEntry entry) {
                     isDone = true;
@@ -53,7 +51,7 @@ public class AttackHealEffect extends AbstractEffect {
                         if(count >= 2 && count < amount) {
                             entry.setTrackTime(0.4f);
                         }
-                        attacker.attackAndHeal(target, info, heal);
+                        attacker.attack(target, info);
                     }
                 }
             });

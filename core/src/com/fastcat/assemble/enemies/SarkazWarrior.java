@@ -1,5 +1,6 @@
 package com.fastcat.assemble.enemies;
 
+import com.esotericsoftware.spine.AnimationState;
 import com.fastcat.assemble.abstrcts.AbstractEffect;
 import com.fastcat.assemble.abstrcts.AbstractEnemy;
 import com.fastcat.assemble.effects.MoveEnemyEffect;
@@ -23,6 +24,13 @@ public class SarkazWarrior extends AbstractEnemy {
     @Override
     public int getRange() {
         return 1;
+    }
+
+    @Override
+    public void attackAnimation(int target, AnimationState.AnimationStateAdapter adapter) {
+        animation.set("Attack", adapter, false);
+        animation.state.addAnimation(0, "Attack_End", false, 0.0F);
+        animation.state.addAnimation(0, "Idle", true, 0.0F);
     }
 
     @Override

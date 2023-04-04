@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
 import com.fastcat.assemble.effects.DieEffect;
+import com.fastcat.assemble.effects.HitEffect;
 import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.EffectHandler;
@@ -116,10 +117,6 @@ public abstract class AbstractEntity {
                     t.takeDamage(info);
                 }
             }
-
-            for (AbstractStatus s : status) {
-                s.onAfterAttack();
-            }
         }
     }
 
@@ -216,6 +213,7 @@ public abstract class AbstractEntity {
             die();
         } else {
             health -= damage;
+            EffectHandler.add(new HitEffect(this));
         }
         EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, damage, Color.SCARLET));
     }
@@ -284,6 +282,10 @@ public abstract class AbstractEntity {
 
     public void walk() {
         animation.set("Move", true);
+    }
+
+    public void attackAnimation(int target, AnimationState.AnimationStateAdapter adapter) {
+        animation.setAndIdle("Attack", adapter);
     }
 
     public void dieAnimation(AnimationState.AnimationStateAdapter adapter) {

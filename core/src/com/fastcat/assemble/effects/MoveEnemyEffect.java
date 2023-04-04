@@ -164,7 +164,6 @@ public class MoveEnemyEffect extends AbstractEffect {
 
 
     private void setPrePosition() {
-        //System.out.println("Moved to: " + tile.pos.x + ", " + tile.pos.y);
         e.tile.removeEntity();
         e.tile = tile;
         e.pos = tile.pos;

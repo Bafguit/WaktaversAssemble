@@ -39,7 +39,6 @@ public class FindPathAction extends AbstractAction {
 
     private Void finishFinding() {
         isDone = true;
-        System.out.print("Finding finished\n");
         return null;
     }
 

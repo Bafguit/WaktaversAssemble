@@ -13,7 +13,6 @@ public class AttackSeveralEffect extends AbstractEffect {
     private final AbstractEntity attacker;
     private final Array<AbstractEntity> target;
     private final AbstractEntity.DamageInfo info;
-    private final String key;
     private final int amount;
 
     private int count = 0;
@@ -25,14 +24,9 @@ public class AttackSeveralEffect extends AbstractEffect {
     }
 
     public AttackSeveralEffect(AbstractEntity attacker, Array<AbstractEntity> target, int amount, AbstractEntity.DamageInfo info) {
-        this(attacker, target, amount, info, amount > 1 ? "Attack_2" : "Attack");
-    }
-
-    public AttackSeveralEffect(AbstractEntity attacker, Array<AbstractEntity> target, int amount, AbstractEntity.DamageInfo info, String key) {
         super(2);
         this.attacker = attacker;
         this.amount = amount;
-        this.key = key;
         this.target = target;
         this.info = info;
     }
@@ -41,7 +35,7 @@ public class AttackSeveralEffect extends AbstractEffect {
     @Override
     protected void renderEffect(SpriteBatch sb) {
         if(duration == baseDuration) {
-            attacker.animation.setAndIdle(key, new AnimationState.AnimationStateAdapter() {
+            attacker.attackAnimation(amount, new AnimationState.AnimationStateAdapter() {
                 @Override
                 public void complete(AnimationState.TrackEntry entry) {
                     isDone = true;

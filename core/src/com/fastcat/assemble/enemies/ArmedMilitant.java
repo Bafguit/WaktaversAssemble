@@ -6,9 +6,9 @@ import com.fastcat.assemble.effects.MoveEnemyEffect;
 import com.fastcat.assemble.effects.PercentAttackEffect;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 
-public class Butcher extends AbstractEnemy {
-    public Butcher() {
-        super("enemy_1035_haxe", 10500, 12000, 700, 30);
+public class ArmedMilitant extends AbstractEnemy {
+    public ArmedMilitant() {
+        super("enemy_1035_haxe", 10500, 1200, 700, 30);
     }
 
     @Override

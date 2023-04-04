@@ -1,17 +1,16 @@
 package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.*;
 import com.fastcat.assemble.dices.basic.Mousse;
-import com.fastcat.assemble.dices.normal.LaPluma;
-import com.fastcat.assemble.enemies.Butcher;
+import com.fastcat.assemble.dices.normal.Scavenger;
+import com.fastcat.assemble.enemies.ArmedMilitant;
 import com.fastcat.assemble.enemies.SarkazWarrior;
 import com.fastcat.assemble.enemies.SpecOpsCaster;
+import com.fastcat.assemble.skills.Vanguard;
 import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.LinkedList;
@@ -23,7 +22,7 @@ public class BattleScreen extends AbstractScreen {
     public RollDiceButton rollButton;
     public PhaseButton phaseButton;
     public TurnEndButton turnEndButton;
-    public DiceButton[] dice = new DiceButton[6];
+    public Array<DiceButton> dice = new Array<>();
     public DirectionButton[] dirButton = new DirectionButton[4];
     public CharacterButton player;
     public AbstractSkill.SkillDir curDir = AbstractSkill.SkillDir.UP;
@@ -44,10 +43,16 @@ public class BattleScreen extends AbstractScreen {
         phaseButton.setPosition(320, 500);
         turnEndButton = new TurnEndButton(this);
         turnEndButton.setPosition(1640, 500);
-        for(int i = 0; i < 6; i++) {
-            DiceButton b = new DiceButton(this, new Mousse(), i);
-            b.setPosition(460 + 200 * i, 150);
-            dice[i] = b;
+        {
+            DiceButton b = new DiceButton(this, new Mousse(), 0);
+            b.setPosition(460, 150);
+            dice.add(b);
+            b = new DiceButton(this, new Mousse(), 1);
+            b.setPosition(460 + 200, 150);
+            dice.add(b);
+            b = new DiceButton(this, new Scavenger(), 2);
+            b.setPosition(460 + 400, 150);
+            dice.add(b);
         }
         for(int i = 0; i < 4; i++) {
             dirButton[i] = new DirectionButton(this, AbstractSkill.SkillDir.values()[i], -10000, -10000);
@@ -62,7 +67,7 @@ public class BattleScreen extends AbstractScreen {
             }
         }
         addEnemy(new EnemyButton(this, new SpecOpsCaster()), 3, 1);
-        addEnemy(new EnemyButton(this, new Butcher()), 3, 2);
+        addEnemy(new EnemyButton(this, new ArmedMilitant()), 3, 2);
         addEnemy(new EnemyButton(this, new SarkazWarrior()), 2, 2);
     }
 

@@ -23,7 +23,6 @@ public class RollRandomDiceAction extends AbstractAction {
 
             if(dices.size > 0) {
                 dices.get(MousseAdventure.game.battleRandom.random(0, dices.size - 1)).roll();
-                System.out.println("ROLL!");
             }
         }
     }

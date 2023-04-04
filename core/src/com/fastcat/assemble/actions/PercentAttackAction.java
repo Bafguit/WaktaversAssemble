@@ -3,10 +3,8 @@ package com.fastcat.assemble.actions;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstrcts.AbstractAction;
 import com.fastcat.assemble.abstrcts.AbstractEntity;
-import com.fastcat.assemble.effects.AttackEffect;
 import com.fastcat.assemble.effects.AttackSeveralEffect;
 import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.handlers.EffectHandler;
 
 public class PercentAttackAction extends AbstractAction {
 

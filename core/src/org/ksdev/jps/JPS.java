@@ -60,8 +60,6 @@ public abstract class JPS {
         if (goals.isEmpty()) {
             return null;
         }
-
-        System.out.println("Start: " + start.x + "," + start.y);
         // push the start node into the open list
         open.add(start);
 

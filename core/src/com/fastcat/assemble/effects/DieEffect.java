@@ -36,12 +36,12 @@ public class DieEffect extends AbstractEffect {
                             EnemyButton b = itr.next();
                             if(b.entity == e) {
                                 b.tile.removeEntity();
-                                e.animation.state.removeListener(this);
                                 itr.remove();
                                 break;
                             }
                         }
                     }
+                    e.animation.state.removeListener(this);
                 }
             });
         }
