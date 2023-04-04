@@ -93,7 +93,7 @@ public abstract class AbstractEntity {
         if (!isDead) {
             Color c = sb.getColor();
             sb.setColor(animColor);
-            animation.render(sb, pos.x, pos.y - 50 * InputHandler.scaleY, isFlip);
+            animation.render(sb, pos.x, pos.y - 35, isFlip);
             sb.setColor(c);
         }
     }

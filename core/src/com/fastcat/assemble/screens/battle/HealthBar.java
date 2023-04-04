@@ -14,7 +14,7 @@ public class HealthBar extends AbstractUI {
     public AbstractEntity entity;
 
     public HealthBar(AbstractEntity entity, AbstractUI ui) {
-        super(FileHandler.ui.get("HB"), -1000, -1000, 80, 5);
+        super(FileHandler.ui.get("HB"), -1000, -1000, 70, 5);
         back = FileHandler.ui.get("HB_B");
         clickable = false;
         overable = false;
@@ -24,7 +24,8 @@ public class HealthBar extends AbstractUI {
 
     @Override
     protected void renderUi(SpriteBatch sb) {
-        setPosition(entity.pos.x, entity.pos.y - 60 * InputHandler.scaleA);
+        setPosition(entity.pos.x, entity.pos.y - 40);
+        update();
         if(entity.isAlive() && entity.health < entity.maxHealth) {
             sb.draw(back, x, y, width, height);
             sb.draw(img, x, y, 0, 0, width, height, ((float) entity.health) / ((float) entity.maxHealth), 1, 0);

@@ -36,8 +36,9 @@ public abstract class AbstractEnemy extends AbstractEntity{
     }
 
     public CharacterButton getPlayerInRange(EnemyButton b, int r) {
+        int jj = r == 1 ? 0 : r;
         for(int i = 1; i <= r; i++) {
-            for(int j = r - i; j >= 0; j--) {
+            for(int j = jj; j >= 0; j--) {
                 TileSquare t;
                 int x = b.pos.x + i, y = b.pos.y + j;
                 if (battleScreen.wSize > x && x >= 0 && battleScreen.hSize > y && y >= 0) {

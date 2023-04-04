@@ -9,6 +9,9 @@ import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.*;
 import com.fastcat.assemble.dices.basic.Mousse;
 import com.fastcat.assemble.dices.normal.LaPluma;
+import com.fastcat.assemble.enemies.Butcher;
+import com.fastcat.assemble.enemies.SarkazWarrior;
+import com.fastcat.assemble.enemies.SpecOpsCaster;
 import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.LinkedList;
@@ -42,7 +45,7 @@ public class BattleScreen extends AbstractScreen {
         turnEndButton = new TurnEndButton(this);
         turnEndButton.setPosition(1640, 500);
         for(int i = 0; i < 6; i++) {
-            DiceButton b = new DiceButton(this, new LaPluma(), i);
+            DiceButton b = new DiceButton(this, new Mousse(), i);
             b.setPosition(460 + 200 * i, 150);
             dice[i] = b;
         }
@@ -58,8 +61,9 @@ public class BattleScreen extends AbstractScreen {
                 tiles[i][j] = t;
             }
         }
-        addEnemy(new EnemyButton(this), 3, 1);
-        addEnemy(new EnemyButton(this), 3, 2);
+        addEnemy(new EnemyButton(this, new SpecOpsCaster()), 3, 1);
+        addEnemy(new EnemyButton(this, new Butcher()), 3, 2);
+        addEnemy(new EnemyButton(this, new SarkazWarrior()), 2, 2);
     }
 
     @Override
