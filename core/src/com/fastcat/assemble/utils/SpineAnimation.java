@@ -67,6 +67,12 @@ public class SpineAnimation {
         state.setTimeScale(1f);
     }
 
+    public final void set(String key, AnimationState.AnimationStateAdapter adapter, boolean loop) {
+        state.setAnimation(0, key, loop);
+        state.setTimeScale(1f);
+        state.addListener(adapter);
+    }
+
         public final void resetAnimation() {
             state.setAnimation(0, "Idle", true);
             state.setTimeScale(1f);

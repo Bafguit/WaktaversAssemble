@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
+import com.fastcat.assemble.effects.DieEffect;
 import com.fastcat.assemble.effects.UpColorTextEffect;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
@@ -19,6 +21,7 @@ import java.util.LinkedList;
 
 public abstract class AbstractEntity {
 
+    public final Color baseColor = new Color(1, 1, 1, 1);
     public final Color animColor = new Color(1, 1, 1, 1);
 
     //local static
@@ -87,6 +90,10 @@ public abstract class AbstractEntity {
         shield = 0;
         physShield = 0;
         magicShield = 0;
+        isDie = false;
+        isDead = false;
+        animation.resetAnimation();
+        animColor.set(baseColor);
     }
 
     public void render(SpriteBatch sb) {
@@ -219,6 +226,11 @@ public abstract class AbstractEntity {
     }
 
     public void die() {
+        ActionHandler.add(new DieEffect(this));
+        onDead();
+    }
+
+    public void onDead() {
 
     }
 
@@ -272,6 +284,10 @@ public abstract class AbstractEntity {
 
     public void walk() {
         animation.set("Move", true);
+    }
+
+    public void dieAnimation(AnimationState.AnimationStateAdapter adapter) {
+        animation.set("Die", adapter, false);
     }
 
     public void removeStatus(AbstractStatus s) {

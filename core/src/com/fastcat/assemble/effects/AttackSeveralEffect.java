@@ -45,6 +45,7 @@ public class AttackSeveralEffect extends AbstractEffect {
                 @Override
                 public void complete(AnimationState.TrackEntry entry) {
                     isDone = true;
+                    attacker.animation.state.removeListener(this);
                 }
 
                 @Override

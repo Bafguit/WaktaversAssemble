@@ -8,7 +8,7 @@ import com.fastcat.assemble.screens.battle.EnemyButton;
 
 public class Butcher extends AbstractEnemy {
     public Butcher() {
-        super("enemy_1035_haxe", 850, 9000, 230, 30);
+        super("enemy_1035_haxe", 10500, 12000, 700, 30);
     }
 
     @Override
