@@ -18,8 +18,8 @@ public class ExecutionMode extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new IncPerAttackAction(targets, MousseAdventure.game.player, 80, 70, AbstractEntity.DamageType.PHYSICAL, true));
-        ActionHandler.top(new IncPerAttackAction(targets, MousseAdventure.game.player, 80, 30, AbstractEntity.DamageType.TRUE, true));
+        ActionHandler.top(new IncPerAttackAction(targets, MousseAdventure.game.player, 80, 70, AbstractEntity.DamageType.PHYSICAL, 1, true));
+        ActionHandler.top(new IncPerAttackAction(targets, MousseAdventure.game.player, 80, 30, AbstractEntity.DamageType.TRUE, 1, true));
     }
 
     @Override

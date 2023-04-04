@@ -17,7 +17,7 @@ public class ArtsFighter extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        top(new BaseAttackAction(targets, MousseAdventure.game.player, AbstractEntity.DamageType.MAGIC, false));
+        top(new BaseAttackAction(targets, MousseAdventure.game.player, AbstractEntity.DamageType.MAGIC, 1, false));
     }
 
     @Override

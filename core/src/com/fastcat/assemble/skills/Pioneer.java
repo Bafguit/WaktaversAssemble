@@ -17,7 +17,7 @@ public class Pioneer extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        top(new PercentAttackAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, false));
+        top(new PercentAttackAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, 1, false));
     }
 
     @Override

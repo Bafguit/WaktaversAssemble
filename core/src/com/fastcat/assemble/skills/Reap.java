@@ -18,9 +18,7 @@ public class Reap extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        top(new IncreasedAttackAndHealAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, 50, true));
-        top(new IncreasedAttackAndHealAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, 50, true));
-        top(new IncreasedAttackAndHealAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, 50, true));
+        top(new IncreasedAttackAndHealAction(targets, MousseAdventure.game.player, 70, AbstractEntity.DamageType.PHYSICAL, 3, 50, true));
     }
 
     @Override

@@ -61,7 +61,7 @@ public abstract class AbstractEntity {
     public AbstractEntity(String id, int attack, int health, int def, int res, EntityRarity rarity) {
         this.id = id;
         this.attack = this.baseAttack = attack;
-        this.health = baseMaxHealth = health;
+        this.health = maxHealth = baseMaxHealth = health;
         this.defense = this.baseDefense = def;
         this.magicRes = this.baseMagicRes = res;
         this.rarity = rarity;
@@ -204,13 +204,22 @@ public abstract class AbstractEntity {
         } else if(damage < 0) {
             damage = 0;
         }
-        health -= damage;
+        if(health - damage <= 0) {
+            health = 0;
+            die();
+        } else {
+            health -= damage;
+        }
         EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, damage, Color.SCARLET));
     }
 
     public void heal(int amount) {
         health = Math.min(health + amount, maxHealth);
         EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, amount, Color.CHARTREUSE));
+    }
+
+    public void die() {
+
     }
 
     public void applyStatus(AbstractStatus s) {

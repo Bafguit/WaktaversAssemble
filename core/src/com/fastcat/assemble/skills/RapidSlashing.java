@@ -19,8 +19,7 @@ public class RapidSlashing extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 165, AbstractEntity.DamageType.PHYSICAL, 50, true));
-        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 165, AbstractEntity.DamageType.PHYSICAL, 50, true));
+        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 165, AbstractEntity.DamageType.PHYSICAL, 2, 50, true));
     }
 
     @Override

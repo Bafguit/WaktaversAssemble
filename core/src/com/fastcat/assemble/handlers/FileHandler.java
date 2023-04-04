@@ -168,6 +168,8 @@ public class FileHandler {
         resources.put("SUB_TOP", "image/ui/sub_t.png");
         resources.put("SUB_MID", "image/ui/sub_m.png");
         resources.put("SUB_BOT", "image/ui/sub_b.png");
+        resources.put("HB", "image/ui/hb.png");
+        resources.put("HB_B", "image/ui/hb_b.png");
 
         resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
             Texture texture = (Texture) resource;

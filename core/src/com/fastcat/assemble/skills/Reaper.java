@@ -19,7 +19,7 @@ public class Reaper extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 100, AbstractEntity.DamageType.PHYSICAL, 50, false));
+        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 100, AbstractEntity.DamageType.PHYSICAL, 1, 50, false));
     }
 
     @Override

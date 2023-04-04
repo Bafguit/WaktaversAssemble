@@ -19,7 +19,7 @@ public class MovePlayerAction extends AbstractAction {
     private float timer = 0;
 
     public MovePlayerAction(CharacterButton target, TileSquare t, boolean isFast) {
-        super(isFast ? 0.15f : 0.3f);
+        super(isFast ? 0.25f : 0.5f);
         e = target;
         from = new Vector2(target.character.pos);
         tile = t;

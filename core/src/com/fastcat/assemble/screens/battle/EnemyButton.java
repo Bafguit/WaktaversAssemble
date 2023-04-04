@@ -17,6 +17,8 @@ public class EnemyButton extends AbstractUI {
     private final Array<SubText> sub = new Array<>();
     private Queue<Vector2i> path;
 
+    public final HealthBar hb;
+
     public BattleScreen screen;
     public AbstractEnemy entity;
     public TileSquare tile;
@@ -33,6 +35,7 @@ public class EnemyButton extends AbstractUI {
         this.entity = dice;
         this.screen = screen;
         clickable = false;
+        hb = new HealthBar(dice, this);
         sub.add(new SubText(dice.name, dice.desc));
     }
 

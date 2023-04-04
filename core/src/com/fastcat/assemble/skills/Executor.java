@@ -18,7 +18,7 @@ public class Executor extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new PercentAttackAction(targets, MousseAdventure.game.player, 30, AbstractEntity.DamageType.TRUE, false));
+        ActionHandler.top(new PercentAttackAction(targets, MousseAdventure.game.player, 30, AbstractEntity.DamageType.TRUE, 1, false));
     }
 
     @Override

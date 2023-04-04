@@ -11,6 +11,8 @@ public class CharacterButton extends AbstractUI {
 
     private final Array<SubText> sub = new Array<>();
 
+    public final HealthBar hb;
+
     public BattleScreen screen;
     public AbstractEntity character;
     public TileSquare tile;
@@ -25,6 +27,7 @@ public class CharacterButton extends AbstractUI {
         this.character = dice;
         this.screen = screen;
         clickable = false;
+        hb = new HealthBar(dice, this);
         sub.add(new SubText(dice.name, dice.desc));
         setPosition(-10000, -10000);
     }

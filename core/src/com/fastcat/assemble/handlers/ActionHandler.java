@@ -4,11 +4,12 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.AbstractAction;
+import com.fastcat.assemble.abstrcts.AbstractEffect;
 
 public final class ActionHandler {
 
     public static boolean isRunning = false;
-    private static ActionHandler instance;
+    private static final EffectHandler effectHandler = new EffectHandler();
 
     private final Queue<AbstractAction> actionList = new Queue<>();
     private AbstractAction current;
@@ -25,6 +26,10 @@ public final class ActionHandler {
         }
     }
 
+    public static void add(AbstractEffect effect) {
+        effectHandler.addEffect(effect);
+    }
+
     public static void bot(AbstractAction action) {
         if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.addLast(action);
     }
@@ -34,6 +39,7 @@ public final class ActionHandler {
     }
 
     public void update() {
+        isRunning = false;
         if (actionList.size > 0 || current != null) {
             isRunning = true;
             if (current == null) {
@@ -45,7 +51,11 @@ public final class ActionHandler {
             if (current.isDone) {
                 current = null;
             }
-        } else isRunning = false;
+        }
+
+        if(effectHandler.effectList.size > 0) {
+            isRunning = true;
+        }
     }
 
     public void render(SpriteBatch sb) {
@@ -56,6 +66,9 @@ public final class ActionHandler {
             for(AbstractAction a : actionList) {
                 a.render(sb);
             }
+        }
+        if(effectHandler.effectList.size > 0) {
+            effectHandler.render(sb);
         }
     }
 }

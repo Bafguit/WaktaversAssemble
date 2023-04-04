@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstrcts.*;
 import com.fastcat.assemble.dices.basic.Mousse;
+import com.fastcat.assemble.dices.normal.LaPluma;
 import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.LinkedList;
@@ -41,7 +42,7 @@ public class BattleScreen extends AbstractScreen {
         turnEndButton = new TurnEndButton(this);
         turnEndButton.setPosition(1640, 500);
         for(int i = 0; i < 6; i++) {
-            DiceButton b = new DiceButton(this, new Mousse(), i);
+            DiceButton b = new DiceButton(this, new LaPluma(), i);
             b.setPosition(460 + 200 * i, 150);
             dice[i] = b;
         }
@@ -125,8 +126,6 @@ public class BattleScreen extends AbstractScreen {
             for(int i = wSize - 1; i >= 0; i--) {
                 TileSquare t = tiles[i][j];
                 t.render(sb);
-                if(t.character != null) t.character.render(sb);
-                else if(t.enemy != null) t.enemy.render(sb);
             }
         }
 
@@ -135,6 +134,14 @@ public class BattleScreen extends AbstractScreen {
                 TileSquare t = tiles[i][j];
                 if(t.character != null) t.character.render(sb);
                 else if(t.enemy != null) t.enemy.render(sb);
+            }
+        }
+
+        for(int j = hSize - 1; j >= 0; j--) {
+            for(int i = wSize - 1; i >= 0; i--) {
+                TileSquare t = tiles[i][j];
+                if(t.character != null) t.character.hb.render(sb);
+                else if(t.enemy != null) t.enemy.hb.render(sb);
             }
         }
 

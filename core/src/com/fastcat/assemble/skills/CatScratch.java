@@ -18,7 +18,7 @@ public class CatScratch extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new IncreasedAttackAction(targets, MousseAdventure.game.player, 75, AbstractEntity.DamageType.MAGIC, false));
+        ActionHandler.top(new IncreasedAttackAction(targets, MousseAdventure.game.player, 75, AbstractEntity.DamageType.MAGIC, 1, false));
     }
 
     @Override

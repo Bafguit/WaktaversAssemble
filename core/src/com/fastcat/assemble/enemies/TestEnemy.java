@@ -17,7 +17,7 @@ public class TestEnemy extends AbstractEnemy {
     @Override
     protected AbstractEffect play(EnemyButton b, float duration) {
         if(b.target != null) {
-            return new PercentAttackEffect(b.target.character, this, 100, DamageType.MAGIC, true);
+            return new PercentAttackEffect(b.target.character, this, 100, DamageType.MAGIC, 1, true);
         } else {
             return new MoveEnemyEffect(b, duration);
         }

@@ -18,7 +18,7 @@ public class Lord extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new PercentAttackAction(targets, MousseAdventure.game.player, 80, AbstractEntity.DamageType.PHYSICAL, false));
+        ActionHandler.top(new PercentAttackAction(targets, MousseAdventure.game.player, 80, AbstractEntity.DamageType.PHYSICAL, 1, false));
     }
 
     @Override

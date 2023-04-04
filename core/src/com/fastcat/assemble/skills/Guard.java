@@ -17,7 +17,7 @@ public class Guard extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        top(new BaseAttackAction(targets, MousseAdventure.game.player, AbstractEntity.DamageType.PHYSICAL, false));
+        top(new BaseAttackAction(targets, MousseAdventure.game.player, AbstractEntity.DamageType.PHYSICAL, 1, false));
     }
 
     @Override

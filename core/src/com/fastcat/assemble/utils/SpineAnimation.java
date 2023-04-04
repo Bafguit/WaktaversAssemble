@@ -50,26 +50,26 @@ public class SpineAnimation {
         }
 
         public final void setAndIdle(String key) {
-            AnimationState.TrackEntry e = state.setAnimation(0, key, false);
-            state.setTimeScale(0.5f);
+            state.setAnimation(0, key, false);
+            state.setTimeScale(1f);
             state.addAnimation(0, "Idle", true, 0.0F);
         }
 
     public final void setAndIdle(String key, AnimationState.AnimationStateAdapter adapter) {
-        AnimationState.TrackEntry e = state.setAnimation(0, key, false);
-        state.setTimeScale(0.5f);
+        state.setAnimation(0, key, false);
+        state.setTimeScale(1f);
         state.addListener(adapter);
         state.addAnimation(0, "Idle", true, 0.0F);
     }
 
     public final void set(String key, boolean loop) {
-        AnimationState.TrackEntry e = state.setAnimation(0, key, loop);
-        state.setTimeScale(0.5f);
+        state.setAnimation(0, key, loop);
+        state.setTimeScale(1f);
     }
 
         public final void resetAnimation() {
-            AnimationState.TrackEntry e = state.setAnimation(0, "Idle", true);
-            state.setTimeScale(0.5f);
+            state.setAnimation(0, "Idle", true);
+            state.setTimeScale(1f);
         }
 
         public void setSkin(String key) {
@@ -77,7 +77,7 @@ public class SpineAnimation {
         }
 
     public void setDie() {
-        AnimationState.TrackEntry e = state.setAnimation(0, "Die", false);
-        state.setTimeScale(0.5f);
+        state.setAnimation(0, "Die", false);
+        state.setTimeScale(1f);
     }
 }

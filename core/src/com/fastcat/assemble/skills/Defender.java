@@ -20,7 +20,7 @@ public class Defender extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        top(new PercentAttackAction(targets, MousseAdventure.game.player, 50, AbstractEntity.DamageType.PHYSICAL, false));
+        top(new PercentAttackAction(targets, MousseAdventure.game.player, 50, AbstractEntity.DamageType.PHYSICAL, 1, false));
         top(new ApplyStatusAction(MousseAdventure.game.player, new IncreaseDefenseStatus(ID, 40, 1), true));
     }
 

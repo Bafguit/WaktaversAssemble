@@ -18,7 +18,7 @@ public class Musha extends AbstractSkill {
 
     @Override
     protected void useSkill() {
-        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 100, AbstractEntity.DamageType.PHYSICAL, 70, false));
+        ActionHandler.top(new PercentAttackAndHealAction(targets, MousseAdventure.game.player, 100, AbstractEntity.DamageType.PHYSICAL, 1, 70, false));
     }
 
     @Override
