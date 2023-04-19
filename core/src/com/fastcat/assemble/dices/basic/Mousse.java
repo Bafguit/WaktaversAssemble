@@ -1,6 +1,6 @@
 package com.fastcat.assemble.dices.basic;
 
-import com.fastcat.assemble.abstrcts.AbstractDice;
+import com.fastcat.assemble.abstracts.AbstractDice;
 import com.fastcat.assemble.skills.*;
 
 public class Mousse extends AbstractDice {

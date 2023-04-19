@@ -5,13 +5,11 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractEffect;
-import com.fastcat.assemble.abstrcts.AbstractSkill;
+import com.fastcat.assemble.abstracts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.screens.battle.TileSquare;
 import com.fastcat.assemble.utils.Vector2i;
-
-import static com.fastcat.assemble.MousseAdventure.battleScreen;
 
 public class MoveEnemyEffect extends AbstractEffect {
 
@@ -68,7 +66,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
 
                 if (next.x > e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
@@ -84,7 +82,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
 
                 if (next.x < e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
@@ -99,7 +97,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
             } else {
                 if (next.x > e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {
@@ -115,7 +113,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
 
                 if (next.x < e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.hSize - 1);
+                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL) {

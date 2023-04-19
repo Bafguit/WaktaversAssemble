@@ -14,5 +14,9 @@
   "enemy_1010_demon": {
     "NAME": "살카즈 전사",
     "DESC": ""
+  },
+  "enemy_1012_dcross": {
+    "NAME": "살카즈 스나이퍼",
+    "DESC": ""
   }
 }

@@ -2,10 +2,9 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 
 public class HealthBar extends AbstractUI {
 

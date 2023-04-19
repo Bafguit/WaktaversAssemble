@@ -1,16 +1,11 @@
 package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractStatus;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractStatus;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-
-import java.util.HashMap;
 
 public class StatusIcon extends AbstractUI {
 

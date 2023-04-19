@@ -2,8 +2,8 @@ package com.fastcat.assemble.effects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
-import com.fastcat.assemble.abstrcts.AbstractEffect;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.utils.FastCatUtils;
 
 public class MoveSmallCardEffect extends AbstractEffect {

@@ -2,8 +2,8 @@ package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.abstrcts.AbstractDice;
+import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractDice;
 import com.fastcat.assemble.screens.battle.DiceButton;
 
 public class RollRandomDiceAction extends AbstractAction {

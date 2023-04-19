@@ -2,8 +2,8 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.abstrcts.AbstractEnemy;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.enemies.SpecOpsCaster;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.utils.Vector2i;
@@ -17,21 +17,15 @@ public class EnemyButton extends AbstractUI {
 
     public final HealthBar hb;
 
-    public BattleScreen screen;
     public AbstractEnemy entity;
     public TileSquare tile;
 
     public CharacterButton target;
 
-    public EnemyButton(BattleScreen screen) {
-        this(screen, new SpecOpsCaster());
-    }
-
-    public EnemyButton(BattleScreen screen, AbstractEnemy dice) {
+    public EnemyButton(AbstractEnemy dice) {
         super(FileHandler.character.get("Test"));
         pix();
         this.entity = dice;
-        this.screen = screen;
         clickable = false;
         hb = new HealthBar(dice, this);
         sub.add(new SubText(dice.name, dice.desc));

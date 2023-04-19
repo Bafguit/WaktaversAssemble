@@ -1,7 +1,6 @@
 package com.fastcat.assemble.dices.legend;
 
-import com.fastcat.assemble.abstrcts.AbstractDice;
-import com.fastcat.assemble.abstrcts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractDice;
 
 public class Fraud3 extends AbstractDice {
     public Fraud3() {

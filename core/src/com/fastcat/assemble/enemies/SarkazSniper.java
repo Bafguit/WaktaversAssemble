@@ -6,9 +6,9 @@ import com.fastcat.assemble.effects.MoveEnemyEffect;
 import com.fastcat.assemble.effects.PercentAttackEffect;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 
-public class ArmedMilitant extends AbstractEnemy {
-    public ArmedMilitant() {
-        super("enemy_1035_haxe", 1050, 12000, 700, 30);
+public class SarkazSniper extends AbstractEnemy {
+    public SarkazSniper() {
+        super("enemy_1012_dcross", 450, 6000, 200, 50);
     }
 
     @Override
@@ -22,6 +22,11 @@ public class ArmedMilitant extends AbstractEnemy {
 
     @Override
     public int getRange() {
-        return 1;
+        return 2;
+    }
+
+    @Override
+    public void walk() {
+        animation.set("Move_Loop", true);
     }
 }

@@ -1,6 +1,6 @@
 package com.fastcat.assemble.actions;
 
-import com.fastcat.assemble.abstrcts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.effects.MoveSmallCardEffect;
 import com.fastcat.assemble.screens.battle.CardButton;
 

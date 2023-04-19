@@ -1,11 +1,10 @@
-package com.fastcat.assemble.abstrcts;
+package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.utils.SpineAnimation;
 
 public class AbstractPlayer extends AbstractEntity{

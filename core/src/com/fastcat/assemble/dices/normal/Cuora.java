@@ -1,6 +1,6 @@
 package com.fastcat.assemble.dices.normal;
 
-import com.fastcat.assemble.abstrcts.AbstractDice;
+import com.fastcat.assemble.abstracts.AbstractDice;
 import com.fastcat.assemble.skills.*;
 
 public class Cuora extends AbstractDice {

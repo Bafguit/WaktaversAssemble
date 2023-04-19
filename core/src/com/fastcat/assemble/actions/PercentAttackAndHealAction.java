@@ -1,11 +1,10 @@
 package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.effects.AttackHealEffect;
 import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.handlers.EffectHandler;
 
 public class PercentAttackAndHealAction extends AbstractAction {
 

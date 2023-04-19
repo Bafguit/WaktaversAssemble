@@ -1,7 +1,7 @@
 package com.fastcat.assemble.skills;
 
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractSkill;
+import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.actions.IncreasedHealAction;
 
 public class Medic extends AbstractSkill {

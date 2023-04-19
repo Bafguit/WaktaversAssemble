@@ -1,4 +1,4 @@
-package com.fastcat.assemble.abstrcts;
+package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;

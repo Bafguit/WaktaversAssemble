@@ -1,4 +1,4 @@
-package com.fastcat.assemble.abstrcts;
+package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -13,7 +13,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
 import com.fastcat.assemble.utils.Vector2i;
 
@@ -23,7 +22,7 @@ import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.fastcat.assemble.handlers.FontHandler.*;
 import static com.fastcat.assemble.handlers.InputHandler.*;
 
-public abstract class AbstractUI implements Disposable {
+public abstract class AbstractUI implements Disposable, Cloneable {
 
     protected SubText subs;
     public SubText subTexts;
@@ -336,6 +335,15 @@ public abstract class AbstractUI implements Disposable {
     protected void onClicking() {}
 
     protected void onClickEnd() {}
+
+    @Override
+    public AbstractUI clone() {
+        try {
+            return (AbstractUI) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 
     public static class TempUI extends AbstractUI {
         public TempUI(Sprite texture) {

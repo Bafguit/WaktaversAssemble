@@ -5,8 +5,8 @@ import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractEffect;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 
 public class AttackSeveralEffect extends AbstractEffect {
 

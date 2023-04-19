@@ -2,9 +2,9 @@ package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.abstrcts.AbstractSkill;
-import com.fastcat.assemble.abstrcts.AbstractSkill.SkillTarget;
+import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractSkill;
+import com.fastcat.assemble.abstracts.AbstractSkill.SkillTarget;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase;
 

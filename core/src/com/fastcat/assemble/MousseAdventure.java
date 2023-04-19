@@ -13,9 +13,10 @@ import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.SkeletonRenderer;
-import com.fastcat.assemble.abstrcts.AbstractGame;
-import com.fastcat.assemble.abstrcts.AbstractScreen;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractScreen;
+import com.fastcat.assemble.abstracts.AbstractUI;
+import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.utils.FillViewport;
@@ -111,7 +112,7 @@ public class MousseAdventure extends ApplicationAdapter {
 
 	private void load() {
 		game = new AbstractGame();
-		battleScreen = new BattleScreen();
+		battleScreen = new BattleScreen(new TestBattle());
 		screen = battleScreen;
 	}
 

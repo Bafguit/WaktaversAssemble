@@ -2,11 +2,8 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
-import com.fastcat.assemble.abstrcts.AbstractSkill;
-import com.fastcat.assemble.abstrcts.AbstractSkill.SkillDir;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractSkill.SkillDir;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.utils.Vector2i;
 

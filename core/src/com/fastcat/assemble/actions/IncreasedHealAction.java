@@ -1,8 +1,8 @@
 package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 
 public class IncreasedHealAction extends AbstractAction {
 

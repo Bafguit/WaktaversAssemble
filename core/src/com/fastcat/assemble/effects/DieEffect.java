@@ -1,13 +1,12 @@
 package com.fastcat.assemble.effects;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.esotericsoftware.spine.AnimationState;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractEffect;
-import com.fastcat.assemble.abstrcts.AbstractEnemy;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 
 import java.util.Iterator;

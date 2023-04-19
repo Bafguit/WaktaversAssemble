@@ -3,13 +3,13 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractDice;
-import com.fastcat.assemble.abstrcts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractDice;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
-import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.CENTER;
-import static com.fastcat.assemble.abstrcts.AbstractUI.TrackType.NONE;
+import static com.fastcat.assemble.abstracts.AbstractUI.TrackType.CENTER;
+import static com.fastcat.assemble.abstracts.AbstractUI.TrackType.NONE;
 import static com.fastcat.assemble.handlers.InputHandler.*;
 
 public class CardButton extends AbstractUI {

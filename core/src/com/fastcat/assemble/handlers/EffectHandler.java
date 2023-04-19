@@ -3,7 +3,7 @@ package com.fastcat.assemble.handlers;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractEffect;
 
 import java.util.Iterator;
 

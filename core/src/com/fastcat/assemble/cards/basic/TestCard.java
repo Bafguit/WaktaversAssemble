@@ -1,7 +1,7 @@
 package com.fastcat.assemble.cards.basic;
 
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractCard;
+import com.fastcat.assemble.abstracts.AbstractCard;
 import com.fastcat.assemble.actions.RollRandomDiceAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.screens.battle.DiceButton;

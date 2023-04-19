@@ -4,7 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Objects;
 
-public class Vector2i {
+public class Vector2i implements Cloneable {
     public int x;
     public int y;
 
@@ -31,6 +31,11 @@ public class Vector2i {
     public void set(Vector2i v) {
         this.x = v.x;
         this.y = v.y;
+    }
+
+    @Override
+    public final Vector2i clone() {
+        return new Vector2i(this.x, this.y);
     }
 
     public static Vector2i getVector2i(Vector2 v2) {

@@ -1,11 +1,9 @@
 package com.fastcat.assemble.actions;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.screens.battle.BattleScreen.BattlePhase;
+import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.utils.BulkPathFinder;
-import com.fastcat.assemble.utils.Vector2i;
 
 import static com.fastcat.assemble.MousseAdventure.battleScreen;
 

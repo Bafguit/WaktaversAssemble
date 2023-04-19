@@ -1,7 +1,7 @@
 package com.fastcat.assemble.enemies;
 
-import com.fastcat.assemble.abstrcts.AbstractEffect;
-import com.fastcat.assemble.abstrcts.AbstractEnemy;
+import com.fastcat.assemble.abstracts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.effects.MoveEnemyEffect;
 import com.fastcat.assemble.effects.PercentAttackEffect;
 import com.fastcat.assemble.screens.battle.EnemyButton;

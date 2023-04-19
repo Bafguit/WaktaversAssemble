@@ -1,4 +1,4 @@
-package com.fastcat.assemble.abstrcts;
+package com.fastcat.assemble.abstracts;
 
 public abstract class AbstractItem {
 

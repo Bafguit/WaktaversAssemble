@@ -1,8 +1,7 @@
 package com.fastcat.assemble.character;
 
 import com.esotericsoftware.spine.AnimationState;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
-import com.fastcat.assemble.abstrcts.AbstractPlayer;
+import com.fastcat.assemble.abstracts.AbstractPlayer;
 
 public class Mousse extends AbstractPlayer {
     public Mousse() {

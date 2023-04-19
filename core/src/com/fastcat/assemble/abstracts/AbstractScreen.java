@@ -1,4 +1,4 @@
-package com.fastcat.assemble.abstrcts;
+package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

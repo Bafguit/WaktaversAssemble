@@ -2,7 +2,7 @@ package com.fastcat.assemble.screens.mainmenu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.abstrcts.AbstractScreen;
+import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 

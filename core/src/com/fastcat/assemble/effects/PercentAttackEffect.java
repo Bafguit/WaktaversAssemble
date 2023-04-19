@@ -2,11 +2,9 @@ package com.fastcat.assemble.effects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.abstrcts.AbstractAction;
-import com.fastcat.assemble.abstrcts.AbstractEffect;
-import com.fastcat.assemble.abstrcts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractEffect;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.handlers.EffectHandler;
 
 public class PercentAttackEffect extends AbstractEffect {
 

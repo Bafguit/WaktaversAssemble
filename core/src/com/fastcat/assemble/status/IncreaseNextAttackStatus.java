@@ -1,6 +1,6 @@
 package com.fastcat.assemble.status;
 
-import com.fastcat.assemble.abstrcts.AbstractStatus;
+import com.fastcat.assemble.abstracts.AbstractStatus;
 
 public class IncreaseNextAttackStatus extends AbstractStatus {
 

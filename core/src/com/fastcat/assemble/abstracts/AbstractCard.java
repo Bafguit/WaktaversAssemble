@@ -1,6 +1,4 @@
-package com.fastcat.assemble.abstrcts;
-
-import com.fastcat.assemble.handlers.ActionHandler;
+package com.fastcat.assemble.abstracts;
 
 public abstract class AbstractCard implements Cloneable {
 

@@ -1,6 +1,5 @@
-package com.fastcat.assemble.abstrcts;
+package com.fastcat.assemble.abstracts;
 
-import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.effects.MoveEnemyEffect;
 import com.fastcat.assemble.screens.battle.CharacterButton;
 import com.fastcat.assemble.screens.battle.EnemyButton;
