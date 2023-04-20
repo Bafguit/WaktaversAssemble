@@ -22,7 +22,7 @@ public class MovePlayerAction extends AbstractAction {
         e = target;
         from = new Vector2(target.character.pos);
         tile = t;
-        to = new Vector2(t.originX, t.originY);
+        to = new Vector2(t.originX, t.originY + 36);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class MovePlayerAction extends AbstractAction {
             e.tile.removeEntity();
             e.tile = tile;
             e.pos = new Vector2i(tile.pos);
-            e.character.pos = to;
+            e.character.pos = new Vector2(to);
             tile.status = TileSquare.TileStatus.ENTITY;
             tile.character = e;
             ActionHandler.bot(new FindPathAction());

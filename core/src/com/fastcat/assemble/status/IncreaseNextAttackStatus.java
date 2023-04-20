@@ -1,6 +1,8 @@
 package com.fastcat.assemble.status;
 
 import com.fastcat.assemble.abstracts.AbstractStatus;
+import com.fastcat.assemble.actions.RemoveStatusAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class IncreaseNextAttackStatus extends AbstractStatus {
 
@@ -20,7 +22,7 @@ public class IncreaseNextAttackStatus extends AbstractStatus {
 
     @Override
     public void onAfterAttack() {
-        remove();
+        ActionHandler.bot(new RemoveStatusAction(owner, this, true));
     }
 
     @Override

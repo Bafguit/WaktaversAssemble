@@ -39,8 +39,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = e.pos.x;
                     y = MathUtils.clamp(e.pos.y + 1, 0, MousseAdventure.battleScreen.hSize - 1);
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
-                        to = new Vector2(t.originX, t.originY);
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.UP);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -54,8 +55,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = e.pos.x;
                     y = MathUtils.clamp(e.pos.y - 1, 0, MousseAdventure.battleScreen.hSize - 1);
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
-                        to = new Vector2(t.originX, t.originY);
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.DOWN);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -69,9 +71,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.RIGHT);
-                        to = new Vector2(t.originX, t.originY);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -85,9 +87,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.LEFT);
-                        to = new Vector2(t.originX, t.originY);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -100,9 +102,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.RIGHT);
-                        to = new Vector2(t.originX, t.originY);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -116,9 +118,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.wSize - 1);
                     y = e.pos.y;
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.LEFT);
-                        to = new Vector2(t.originX, t.originY);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -131,8 +133,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = e.pos.x;
                     y = MathUtils.clamp(e.pos.y + 1, 0, MousseAdventure.battleScreen.hSize - 1);
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
-                        to = new Vector2(t.originX, t.originY);
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.UP);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
@@ -146,8 +149,9 @@ public class MoveEnemyEffect extends AbstractEffect {
                     x = e.pos.x;
                     y = MathUtils.clamp(e.pos.y - 1, 0, MousseAdventure.battleScreen.hSize - 1);
                     t = MousseAdventure.battleScreen.tiles[x][y];
-                    if (t.status == TileSquare.TileStatus.NORMAL) {
-                        to = new Vector2(t.originX, t.originY);
+                    if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
+                        e.entity.updateDir(AbstractSkill.SkillDir.DOWN);
+                        to = new Vector2(t.originX, t.originY + 36);
                         tile = MousseAdventure.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();

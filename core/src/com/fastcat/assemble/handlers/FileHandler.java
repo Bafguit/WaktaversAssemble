@@ -163,6 +163,7 @@ public class FileHandler {
         HashMap<String, String> resources = new HashMap<>();
         resources.put("TEMP", "image/ui/temp.png");
         resources.put("TILE", "image/ui/tile.png");
+        resources.put("BAN", "image/ui/banned.png");
         resources.put("BACK_32", "image/ui/background32.png");
         resources.put("DIR", "image/ui/direction.png");
         resources.put("SUB_TOP", "image/ui/sub_t.png");
@@ -199,26 +200,15 @@ public class FileHandler {
         atlas.clear();
 
         for (JsonValue js : jsonMap.get(JsonType.CHAR)) {
-            skeleton.put(js.name + "_front", Gdx.files.internal("atlas/char/" + js.name + "/front/" + js.name + ".skel"));
-            skeleton.put(js.name + "_back", Gdx.files.internal("atlas/char/" + js.name + "/back/" + js.name + ".skel"));
+            skeleton.put(js.name, Gdx.files.internal("atlas/char/" + js.name + "/" + js.name + ".skel"));
 
             resourceHandler.requestResource(new ResourceHandler.ResourceRequest<>(
-                    "atlas/char/" + js.name + "/front/" + js.name + ".atlas",
+                    "atlas/char/" + js.name + "/" + js.name + ".atlas",
                     TextureAtlas.class,
                     (resource, args) -> {
                         TextureAtlas textureAtlas = (TextureAtlas) resource;
                         String name = args[0].toString();
-                        atlas.put(name + "_front", textureAtlas);
-                    },
-                    js.name));
-
-            resourceHandler.requestResource(new ResourceHandler.ResourceRequest<>(
-                    "atlas/char/" + js.name + "/back/" + js.name + ".atlas",
-                    TextureAtlas.class,
-                    (resource, args) -> {
-                        TextureAtlas textureAtlas = (TextureAtlas) resource;
-                        String name = args[0].toString();
-                        atlas.put(name + "_back", textureAtlas);
+                        atlas.put(name, textureAtlas);
                     },
                     js.name));
         }

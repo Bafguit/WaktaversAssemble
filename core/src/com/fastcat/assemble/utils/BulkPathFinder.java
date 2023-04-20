@@ -55,7 +55,7 @@ public class BulkPathFinder {
             return false;
 
         TileSquare s = MousseAdventure.battleScreen.tiles[x][y];
-        return s.status == TileStatus.NORMAL ||
+        return s.status == TileStatus.NORMAL || s.status == TileStatus.INVALID ||
                 (s.character != null || (s.enemy != null && s.enemy.target == null));
     }
 }

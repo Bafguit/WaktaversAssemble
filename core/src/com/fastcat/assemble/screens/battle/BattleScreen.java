@@ -60,7 +60,7 @@ public class BattleScreen extends AbstractScreen {
         for (int j = 0; j < hSize; j++) {
             for(int i = 0; i < wSize; i++) {
                 TileSquare t = new TileSquare(this, TileSquare.TileStatus.NORMAL, i, j);
-                t.setPosition(610 + 100 * i, 390 + 100 * j);
+                t.setPosition(610 + 72 * i + 72 * j, 540 + 36 * i - 36 * j);
                 tiles[i][j] = t;
             }
         }
@@ -99,11 +99,11 @@ public class BattleScreen extends AbstractScreen {
             for(int i = 0; i < wSize; i++) {
                 TileSquare t = tiles[i][j];
                 t.screen = this;
-                t.setPosition(610 + 100 * i, 390 + 100 * j);
+                t.setPosition(610 + 72 * j + 72 * i, 540 + 36 * j - 36 * i);
                 if(t.enemy != null) {
                     t.enemy.pos.set(i, j);
-                    t.enemy.setPosition(t.originX, t.originY);
-                    t.enemy.entity.pos = new Vector2(t.originX, t.originY);
+                    t.enemy.setPosition(t.originX, t.originY + 36);
+                    t.enemy.entity.pos = new Vector2(t.originX, t.originY + 36);
                     enemies.add(t.enemy);
                 }
             }
@@ -171,14 +171,14 @@ public class BattleScreen extends AbstractScreen {
         turnEndButton.render(sb);
 
         for(int j = hSize - 1; j >= 0; j--) {
-            for(int i = wSize - 1; i >= 0; i--) {
+            for(int i = 0; i < wSize; i++) {
                 TileSquare t = tiles[i][j];
                 t.render(sb);
             }
         }
 
         for(int j = hSize - 1; j >= 0; j--) {
-            for(int i = wSize - 1; i >= 0; i--) {
+            for(int i = 0; i < wSize; i++) {
                 TileSquare t = tiles[i][j];
                 if(t.character != null) t.character.render(sb);
                 else if(t.enemy != null) t.enemy.render(sb);
@@ -186,7 +186,7 @@ public class BattleScreen extends AbstractScreen {
         }
 
         for(int j = hSize - 1; j >= 0; j--) {
-            for(int i = wSize - 1; i >= 0; i--) {
+            for(int i = 0; i < wSize; i++) {
                 TileSquare t = tiles[i][j];
                 if(t.character != null) t.character.hb.render(sb);
                 else if(t.enemy != null) t.enemy.hb.render(sb);
@@ -220,7 +220,11 @@ public class BattleScreen extends AbstractScreen {
                 int x = pv.x, y = pv.y;
                 if (x >= 0 && x < wSize && y >= 0 && y < hSize) {
                     TileSquare tile = tiles[x][y];
-                    tile.isTarget = true;
+                    if(phase == BattlePhase.DIRECTION) {
+                        tile.isTarget = true;
+                    } else {
+                        tile.isTarget = tile.status == TileSquare.TileStatus.NORMAL;
+                    }
                     targetTiles.add(tile);
                 }
             }
