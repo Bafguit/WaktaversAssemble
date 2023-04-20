@@ -117,12 +117,10 @@ public abstract class AbstractEntity {
                     t.takeDamage(info);
                 }
             }
-        }
-    }
 
-    public void afterAttack() {
-        for(AbstractStatus s : status) {
-            s.onAfterAttack();
+            for(AbstractStatus s : status) {
+                s.onAfterAttack();
+            }
         }
     }
 
@@ -133,6 +131,10 @@ public abstract class AbstractEntity {
                     t.takeDamage(info);
                     heal(heal);
                 }
+            }
+
+            for(AbstractStatus s : status) {
+                s.onAfterAttack();
             }
         }
     }
@@ -252,7 +254,11 @@ public abstract class AbstractEntity {
     }
 
     public void updateDir(AbstractSkill.SkillDir dir) {
-        isFlip = dir == AbstractSkill.SkillDir.LEFT || dir == AbstractSkill.SkillDir.DOWN;
+        if(dir == AbstractSkill.SkillDir.LEFT) {
+            isFlip = true;
+        } else if(dir == AbstractSkill.SkillDir.RIGHT) {
+            isFlip = false;
+        }
     }
 
     public static class DamageInfo {

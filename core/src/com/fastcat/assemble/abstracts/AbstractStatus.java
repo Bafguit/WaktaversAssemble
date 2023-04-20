@@ -1,8 +1,6 @@
 package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.fastcat.assemble.actions.RemoveStatusAction;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.StringHandler;
 import com.fastcat.assemble.screens.battle.StatusIcon;
@@ -89,7 +87,7 @@ public abstract class AbstractStatus {
         if(turnLeft > 0) {
             turnLeft--;
             if(turnLeft == 0) {
-                ActionHandler.bot(new RemoveStatusAction(owner, this, true));
+                remove();
             }
         }
     }

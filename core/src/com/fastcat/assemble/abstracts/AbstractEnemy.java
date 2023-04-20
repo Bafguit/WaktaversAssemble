@@ -30,11 +30,8 @@ public abstract class AbstractEnemy extends AbstractEntity{
     protected abstract AbstractEffect play(EnemyButton button, float duration);
 
     public void setDirToPlayer(EnemyButton button) {
-        int x = battleScreen.player.pos.x - button.pos.x, y = battleScreen.player.pos.y - button.pos.y;
-        if(Math.abs(x) != Math.abs(y)) {
-            if (x > 0 || y > 0) updateDir(AbstractSkill.SkillDir.RIGHT);
-            else if (x < 0 || y < 0) updateDir(AbstractSkill.SkillDir.LEFT);
-        }
+        if(button.pos.x < battleScreen.player.pos.x) updateDir(AbstractSkill.SkillDir.RIGHT);
+        else if(button.pos.x > battleScreen.player.pos.x) updateDir(AbstractSkill.SkillDir.LEFT);
     }
 
     public CharacterButton getPlayerInRange(EnemyButton b, int r) {
