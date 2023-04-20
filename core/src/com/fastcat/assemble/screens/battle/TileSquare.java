@@ -26,6 +26,7 @@ public class TileSquare extends AbstractUI {
         this.status = status;
         clickable = false;
         pos = new Vector2i(x, y);
+        is3D = true;
     }
 
     public TileSquare(TileStatus status, int x, int y) {
@@ -33,6 +34,7 @@ public class TileSquare extends AbstractUI {
         this.status = status;
         clickable = false;
         pos = new Vector2i(x, y);
+        is3D = true;
     }
 
     @Override

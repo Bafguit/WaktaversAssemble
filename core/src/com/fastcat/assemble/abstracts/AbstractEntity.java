@@ -117,10 +117,6 @@ public abstract class AbstractEntity {
                     t.takeDamage(info);
                 }
             }
-
-            for(AbstractStatus s : status) {
-                s.onAfterAttack();
-            }
         }
     }
 
@@ -132,10 +128,12 @@ public abstract class AbstractEntity {
                     heal(heal);
                 }
             }
+        }
+    }
 
-            for(AbstractStatus s : status) {
-                s.onAfterAttack();
-            }
+    public void afterAttack() {
+        for(AbstractStatus s : status) {
+            s.onAfterAttack();
         }
     }
 

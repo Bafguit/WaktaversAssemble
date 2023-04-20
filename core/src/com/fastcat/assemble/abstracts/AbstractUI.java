@@ -9,10 +9,12 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
 import com.fastcat.assemble.utils.Vector2i;
 
@@ -107,8 +109,8 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         foreUpdate();
         width = originWidth * scaleA;
         height = originHeight * scaleA;
-        /*if(is3D) mouse = InputHandler.getProjectedMousePos();
-        else*/ mouse.set(mx, my);
+        if(is3D) mouse = InputHandler.getProjectedMousePos();
+        else mouse.set(mx, my);
         if(fluid && fluiding) {
             fluidPosition();
         }
@@ -164,8 +166,8 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     }
 
     public final void render(SpriteBatch sb) {
-        /*if(is3D) sb.setProjectionMatrix(MousseAdventure.cam.combined);
-        else*/ sb.setProjectionMatrix(MousseAdventure.camera.combined);
+        if(is3D) sb.setProjectionMatrix(MousseAdventure.cam.combined);
+        else sb.setProjectionMatrix(MousseAdventure.camera.combined);
         sb.setColor(WHITE);
         renderUi(sb);
         //renderSub(sb);
