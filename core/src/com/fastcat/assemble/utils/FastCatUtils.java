@@ -41,7 +41,9 @@ public class FastCatUtils {
         float x = v3.dot(u2);
         float y = v3.dot(u3);
 
-        return new ProjectionData(MathUtils.round(x), MathUtils.round(y), camTargetVector.len());
+        float dist = camTargetVector.cpy().sub(u2.cpy().scl((float) (camTargetVector.dot(u2) / (u2.len() * u2.len())))).len();
+
+        return new ProjectionData(MathUtils.round(x), -MathUtils.round(y), 1 / dist);
     }
 
     public static class ProjectionData {
