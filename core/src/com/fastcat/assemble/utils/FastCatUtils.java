@@ -1,6 +1,9 @@
 package com.fastcat.assemble.utils;
 
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 
 public class FastCatUtils {
 
@@ -23,5 +26,33 @@ public class FastCatUtils {
 
     public static float distance(float fromX, float fromY, float toX, float toY) {
         return (float) Math.sqrt(Math.abs(fromX - toX) + Math.abs(fromY - toY));
+    }
+
+    public static ProjectionData calcProjection(Vector3 camPos, Vector3 camLookVector, Vector3 drawTargetPos, double near) {
+        Vector3 normalizedCamLookVector = camLookVector.cpy().nor();
+        Vector3 camTargetVector = drawTargetPos.cpy().sub(camPos);
+
+        // Find the projection vector v3 of camTargetVector onto the plane K, which is perpendicular to normalizedCamLookVector
+        Vector3 v3 = camTargetVector.cpy().sub(normalizedCamLookVector.cpy().scl(camTargetVector.dot(normalizedCamLookVector)));
+
+        // Find the x and y coordinates of P5 with respect to P4 in plane K
+        Vector3 u2 = normalizedCamLookVector.cpy().crs(new Vector3(0, 0, 1)).nor(); // Unit vector in the x direction of plane K
+        Vector3 u3 = normalizedCamLookVector.cpy().crs(u2).nor(); // Unit vector in the y direction of plane K
+        float x = v3.dot(u2);
+        float y = v3.dot(u3);
+
+        return new ProjectionData(MathUtils.round(x), MathUtils.round(y), camTargetVector.len());
+    }
+
+    public static class ProjectionData {
+        public final int drawX;
+        public final int drawY;
+        public final float scale;
+
+        public ProjectionData(int drawX, int drawY, float scale) {
+            this.drawX = drawX;
+            this.drawY = drawY;
+            this.scale = scale;
+        }
     }
 }

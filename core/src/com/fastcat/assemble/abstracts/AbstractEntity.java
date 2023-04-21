@@ -1,19 +1,24 @@
 package com.fastcat.assemble.abstracts;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
+import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.effects.DieEffect;
 import com.fastcat.assemble.effects.HitEffect;
 import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.SpineAnimation;
 import com.fastcat.assemble.utils.Vector2i;
 
@@ -33,6 +38,7 @@ public abstract class AbstractEntity {
     public Vector2 pos;
     public Vector2 animPos;
     public Vector2i tilePos;
+    public float zScale;
 
     protected TextureAtlas atlas;
     protected FileHandle skeleton;
@@ -101,7 +107,14 @@ public abstract class AbstractEntity {
         if (!isDead) {
             Color c = sb.getColor();
             sb.setColor(animColor);
-            animation.render(sb, pos.x, pos.y - 35, isFlip);
+            FastCatUtils.ProjectionData projData =
+                FastCatUtils.calcProjection(MousseAdventure.cam.position, MousseAdventure.cam.direction,
+                        new Vector3(pos.x, pos.y, 0), MousseAdventure.cam.near);
+            animPos.x = projData.drawX + Gdx.graphics.getWidth()/2;
+            animPos.y = projData.drawY + Gdx.graphics.getHeight()/2;
+            zScale = projData.scale;
+
+            animation.render(sb, animPos.x, animPos.y, isFlip);
             sb.setColor(c);
         }
     }
