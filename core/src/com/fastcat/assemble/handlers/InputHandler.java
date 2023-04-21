@@ -12,6 +12,7 @@ import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.interfaces.OnMouseScrolled;
+import com.fastcat.assemble.utils.FastCatUtils;
 
 import java.nio.ByteBuffer;
 import java.util.zip.Deflater;
@@ -176,16 +177,6 @@ public final class InputHandler {
     }
 
     public static Vector2 getProjectedMousePos() {
-        return getProjectedPos(mx, my);
-    }
-
-    public static Vector2 getProjectedPos(float x, float y) {
-        Ray ray = MousseAdventure.cam.getPickRay(x, Gdx.graphics.getHeight() - y);
-
-        float t = -ray.origin.z/ray.direction.z;
-        float convertedX = ray.origin.x+ray.direction.x*t;
-        float convertedY = ray.origin.y+ray.direction.y*t;
-
-        return new Vector2(convertedX, convertedY);
+        return FastCatUtils.getProjectedPos(mx, my);
     }
 }

@@ -110,8 +110,8 @@ public abstract class AbstractEntity {
             FastCatUtils.ProjectionData projData =
                 FastCatUtils.calcProjection(MousseAdventure.cam.position, MousseAdventure.cam.direction,
                         new Vector3(pos.x, pos.y, 0), MousseAdventure.cam.near);
-            animPos.x = projData.drawX + Gdx.graphics.getWidth()/2;
-            animPos.y = projData.drawY + Gdx.graphics.getHeight()/2;
+            animPos.x = projData.drawX;
+            animPos.y = projData.drawY;
             zScale = projData.scale;
 
             animation.render(sb, animPos.x, animPos.y, isFlip);

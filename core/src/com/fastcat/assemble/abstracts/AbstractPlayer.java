@@ -38,16 +38,6 @@ public class AbstractPlayer extends AbstractEntity{
     }
 
     @Override
-    public void render(SpriteBatch sb) {
-        if (!isDead) {
-            Color c = sb.getColor();
-            sb.setColor(animColor);
-            animation.render(sb, pos.x, pos.y - 35, isFlip);
-            sb.setColor(c);
-        }
-    }
-
-    @Override
     public void updateDir(AbstractSkill.SkillDir dir) {
         super.updateDir(dir);
         if(dir == AbstractSkill.SkillDir.UP) {
