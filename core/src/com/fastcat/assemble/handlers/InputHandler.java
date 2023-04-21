@@ -176,12 +176,16 @@ public final class InputHandler {
     }
 
     public static Vector2 getProjectedMousePos() {
-        Ray ray = MousseAdventure.cam.getPickRay(mx, Gdx.graphics.getHeight() - my);
+        return getProjectedPos(mx, my);
+    }
+
+    public static Vector2 getProjectedPos(float x, float y) {
+        Ray ray = MousseAdventure.cam.getPickRay(x, Gdx.graphics.getHeight() - y);
 
         float t = -ray.origin.z/ray.direction.z;
         float convertedX = ray.origin.x+ray.direction.x*t;
         float convertedY = ray.origin.y+ray.direction.y*t;
 
-        return new Vector2((int) convertedX, (int) convertedY);
+        return new Vector2(convertedX, convertedY);
     }
 }

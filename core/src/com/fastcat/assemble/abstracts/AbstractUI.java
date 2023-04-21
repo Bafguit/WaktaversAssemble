@@ -275,8 +275,9 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                 fluiding = true;
                 distCount = 0;
             } else {
-                setX(x);
-                setY(y);
+                originX = x;
+                originY = y;
+                setLocalPosition();
             }
         }
     }

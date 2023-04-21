@@ -1,14 +1,19 @@
 package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.enemies.SpecOpsCaster;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.Queue;
+
+import static com.fastcat.assemble.handlers.InputHandler.scaleX;
+import static com.fastcat.assemble.handlers.InputHandler.scaleY;
 
 public class EnemyButton extends AbstractUI {
 
