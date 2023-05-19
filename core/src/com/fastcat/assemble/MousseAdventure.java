@@ -19,6 +19,7 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.screens.battle.BattleScreen;
+import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import com.google.common.util.concurrent.FutureCallback;
 import lombok.Getter;
@@ -37,6 +38,7 @@ public class MousseAdventure extends ApplicationAdapter {
 	public static SkeletonRenderer sr;
 
 	public static BattleScreen battleScreen;
+	public static MainMenuScreen mainMenuScreen;
 
 	public static AbstractGame game;
 	public AbstractScreen screen;
@@ -76,9 +78,9 @@ public class MousseAdventure extends ApplicationAdapter {
 
 
 		cam = new PerspectiveCamera(90, w, h);
-		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
+		cam.position.set(w * 0.5f, h * 0.3f, 600 * InputHandler.scaleA);
 		cam.lookAt(w * 0.5f, h * 0.5f,0);
-		cam.near = 1f;
+		cam.near = InputHandler.scaleA;
 		cam.far = 1300 * InputHandler.scaleA;
 		cam.update();
 
@@ -111,17 +113,14 @@ public class MousseAdventure extends ApplicationAdapter {
 	}
 
 	private void load() {
-		game = new AbstractGame();
-		battleScreen = new BattleScreen(new TestBattle());
-		screen = battleScreen;
+		//game = new AbstractGame();
+		mainMenuScreen = new MainMenuScreen();
+		screen = mainMenuScreen;
 	}
 
 	private void update() {
 		subText = null;
 		camera.update();
-		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
-		cam.position.set(w * 0.5f, h * 0.4f, 600 * InputHandler.scaleA);
-		cam.lookAt(w * 0.5f, h * 0.5f,0);
 		cam.update();
 		InputHandler.getInstance().update();
 
@@ -188,6 +187,11 @@ public class MousseAdventure extends ApplicationAdapter {
 					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
 		}
 		sb.end();
+	}
+
+	public static void setScreen(AbstractScreen sc) {
+		sc.update();
+		application.screen = sc;
 	}
 	
 	@Override

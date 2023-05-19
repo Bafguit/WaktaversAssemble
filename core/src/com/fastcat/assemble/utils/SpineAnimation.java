@@ -26,16 +26,16 @@ public class SpineAnimation {
             skeleton.setScale(0.3f * InputHandler.scaleA, 0.3f * InputHandler.scaleA);
             stateData = new AnimationStateData(skeletonData);
             state = new AnimationState(stateData);
-            initialScale = InputHandler.scaleA;
+            initialScale = InputHandler.initialScale;
             resetAnimation();
         }
 
-        public void render(SpriteBatch sb, float x, float y, boolean flip) {
+        public void render(SpriteBatch sb, float x, float y, float scale, boolean flip) {
             state.update(MousseAdventure.tick);
             state.apply(skeleton);
             state.getCurrent(0).setTimeScale(1.0f);
             float sx = Math.abs(skeleton.getScaleX());
-            skeleton.setScaleX(flip ? -sx : sx);
+            skeleton.setScaleX((flip ? -sx : sx) * scale);
             skeleton.setPosition(x * initialScale, y * initialScale);
             skeleton.updateWorldTransform();
             skeleton.setColor(sb.getColor());

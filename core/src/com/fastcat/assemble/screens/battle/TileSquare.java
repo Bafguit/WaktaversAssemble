@@ -26,7 +26,6 @@ public class TileSquare extends AbstractUI {
         this.status = status;
         clickable = false;
         pos = new Vector2i(x, y);
-        is3D = true;
     }
 
     public TileSquare(TileStatus status, int x, int y) {
@@ -34,7 +33,6 @@ public class TileSquare extends AbstractUI {
         this.status = status;
         clickable = false;
         pos = new Vector2i(x, y);
-        is3D = true;
     }
 
     @Override
@@ -50,7 +48,7 @@ public class TileSquare extends AbstractUI {
         character.pos = new Vector2i(pos);
         character.character.updateDir(AbstractSkill.SkillDir.RIGHT);
         character.character.pos = new Vector2(originX, originY);
-        screen.phase = DRAW;
+        screen.rollDice();
         ActionHandler.bot(new FindPathAction());
     }
 

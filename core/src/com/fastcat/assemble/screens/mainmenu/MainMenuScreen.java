@@ -7,18 +7,23 @@ import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 
 public class MainMenuScreen extends AbstractScreen {
+
+    private final StartButton start;
+
     public MainMenuScreen() {
         super(ScreenType.BASE);
+        start = new StartButton();
     }
 
     @Override
     public void update() {
-
+        start.update();
     }
 
     @Override
     protected void render(SpriteBatch sb) {
-        FontHandler.renderCenter(MousseAdventure.application.sb, FontHandler.LOGO, "WAKTAVERSE ASSEMBLE", 0,
+        start.render(sb);
+        FontHandler.renderCenter(MousseAdventure.application.sb, FontHandler.LOGO, "MOUSSE'S ADVENTURE", 0,
                 800 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
     }
 }

@@ -7,6 +7,7 @@ import com.esotericsoftware.spine.Event;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 import com.fastcat.assemble.abstracts.AbstractEntity;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class AttackSeveralEffect extends AbstractEffect {
 
@@ -18,6 +19,7 @@ public class AttackSeveralEffect extends AbstractEffect {
     private int count = 0;
     private float attackTimer = 0;
     private boolean attackDone = false;
+    private RangedVfxEffect.RangedVfx vfx;
 
     public AttackSeveralEffect(AbstractEntity attacker, Array<AbstractEntity> target, AbstractEntity.DamageInfo info) {
         this(attacker, target, 1, info);
@@ -29,6 +31,15 @@ public class AttackSeveralEffect extends AbstractEffect {
         this.amount = amount;
         this.target = target;
         this.info = info;
+    }
+
+    public AttackSeveralEffect(AbstractEntity attacker, Array<AbstractEntity> target, int amount, AbstractEntity.DamageInfo info, RangedVfxEffect.RangedVfx vfx) {
+        super(2);
+        this.attacker = attacker;
+        this.amount = amount;
+        this.target = target;
+        this.info = info;
+        this.vfx = vfx;
     }
 
 
@@ -51,7 +62,13 @@ public class AttackSeveralEffect extends AbstractEffect {
                         if(count >= 2 && count < amount) {
                             entry.setTrackTime(0.4f);
                         }
-                        attacker.attack(target, info);
+                        if(vfx != null) {
+                            for(AbstractEntity e : target) {
+                                ActionHandler.add(new RangedVfxEffect(e, attacker, info, vfx, true));
+                            }
+                        } else {
+                            attacker.attack(target, info);
+                        }
                     }
                 }
             });

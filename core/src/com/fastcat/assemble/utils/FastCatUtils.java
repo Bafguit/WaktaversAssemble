@@ -2,12 +2,15 @@ package com.fastcat.assemble.utils;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.AbstractEntity;
+
+import static com.fastcat.assemble.MousseAdventure.cam;
 
 public class FastCatUtils {
 
@@ -32,10 +35,10 @@ public class FastCatUtils {
         return (float) Math.sqrt(Math.abs(fromX - toX) + Math.abs(fromY - toY));
     }
 
-    public static ProjectionData calcProjection(Vector3 camPos, Vector3 camLookVector, Vector3 drawTargetPos, double near) {
+    public static ProjectionData calcProjection(Vector3 drawTargetPos) {
 
-        Vector3 normalizedCamLookVector = camLookVector.cpy().nor();
-        Vector3 camTargetVector = drawTargetPos.cpy().sub(camPos);
+        Vector3 normalizedCamLookVector = cam.direction.cpy().nor();
+        Vector3 camTargetVector = drawTargetPos.cpy().sub(cam.position);
 
         // Find the projection vector v3 of camTargetVector onto the plane K, which is perpendicular to normalizedCamLookVector
         //Vector3 v3 = camTargetVector.cpy().sub(normalizedCamLookVector.cpy().scl(camTargetVector.dot(normalizedCamLookVector)));
@@ -46,7 +49,7 @@ public class FastCatUtils {
         //float x = v3.dot(u2);
         //float y = v3.dot(u3);
 
-        Vector3 tmp = MousseAdventure.cam.project(drawTargetPos.cpy());
+        Vector3 tmp = cam.project(drawTargetPos.cpy());
         //Vector3 tmp2 = MousseAdventure.camera.unproject(tmp);
 
         float dist = camTargetVector.cpy().sub(u2.cpy().scl((camTargetVector.dot(u2) / (u2.len() * u2.len())))).len();
@@ -55,7 +58,7 @@ public class FastCatUtils {
     }
 
     public static Vector2 getProjectedPos(float x, float y) {
-        Ray ray = MousseAdventure.cam.getPickRay(x, Gdx.graphics.getHeight() - y);
+        Ray ray = cam.getPickRay(x, Gdx.graphics.getHeight() - y);
 
         float t = -ray.origin.z/ray.direction.z;
         float convertedX = ray.origin.x+ray.direction.x*t;
@@ -64,6 +67,17 @@ public class FastCatUtils {
         return new Vector2(convertedX, convertedY);
     }
 
+    public static ProjectionData getProjectionData(Vector3 unprojected) {
+        // 카메라의 투영 행렬을 직접 계산합니다.
+        Matrix4 projection = cam.combined.cpy();
+        projection.setToOrtho2D(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+// 2D 좌표를 3D 좌표로 변환합니다.
+        unprojected.prj(projection.inv()); // 투영 행렬의 역행렬을 곱합니다.
+        unprojected.z = 0;
+
+        return new ProjectionData(unprojected.x / 1000, unprojected.y / 1000, 0.3f);
+    }
 
     public static class ProjectionData {
         public final float drawX;
@@ -74,6 +88,10 @@ public class FastCatUtils {
             this.drawX = drawX;
             this.drawY = drawY;
             this.scale = scale;
+        }
+
+        public String toString() {
+            return "x: " + drawX + ", y: " + drawY + ", scale: " + scale;
         }
     }
 }

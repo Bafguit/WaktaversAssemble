@@ -8,8 +8,12 @@ import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 
 import java.util.HashMap;
+
+import static com.fastcat.assemble.MousseAdventure.cam;
+import static com.fastcat.assemble.MousseAdventure.camera;
 
 public class ResizeButton extends AbstractUI {
 
@@ -28,6 +32,7 @@ public class ResizeButton extends AbstractUI {
         resolution.put(1366, 768);
         resolution.put(1600, 900);
         setPosition(1640, 810);
+        is3D = false;
     }
 
     @Override
@@ -51,5 +56,11 @@ public class ResizeButton extends AbstractUI {
 
         Gdx.graphics.setWindowedMode(ww, hh);
         MousseAdventure.camera.setToOrtho(false, ww, hh);
+        float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
+        InputHandler.getInstance().update();
+        cam.position.set(w * 0.5f, h * 0.3f, 600 * InputHandler.scaleA);
+        cam.lookAt(w * 0.5f, h * 0.5f,0);
+        cam.near = InputHandler.scaleA;
+        cam.far = 1300 * InputHandler.scaleA;
     }
 }

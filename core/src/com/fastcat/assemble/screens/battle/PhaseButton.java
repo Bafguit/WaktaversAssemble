@@ -15,11 +15,12 @@ public class PhaseButton extends AbstractUI {
     public PhaseButton(BattleScreen screen) {
         super(FileHandler.dice.get("Dice"));
         this.screen = screen;
+        is3D = false;
     }
 
     @Override
     protected void updateButton() {
-        overable = screen.phase != BattlePhase.DIRECTION && screen.phase != BattlePhase.MOVE && screen.phase != BattlePhase.DEPLOY;
+        clickable = false;
     }
 
     @Override

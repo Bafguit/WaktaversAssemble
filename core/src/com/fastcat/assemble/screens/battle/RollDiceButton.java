@@ -15,6 +15,7 @@ public class RollDiceButton extends AbstractUI {
         super(FileHandler.dice.get("Dice"));
         this.screen = screen;
         overable = screen.phase == BattleScreen.BattlePhase.DRAW;
+        is3D = false;
     }
 
     @Override

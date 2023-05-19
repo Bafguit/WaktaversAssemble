@@ -18,6 +18,7 @@ import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.utils.FastCatUtils;
 import com.fastcat.assemble.utils.SpineAnimation;
 import com.fastcat.assemble.utils.Vector2i;
@@ -37,8 +38,9 @@ public abstract class AbstractEntity {
     public Sprite img;
     public Vector2 pos;
     public Vector2 animPos;
+    public Vector2 attackFrom;
     public Vector2i tilePos;
-    public float zScale;
+    public float zScale = 1.0f;
 
     protected TextureAtlas atlas;
     protected FileHandle skeleton;
@@ -76,6 +78,7 @@ public abstract class AbstractEntity {
         this.magicRes = this.baseMagicRes = res;
         this.rarity = rarity;
         pos = new Vector2();
+        attackFrom = new Vector2();
         animPos = new Vector2(-10000, -10000);
         img = FileHandler.character.get(id);
         setAnimation();
@@ -107,14 +110,7 @@ public abstract class AbstractEntity {
         if (!isDead) {
             Color c = sb.getColor();
             sb.setColor(animColor);
-            FastCatUtils.ProjectionData projData =
-                FastCatUtils.calcProjection(MousseAdventure.cam.position, MousseAdventure.cam.direction,
-                        new Vector3(pos.x, pos.y, 0), MousseAdventure.cam.near);
-            animPos.x = projData.drawX;
-            animPos.y = projData.drawY;
-            zScale = projData.scale;
-
-            animation.render(sb, animPos.x, animPos.y, isFlip);
+            animation.render(sb, pos.x, pos.y - 35, zScale, isFlip);
             sb.setColor(c);
         }
     }

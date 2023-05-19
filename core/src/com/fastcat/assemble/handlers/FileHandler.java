@@ -29,6 +29,8 @@ public class FileHandler {
 
     public static final HashMap<String, Sprite> ui = new HashMap<>();
 
+    public static final HashMap<String, Sprite> vfx = new HashMap<>();
+
     public static final HashMap<String, Sprite> character = new HashMap<>();
 
     public static final HashMap<String, Sprite> card = new HashMap<>();
@@ -65,6 +67,7 @@ public class FileHandler {
         generateDice(resourceHandler);
         generateDiceAtlas(resourceHandler);
         generateUI(resourceHandler);
+        generateVfx(resourceHandler);
         generateBG(resourceHandler);
         generateChar(resourceHandler);
         generateSpine(resourceHandler);
@@ -147,6 +150,8 @@ public class FileHandler {
 
         HashMap<String, String> resources = new HashMap<>();
         resources.put("GRID", "image/bg/grid.png");
+        resources.put("CAT", "image/bg/cat.png");
+        resources.put("HALF", "image/bg/half.png");
 
         resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
             Texture texture = (Texture) resource;
@@ -177,6 +182,21 @@ public class FileHandler {
             String resourceName = args[0].toString();
 
             ui.put(resourceName, new Sprite(texture));
+        }));
+    }
+
+    private void generateVfx(ResourceHandler resourceHandler) {
+        vfx.clear();
+
+        HashMap<String, String> resources = new HashMap<>();
+        resources.put("ARTS_1", "image/vfx/arts_1.png");
+
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, Texture.class, (resource, args) -> {
+            Texture texture = (Texture) resource;
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            String resourceName = args[0].toString();
+
+            vfx.put(resourceName, new Sprite(texture));
         }));
     }
 

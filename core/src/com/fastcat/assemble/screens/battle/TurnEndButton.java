@@ -17,6 +17,7 @@ public class TurnEndButton extends AbstractUI {
     public TurnEndButton(BattleScreen screen) {
         super(FileHandler.dice.get("Dice"));
         this.screen = screen;
+        is3D = false;
     }
 
     @Override

@@ -1,14 +1,21 @@
 package com.fastcat.assemble.screens.battle;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.*;
+import com.fastcat.assemble.actions.BattleReadyAction;
 import com.fastcat.assemble.dices.basic.Mousse;
 import com.fastcat.assemble.dices.normal.Scavenger;
 import com.fastcat.assemble.enemies.SarkazSniper;
 import com.fastcat.assemble.enemies.SarkazWarrior;
+import com.fastcat.assemble.handlers.ActionHandler;
+import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.utils.Vector2i;
 
 import java.util.LinkedList;
@@ -30,9 +37,12 @@ public class BattleScreen extends AbstractScreen {
     public TileSquare[][] tiles;
     public int wSize = 8, hSize = 6;
     public AbstractSkill dirSkill;
+    public Sprite half;
 
     public BattleScreen() {
         super(ScreenType.BASE);
+        setBg(FileHandler.bg.get("CAT"));
+        half = FileHandler.bg.get("HALF");
         phase = BattlePhase.READY;
         resizeButton = new ResizeButton();
         rollButton = new RollDiceButton(this);
@@ -68,6 +78,9 @@ public class BattleScreen extends AbstractScreen {
 
     public BattleScreen(AbstractBattle battle) {
         super(ScreenType.BASE);
+        setBg(FileHandler.bg.get("CAT"));
+        half = FileHandler.bg.get("HALF");
+        ActionHandler.bot(new BattleReadyAction());
         this.battle = battle;
         wSize = battle.wSize;
         hSize = battle.hSize;
@@ -170,31 +183,33 @@ public class BattleScreen extends AbstractScreen {
         phaseButton.render(sb);
         turnEndButton.render(sb);
 
-        for(int j = hSize - 1; j >= 0; j--) {
-            for(int i = wSize - 1; i >= 0; i--) {
-                TileSquare t = tiles[i][j];
-                t.render(sb);
+        if(phase != BattlePhase.DEPLOY) {
+            for (int j = hSize - 1; j >= 0; j--) {
+                for (int i = wSize - 1; i >= 0; i--) {
+                    TileSquare t = tiles[i][j];
+                    t.render(sb);
+                }
             }
-        }
 
-        for(int j = hSize - 1; j >= 0; j--) {
-            for(int i = wSize - 1; i >= 0; i--) {
-                TileSquare t = tiles[i][j];
-                if(t.character != null) t.character.render(sb);
-                else if(t.enemy != null) t.enemy.render(sb);
+            for (int j = hSize - 1; j >= 0; j--) {
+                for (int i = wSize - 1; i >= 0; i--) {
+                    TileSquare t = tiles[i][j];
+                    if (t.character != null) t.character.render(sb);
+                    else if (t.enemy != null) t.enemy.render(sb);
+                }
             }
-        }
 
-        for(int j = hSize - 1; j >= 0; j--) {
-            for(int i = wSize - 1; i >= 0; i--) {
-                TileSquare t = tiles[i][j];
-                if(t.character != null) t.character.hb.render(sb);
-                else if(t.enemy != null) t.enemy.hb.render(sb);
+            for (int j = hSize - 1; j >= 0; j--) {
+                for (int i = wSize - 1; i >= 0; i--) {
+                    TileSquare t = tiles[i][j];
+                    if (t.character != null) t.character.hb.render(sb);
+                    else if (t.enemy != null) t.enemy.hb.render(sb);
+                }
             }
-        }
 
-        for(DirectionButton b : dirButton) {
-            b.render(sb);
+            for (DirectionButton b : dirButton) {
+                b.render(sb);
+            }
         }
 
         for(AbstractStatus s : player.character.status) {
@@ -203,6 +218,40 @@ public class BattleScreen extends AbstractScreen {
 
         for(DiceButton b : dice) {
             b.render(sb);
+        }
+
+        if(phase == BattlePhase.DEPLOY) {
+            sb.draw(half, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+
+            for (int j = hSize - 1; j >= 0; j--) {
+                for (int i = wSize - 1; i >= 0; i--) {
+                    TileSquare t = tiles[i][j];
+                    t.render(sb);
+                }
+            }
+
+            for (int j = hSize - 1; j >= 0; j--) {
+                for (int i = wSize - 1; i >= 0; i--) {
+                    TileSquare t = tiles[i][j];
+                    if (t.character != null) t.character.render(sb);
+                    else if (t.enemy != null) t.enemy.render(sb);
+                }
+            }
+
+            for (int j = hSize - 1; j >= 0; j--) {
+                for (int i = wSize - 1; i >= 0; i--) {
+                    TileSquare t = tiles[i][j];
+                    if (t.character != null) t.character.hb.render(sb);
+                    else if (t.enemy != null) t.enemy.hb.render(sb);
+                }
+            }
+
+            for (DirectionButton b : dirButton) {
+                b.render(sb);
+            }
+
+            FontHandler.renderCenter(MousseAdventure.application.sb, FontHandler.LOGO, "배 치 하 라", 0,
+                    900 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
         }
     }
 

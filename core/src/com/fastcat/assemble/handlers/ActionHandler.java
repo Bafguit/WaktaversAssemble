@@ -71,4 +71,8 @@ public final class ActionHandler {
             effectHandler.render(sb);
         }
     }
+
+    public static EffectHandler getEffectHandler() {
+        return effectHandler;
+    }
 }

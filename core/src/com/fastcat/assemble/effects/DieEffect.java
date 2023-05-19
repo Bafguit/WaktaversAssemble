@@ -7,7 +7,11 @@ import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.battles.TestBattle;
+import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.screens.battle.EnemyButton;
+import com.fastcat.assemble.screens.result.ResultScreen;
 
 import java.util.Iterator;
 
@@ -39,6 +43,15 @@ public class DieEffect extends AbstractEffect {
                                 break;
                             }
                         }
+                        if(MousseAdventure.battleScreen.enemies.size == 0) {
+                            MousseAdventure.application.screen = new ResultScreen(ResultScreen.ResultType.WIN);
+                            //MousseAdventure.battleScreen = new BattleScreen(new TestBattle());
+                            //MousseAdventure.game = new AbstractGame();
+                        }
+                    } else {
+                        MousseAdventure.application.screen = new ResultScreen(ResultScreen.ResultType.LOSE);
+                        //MousseAdventure.battleScreen = new BattleScreen(new TestBattle());
+                        //MousseAdventure.game = new AbstractGame();
                     }
                     e.animation.state.removeListener(this);
                 }

@@ -31,6 +31,7 @@ public final class InputHandler {
     public static boolean info;
     public static boolean sc;
 
+    public static float initialScale;
     public static float scaleA;
     public static float scaleX;
     public static float scaleY;
@@ -65,6 +66,8 @@ public final class InputHandler {
         } else {
             scaleA = scaleX;
         }
+
+        initialScale = scaleA;
 
         Gdx.input.setInputProcessor(new InputAdapter() {
             public boolean keyTyped(char c) {

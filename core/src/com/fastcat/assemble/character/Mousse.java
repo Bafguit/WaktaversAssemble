@@ -5,7 +5,7 @@ import com.fastcat.assemble.abstracts.AbstractPlayer;
 
 public class Mousse extends AbstractPlayer {
     public Mousse() {
-        super("char_185_frncat", 705, 2345, 392, 15);
+        super("char_185_frncat", 70500, 2345, 392, 15);
     }
 
     @Override

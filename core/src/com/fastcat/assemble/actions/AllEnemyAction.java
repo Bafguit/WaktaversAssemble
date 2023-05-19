@@ -6,6 +6,7 @@ import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 import com.fastcat.assemble.effects.MoveEnemyEffect;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.screens.battle.TileSquare;
 
@@ -53,13 +54,16 @@ public class AllEnemyAction extends AbstractAction {
                 for(MoveEnemyEffect m : e) {
                     EffectHandler.add(m);
                 }
-            } else isDone = true;
+            } else if(ActionHandler.getEffectHandler().effectList.size == 0) {
+                isDone = true;
+            }
         }
 
         if(isDone) {
             for(MoveEnemyEffect m : e) {
                 m.isDone = true;
             }
+            ActionHandler.bot(new RollDiceAction());
         }
     }
 

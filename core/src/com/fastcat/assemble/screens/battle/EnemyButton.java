@@ -40,6 +40,7 @@ public class EnemyButton extends AbstractUI {
     protected void updateButton() {
         if(tile != null) {
             setPosition(entity.pos.x, entity.pos.y);
+            entity.animPos.set(x, y);
         }
     }
 

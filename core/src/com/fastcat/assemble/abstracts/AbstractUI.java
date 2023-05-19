@@ -66,7 +66,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public boolean clickEnd = true;
     public boolean enabled;
     public boolean showImg = true;
-    public boolean is3D = true;
+    public boolean is3D = false;
     private boolean hasClick = false;
 
     public Vector2 mouse;
