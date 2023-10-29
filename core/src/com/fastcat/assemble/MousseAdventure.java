@@ -22,6 +22,9 @@ import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import com.google.common.util.concurrent.FutureCallback;
+import io.github.zumikua.webploader.common.WebPLoaderFactory;
+import io.github.zumikua.webploader.common.WebPLoaderNativeInterface;
+import io.github.zumikua.webploader.common.WebPPixmapFactory;
 import lombok.Getter;
 
 public class MousseAdventure extends ApplicationAdapter {
@@ -55,8 +58,16 @@ public class MousseAdventure extends ApplicationAdapter {
 
 	public ResourceHandler resourceHandler;
 
+	public static WebPPixmapFactory pixmapFactory;
+	public static WebPLoaderFactory webpFactory;
+
 	public SpriteBatch sb;
 	Texture img;
+
+	public MousseAdventure(WebPLoaderNativeInterface nativeInterface) {
+		webpFactory = new WebPLoaderFactory(nativeInterface);
+		pixmapFactory = webpFactory.getPixmapFactory();
+	}
 	
 	@Override
 	public void create () {

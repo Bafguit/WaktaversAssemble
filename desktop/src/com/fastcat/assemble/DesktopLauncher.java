@@ -2,6 +2,7 @@ package com.fastcat.assemble;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import io.github.zumikua.webploader.desktop.DesktopNativeInterface;
 
 // Please note that on macOS your application needs to be started with the -XstartOnFirstThread JVM argument
 public class DesktopLauncher {
@@ -11,6 +12,6 @@ public class DesktopLauncher {
 		config.setResizable(false);
 		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 20);
 		config.setTitle("Mousse's Adventure");
-		new Lwjgl3Application(new MousseAdventure(), config);
+		new Lwjgl3Application(new MousseAdventure(new DesktopNativeInterface()), config);
 	}
 }

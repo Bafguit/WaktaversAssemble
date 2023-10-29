@@ -2,6 +2,7 @@ package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -14,6 +15,8 @@ import lombok.Getter;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+
+import static com.fastcat.assemble.MousseAdventure.pixmapFactory;
 
 public class FileHandler {
 
@@ -183,6 +186,17 @@ public class FileHandler {
 
             ui.put(resourceName, new Sprite(texture));
         }));
+
+        /* TODO webp 로딩
+        resourceHandler.requestResource(new MultipleResourceRequest<>(resources, FileHandle.class, (resource, args) -> {
+            FileHandle file = (FileHandle) resource;
+            Texture texture = new Texture(pixmapFactory.createPixmap(file));
+            texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+            String resourceName = args[0].toString();
+
+            ui.put(resourceName, new Sprite(texture));
+        }));
+        */
     }
 
     private void generateVfx(ResourceHandler resourceHandler) {

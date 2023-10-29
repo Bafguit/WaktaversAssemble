@@ -47,11 +47,12 @@ project(":desktop") {
 
     dependencies {
         implementation project(":core")
+        implementation "io.github.zumikua:webploader-desktop:0.1.0"
         api "com.badlogicgames.gdx-video:gdx-video-lwjgl3:$videoVersion"
         api "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
@@ -62,6 +63,7 @@ project(":android") {
 
     dependencies {
         implementation project(":core")
+        implementation "io.github.zumikua:webploader-android:0.1.0"
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
@@ -83,6 +85,7 @@ project(":core") {
 
         implementation "com.google.guava:guava:31.1-jre"
         implementation "com.badlogicgames.gdx-video:gdx-video:$videoVersion"
+        implementation "io.github.zumikua:webploader-common:0.1.0"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.esotericsoftware.spine:spine-libgdx:3.8.99.1"
         api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
