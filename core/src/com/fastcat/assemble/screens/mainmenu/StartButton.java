@@ -1,22 +1,16 @@
 package com.fastcat.assemble.screens.mainmenu;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.screens.battle.BattleScreen;
 
-import java.util.HashMap;
-
-import static com.fastcat.assemble.MousseAdventure.battleScreen;
-import static com.fastcat.assemble.MousseAdventure.cam;
+import static com.fastcat.assemble.WakTower.battleScreen;
 
 public class StartButton extends AbstractUI {
 
@@ -39,8 +33,8 @@ public class StartButton extends AbstractUI {
 
     @Override
     public void onClick() {
-        MousseAdventure.game = new AbstractGame();
+        WakTower.game = new AbstractGame();
         battleScreen = new BattleScreen(new TestBattle());
-        MousseAdventure.application.screen = battleScreen;
+        WakTower.application.screen = battleScreen;
     }
 }

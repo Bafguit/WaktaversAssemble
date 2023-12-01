@@ -3,13 +3,8 @@ package com.fastcat.assemble.effects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.esotericsoftware.spine.AnimationState;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
-import com.fastcat.assemble.abstracts.AbstractEnemy;
-import com.fastcat.assemble.abstracts.AbstractEntity;
-import com.fastcat.assemble.abstracts.AbstractGame;
-import com.fastcat.assemble.battles.TestBattle;
-import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.screens.result.ResultScreen;
 
@@ -34,7 +29,7 @@ public class DieEffect extends AbstractEffect {
                 public void complete(AnimationState.TrackEntry entry) {
                     e.isDead = true;
                     if(e instanceof AbstractEnemy) {
-                        Iterator<EnemyButton> itr = MousseAdventure.battleScreen.enemies.iterator();
+                        Iterator<EnemyButton> itr = WakTower.battleScreen.enemies.iterator();
                         while(itr.hasNext()) {
                             EnemyButton b = itr.next();
                             if(b.entity == e) {
@@ -43,13 +38,13 @@ public class DieEffect extends AbstractEffect {
                                 break;
                             }
                         }
-                        if(MousseAdventure.battleScreen.enemies.size == 0) {
-                            MousseAdventure.application.screen = new ResultScreen(ResultScreen.ResultType.WIN);
+                        if(WakTower.battleScreen.enemies.size == 0) {
+                            WakTower.application.screen = new ResultScreen(ResultScreen.ResultType.WIN);
                             //MousseAdventure.battleScreen = new BattleScreen(new TestBattle());
                             //MousseAdventure.game = new AbstractGame();
                         }
                     } else {
-                        MousseAdventure.application.screen = new ResultScreen(ResultScreen.ResultType.LOSE);
+                        WakTower.application.screen = new ResultScreen(ResultScreen.ResultType.LOSE);
                         //MousseAdventure.battleScreen = new BattleScreen(new TestBattle());
                         //MousseAdventure.game = new AbstractGame();
                     }
@@ -60,7 +55,7 @@ public class DieEffect extends AbstractEffect {
 
         if(!e.isDead) {
             if(a > 0) {
-                a -= MousseAdventure.tick;
+                a -= WakTower.tick;
                 if(a <= 0) {
                     a = 0;
                     isDone = true;

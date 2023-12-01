@@ -7,7 +7,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 
 import java.util.HashMap;
 
@@ -230,7 +230,7 @@ public final class SoundHandler implements Disposable {
         }
 
         public void updateFadeIn() {
-            fadeTimer -= MousseAdventure.tick * 2;
+            fadeTimer -= WakTower.tick * 2;
             if (fadeTimer <= 0.0F) {
                 fadeTimer = 0.0F;
                 isFading = false;
@@ -240,7 +240,7 @@ public final class SoundHandler implements Disposable {
         }
 
         public void updateFadeOut() {
-            fadeTimer -= MousseAdventure.tick * 2;
+            fadeTimer -= WakTower.tick * 2;
             if (fadeTimer <= 0.0F) {
                 fadeTimer = 0.0F;
                 isDone = true;

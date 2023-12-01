@@ -2,7 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.FileHandler;
 
 public abstract class AbstractEffect implements Disposable {
@@ -36,7 +36,7 @@ public abstract class AbstractEffect implements Disposable {
 
     protected void TickDuration() {
         if (duration > 0) {
-            duration -= MousseAdventure.tick;
+            duration -= WakTower.tick;
         }
     }
 

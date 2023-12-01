@@ -3,11 +3,8 @@ package com.fastcat.assemble.effects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.abstracts.AbstractEffect;
-import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractUI;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 
 public class RangedVfxEffect extends AbstractEffect {

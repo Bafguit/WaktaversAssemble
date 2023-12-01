@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
-import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.screens.battle.EnemyButton;
 import com.fastcat.assemble.screens.battle.TileSquare;
 import com.fastcat.assemble.utils.Vector2i;
@@ -37,12 +36,12 @@ public class MoveEnemyEffect extends AbstractEffect {
             if (h >= w) {
                 if (next.y > e.pos.y) {
                     x = e.pos.x;
-                    y = MathUtils.clamp(e.pos.y + 1, 0, MousseAdventure.battleScreen.hSize - 1);
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    y = MathUtils.clamp(e.pos.y + 1, 0, WakTower.battleScreen.hSize - 1);
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.UP);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -53,12 +52,12 @@ public class MoveEnemyEffect extends AbstractEffect {
 
                 if (next.y < e.pos.y) {
                     x = e.pos.x;
-                    y = MathUtils.clamp(e.pos.y - 1, 0, MousseAdventure.battleScreen.hSize - 1);
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    y = MathUtils.clamp(e.pos.y - 1, 0, WakTower.battleScreen.hSize - 1);
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.DOWN);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -68,13 +67,13 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
 
                 if (next.x > e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.wSize - 1);
+                    x = MathUtils.clamp(e.pos.x + 1, 0, WakTower.battleScreen.wSize - 1);
                     y = e.pos.y;
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.RIGHT);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -84,13 +83,13 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
 
                 if (next.x < e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.wSize - 1);
+                    x = MathUtils.clamp(e.pos.x - 1, 0, WakTower.battleScreen.wSize - 1);
                     y = e.pos.y;
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.LEFT);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -99,13 +98,13 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
             } else {
                 if (next.x > e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x + 1, 0, MousseAdventure.battleScreen.wSize - 1);
+                    x = MathUtils.clamp(e.pos.x + 1, 0, WakTower.battleScreen.wSize - 1);
                     y = e.pos.y;
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.RIGHT);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -115,13 +114,13 @@ public class MoveEnemyEffect extends AbstractEffect {
                 }
 
                 if (next.x < e.pos.x) {
-                    x = MathUtils.clamp(e.pos.x - 1, 0, MousseAdventure.battleScreen.wSize - 1);
+                    x = MathUtils.clamp(e.pos.x - 1, 0, WakTower.battleScreen.wSize - 1);
                     y = e.pos.y;
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.LEFT);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -131,12 +130,12 @@ public class MoveEnemyEffect extends AbstractEffect {
 
                 if (next.y > e.pos.y) {
                     x = e.pos.x;
-                    y = MathUtils.clamp(e.pos.y + 1, 0, MousseAdventure.battleScreen.hSize - 1);
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    y = MathUtils.clamp(e.pos.y + 1, 0, WakTower.battleScreen.hSize - 1);
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.UP);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -147,12 +146,12 @@ public class MoveEnemyEffect extends AbstractEffect {
 
                 if (next.y < e.pos.y) {
                     x = e.pos.x;
-                    y = MathUtils.clamp(e.pos.y - 1, 0, MousseAdventure.battleScreen.hSize - 1);
-                    t = MousseAdventure.battleScreen.tiles[x][y];
+                    y = MathUtils.clamp(e.pos.y - 1, 0, WakTower.battleScreen.hSize - 1);
+                    t = WakTower.battleScreen.tiles[x][y];
                     if (t.status == TileSquare.TileStatus.NORMAL || t.status == TileSquare.TileStatus.INVALID) {
                         e.entity.updateDir(AbstractSkill.SkillDir.DOWN);
                         to = new Vector2(t.originX, t.originY);
-                        tile = MousseAdventure.battleScreen.tiles[x][y];
+                        tile = WakTower.battleScreen.tiles[x][y];
                         if (x == next.x && y == next.y) {
                             e.nextPath();
                         }
@@ -182,7 +181,7 @@ public class MoveEnemyEffect extends AbstractEffect {
                 e.entity.walk();
             }
             if (timer < 1) {
-                timer += MousseAdventure.tick / baseDuration;
+                timer += WakTower.tick / baseDuration;
                 if (timer >= 1) timer = 1;
                 float x = Interpolation.linear.apply(from.x, to.x, timer), y = Interpolation.linear.apply(from.y, to.y, timer);
                 e.entity.pos.set(x, y);

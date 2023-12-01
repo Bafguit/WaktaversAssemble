@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 
 import java.util.HashMap;
 
@@ -65,10 +65,15 @@ public class SpriteAnimation {
     }
 
     private void tickDuration() {
-        timer += MousseAdventure.tick;
+        timer += WakTower.tick;
         if(timer > current.duration) {
             timer -= current.duration;
         }
+    }
+
+    //todo spriteAnimation copy
+    public SpriteAnimation cpy() {
+        return new SpriteAnimation();
     }
 
     public class SpriteAnimationData {
@@ -94,6 +99,15 @@ public class SpriteAnimation {
 
         public Sprite getFrame(int number) {
             return frames[number % frames.length];
+        }
+
+        public SpriteAnimationData cpy() {
+            Array<Sprite> temp = new Array<>();
+            for(Sprite s : frames) {
+                temp.add(new Sprite(s));
+            }
+
+            return new SpriteAnimationData(key, temp, frameDuration);
         }
     }
 }

@@ -3,7 +3,7 @@ package com.fastcat.assemble.effects;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -30,10 +30,10 @@ public class UpColorTextEffect extends AbstractEffect {
     protected void renderEffect(SpriteBatch sb) {
         if (duration != baseDuration) {
             if (duration <= baseDuration / 2) {
-                font.alpha -= MousseAdventure.tick / baseDuration * 2;
+                font.alpha -= WakTower.tick / baseDuration * 2;
                 if (font.alpha < 0) font.alpha = 0;
             }
-            ui.originY += MousseAdventure.tick * 100;
+            ui.originY += WakTower.tick * 100;
         }
         ui.update();
         renderCenter(sb, font, text, ui.x, ui.y + 80 * InputHandler.scaleY);

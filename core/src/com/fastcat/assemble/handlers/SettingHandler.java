@@ -13,8 +13,8 @@ public final class SettingHandler {
         Preferences prefs = Gdx.app.getPreferences("Setting");
         setting.screenMode = prefs.getInteger("screenMode", 0);
         if (setting.screenMode == 0) {
-            setting.width = prefs.getInteger("width", 1600);
-            setting.height = prefs.getInteger("height", 900);
+            setting.width = prefs.getInteger("width", 640);
+            setting.height = prefs.getInteger("height", 360);
         }
 
         // 볼륨 설정

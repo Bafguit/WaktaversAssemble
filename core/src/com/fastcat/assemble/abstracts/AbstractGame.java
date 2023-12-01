@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.character.Mousse;
 import com.fastcat.assemble.handlers.ActionHandler;
+import com.fastcat.assemble.handlers.GroupHandler;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -24,17 +25,15 @@ public class AbstractGame {
     public RandomXC diceRandom;
     public RandomXC battleRandom;
 
-    public AbstractEntity player;
-    public Array<AbstractDice> dices;
+    public AbstractPlayer player;
+    public Array<AbstractCard> deck;
     public Array<AbstractItem> items;
 
     public AbstractBattle battle;
-
-    public AbstractFloor[] floors;
-    public int floorNum;
+    public int floorNum, floorMax;
 
     public AbstractGame() {
-        dices = new Array<>();
+        deck = new Array<>();
         items = new Array<>();
         player = new Mousse();
         seed = generateRandomSeed();
@@ -59,9 +58,19 @@ public class AbstractGame {
         actionHandler.render(sb);
     }
 
-    public AbstractFloor currentFloor() {
-        return floors[floorNum];
+    public void nextRoom() {
+        if(floorNum % 10 == 9) {
+            rooms = new AbstractRoom[1];
+            rooms[0] = new AbstractRoom(GroupHandler.getBoss((++floorNum) / 10));
+        } else if(floorNum == floorMax) {
+            ending();
+        } else {
+            int f = floorNum / 10 + 1;
+            rooms = AbstractRoom.generateNormalRoom(f);
+        }
     }
+
+    public void ending() {}
 
     private static String generateRandomSeed() {
         StringBuilder s = new StringBuilder();

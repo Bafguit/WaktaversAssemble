@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.esotericsoftware.spine.*;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.InputHandler;
 
 public class SpineAnimation {
@@ -31,7 +31,7 @@ public class SpineAnimation {
         }
 
         public void render(SpriteBatch sb, float x, float y, float scale, boolean flip) {
-            state.update(MousseAdventure.tick);
+            state.update(WakTower.tick);
             state.apply(skeleton);
             state.getCurrent(0).setTimeScale(1.0f);
             float sx = Math.abs(skeleton.getScaleX());
@@ -40,9 +40,9 @@ public class SpineAnimation {
             skeleton.updateWorldTransform();
             skeleton.setColor(sb.getColor());
             sb.end();
-            MousseAdventure.psb.begin();
-            MousseAdventure.sr.draw(MousseAdventure.psb, skeleton);
-            MousseAdventure.psb.end();
+            WakTower.psb.begin();
+            WakTower.sr.draw(WakTower.psb, skeleton);
+            WakTower.psb.end();
             sb.begin();
         }
 

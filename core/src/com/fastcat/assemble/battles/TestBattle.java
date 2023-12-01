@@ -1,9 +1,6 @@
 package com.fastcat.assemble.battles;
 
 import com.fastcat.assemble.abstracts.AbstractBattle;
-import com.fastcat.assemble.enemies.SarkazSniper;
-import com.fastcat.assemble.enemies.SarkazWarrior;
-import com.fastcat.assemble.enemies.SpecOpsCaster;
 
 public class TestBattle extends AbstractBattle {
 

@@ -8,9 +8,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.collision.Ray;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.MousseAdventure;
 import com.fastcat.assemble.interfaces.OnMouseScrolled;
 import com.fastcat.assemble.utils.FastCatUtils;
 
@@ -177,9 +175,5 @@ public final class InputHandler {
             PixmapIO.writePNG(Gdx.files.local("screen.png"), pixmap, Deflater.DEFAULT_COMPRESSION, true);
             pixmap.dispose();
         }
-    }
-
-    public static Vector2 getProjectedMousePos() {
-        return FastCatUtils.getProjectedPos(mx, my);
     }
 }

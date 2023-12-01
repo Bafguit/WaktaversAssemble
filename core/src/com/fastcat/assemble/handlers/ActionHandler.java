@@ -2,9 +2,11 @@ package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractEffect;
+
+import static com.fastcat.assemble.WakTower.game;
 
 public final class ActionHandler {
 
@@ -12,16 +14,21 @@ public final class ActionHandler {
     private static final EffectHandler effectHandler = new EffectHandler();
 
     private final Queue<AbstractAction> actionList = new Queue<>();
+    private final Queue<AbstractAction> nextActions = new Queue<>();
     private AbstractAction current;
 
     public static void clear() {
-        if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.clear();
+        if(game != null) {
+            game.actionHandler.actionList.clear();
+            game.actionHandler.nextActions.clear();
+        }
     }
 
     public static void reset() {
-        if(MousseAdventure.game != null) {
-            ActionHandler a = MousseAdventure.game.actionHandler;
+        if(game != null) {
+            ActionHandler a = game.actionHandler;
             a.actionList.clear();
+            a.nextActions.clear();
             a.current = null;
         }
     }
@@ -30,26 +37,43 @@ public final class ActionHandler {
         effectHandler.addEffect(effect);
     }
 
+    public static void next(AbstractAction action) {
+        if(game != null) {
+            if(game.actionHandler.current != null) {
+                game.actionHandler.nextActions.addLast(action);
+            } else {
+                game.actionHandler.actionList.addLast(action);
+            }
+        }
+    }
+
     public static void bot(AbstractAction action) {
-        if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.addLast(action);
+        if(game != null) game.actionHandler.actionList.addLast(action);
     }
 
     public static void top(AbstractAction action) {
-        if(MousseAdventure.game != null) MousseAdventure.game.actionHandler.actionList.addFirst(action);
+        if(game != null) game.actionHandler.actionList.addFirst(action);
     }
 
     public void update() {
         isRunning = false;
-        if (actionList.size > 0 || current != null) {
+        if (current != null) {
             isRunning = true;
-            if (current == null) {
-                current = actionList.removeFirst();
-            }
-            if (!MousseAdventure.fading) {
+            if (!WakTower.fading) {
                 current.update();
             }
-            if (current.isDone) {
+            if(current.isDone) {
                 current = null;
+                if (nextActions.size > 0) {
+                    current = nextActions.removeFirst();
+                } else if (actionList.size > 0) {
+                    current = actionList.removeFirst();
+                }
+            }
+        } else if(actionList.size > 0) {
+            current = actionList.removeFirst();
+            if(!WakTower.fading) {
+                current.update();
             }
         }
 

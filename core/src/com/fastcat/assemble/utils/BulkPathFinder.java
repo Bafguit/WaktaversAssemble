@@ -1,6 +1,6 @@
 package com.fastcat.assemble.utils;
 
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.screens.battle.TileSquare;
 import com.fastcat.assemble.screens.battle.TileSquare.TileStatus;
 import org.ksdev.jps.Graph;
@@ -49,12 +49,12 @@ public class BulkPathFinder {
     }
 
     private static boolean isWalkable(int x, int y) {
-        if(x < 0 || x >= MousseAdventure.battleScreen.wSize)
+        if(x < 0 || x >= WakTower.battleScreen.wSize)
             return false;
-        if(y < 0 || y >= MousseAdventure.battleScreen.hSize)
+        if(y < 0 || y >= WakTower.battleScreen.hSize)
             return false;
 
-        TileSquare s = MousseAdventure.battleScreen.tiles[x][y];
+        TileSquare s = WakTower.battleScreen.tiles[x][y];
         return s.status == TileStatus.NORMAL ||
                 (s.character != null || (s.enemy != null && s.enemy.target == null));
     }

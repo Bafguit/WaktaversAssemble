@@ -1,9 +1,8 @@
 package com.fastcat.assemble.effects;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
-import com.fastcat.assemble.abstracts.AbstractEntity;
 
 public class HitEffect extends AbstractEffect {
 
@@ -18,7 +17,7 @@ public class HitEffect extends AbstractEffect {
     @Override
     protected void renderEffect(SpriteBatch sb) {
         if(a < 1) {
-            a += MousseAdventure.tick / baseDuration;
+            a += WakTower.tick / baseDuration;
             if(a >= 1) a = 1;
             e.animColor.set(1, a, a, 1);
         }

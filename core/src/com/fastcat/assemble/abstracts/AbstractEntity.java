@@ -1,320 +1,78 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
-import com.esotericsoftware.spine.AnimationState;
-import com.fastcat.assemble.MousseAdventure;
-import com.fastcat.assemble.effects.DieEffect;
-import com.fastcat.assemble.effects.HitEffect;
-import com.fastcat.assemble.effects.UpColorTextEffect;
-import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.handlers.EffectHandler;
+import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
-import com.fastcat.assemble.utils.FastCatUtils;
-import com.fastcat.assemble.utils.SpineAnimation;
-import com.fastcat.assemble.utils.Vector2i;
+import com.fastcat.assemble.utils.SpriteAnimation;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class AbstractEntity {
 
-    public final Color baseColor = new Color(1, 1, 1, 1);
-    public final Color animColor = new Color(1, 1, 1, 1);
+    protected final EntityData data;
+    public final String id, name, desc;
+    public final boolean isPlayer;
+    public final SpriteAnimation animation;
 
-    //local static
-    public String id;
-    public String name;
-    public String desc;
-    public EntityRarity rarity;
-    public Sprite img;
-    public Vector2 pos;
-    public Vector2 animPos;
-    public Vector2 attackFrom;
-    public Vector2i tilePos;
-    public float zScale = 1.0f;
-
-    protected TextureAtlas atlas;
-    protected FileHandle skeleton;
-    public SpineAnimation animation;
-    public boolean isFlip = false;
-
-    public int uuid;
-    public int baseMaxHealth;
-    public int baseAttack;
-    public int baseDefense;
-    public int baseMagicRes;
-    public boolean isPlayer;
-    public boolean isDie;
-    public boolean isDead;
-    public boolean invisible = false;
-
+    public int health, maxHealth;
     public LinkedList<AbstractStatus> status = new LinkedList<>();
 
-    //temporary
-    public int speed = 1;
-    public int attack;
-    public int defense;
-    public int magicRes;
-    public int health;
-    public int maxHealth;
-    public int shield = 0;
-    public int physShield = 0;
-    public int magicShield = 0;
-
-    public AbstractEntity(String id, int attack, int health, int def, int res, EntityRarity rarity) {
+    public AbstractEntity(String id, boolean isPlayer) {
         this.id = id;
-        this.attack = this.baseAttack = attack;
-        this.health = maxHealth = baseMaxHealth = health;
-        this.defense = this.baseDefense = def;
-        this.magicRes = this.baseMagicRes = res;
-        this.rarity = rarity;
-        pos = new Vector2();
-        attackFrom = new Vector2();
-        animPos = new Vector2(-10000, -10000);
-        img = FileHandler.character.get(id);
-        setAnimation();
+        data = DataHandler.entityData.get(id).cpy();
+        name = data.name;
+        desc = data.desc;
+        health = maxHealth = data.health;
+        animation = data.animation;
+        this.isPlayer = isPlayer;
     }
 
-    protected void setAnimation() {
-        atlas = FileHandler.atlas.get(id);
-        skeleton = FileHandler.skeleton.get(id);
-        animation = new SpineAnimation(atlas, skeleton);
-        animation.resetAnimation();
-    }
-
-    public final void resetAttributes() {
-        health = maxHealth = baseMaxHealth;
-        status.clear();
-        defense = baseDefense;
-        magicRes = baseMagicRes;
-        attack = baseAttack;
-        shield = 0;
-        physShield = 0;
-        magicShield = 0;
-        isDie = false;
-        isDead = false;
-        animation.resetAnimation();
-        animColor.set(baseColor);
-    }
-
-    public void render(SpriteBatch sb) {
-        if (!isDead) {
-            Color c = sb.getColor();
-            sb.setColor(animColor);
-            animation.render(sb, pos.x, pos.y - 35, zScale, isFlip);
-            sb.setColor(c);
-        }
-    }
-
-    public final boolean isAlive() {
-        return !isDead && !isDie;
-    }
-
-    public void attack(Array<AbstractEntity> target, DamageInfo info) {
-        if (target.size > 0) {
-            for (AbstractEntity t : target) {
-                if (t.isAlive()) {
-                    t.takeDamage(info);
+    public final void applyStatus(AbstractStatus s) {
+        Iterator<AbstractStatus> it = status.iterator();
+        while (it.hasNext()) {
+            AbstractStatus t = it.next();
+            if(t.id.equals(s.id)) {
+                if(t.hasAmount) {
+                    t.apply(s.amount);
+                    if(t.amount == 0 || (t.amount < 0 && !t.canGoNegative)) {
+                        t.onRemove();
+                        it.remove();
+                    }
                 }
+                return;
             }
         }
+        status.add(s);
+        s.onInitial();
     }
 
-    public void attackAndHeal(Array<AbstractEntity> target, DamageInfo info, int heal) {
-        if(target.size > 0) {
-            for(AbstractEntity t : target) {
-                if(t.isAlive()) {
-                    t.takeDamage(info);
-                    heal(heal);
-                }
-            }
-        }
-    }
+    public static class EntityData {
+        public final String id;
+        public final String name;
+        public final String desc;
+        public final int health;
+        public final SpriteAnimation animation;
 
-    public void afterAttack() {
-        for(AbstractStatus s : status) {
-            s.onAfterAttack();
-        }
-    }
-
-    public int calculatedAttack() {
-        int atk = baseAttack;
-        int mod = 100;
-
-        for(AbstractStatus s : status) {
-            atk += s.addFixedAttack();
+        public EntityData(String id, JsonValue json) {
+            this.id = id;
+            name = json.getString("name");
+            desc = json.getString("desc");
+            health = json.getInt("health");
+            animation = new SpriteAnimation();
         }
 
-        for(AbstractStatus s : status) {
-            mod += s.increaseAttack();
+        private EntityData(String id, String name, String desc, int health, SpriteAnimation anim) {
+            this.id = id;
+            this.name = name;
+            this.desc = desc;
+            this.health = health;
+            this.animation = anim.cpy();
         }
 
-        atk *= (mod * 0.01f);
-
-        for(AbstractStatus s : status) {
-            atk += s.addAttack();
+        public EntityData cpy() {
+            return new EntityData(id, name, desc, health, animation);
         }
-
-        return atk;
-    }
-
-    public int calculatedDefense() {
-        int atk = baseDefense;
-        int mod = 100;
-
-        for(AbstractStatus s : status) {
-            atk += s.addFixedDefense();
-        }
-
-        for(AbstractStatus s : status) {
-            mod += s.increaseDefense();
-        }
-
-        atk *= (mod * 0.01f);
-
-        for(AbstractStatus s : status) {
-            atk += s.addDefense();
-        }
-
-        return atk;
-    }
-
-    public int calculatedMagicRes() {
-        int atk = baseMagicRes;
-        int mod = 100;
-
-        for(AbstractStatus s : status) {
-            atk += s.addFixedMagicRes();
-        }
-
-        for(AbstractStatus s : status) {
-            mod += s.increaseMagicRes();
-        }
-
-        atk *= (mod * 0.01f);
-
-        for(AbstractStatus s : status) {
-            atk += s.addMagicRes();
-        }
-
-        return atk;
-    }
-
-    public void takeDamage(DamageInfo info) {
-        DamageType type = info.type;
-        int damage = info.damage;
-        if(type == DamageType.PHYSICAL) {
-            damage = Math.max(damage - calculatedDefense(), (int) (damage * 0.05f));
-        } else if(type == DamageType.MAGIC) {
-            damage = (int) Math.max(damage * ((100 - calculatedMagicRes()) * 0.01f), damage * 0.05f);
-        } else if(damage < 0) {
-            damage = 0;
-        }
-        if(health - damage <= 0) {
-            health = 0;
-            die();
-        } else {
-            health -= damage;
-            EffectHandler.add(new HitEffect(this));
-        }
-        EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, damage, Color.SCARLET));
-    }
-
-    public void heal(int amount) {
-        health = Math.min(health + amount, maxHealth);
-        EffectHandler.add(new UpColorTextEffect(pos.x, pos.y, amount, Color.CHARTREUSE));
-    }
-
-    public void die() {
-        ActionHandler.add(new DieEffect(this));
-        onDead();
-    }
-
-    public void onDead() {
-
-    }
-
-    public void applyStatus(AbstractStatus s) {
-        boolean isDone = false;
-        for(AbstractStatus st : status) {
-            if(st.id.equals(s.id)) {
-                st.apply(s.amount, s.turnLeft);
-                isDone = true;
-                break;
-            }
-        }
-
-        if(!isDone) {
-            s.owner = this;
-            status.add(s);
-            s.onInitial();
-        }
-    }
-
-    public void updateDir(AbstractSkill.SkillDir dir) {
-        if(dir == AbstractSkill.SkillDir.LEFT) {
-            isFlip = true;
-        } else if(dir == AbstractSkill.SkillDir.RIGHT) {
-            isFlip = false;
-        }
-    }
-
-    public static class DamageInfo {
-        public DamageType type;
-        public int damage;
-
-        public DamageInfo(int damage, DamageType type) {
-            this.type = type;
-            this.damage = damage;
-        }
-    }
-
-    public void removeStatus(String id) {
-        for(AbstractStatus s : status) {
-            if(s.id.equals(id)) {
-                status.remove(s);
-                break;
-            }
-        }
-    }
-
-    public void walkEnd() {
-        animation.resetAnimation();
-    }
-
-    public void walk() {
-        animation.set("Move", true);
-    }
-
-    public void attackAnimation(int target, AnimationState.AnimationStateAdapter adapter) {
-        animation.setAndIdle("Attack", adapter);
-    }
-
-    public void dieAnimation(AnimationState.AnimationStateAdapter adapter) {
-        animation.set("Die", adapter, false);
-    }
-
-    public void removeStatus(AbstractStatus s) {
-        status.remove(s);
-    }
-
-    public enum DamageType {
-        PHYSICAL, MAGIC, TRUE
-    }
-
-    public enum EntityRarity {
-        OPERATOR,
-        NORMAL,
-        ELITE,
-        LEADER
     }
 }

@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.esotericsoftware.spine.AnimationState;
 import com.esotericsoftware.spine.Event;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
-import com.fastcat.assemble.abstracts.AbstractEntity;
 
 public class AttackHealEffect extends AbstractEffect {
 
@@ -59,7 +58,7 @@ public class AttackHealEffect extends AbstractEffect {
         }
 
         if(attackDone && count < amount) {
-            attackTimer += MousseAdventure.tick;
+            attackTimer += WakTower.tick;
             if(attackTimer >= 0.1f) {
                 attackTimer = 0;
                 attackDone = false;

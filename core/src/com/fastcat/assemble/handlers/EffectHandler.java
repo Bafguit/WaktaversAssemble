@@ -2,7 +2,7 @@ package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.MousseAdventure;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 
 import java.util.Iterator;
@@ -14,7 +14,7 @@ public final class EffectHandler {
     public boolean isShaking = false;
 
     public static void add(AbstractEffect e) {
-        MousseAdventure.application.screen.getEffectHandler().addEffect(e);
+        WakTower.application.screen.getEffectHandler().addEffect(e);
     }
 
     public void addEffect(AbstractEffect e) {
