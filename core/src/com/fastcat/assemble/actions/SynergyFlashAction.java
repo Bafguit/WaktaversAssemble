@@ -2,12 +2,13 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractChar;
+import com.fastcat.assemble.abstracts.AbstractSynergy;
 
 public class SynergyFlashAction extends AbstractAction {
 
-    private final AbstractChar.Synergy synergy;
+    private final AbstractSynergy synergy;
 
-    public SynergyFlashAction(AbstractChar.Synergy s) {
+    public SynergyFlashAction(AbstractSynergy s) {
         super(0f);
         this.synergy = s;
     }

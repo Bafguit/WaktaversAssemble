@@ -74,7 +74,7 @@ public class FileHandler {
         assetManager.load("image/ui/tile.webp", Texture.class);
     }
 
-    public static float geProcess() {
+    public static float getProcess() {
         return instance.assetManager.getProgress();
     }
 
@@ -84,5 +84,9 @@ public class FileHandler {
 
     public static void loadAsset() {
         instance.assetManager.update();
+    }
+
+    public static Sprite getTexture(String path) {
+        return instance.assetManager.get("image/" + path + ".webp", Texture.class);
     }
 }

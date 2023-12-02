@@ -13,6 +13,7 @@ public abstract class AbstractAction implements Cloneable {
     public boolean isDone = false;
     public float baseDuration = DUR_DEFAULT;
     public float duration = DUR_DEFAULT;
+    public int amount;
     public AbstractAction preAction;
 
     public AbstractAction(float duration) {

@@ -65,7 +65,6 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public boolean clickEnd = true;
     public boolean enabled;
     public boolean showImg = true;
-    public boolean is3D = false;
     private boolean hasClick = false;
 
     public Vector2 mouse;
@@ -78,15 +77,15 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public boolean mute = false;
     public TrackType trackable = TrackType.NONE;
 
-    public AbstractUI(Sprite texture) {
+    public AbstractUI(Texture texture) {
         this(texture, -10000, -10000);
     }
 
-    public AbstractUI(Sprite texture, float x, float y) {
+    public AbstractUI(Texture texture, float x, float y) {
         this(texture, x, y, texture.getWidth(), texture.getHeight());
     }
 
-    public AbstractUI(Sprite img, float x, float y, float width, float height) {
+    public AbstractUI(Texture img, float x, float y, float width, float height) {
         this.img = new Sprite(img);
         realWidth = originWidth = width;
         realHeight = originHeight = height;
@@ -117,7 +116,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             x += parent.x;
             y += parent.y;
         }
-        hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height;
+        alreadyOver = hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !alreadyOver;
         if(isDesktop) {
             over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;

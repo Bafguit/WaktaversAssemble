@@ -1,0 +1,23 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "gradle",
+			"id": "/workspaces/WaktaversAssembledesktop:rundesktop",
+			"script": "desktop:run",
+			"description": "",
+			"group": "other",
+			"project": "desktop",
+			"buildFile": "/workspaces/WaktaversAssemble/desktop/build.gradle",
+			"rootProject": "WaktaversAssemble",
+			"projectFolder": "/workspaces/WaktaversAssemble",
+			"workspaceFolder": "/workspaces/WaktaversAssemble",
+			"args": "",
+			"javaDebug": false,
+			"problemMatcher": [
+				"$gradle"
+			],
+			"label": "gradle: desktop:run"
+		}
+	]
+}

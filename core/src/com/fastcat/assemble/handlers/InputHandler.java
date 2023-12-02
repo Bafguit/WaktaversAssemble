@@ -23,6 +23,7 @@ public final class InputHandler {
     public static boolean isRightClicking;
     public static boolean isCursorInScreen;
     public static boolean isDesktop;
+    public static boolean alreadyOver;
 
     public static boolean cancel;
     public static boolean map;
@@ -51,6 +52,7 @@ public final class InputHandler {
     private InputHandler() {
         isLeftClick = false;
         isLeftClicking = false;
+        alreadyOver = false;
         isDesktop = Gdx.app.getType() == Application.ApplicationType.Desktop;
         mx = 0;
         my = 0;

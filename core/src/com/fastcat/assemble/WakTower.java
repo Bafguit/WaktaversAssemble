@@ -148,7 +148,7 @@ public class WakTower extends ApplicationAdapter {
         		sb.draw(cursor.img, InputHandler.mx, InputHandler.my - cursor.height / 2, cursor.width / 2, cursor.height / 2);
         */
 		} else {
-			float p = FileHandler.geProcess();
+			float p = FileHandler.getProcess();
 			FontHandler.renderCenter(sb, FontHandler.NB30, "리소스 불러오는 중\n" + p * 100 + "%", 0,
 					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
 		}
