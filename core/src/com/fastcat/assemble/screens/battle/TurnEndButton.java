@@ -21,6 +21,11 @@ public class TurnEndButton extends AbstractUI {
         super(FileHandler.getTexture("ui/turnEnd"));
         setPosition(960, 400);
     }
+    
+    @Override
+    protected void foreUpdate() {
+        clickable = WakTower.game.battle.phase == AbstractBattle.BattlePhase.playerTurn; 
+    }
 
     @Override
     protected void renderUi(SpriteBatch sb) {

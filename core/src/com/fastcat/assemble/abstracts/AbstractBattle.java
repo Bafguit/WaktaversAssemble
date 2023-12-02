@@ -10,6 +10,7 @@ import java.util.LinkedList;
 public abstract class AbstractBattle implements Cloneable {
 
     public BattleType type;
+    public BattlePhase phase;
 
     public Array<AbstractChar.Synergy> synergy;
 
@@ -28,6 +29,7 @@ public abstract class AbstractBattle implements Cloneable {
         this.type = type;
         wSize = w;
         hSize = h;
+        phase = BattlePhase.battleStart;
     }
 
     public void turnDraw() {
@@ -69,5 +71,9 @@ public abstract class AbstractBattle implements Cloneable {
 
     public enum BattleType {
         WEAK, NORMAL, ELITE, BOSS
+    }
+    
+    public enum BattlePhase {
+        battleStart, roundStart, playerTurn, intermission, enemyTurn, roundEnd
     }
 }

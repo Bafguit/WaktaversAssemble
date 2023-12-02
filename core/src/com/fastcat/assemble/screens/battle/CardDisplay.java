@@ -30,6 +30,11 @@ public class CardDisplay extends AbstractUI {
         basis = BasisType.BOTTOM;
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
     }
+    
+    @Override
+    protected void foreUpdate() {
+        clickable = !ActionHandler.isRunning; 
+    }
 
     @Override
     protected void renderUi(SpriteBatch sb) {

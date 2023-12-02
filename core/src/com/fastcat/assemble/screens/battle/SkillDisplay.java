@@ -44,7 +44,7 @@ public class CardDisplay extends AbstractUI {
 
     @Override
     protected void foreUpdate() {
-        clickable = skill.canUse();
+        clickable = skill.canUse() && !ActionHandler.isRunning;
     }
 
     @Override
