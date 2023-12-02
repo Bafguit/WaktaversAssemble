@@ -18,37 +18,49 @@ import static com.fastcat.assemble.WakTower.battleScreen;
 public class CardDisplay extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
-    private final Sprite frame;
+    private final Sprite tile;
 
     public AbstractChar member;
-    public Vector2i originPos;
+    private float timer = 0f;
 
     public CardDisplay() {
         super(FileHandler.getTexture("ui/temp"));
-        trackable = TrackType.CENTER;
-        fluid = true;
+        clickable = false;
         basis = BasisType.BOTTOM;
-        frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
+        tile = new Sprite(FileHandler.getTexture("ui/memberTile"));
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
-        if (enabled) {
-            sb.draw(frame, x, y);
-            sb.draw(member.img, x, y, width, height);
-            sb.draw(img, x, y, width, height);
-            //todo 시너지 출력
-            FontHandler.renderCenter(sb, font, member.getName(), x + width * 0.9f, y + height * 0.9f);
+        if (member != null) {
+            //시너지 hover일 때 출력
+            if(true) {
+                sb.draw(img, x, y, width, height);
+            }
+
+            member.animation.pos.set(x, y);
+            member.animation.render(sb);
+
+            //hover시 이름 출력, 폰트 투명도 = timer
+            FontHandler.renderCenter(sb, font, member.name, x + width * 0.9f, y + height * 0.9f);
+
+            if(timer >= 1f) {
+                //효과 설명 출력
+            }
         }
     }
 
     @Override
-    public void onClick() {
-        originPos = new Vector2i(originX, originY);
+    protected void updateButton() {
+        if(over) {
+            if(timer < 1f) {
+                timer += WakTower.tick / 0.5f;
+            }
+        } else timer = 0f;
     }
 
-    @Override
-    public void onClickEnd() {
-        setPosition(originPos.x, originPos.y);
+    public void setMember(AbstractChar member) {
+        this.member = null;
+        this.member = member;
     }
 }

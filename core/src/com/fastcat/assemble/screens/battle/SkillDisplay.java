@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractChar;
 import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -20,35 +21,43 @@ public class CardDisplay extends AbstractUI {
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
     private final Sprite frame;
 
-    public AbstractChar member;
-    public Vector2i originPos;
+    public AbstractSkill skill;
+    private float timer = 0f;
 
     public CardDisplay() {
-        super(FileHandler.getTexture("ui/temp"));
-        trackable = TrackType.CENTER;
-        fluid = true;
-        basis = BasisType.BOTTOM;
-        frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
+        super(FileHandler.getTexture("ui/mediumBlank"));
+        frame = new Sprite(FileHandler.getTexture("ui/skillFrame"));
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            sb.draw(frame, x, y);
-            sb.draw(member.img, x, y, width, height);
             sb.draw(img, x, y, width, height);
-            //todo 시너지 출력
-            FontHandler.renderCenter(sb, font, member.getName(), x + width * 0.9f, y + height * 0.9f);
+            sb.draw(skill.img, x, y, width, height);
+            sb.draw(frame, x, y);
+
+            if(timer >= 1f) {
+                //효과 설명 출력
+            }
         }
     }
 
     @Override
-    public void onClick() {
-        originPos = new Vector2i(originX, originY);
+    protected void foreUpdate() {
+        clickable = skill.canUse();
     }
 
     @Override
-    public void onClickEnd() {
-        setPosition(originPos.x, originPos.y);
+    protected void updateButton() {
+        if(over) {
+            if(timer < 1f) {
+                timer += WakTower.tick / 0.5f;
+            }
+        } else timer = 0f;
+    }
+
+    @Override
+    public void onClick() {
+        skill.use();
     }
 }
