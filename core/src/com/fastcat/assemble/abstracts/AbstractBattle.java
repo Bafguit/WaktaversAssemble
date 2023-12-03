@@ -3,6 +3,28 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
+import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
+import com.fastcat.assemble.interfaces.OnIncreaseWakDamage;
+import com.fastcat.assemble.synergies.Badass;
+import com.fastcat.assemble.synergies.Cat;
+import com.fastcat.assemble.synergies.Competitor;
+import com.fastcat.assemble.synergies.Crazy;
+import com.fastcat.assemble.synergies.Cutey;
+import com.fastcat.assemble.synergies.Doormat;
+import com.fastcat.assemble.synergies.Expert;
+import com.fastcat.assemble.synergies.Guardian;
+import com.fastcat.assemble.synergies.Isedol;
+import com.fastcat.assemble.synergies.Kiddo;
+import com.fastcat.assemble.synergies.Machinary;
+import com.fastcat.assemble.synergies.Magician;
+import com.fastcat.assemble.synergies.MainVocal;
+import com.fastcat.assemble.synergies.MindMaster;
+import com.fastcat.assemble.synergies.Nobless;
+import com.fastcat.assemble.synergies.Nunna;
+import com.fastcat.assemble.synergies.OldMan;
+import com.fastcat.assemble.synergies.Timid;
+import com.fastcat.assemble.synergies.Villain;
 import com.fastcat.assemble.utils.FastCatUtils;
 
 import java.util.LinkedList;
@@ -12,24 +34,30 @@ public abstract class AbstractBattle implements Cloneable {
     public BattleType type;
     public BattlePhase phase;
 
-    public Array<AbstractSynergy> synergy;
+    public Array<AbstractSynergy> synergy = new Array<>();
 
-    public Array<AbstractEnemy> enemies;
-    public Array<AbstractMember> members;
+    //todo 턴 종료 시 클리어
+    public LinkedList<OnIncreaseGlobalDamage> turnGlobalDamage = new LinkedList<>();
+    public LinkedList<OnIncreaseMemberDamage> turnMemberDamage = new LinkedList<>();
+    public LinkedList<OnIncreaseWakDamage> turnWakDamage = new LinkedList<>();
 
-    public Queue<AbstractCard> drawPile;
-    public Array<AbstractCard> discardPile;
-    public Array<AbstractCard> exhaustPile;
-    public LinkedList<AbstractCard> hand;
+    public Array<AbstractEnemy> enemies = new Array<>();
+    public Array<AbstractMember> members = new Array<>();
 
-    public int wSize;
-    public int hSize;
+    public Queue<AbstractCard> drawPile = new Queue<>();
+    public Array<AbstractCard> discardPile = new Array<>();
+    public Array<AbstractCard> exhaustPile = new Array<>();
+    public LinkedList<AbstractCard> hand = new LinkedList<>();
+
+    public int wSize, hSize;
+    public int energy;
 
     public AbstractBattle(BattleType type, int w, int h) {
         this.type = type;
         wSize = w;
         hSize = h;
         phase = BattlePhase.battleStart;
+        resetSynergy();
     }
 
     public void turnDraw() {
@@ -64,6 +92,29 @@ public abstract class AbstractBattle implements Cloneable {
 
     public boolean isPlayerTurn() {
         return WakTower.game.battle.phase == BattlePhase.playerTurn;
+    }
+
+    private void resetSynergy() {
+        synergy.clear();
+        synergy.add(Guardian.getInstance());
+        synergy.add(Crazy.getInstance());
+        synergy.add(Expert.getInstance());
+        synergy.add(Magician.getInstance());
+        synergy.add(Isedol.getInstance());
+        synergy.add(MainVocal.getInstance());
+        synergy.add(Kiddo.getInstance());
+        synergy.add(OldMan.getInstance());
+        synergy.add(Badass.getInstance());
+        synergy.add(Competitor.getInstance());
+        synergy.add(Villain.getInstance());
+        synergy.add(Cat.getInstance());
+        synergy.add(Cutey.getInstance());
+        synergy.add(Doormat.getInstance());
+        synergy.add(Machinary.getInstance());
+        synergy.add(MindMaster.getInstance());
+        synergy.add(Nobless.getInstance());
+        synergy.add(Nunna.getInstance());
+        synergy.add(Timid.getInstance());
     }
 
     @Override

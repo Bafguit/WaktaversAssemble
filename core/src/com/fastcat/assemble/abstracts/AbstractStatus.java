@@ -34,6 +34,8 @@ public abstract class AbstractStatus {
 
     public void startOfTurn(boolean isPlayer) {}
 
+    public void endOfTurn(boolean isPlayer) {}
+
     public int damageTake(DamageInfo info) {
         return info.damage;
     }

@@ -3,13 +3,14 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
 
 
-public class AbstractMember {
+public abstract class AbstractMember {
 
     public final MemberData data;
 
@@ -20,8 +21,12 @@ public class AbstractMember {
     public Sprite img;
     public int upgradeCount = 0;
     public int upgradeLimit = 1;
+    public int atk, baseAtk, upAtk, def, baseDef, upDef;
+    public int value, baseValue, upValue, value2, baseValue2, upValue2;
+    public boolean remain = false;
     public SpriteAnimation animation;
-    public final AbstractSynergy[] synergy;
+    public final AbstractSynergy[] baseSynergy;
+    public AbstractSynergy[] synergy;
 
     public AbstractMember(String id) {
         this.id = id;
@@ -31,7 +36,41 @@ public class AbstractMember {
         flavor = data.flavor;
         img = new Sprite(data.img);
         animation = data.animation.cpy();
-        synergy = new AbstractSynergy[data.synergy.length];
+        synergy = baseSynergy = new AbstractSynergy[data.synergy.length];
+        setAtk(0, 0);
+        setDef(0, 0);
+        setValue(0, 0);
+        setValue2(0, 0);
+    }
+
+    protected abstract void setSynergy();
+
+    protected final void setAtk(int base, int up) {
+        atk = baseAtk = base;
+        upAtk = up;
+    }
+
+    protected final void setDef(int base, int up) {
+        def = baseDef = base;
+        upDef = up;
+    }
+
+    protected final void setValue(int base, int up) {
+        value = baseValue = base;
+        upValue = up;
+    }
+
+    protected final void setValue2(int base, int up) {
+        value2 = baseValue2 = base;
+        upValue2 = up;
+    }
+
+    public void onSummon() {}
+
+    public void onExit() {}
+
+    public void prepare() {
+        synergy = baseSynergy;
     }
 
     public String getName() {
@@ -39,6 +78,8 @@ public class AbstractMember {
     }
 
     public void startOfTurn(boolean isPlayer) {}
+
+    public void endOfTurn(boolean isPlayer) {}
 
     public int damageTake(DamageInfo info, boolean isPlayer) {
         return info.damage;
@@ -49,6 +90,41 @@ public class AbstractMember {
     }
 
     public void damageTaken(DamageInfo info, boolean isPlayer) {}
+
+    protected final void bot(AbstractAction action) {
+        ActionHandler.bot(action);
+    }
+
+    protected final void top(AbstractAction action) {
+        ActionHandler.top(action);
+    }
+
+    protected final void next(AbstractAction action) {
+        ActionHandler.next(action);
+    }
+
+    public int getKeyValue(String key) {
+        switch (key) {
+            case "A":
+                return calculatedAtk();
+            case "D":
+                return calculatedAtk();
+            case "V":
+                return value;
+            case "X":
+                return value2;
+            default:
+                return 0;
+        }
+    }
+
+    public int calculatedAtk() {
+        return atk;
+    }
+
+    public int calculatedDef() {
+        return atk;
+    }
 
     public static class MemberData {
         public final String id;

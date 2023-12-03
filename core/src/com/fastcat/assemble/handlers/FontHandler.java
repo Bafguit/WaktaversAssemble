@@ -37,7 +37,7 @@ public final class FontHandler implements Disposable {
 
     //Pattern
     public static final Pattern COLOR_PATTERN = Pattern.compile("&([a-z])<([^>]*)>");
-    private static final Pattern VAR_PATTERN = Pattern.compile("\\{([A-Z])\\}");
+    private static final Pattern VAR_PATTERN = Pattern.compile("\\{([ADVX])\\}");
 
     /***
      * Instance of handler.

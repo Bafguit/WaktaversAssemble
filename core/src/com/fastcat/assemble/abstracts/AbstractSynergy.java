@@ -17,9 +17,9 @@ public abstract class AbstractSynergy {
     public final int[] gradeAmount;
     public final int maxGrade;
     public final Sprite img;
-    public int baseMemCount, memberCount, grade, counter;
+    public int baseMemCount, memberCount, grade, counter, globalGrade;
 
-    protected AbstractSynergy(String id) {
+    public AbstractSynergy(String id) {
         this.id = id;
         data = DataHandler.getInstance().synergyData.get(id);
         name = data.name;
@@ -28,6 +28,7 @@ public abstract class AbstractSynergy {
         gradeAmount = data.gradeAmount;
         img = new Sprite(data.img);
         maxGrade = gradeDesc.length;
+        globalGrade = 0;
         baseMemCount = memberCount = grade = counter = 0;
     }
 

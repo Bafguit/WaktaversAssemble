@@ -1,10 +1,10 @@
 package com.fastcat.assemble.abstracts;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.GroupHandler;
 import com.fastcat.assemble.utils.RandomXC;
@@ -29,11 +29,13 @@ public class AbstractGame {
     public AbstractPlayer player;
     public Array<AbstractCard> deck;
     public Array<AbstractRelic> relics;
+    public AbstractSkill[] skills;
 
     public AbstractRoom[] rooms;
 
     public AbstractBattle battle;
-    public int floorNum, floorMax, drawAmount, maxHand, memberLimit;
+    public int gold;
+    public int floorNum, floorMax, drawAmount, maxHand, memberLimit, energyStart, energyCharge;
 
     public AbstractGame() {
         deck = new Array<>();
@@ -51,6 +53,15 @@ public class AbstractGame {
         publicRandom = new RandomXC(seedLong);
         battleRandom = new RandomXC(seedLong);
         actionHandler = new ActionHandler();
+        skills = new AbstractSkill[3];
+        gold = 100;
+        floorNum = 0;
+        floorMax = 30;
+        drawAmount = 5;
+        maxHand = 12;
+        memberLimit = 3;
+        energyStart = 3;
+        energyCharge = 1;
     }
 
     public void update() {
