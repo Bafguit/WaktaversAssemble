@@ -1,7 +1,7 @@
 package com.fastcat.assemble.handlers;
 
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractRoom.RoomType;
 
 import java.util.HashMap;
 
@@ -18,6 +18,10 @@ public class GroupHandler {
     }
 
     public static class EnemyGroup {
+        public RoomType type;
 
+        public EnemyGroup(RoomType type) {
+            this.type = type;
+        }
     }
 }

@@ -1,9 +1,11 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractChar;
+import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.battles.TestBattle;
@@ -13,15 +15,13 @@ import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.utils.Vector2i;
 
-import static com.fastcat.assemble.WakTower.battleScreen;
-
 public class CardDisplay extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
     private final Sprite frame;
 
-    public AbstractChar member;
-    public Vector2i originPos;
+    public AbstractMember member;
+    public Vector2 originPos;
 
     public CardDisplay() {
         super(FileHandler.getTexture("ui/temp"));
@@ -49,7 +49,7 @@ public class CardDisplay extends AbstractUI {
 
     @Override
     public void onClick() {
-        originPos = new Vector2i(originX, originY);
+        originPos = new Vector2(originX, originY);
     }
 
     @Override

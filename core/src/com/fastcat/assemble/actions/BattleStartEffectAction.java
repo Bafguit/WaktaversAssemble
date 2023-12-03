@@ -2,19 +2,16 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.abstracts.AbstractAction;
 
-public class EndTurnAction extends AbstractAction {
-    
-    private final boolean isPlayer;
+public class BattleStartEffectAction extends AbstractAction {
 
-    public EndTurnAction(boolean isPlayer) {
+    public BattleStartEffectAction() {
         super(0f);
-        this.isPlayer = isPlayer;
     }
 
     @Override
     protected void updateAction() {
         if(isDone) {
-            
+            //todo 이펙트 실행
         }
     }
 }

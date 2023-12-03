@@ -5,15 +5,9 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.fastcat.assemble.utils.JsonLoader;
-import com.fastcat.assemble.utils.WebpPixmapLoader;
 import com.fastcat.assemble.utils.WebpTextureLoader;
 
 import java.io.InputStreamReader;
@@ -25,6 +19,7 @@ public class FileHandler {
     //Instance
     private static FileHandler instance;
 
+    public final HashMap<String, JsonValue> jsonMap;
     public final AssetManager assetManager;
     private final FileHandleResolver resolver;
 
@@ -36,6 +31,8 @@ public class FileHandler {
     private FileHandler() {
         assetManager = new AssetManager();
         resolver = new InternalFileHandleResolver();
+        assetManager.setLoader(Texture.class, ".webp", new WebpTextureLoader(resolver));
+        jsonMap = new HashMap<>();
         loadSync();
         loadAsync();
     }
@@ -47,6 +44,7 @@ public class FileHandler {
 
     private void loadAsync() {
         generateUI();
+        generateAnimationSprites();
     }
 
     @SuppressWarnings("NewApi")
@@ -65,13 +63,42 @@ public class FileHandler {
     }
 
     private void loadJson() {
-        assetManager.setLoader(JsonValue.class, new JsonLoader(resolver));
-        assetManager.load("json/character.json", JsonValue.class);
+        jsonMap.clear();
+        jsonMap.put("entity", generateJson("json/" + SettingHandler.setting.language + "/entity.json"));
+        jsonMap.put("relic", generateJson("json/" + SettingHandler.setting.language + "/relic.json"));
+        jsonMap.put("member", generateJson("json/" + SettingHandler.setting.language + "/member.json"));
+        jsonMap.put("skill", generateJson("json/" + SettingHandler.setting.language + "/skill.json"));
+        jsonMap.put("status", generateJson("json/" + SettingHandler.setting.language + "/status.json"));
+        jsonMap.put("synergy", generateJson("json/" + SettingHandler.setting.language + "/synergy.json"));
+        jsonMap.put("ui", generateJson("json/" + SettingHandler.setting.language + "/ui.json"));
     }
 
     private void generateUI() {
-        assetManager.setLoader(Texture.class, ".webp", new WebpTextureLoader(resolver));
         assetManager.load("image/ui/tile.webp", Texture.class);
+    }
+
+    private void generateAnimationSprites() {
+        //member animation
+        for(JsonValue v : jsonMap.get("member").child) {
+            JsonValue v2 = generateJson("animation/member/" + v.name + "/config.json");
+            jsonMap.put("animation_" + v.name, v2);
+            for(JsonValue v3 : v2.child) {
+                for(int i = 0; i < v3.getInt("frameCount"); i++) {
+                    assetManager.load("animation/member/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
+                }
+            }
+        }
+
+        //entity animation
+        for(JsonValue v : jsonMap.get("entity").child) {
+            JsonValue v2 = generateJson("animation/entity/" + v.name + "/config.json");
+            jsonMap.put("animation_" + v.name, v2);
+            for(JsonValue v3 : v2.child) {
+                for(int i = 0; i < v3.getInt("frameCount"); i++) {
+                    assetManager.load("animation/entity/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
+                }
+            }
+        }
     }
 
     public static float getProcess() {
@@ -86,7 +113,7 @@ public class FileHandler {
         instance.assetManager.update();
     }
 
-    public static Sprite getTexture(String path) {
+    public static Texture getTexture(String path) {
         return instance.assetManager.get("image/" + path + ".webp", Texture.class);
     }
 }

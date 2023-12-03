@@ -1,11 +1,16 @@
 package com.fastcat.assemble.actions;
 
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractChar;
+import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.abstracts.AbstractRelic;
+import com.fastcat.assemble.abstracts.AbstractStatus;
+import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class StartTurnAction extends AbstractAction {
     
-    private final isPlayer, isNew;
+    private final boolean isPlayer, isNew;
 
     public StartTurnAction(boolean isPlayer) {
         this(isPlayer, false);
@@ -26,14 +31,14 @@ public class StartTurnAction extends AbstractAction {
             for(AbstractRelic relic : WakTower.game.relics) {
                 relic.startOfTurn(isPlayer);
             }
-            for(AbstractChar member : WakTower.game.battle.members) {
+            for(AbstractMember member : WakTower.game.battle.members) {
                 member.startOfTurn(isPlayer);
             }
             for(AbstractStatus status : WakTower.game.player.status) {
                 status.startOfTurn(isPlayer);
             }
             
-            ActionHandler.bot(new ChangePhaseAction(AbstractBattle.BattlePhase.playerTurn));
+            ActionHandler.bot(new ChangePhaseAction(BattlePhase.playerTurn));
         }
     }
 }

@@ -1,8 +1,6 @@
 package com.fastcat.assemble.utils;
 
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.screens.battle.TileSquare;
-import com.fastcat.assemble.screens.battle.TileSquare.TileStatus;
 import org.ksdev.jps.Graph;
 import org.ksdev.jps.JPSDiagOneObstacle;
 
@@ -12,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class BulkPathFinder {
-
+/*
     private static int counter = 0;
     private static Supplier<Void> callback;
 
@@ -57,5 +55,5 @@ public class BulkPathFinder {
         TileSquare s = WakTower.battleScreen.tiles[x][y];
         return s.status == TileStatus.NORMAL ||
                 (s.character != null || (s.enemy != null && s.enemy.target == null));
-    }
+    }*/
 }

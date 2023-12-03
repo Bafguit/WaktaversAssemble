@@ -1,12 +1,14 @@
 package com.fastcat.assemble.actions;
 
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractChar;
+import com.fastcat.assemble.abstracts.AbstractRelic;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class StartBattleAction extends AbstractAction {
 
     public StartBattleAction() {
-        this(0f);
+        super(0f);
     }
 
     @Override

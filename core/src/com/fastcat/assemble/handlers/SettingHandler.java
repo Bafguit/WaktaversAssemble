@@ -10,7 +10,7 @@ public final class SettingHandler {
 
     public static void initialize() {
         setting = new SettingData();
-        Preferences prefs = Gdx.app.getPreferences("Setting");
+        Preferences prefs = Gdx.app.getPreferences("WakTowerSetting");
         setting.screenMode = prefs.getInteger("screenMode", 0);
         if (setting.screenMode == 0) {
             setting.width = prefs.getInteger("width", 640);
@@ -24,6 +24,7 @@ public final class SettingHandler {
         // 기타 설정
         setting.shake = prefs.getBoolean("shake", true);
         setting.fastMode = prefs.getBoolean("fastMode", false);
+        setting.language = prefs.getString("language", "ko");
         save();
         Graphics.DisplayMode displayMode = Gdx.graphics.getDisplayMode();
         Gdx.graphics.setForegroundFPS(displayMode.refreshRate);
@@ -38,7 +39,7 @@ public final class SettingHandler {
     }
 
     public static void save() {
-        Preferences prefs = Gdx.app.getPreferences("Setting");
+        Preferences prefs = Gdx.app.getPreferences("WakTowerSetting");
         prefs.putInteger("volumeBgm", setting.volumeBgm);
         prefs.putInteger("volumeSfx", setting.volumeSfx);
         prefs.putInteger("width", setting.width);
@@ -46,6 +47,7 @@ public final class SettingHandler {
         prefs.putInteger("screenMode", setting.screenMode);
         prefs.putBoolean("shake", setting.shake);
         prefs.putBoolean("fastMode", setting.fastMode);
+        prefs.putString("language", setting.language);
         prefs.flush();
         prefs.clear();
     }
@@ -58,5 +60,6 @@ public final class SettingHandler {
         public int screenMode; // 0:창, 1:전체화면, 2:전체창(테두리 없음)
         public boolean shake; // 화면 흔들림
         public boolean fastMode; // 효과와 액션 배속
+        public String language; //언어
     }
 }

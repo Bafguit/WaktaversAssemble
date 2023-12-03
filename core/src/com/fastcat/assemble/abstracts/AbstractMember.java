@@ -2,15 +2,16 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.actions.SynergyFlashAction;
-import com.fastcat.assemble.handlers.ActionHandler;
+import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.handlers.DataHandler;
+import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
 
 
-public class AbstractChar {
+public class AbstractMember {
 
-    public final CharData data;
+    public final MemberData data;
 
     public String id;
     public String name;
@@ -22,9 +23,9 @@ public class AbstractChar {
     public SpriteAnimation animation;
     public final AbstractSynergy[] synergy;
 
-    public AbstractChar(String id) {
+    public AbstractMember(String id) {
         this.id = id;
-        data = new CharData(id);
+        data = DataHandler.getInstance().memberData.get(id);
         name = data.name;
         desc = data.desc;
         flavor = data.flavor;
@@ -37,7 +38,19 @@ public class AbstractChar {
         return name + (upgradeCount > 0 ? " +" + upgradeCount : "");
     }
 
-    public static class CharData {
+    public void startOfTurn(boolean isPlayer) {}
+
+    public int damageTake(DamageInfo info, boolean isPlayer) {
+        return info.damage;
+    }
+
+    public float damageTakeMultiply(DamageInfo info, boolean isPlayer) {
+        return 1f;
+    }
+
+    public void damageTaken(DamageInfo info, boolean isPlayer) {}
+
+    public static class MemberData {
         public final String id;
         public final String name;
         public final String desc;
@@ -46,14 +59,14 @@ public class AbstractChar {
         public final SpriteAnimation animation;
         public final String[] synergy;
 
-        public CharData(String id, JsonValue json) {
+        public MemberData(String id, JsonValue json) {
             this.id = id;
             name = json.getString("name");
             desc = json.getString("desc");
             flavor = json.getString("flavor");
             img = FileHandler.getTexture("member/" + id);
-            animation = new SpriteAnimation();
-            synergy = json.getStringArray("synergy");
+            animation = DataHandler.getInstance().animation.get(id);
+            synergy = json.get("synergy").asStringArray();
         }
     }
 }

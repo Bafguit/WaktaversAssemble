@@ -1,4 +1,4 @@
-package com.fastcat.assemble.abstracts;
+package com.fastcat.assemble.synergies;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractSynergy;

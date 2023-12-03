@@ -4,12 +4,10 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.SkeletonRenderer;
@@ -19,7 +17,6 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
-import com.google.common.util.concurrent.FutureCallback;
 import io.github.zumikua.webploader.common.WebPLoaderFactory;
 import io.github.zumikua.webploader.common.WebPLoaderNativeInterface;
 import io.github.zumikua.webploader.common.WebPPixmapFactory;
@@ -47,8 +44,6 @@ public class WakTower extends ApplicationAdapter {
 	@Getter
 	private AssetManager assetManager;
 	private boolean isLoaded = false;
-
-	private Queue<Runnable> queuedTasks = new Queue<>();
 
 	public static WebPPixmapFactory pixmapFactory;
 	public static WebPLoaderFactory webpFactory;
@@ -79,10 +74,10 @@ public class WakTower extends ApplicationAdapter {
 		viewport = new FillViewport(w, h);
 		FileHandler.getInstance();
 		FontHandler.getInstance();
-		StringHandler.initialize();
 	}
 
 	private void load() {
+		DataHandler.getInstance();
 		//game = new AbstractGame();
 		mainMenuScreen = new MainMenuScreen();
 		screen = mainMenuScreen;
@@ -111,11 +106,10 @@ public class WakTower extends ApplicationAdapter {
 	public void render () {
 		if(!FileHandler.isFinished()) {
 			FileHandler.loadAsset();
-			if(FileHandler.isFinished()) isLoaded = true;
-		}
-
-		if (isLoaded) {
-			load();
+			if(FileHandler.isFinished()) {
+				isLoaded = true;
+				load();
+			}
 		}
 
 		ScreenUtils.clear(0, 0, 0, 1);

@@ -1,11 +1,11 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.DataHandler;
-import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
+import com.fastcat.assemble.utils.SpriteAnimation.SpriteAnimationType;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -18,11 +18,12 @@ public abstract class AbstractEntity {
     public final SpriteAnimation animation;
 
     public int health, maxHealth, block, barrier;
+    public boolean isDie, isDead;
     public LinkedList<AbstractStatus> status = new LinkedList<>();
 
     public AbstractEntity(String id, boolean isPlayer) {
         this.id = id;
-        data = DataHandler.entityData.get(id).cpy();
+        data = DataHandler.getInstance().entityData.get(id);
         name = data.name;
         desc = data.desc;
         health = maxHealth = data.health;
@@ -59,20 +60,20 @@ public abstract class AbstractEntity {
     }
 
     public final void takeDamage(DamageInfo info) {
-        for(AbstractRelic item : WakTower.game.items) {
+        for(AbstractRelic item : WakTower.game.relics) {
             info.damage = item.damageTake(info, isPlayer);
         }
-        for(AbstractChar c : WakTower.battle.chars) {
+        for(AbstractMember c : WakTower.game.battle.members) {
             info.damage = c.damageTake(info, isPlayer);
         }
         for(AbstractStatus s : status) {
             info.damage = s.damageTake(info);
         }
         float td = 1f;
-        for(AbstractRelic item : WakTower.game.items) {
+        for(AbstractRelic item : WakTower.game.relics) {
             td *= item.damageTakeMultiply(info, isPlayer);
         }
-        for(AbstractChar c : WakTower.battle.chars) {
+        for(AbstractMember c : WakTower.game.battle.members) {
             td *= c.damageTakeMultiply(info, isPlayer);
         }
         for(AbstractStatus s : status) {
@@ -105,10 +106,10 @@ public abstract class AbstractEntity {
         //todo 이펙트 (damage)
         health -= info.damage;
         if(health < 0) die();
-        for(AbstractRelic item : WakTower.game.items) {
+        for(AbstractRelic item : WakTower.game.relics) {
             item.damageTaken(info, isPlayer);
         }
-        for(AbstractChar c : WakTower.battle.chars) {
+        for(AbstractMember c : WakTower.game.battle.members) {
             c.damageTaken(info, isPlayer);
         }
         if(health > 0) {
@@ -119,6 +120,10 @@ public abstract class AbstractEntity {
     }
 
     public final void die() {}
+
+    public boolean isAlive() {
+        return !isDie && !isDead;
+    }
 
     public static class EntityData {
         public final String id;
@@ -132,7 +137,7 @@ public abstract class AbstractEntity {
             name = json.getString("name");
             desc = json.getString("desc");
             health = json.getInt("health");
-            animation = new SpriteAnimation();
+            animation = new SpriteAnimation(id, SpriteAnimationType.entity);
         }
 
         private EntityData(String id, String name, String desc, int health, SpriteAnimation anim) {

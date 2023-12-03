@@ -1,29 +1,22 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractChar;
-import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractUI;
-import com.fastcat.assemble.battles.TestBattle;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.screens.battle.BattleScreen;
-import com.fastcat.assemble.utils.Vector2i;
 
-import static com.fastcat.assemble.WakTower.battleScreen;
-
-public class CardDisplay extends AbstractUI {
+public class MemberDisplay extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
     private final Sprite tile;
 
-    public AbstractChar member;
+    public AbstractMember member;
     private float timer = 0f;
 
-    public CardDisplay() {
+    public MemberDisplay() {
         super(FileHandler.getTexture("ui/temp"));
         clickable = false;
         basis = BasisType.BOTTOM;
@@ -59,7 +52,7 @@ public class CardDisplay extends AbstractUI {
         } else timer = 0f;
     }
 
-    public void setMember(AbstractChar member) {
+    public void setMember(AbstractMember member) {
         this.member = null;
         this.member = member;
     }

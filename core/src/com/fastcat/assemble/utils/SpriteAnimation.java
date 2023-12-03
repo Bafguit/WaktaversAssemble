@@ -1,11 +1,15 @@
 package com.fastcat.assemble.utils;
 
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.handlers.FileHandler;
 
 import java.util.HashMap;
 
@@ -13,22 +17,41 @@ public class SpriteAnimation {
 
     private final HashMap<String, SpriteAnimationData> animations = new HashMap<>();
 
+    private final String id;
     private SpriteAnimationData current;
     private Queue<SpriteAnimationData> next = new Queue<>();
     private Color color = Color.WHITE.cpy();
     private float timer = 0f;
     private boolean isRunning = true;
+    private SpriteAnimationType type;
 
-    public Vector2i pos, size;
+    public Vector2 pos, size;
 
-    public SpriteAnimation() {
+    public SpriteAnimation(String id, SpriteAnimationType type) {
+        this.id = id;
+        this.type = type;
+        generateAnimationData();
+    }
 
+    private SpriteAnimation(String id) {
+        this.id = id;
     }
 
     public void setAnimation(String key) {
         isRunning = true;
         timer = 0f;
         current = animations.get(key);
+    }
+
+    private final void generateAnimationData() {
+        JsonValue json = FileHandler.getInstance().jsonMap.get("animation_" + id);
+        for(JsonValue v : json.child) {
+            Array<Sprite> frames = new Array<>();
+            for(int i = 0; i < v.getInt("frameCount"); i++) {
+                FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + "/" + i + ".webp");
+            }
+            animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), new Vector2i(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+        }
     }
 
     public void addAnimation(String key) {
@@ -71,9 +94,13 @@ public class SpriteAnimation {
         }
     }
 
-    //todo spriteAnimation copy
     public SpriteAnimation cpy() {
-        return new SpriteAnimation();
+        SpriteAnimation a = new SpriteAnimation(id);
+        a.type = type;
+        for(SpriteAnimationData data : animations.values()) {
+            a.animations.put(data.key, data.cpy());
+        }
+        return a;
     }
 
     public class SpriteAnimationData {
@@ -85,8 +112,7 @@ public class SpriteAnimation {
 
         public final String key;
 
-        //todo json 불러오는걸로 교체 필요
-        public SpriteAnimationData(String key, Array<Sprite> sprites, float duration) {
+        public SpriteAnimationData(String key, Array<Sprite> sprites, float duration, Vector2i axis) {
             this.key = key;
             frames = sprites.items;
             frameDuration = duration;
@@ -106,8 +132,11 @@ public class SpriteAnimation {
             for(Sprite s : frames) {
                 temp.add(new Sprite(s));
             }
-
-            return new SpriteAnimationData(key, temp, frameDuration);
+            return new SpriteAnimationData(key, temp, frameDuration, new Vector2i(axis));
         }
+    }
+
+    public enum SpriteAnimationType {
+        member, entity
     }
 }

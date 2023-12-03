@@ -1,7 +1,7 @@
 package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractChar;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 
 public class GainBlockAction extends AbstractAction {
 
@@ -19,7 +19,7 @@ public class GainBlockAction extends AbstractAction {
         if(duration == baseDuration) {
             //todo 이펙트
             for(AbstractEntity e : target) {
-                e.get(0).gainBlock(amount);
+                e.gainBlock(amount);
             }
         }
     }

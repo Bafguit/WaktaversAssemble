@@ -3,7 +3,6 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.StringHandler;
 
 public abstract class AbstractCard implements Cloneable {
 
@@ -109,7 +108,7 @@ public abstract class AbstractCard implements Cloneable {
             upDesc = json.getString("upDesc", desc);
             rarity = CardRarity.valueOf(json.getString("rarity"));
             type = CardType.valueOf("type");
-            img = FileHandler.card.get(id);
+            img = new Sprite(FileHandler.getTexture("member/" + id));
         }
     }
 

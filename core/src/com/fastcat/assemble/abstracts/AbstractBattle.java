@@ -12,10 +12,10 @@ public abstract class AbstractBattle implements Cloneable {
     public BattleType type;
     public BattlePhase phase;
 
-    public Array<AbstractChar.Synergy> synergy;
+    public Array<AbstractSynergy> synergy;
 
     public Array<AbstractEnemy> enemies;
-    public Array<AbstractChar> chars;
+    public Array<AbstractMember> members;
 
     public Queue<AbstractCard> drawPile;
     public Array<AbstractCard> discardPile;
@@ -33,19 +33,21 @@ public abstract class AbstractBattle implements Cloneable {
     }
 
     public void turnDraw() {
-        turnDraw(1);
+        draw(WakTower.game.drawAmount);
     }
 
-    public void turnDraw(int amount) {
+    public void draw(int amount) {
         if(drawPile.size >= amount) {
             for(int i = 0; i < amount; i++) {
                 hand.add(drawPile.removeFirst());
+                if(hand.size() == WakTower.game.maxHand) break;
             }
         } else {
             if(drawPile.size > 0) {
                 int s = drawPile.size;
                 for(int i = 0; i < s; i++) {
                     hand.add(drawPile.removeFirst());
+                    if(hand.size() == WakTower.game.maxHand) break;
                 }
                 amount -= s;
             }
@@ -58,6 +60,10 @@ public abstract class AbstractBattle implements Cloneable {
             }
             discardPile.clear();
         }
+    }
+
+    public boolean isPlayerTurn() {
+        return WakTower.game.battle.phase == BattlePhase.playerTurn;
     }
 
     @Override

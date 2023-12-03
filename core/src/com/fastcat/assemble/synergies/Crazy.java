@@ -1,6 +1,8 @@
-package com.fastcat.assemble.abstracts;
+package com.fastcat.assemble.synergies;
 
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.actions.DrawCardAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class Crazy extends AbstractSynergy {
 
@@ -13,7 +15,7 @@ public class Crazy extends AbstractSynergy {
     @Override
     public void endOfTurn(boolean isPlayer) {
         flash();
-        ActionHandler.next(new DrawCardAction(grade, true));
+        ActionHandler.next(new DrawCardAction(grade));
     }
 
     public static Crazy getInstance() {

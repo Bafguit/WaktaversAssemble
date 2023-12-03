@@ -9,7 +9,7 @@ import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
-public class SkillDisplay extends AbstractUI {
+public class PlayerDisplay extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
     private final Sprite frame;
@@ -17,7 +17,7 @@ public class SkillDisplay extends AbstractUI {
     public AbstractSkill skill;
     private float timer = 0f;
 
-    public SkillDisplay() {
+    public PlayerDisplay() {
         super(FileHandler.getTexture("ui/mediumBlank"));
         frame = new Sprite(FileHandler.getTexture("ui/skillFrame"));
     }

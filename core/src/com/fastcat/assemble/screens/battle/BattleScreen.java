@@ -1,19 +1,19 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.screens.battle;
 
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
+import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
-import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 
 public class BattleScreen extends AbstractScreen {
 
     public PlayerDisplay player;
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
-    public HashMap<AbstractChar, CardDisplay> cards;
+    public HashMap<AbstractMember, CardDisplay> cards;
     public HashMap<AbstractSkill, SkillDisplay> skills;
     public MemberDisplay[] members;
     public TurnEndButton turnEnd;

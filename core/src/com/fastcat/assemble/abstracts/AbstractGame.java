@@ -1,11 +1,10 @@
 package com.fastcat.assemble.abstracts;
 
-import java.util.HashMap;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.character.Mousse;
+import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.GroupHandler;
 import com.fastcat.assemble.utils.RandomXC;
@@ -29,15 +28,17 @@ public class AbstractGame {
 
     public AbstractPlayer player;
     public Array<AbstractCard> deck;
-    public Array<AbstractItem> items;
+    public Array<AbstractRelic> relics;
+
+    public AbstractRoom[] rooms;
 
     public AbstractBattle battle;
-    public int floorNum, floorMax;
+    public int floorNum, floorMax, drawAmount, maxHand, memberLimit;
 
     public AbstractGame() {
         deck = new Array<>();
-        items = new Array<>();
-        player = new Mousse();
+        relics = new Array<>();
+        player = new AbstractPlayer();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);
@@ -68,7 +69,8 @@ public class AbstractGame {
             ending();
         } else {
             int f = floorNum / 10 + 1;
-            rooms = AbstractRoom.generateNormalRoom(f);
+            //todo 방 무작위 생성
+            //rooms = new AbstractRoom(GroupHandler.monsterGroup.get("normal_" + f + "_" + WakTower.game.mapRandom.random(0, 9)));
         }
     }
 

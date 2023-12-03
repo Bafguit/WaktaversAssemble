@@ -345,17 +345,17 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     }
 
     public static class TempUI extends AbstractUI {
-        public TempUI(Sprite texture) {
+        public TempUI(Texture texture) {
             super(texture);
             overable = false;
         }
 
-        public TempUI(Sprite texture, float x, float y) {
+        public TempUI(Texture texture, float x, float y) {
             super(texture, x, y);
             overable = false;
         }
 
-        public TempUI(Sprite texture, float x, float y, float w, float h) {
+        public TempUI(Texture texture, float x, float y, float w, float h) {
             super(texture, x, y, w, h);
             overable = false;
         }
@@ -426,9 +426,9 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         public SubText(String name, String desc) {
             this.name = name;
             this.desc = desc;
-            top = new TempUI(FileHandler.ui.get("SUB_TOP"));
-            mid = new TempUI(FileHandler.ui.get("SUB_MID"));
-            bot = new TempUI(FileHandler.ui.get("SUB_BOT"));
+            top = new TempUI(FileHandler.getTexture("ui/sub_top"));
+            mid = new TempUI(FileHandler.getTexture("ui/sub_mid"));
+            bot = new TempUI(FileHandler.getTexture("ui/sub_bot"));
             nameLayout = new GlyphLayout();
             descLayout = new GlyphLayout();
             nameFont = SUB_NAME;

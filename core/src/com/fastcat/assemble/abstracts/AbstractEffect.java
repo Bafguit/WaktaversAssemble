@@ -7,7 +7,7 @@ import com.fastcat.assemble.handlers.FileHandler;
 
 public abstract class AbstractEffect implements Disposable {
 
-    protected final AbstractUI ui = new AbstractUI.TempUI(FileHandler.dice.get("Dice"));
+    protected final AbstractUI ui = new AbstractUI.TempUI(FileHandler.getTexture("ui/tile"));
 
     public float baseDuration;
     public float duration;

@@ -1,6 +1,7 @@
-package com.fastcat.assemble.abstracts;
+package com.fastcat.assemble.synergies;
 
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.utils.DamageInfo;
 
 public class OldMan extends AbstractSynergy {
 

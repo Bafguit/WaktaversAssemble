@@ -1,5 +1,12 @@
 package com.fastcat.assemble.abstracts;
 
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.handlers.DataHandler;
+import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.utils.DamageInfo;
+
 public abstract class AbstractRelic {
 
     public final RelicData data;
@@ -11,7 +18,7 @@ public abstract class AbstractRelic {
 
     public AbstractRelic(String id) {
         this.id = id;
-        data = DataHandler.relicData.get(id).cpy();
+        data = DataHandler.getInstance().relicData.get(id);
         name = data.name;
         desc = data.desc;
         flavor = data.flavor;
@@ -38,6 +45,8 @@ public abstract class AbstractRelic {
     public void endOfRound() {}
 
     public void startOfTurn(boolean isPlayer) {}
+
+    public void startOfBattle() {}
 
     public static class RelicData {
         public final String id, name, desc, flavor;

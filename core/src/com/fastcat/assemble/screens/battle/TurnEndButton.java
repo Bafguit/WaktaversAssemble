@@ -1,17 +1,14 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.abstracts.AbstractUI;
-import com.fastcat.assemble.battles.TestBattle;
+import com.fastcat.assemble.actions.EndTurnAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.screens.battle.BattleScreen;
-
-import static com.fastcat.assemble.WakTower.battleScreen;
 
 public class TurnEndButton extends AbstractUI {
 
@@ -24,7 +21,7 @@ public class TurnEndButton extends AbstractUI {
     
     @Override
     protected void foreUpdate() {
-        clickable = WakTower.game.battle.phase == AbstractBattle.BattlePhase.playerTurn; 
+        clickable = WakTower.game.battle.phase == BattlePhase.playerTurn; 
     }
 
     @Override
@@ -38,6 +35,6 @@ public class TurnEndButton extends AbstractUI {
 
     @Override
     public void onClick() {
-        ActionHandler.bot(new EndTurnAction());
+        ActionHandler.bot(new EndTurnAction(true));
     }
 }

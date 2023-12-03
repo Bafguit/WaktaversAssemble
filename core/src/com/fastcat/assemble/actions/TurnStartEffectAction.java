@@ -2,11 +2,11 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.abstracts.AbstractAction;
 
-public class EndTurnAction extends AbstractAction {
-    
+public class TurnStartEffectAction extends AbstractAction {
+
     private final boolean isPlayer;
 
-    public EndTurnAction(boolean isPlayer) {
+    public TurnStartEffectAction(boolean isPlayer) {
         super(0f);
         this.isPlayer = isPlayer;
     }
@@ -14,7 +14,7 @@ public class EndTurnAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(isDone) {
-            
+            //todo 이펙트 실행
         }
     }
 }

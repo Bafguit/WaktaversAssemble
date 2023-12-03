@@ -1,6 +1,7 @@
-package com.fastcat.assemble.abstracts;
+package com.fastcat.assemble.synergies;
 
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class Villain extends AbstractSynergy {
 
@@ -19,7 +20,8 @@ public class Villain extends AbstractSynergy {
             int comb = counter + gold;
             if(comb > max_gold)
                 gold -= comb - max_gold;
-            ActionHandler.next(new GainGoldAction(gold));
+            //todo
+            //ActionHandler.next(new GainGoldAction(gold));
         }
     }
 
