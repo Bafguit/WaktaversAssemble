@@ -7,7 +7,13 @@ public class DamageInfo {
     public AbstractEntity source;
     public DamageType type;
 
+    public DamageInfo(int damage, AbstractEntity source, DamageType type) {
+        this.damage = damage;
+        this.source = source;
+        this.type = type;
+    }
+
     public enum DamageType {
-        normal, reflect, lose
+        wak, member, reflect, lose
     }
 }

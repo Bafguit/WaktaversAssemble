@@ -41,7 +41,7 @@ public abstract class AbstractBattle implements Cloneable {
     public LinkedList<OnIncreaseMemberDamage> turnMemberDamage = new LinkedList<>();
     public LinkedList<OnIncreaseWakDamage> turnWakDamage = new LinkedList<>();
 
-    public Array<AbstractEnemy> enemies = new Array<>();
+    public LinkedList<AbstractEnemy> enemies = new LinkedList<>();
     public Array<AbstractMember> members = new Array<>();
 
     public Queue<AbstractCard> drawPile = new Queue<>();

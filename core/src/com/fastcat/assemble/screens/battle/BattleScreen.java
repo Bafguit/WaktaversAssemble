@@ -8,22 +8,21 @@ import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
+import com.fastcat.assemble.screens.battle.MemberDisplay.MemberDisplayType;
 
 public class BattleScreen extends AbstractScreen {
 
     public PlayerDisplay player;
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
-    public HashMap<AbstractMember, CardDisplay> cards;
+    public HashMap<AbstractMember, MemberDisplay> members;
     public HashMap<AbstractSkill, SkillDisplay> skills;
-    public MemberDisplay[] members;
     public TurnEndButton turnEnd;
 
     public BattleScreen() {
         super(ScreenType.BASE);
         enemies = new HashMap<>();
-        cards = new HashMap<>();
+        members = new HashMap<>();
         skills = new HashMap<>();
-        members = new MemberDisplay[WakTower.game.memberLimit];
         turnEnd = new TurnEndButton();
     }
 
@@ -46,8 +45,8 @@ public class BattleScreen extends AbstractScreen {
             player.render(sb);
         }
 
-        for(MemberDisplay m : members) {
-            m.render(sb);
+        for(MemberDisplay m : members.values()) {
+            if(!m.isCard) m.render(sb);
         }
 
         effectHandler.render(sb);
@@ -58,8 +57,8 @@ public class BattleScreen extends AbstractScreen {
             s.render(sb);
         }
 
-        for(CardDisplay c : cards.values()) {
-            c.render(sb);
+        for(MemberDisplay m : members.values()) {
+            if(m.isCard) m.render(sb);
         }
     }
 }

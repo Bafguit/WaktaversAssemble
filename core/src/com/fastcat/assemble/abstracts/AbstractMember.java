@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
 
@@ -37,13 +38,17 @@ public abstract class AbstractMember {
         img = new Sprite(data.img);
         animation = data.animation.cpy();
         synergy = baseSynergy = new AbstractSynergy[data.synergy.length];
+        setSynergy();
         setAtk(0, 0);
         setDef(0, 0);
         setValue(0, 0);
         setValue2(0, 0);
     }
 
-    protected abstract void setSynergy();
+    private final void setSynergy() {
+        baseSynergy[0] = SynergyHandler.getSynergyInstance(data.synergy[0]);
+        baseSynergy[1] = SynergyHandler.getSynergyInstance(data.synergy[1]);
+    }
 
     protected final void setAtk(int base, int up) {
         atk = baseAtk = base;

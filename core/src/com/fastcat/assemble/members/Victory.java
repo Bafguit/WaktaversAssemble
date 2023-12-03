@@ -3,8 +3,6 @@ package com.fastcat.assemble.members;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.MemberVictoryAction;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
-import com.fastcat.assemble.synergies.Crazy;
-import com.fastcat.assemble.synergies.MindMaster;
 
 public class Victory extends AbstractMember implements OnIncreaseGlobalDamage {
 
@@ -14,14 +12,8 @@ public class Victory extends AbstractMember implements OnIncreaseGlobalDamage {
     }
 
     @Override
-    protected void setSynergy() {
-        baseSynergy[0] = Crazy.getInstance();
-        baseSynergy[1] = MindMaster.getInstance();
-    }
-
-    @Override
     public void onSummon() {
-        bot(new MemberVictoryAction(this));
+        next(new MemberVictoryAction(this));
     }
 
     @Override

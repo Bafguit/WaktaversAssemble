@@ -10,12 +10,17 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.interfaces.OnAnimationFinished;
 
 import java.util.HashMap;
 
 public class SpriteAnimation {
 
     private final HashMap<String, SpriteAnimationData> animations = new HashMap<>();
+    private final Array<OnAnimationFinished> animationFinishedListeners = new Array<>();
+    private OnAnimationFinished singlAnimationTimer;
+    private float singleTimer;
+    private boolean singleTimerEnded;
 
     private final String id;
     private SpriteAnimationData current;
@@ -50,7 +55,7 @@ public class SpriteAnimation {
             for(int i = 0; i < v.getInt("frameCount"); i++) {
                 FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + "/" + i + ".webp");
             }
-            animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), new Vector2i(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+            animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
         }
     }
 
@@ -58,11 +63,30 @@ public class SpriteAnimation {
         next.addLast(animations.get(key));
     }
 
+    public void addAnimationFinishedListener(OnAnimationFinished listener) {
+        animationFinishedListeners.add(listener);
+    }
+
+    public void setSingleAnimationListener(OnAnimationFinished listener, float time) {
+        singlAnimationTimer = listener;
+        singleTimer = time;
+        singleTimerEnded = false;
+    }
+
     public void render(SpriteBatch sb) {
         boolean hasAnimation = true;
 
         if(current != null) {
+            if(singlAnimationTimer != null && !singleTimerEnded && timer >= singleTimer) {
+                singlAnimationTimer.onSingleFinished(current.key);
+                singleTimerEnded = true;
+                singlAnimationTimer = null;
+            }
             if(!current.isLoop && timer > current.duration) {
+                for(OnAnimationFinished l : animationFinishedListeners) {
+                    l.onAnimationFinished(current.key);
+                }
+                animationFinishedListeners.clear();
                 if(next.size > 0) {
                     timer = 0f;
                     current = next.removeFirst();
@@ -108,15 +132,17 @@ public class SpriteAnimation {
         private final Sprite[] frames;
         private float duration, frameDuration, timescale = 1.0f;
         private boolean isLoop;
-        private Vector2i axis;
+        private Vector2 axis;
 
         public final String key;
 
-        public SpriteAnimationData(String key, Array<Sprite> sprites, float duration, Vector2i axis) {
+        public SpriteAnimationData(String key, Array<Sprite> sprites, float duration, boolean isLoop, Vector2 axis) {
             this.key = key;
             frames = sprites.items;
             frameDuration = duration;
             this.duration = frameDuration * frames.length;
+            this.isLoop = isLoop;
+            this.axis = new Vector2(axis);
         }
 
         public Sprite getFrame(float time) {
@@ -132,7 +158,7 @@ public class SpriteAnimation {
             for(Sprite s : frames) {
                 temp.add(new Sprite(s));
             }
-            return new SpriteAnimationData(key, temp, frameDuration, new Vector2i(axis));
+            return new SpriteAnimationData(key, temp, frameDuration, isLoop, new Vector2(axis));
         }
     }
 
