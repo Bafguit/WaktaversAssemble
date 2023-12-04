@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.fastcat.assemble.abstracts.AbstractMember;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -115,13 +116,6 @@ public final class FontHandler implements Disposable {
     public static void renderLineLeft(
             SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
-        Matcher matcher = COLOR_PATTERN.matcher(text);
-        while (matcher.find()) {
-            String mt = matcher.group(1);
-            String mmt = matcher.group(2);
-            text = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(fontData.color));
-            matcher = COLOR_PATTERN.matcher(text);
-        }
         layout.setText(font, text, fontData.color, bw * scaleX, Align.left, false);
         float ry = y * scaleY + (layout.height) * 0.54f;
         fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
@@ -222,9 +216,9 @@ public final class FontHandler implements Disposable {
         }
         fontData.draw(sb, layout, fontData.alpha, x * scaleX, y * scaleX);
     }
-
-    public static void renderCardCenter(
-            SpriteBatch sb, AbstractCard card, FontData fontData, String text, float x, float y, float bw, float bh) {
+*/
+    public static void renderMemberDesc(
+            SpriteBatch sb, AbstractMember member, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
         Matcher matcher = COLOR_PATTERN.matcher(text);
         while (matcher.find()) {
@@ -236,26 +230,15 @@ public final class FontHandler implements Disposable {
         matcher = VAR_PATTERN.matcher(text);
         while (matcher.find()) {
             String mt = matcher.group(1);
-            text = matcher.replaceFirst(card.getKeyValue(mt) + getHexColor(fontData.color));
+            text = matcher.replaceFirst(member.getKeyValue(mt) + getHexColor(fontData.color));
             matcher = VAR_PATTERN.matcher(text);
         }
-        float scale = 1;
-        font.getData().setScale(fontData.scale);
-        font.getData().setLineHeight(scale * 1.3f);
-        while (true) {
-            layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
-            if (layout.height > bh * scaleY && scale > 0.5f) {
-                scale *= 0.9f;
-                font.getData().setScale(scale);
-                font.getData().setLineHeight(scale * 1.3f);
-            } else {
-                break;
-            }
-        }
+        font.getData().setScale(fontData.scale * InputHandler.scaleA);
+        layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
         float ry = y * scaleY + (layout.height) * 0.65f;
         fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
-*/
+
     private static void renderLine(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
         font.getData().setScale(fontData.scale);

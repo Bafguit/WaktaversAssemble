@@ -7,10 +7,8 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.interfaces.OnMouseScrolled;
-import com.fastcat.assemble.utils.FastCatUtils;
 
 import java.nio.ByteBuffer;
 import java.util.zip.Deflater;

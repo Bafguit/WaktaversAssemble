@@ -160,13 +160,14 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             hasClick = false;
             clicked = false;
         }
+
     }
 
     public final void render(SpriteBatch sb) {
         sb.setProjectionMatrix(WakTower.camera.combined);
         sb.setColor(WHITE);
         renderUi(sb);
-        //renderSub(sb);
+        renderSub(sb);
     }
 
     protected void renderUi(SpriteBatch sb) {
@@ -328,6 +329,8 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     protected void foreUpdate() {}
 
     protected void updateButton() {}
+
+    protected void afterUpdate() {}
 
     protected void onClick() {}
 

@@ -75,6 +75,7 @@ public class FileHandler {
 
     private void generateUI() {
         assetManager.load("image/ui/tile.webp", Texture.class);
+        assetManager.load("image/ui/cardBg.webp", Texture.class);
     }
 
     private void generateAnimationSprites() {

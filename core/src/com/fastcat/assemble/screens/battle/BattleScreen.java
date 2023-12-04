@@ -8,7 +8,6 @@ import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
-import com.fastcat.assemble.screens.battle.MemberDisplay.MemberDisplayType;
 
 public class BattleScreen extends AbstractScreen {
 
