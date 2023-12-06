@@ -2,6 +2,8 @@ package com.fastcat.assemble.abstracts;
 
 import java.util.HashMap;
 
+import org.checkerframework.checker.units.qual.g;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
@@ -86,6 +88,11 @@ public class AbstractGame {
     }
 
     public void ending() {}
+
+    public void gainGold(int gold) {
+        this.gold += gold;
+        if(gold < 0) this.gold = 0;
+    }
 
     private static String generateRandomSeed() {
         StringBuilder s = new StringBuilder();

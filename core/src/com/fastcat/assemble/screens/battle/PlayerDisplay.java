@@ -1,33 +1,41 @@
 package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractSkill;
+import com.fastcat.assemble.abstracts.AbstractPlayer;
+import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractUI;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.interfaces.OnStatusUpdated;
 
-public class PlayerDisplay extends AbstractUI {
+public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
 
-    private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
-    private final Sprite frame;
+    private final FontHandler.FontData font = FontHandler.TURN_CHANGE.cpy();
 
-    public AbstractSkill skill;
-    private float timer = 0f;
+    public AbstractPlayer player;
+    public LinkedList<StatusDisplay> status;
 
-    public PlayerDisplay() {
-        super(FileHandler.getTexture("ui/mediumBlank"));
-        frame = new Sprite(FileHandler.getTexture("ui/skillFrame"));
+    public PlayerDisplay(AbstractPlayer player) {
+        super(FileHandler.getTexture("ui/entityBlank"));
+        status = new LinkedList<>();
+        player.statusUpdatedListener.add(this);
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            sb.draw(img, x, y, width, height);
-            sb.draw(skill.img, x, y, width, height);
-            sb.draw(frame, x, y);
+            player.animation.pos.set(x, y);
+            player.animation.render(sb);
+
+            renderHealthBar(sb);
+            
+            for(int i = 0; i < status.size(); i++) {
+                StatusDisplay s = status.get(i);
+                s.render(sb);
+            }
 
             if(timer >= 1f) {
                 //효과 설명 출력
@@ -36,21 +44,31 @@ public class PlayerDisplay extends AbstractUI {
     }
 
     @Override
-    protected void foreUpdate() {
-        clickable = skill.canUse() && !ActionHandler.isRunning;
-    }
-
-    @Override
     protected void updateButton() {
-        if(over) {
-            if(timer < 1f) {
-                timer += WakTower.tick / 0.5f;
-            }
-        } else timer = 0f;
+        for(int i = 0; i < status.size(); i++) {
+            StatusDisplay s = status.get(i);
+            s.update();
+        }
+    }
+
+    private void renderHealthBar(SpriteBatch sb) {
+
     }
 
     @Override
-    public void onClick() {
-        skill.use();
+    public void onStatusApplied(AbstractStatus status) {
+        this.status.add(new StatusDisplay(status));
+    }
+
+    @Override
+    public void onStatusRemoved(AbstractStatus status) {
+        Iterator<StatusDisplay> itr = this.status.iterator();
+        while(itr.hasNext()) {
+            StatusDisplay s = itr.next();
+            if(s.status == status) {
+                itr.remove();
+                break;
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -15,7 +14,6 @@ public class SkillDisplay extends AbstractUI {
     private final Sprite frame;
 
     public AbstractSkill skill;
-    private float timer = 0f;
 
     public SkillDisplay() {
         super(FileHandler.getTexture("ui/mediumBlank"));
@@ -42,11 +40,7 @@ public class SkillDisplay extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        if(over) {
-            if(timer < 1f) {
-                timer += WakTower.tick / 0.5f;
-            }
-        } else timer = 0f;
+        
     }
 
     @Override

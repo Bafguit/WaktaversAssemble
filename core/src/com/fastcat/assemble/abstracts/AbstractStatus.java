@@ -1,6 +1,7 @@
 package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -13,6 +14,8 @@ public abstract class AbstractStatus {
     public final String id;
     public String name, desc;
     public int amount;
+    public Sprite img;
+    public AbstractEntity owner;
     public boolean hasAmount, canGoNegative;
 
     public AbstractStatus(String id) {
@@ -20,6 +23,7 @@ public abstract class AbstractStatus {
         data = DataHandler.getInstance().statusData.get(id);
         name = data.name;
         desc = data.desc;
+        img = new Sprite(FileHandler.getTexture("status/" + id));
     }
 
     public String getDesc() {

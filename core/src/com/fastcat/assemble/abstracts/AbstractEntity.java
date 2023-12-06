@@ -1,8 +1,10 @@
 package com.fastcat.assemble.abstracts;
 
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.DataHandler;
+import com.fastcat.assemble.interfaces.OnStatusUpdated;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
 import com.fastcat.assemble.utils.SpriteAnimation.SpriteAnimationType;
@@ -20,6 +22,7 @@ public abstract class AbstractEntity {
     public int health, maxHealth, block, barrier;
     public boolean isDie, isDead;
     public LinkedList<AbstractStatus> status = new LinkedList<>();
+    public Array<OnStatusUpdated> statusUpdatedListener = new Array<>();
 
     public AbstractEntity(String id, boolean isPlayer) {
         this.id = id;
@@ -47,7 +50,13 @@ public abstract class AbstractEntity {
                 return;
             }
         }
+        s.owner = this;
         status.add(s);
+        if(statusUpdatedListener.size > 0) {
+            for(OnStatusUpdated listener : statusUpdatedListener) {
+                listener.onStatusApplied(s);
+            }
+        }
         s.onInitial();
     }
 

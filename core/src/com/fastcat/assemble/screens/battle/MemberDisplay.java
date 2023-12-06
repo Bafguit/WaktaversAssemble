@@ -2,11 +2,12 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.ScreenHandler;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 
 public class MemberDisplay extends AbstractUI {
@@ -16,12 +17,12 @@ public class MemberDisplay extends AbstractUI {
     private final AbstractUI.TempUI cardImg, tile, descBg; 
     private final SynergyDisplay[] synergy;
     private final Sprite frame;
-    private float timer = 0f;
 
     public final AbstractMember member;
     public boolean isCard;
 
     public MemberDisplay(AbstractMember member) {
+        //228x342
         super(FileHandler.getTexture("ui/cardBg"));
         this.member = member;
         clickable = true;
@@ -29,7 +30,8 @@ public class MemberDisplay extends AbstractUI {
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
-        descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/descBg"));
+        //descBg 높이: 140
+        descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDescBg"));
         descBg.basis = BasisType.BOTTOM;
         synergy = new SynergyDisplay[member.synergy.length];
         for(int i = 0; i < member.synergy.length; i++) {
@@ -46,12 +48,7 @@ public class MemberDisplay extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        if(over) {
-            if(timer < 1f) {
-                timer += WakTower.tick / 0.5f;
-                if(timer >= 1f) timer = 1f;
-            }
-        } else timer = 0f;
+        
     }
 
     @Override
@@ -73,27 +70,34 @@ public class MemberDisplay extends AbstractUI {
         if(isCard) {
             sb.draw(img, x, y, width, height);
             cardImg.render(sb);
-
-            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.45f, originY + originHeight * 0.45f, originWidth);
             
             if(timer > 0) {
-                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, originX - originWidth * 0.4f, originY - originHeight * 0.3f, originWidth * 0.8f);
+                descBg.img.setAlpha(timer);
                 descBg.render(sb);
+                descBg.img.setAlpha(1f);
+                fontDesc.alpha = timer;
+                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, originX - originWidth * 0.4f, originY - originHeight * 0.3f, originWidth * 0.8f);
             }
+
+            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.45f, originY + originHeight * 0.45f, originWidth);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);
             }
         } else {
-            //시너지 hover일 때 출력
-            if(true) {
-                sb.draw(tile.img, x, y, tile.width, tile.height);
+            for(AbstractSynergy s : member.synergy) {
+                SynergyDisplay sd = ScreenHandler.getInstance().battleScreen.synergies.get(s);
+                if(sd.over) {
+                    tile.render(sb);
+                    break;
+                }
             }
 
             member.animation.pos.set(x, y);
             member.animation.render(sb);
 
             //hover시 이름 출력, 폰트 투명도 = timer
+            fontName.alpha = timer;
             FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.9f, y + height * 0.9f);
 
             if(timer == 1f) {

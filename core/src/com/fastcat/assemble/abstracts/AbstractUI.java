@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.FontHandler.FontData;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SoundHandler;
 import com.fastcat.assemble.utils.Vector2i;
@@ -49,6 +50,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public final float realHeight;
     public float originWidth;
     public float originHeight;
+    public float timer = 0;
     private float fromX;
     private float fromY;
     private float fromZ;
@@ -118,7 +120,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         }
         alreadyOver = hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !alreadyOver;
         if(isDesktop) {
-            over = hasOver && isCursorInScreen;
+            over = hasOver && isCursorInScreen && !InputHandler.alreadyOver;
             clicked = over && isLeftClick;
             hasClick = clicked || clicking;
             clicking = over && hasClick && isLeftClicking;
@@ -140,6 +142,10 @@ public abstract class AbstractUI implements Disposable, Cloneable {
 
             if (over) {
                 if (overable) {
+                    if(timer < 1f) {
+                        timer += WakTower.tick / 0.5f;
+                        if(timer >= 1f) timer = 1f;
+                    }
                     subTexts = getSubText();
                     if (clicked) {
                         if (clickable) {
@@ -152,7 +158,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                     if (clicking) onClicking();
                     else if (hasClick && clickEnd) onClickEnd();
                 } else over = false;
-            }
+            } else timer = 0;
             updateButton();
         } else {
             over = false;

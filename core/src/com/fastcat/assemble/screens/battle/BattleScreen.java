@@ -8,6 +8,7 @@ import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
+import com.fastcat.assemble.abstracts.AbstractSynergy;
 
 public class BattleScreen extends AbstractScreen {
 
@@ -15,6 +16,7 @@ public class BattleScreen extends AbstractScreen {
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
     public HashMap<AbstractMember, MemberDisplay> members;
     public HashMap<AbstractSkill, SkillDisplay> skills;
+    public HashMap<AbstractSynergy, SynergyDisplay> synergies;
     public TurnEndButton turnEnd;
 
     public BattleScreen() {
@@ -22,6 +24,7 @@ public class BattleScreen extends AbstractScreen {
         enemies = new HashMap<>();
         members = new HashMap<>();
         skills = new HashMap<>();
+        synergies = new HashMap<>();
         turnEnd = new TurnEndButton();
     }
 

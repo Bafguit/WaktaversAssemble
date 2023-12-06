@@ -137,6 +137,7 @@ public final class InputHandler {
         mx = Math.max(Math.min(gx, sw), 0);
         my = sh - Math.max(Math.min(gy, sh), 0);
         cancel = Gdx.input.isKeyJustPressed(Buttons.BACK) || Gdx.input.isKeyJustPressed(Keys.ESCAPE) || Gdx.input.isKeyJustPressed(Keys.BACK);
+        alreadyOver = false;
 
         if (isDesktop) {
             isLeftClick = Gdx.input.isButtonJustPressed(Buttons.LEFT);
