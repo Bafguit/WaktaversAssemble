@@ -1,5 +1,7 @@
 package com.fastcat.assemble.abstracts;
 
+import java.lang.reflect.Member;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.JsonValue;
@@ -11,7 +13,7 @@ import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
 
 
-public abstract class AbstractMember {
+public abstract class AbstractMember implements Cloneable {
 
     public final MemberData data;
 
@@ -129,6 +131,21 @@ public abstract class AbstractMember {
 
     public int calculatedDef() {
         return atk;
+    }
+
+    public AbstractMember cpy() {
+        AbstractMember m;
+        try {
+            m = (AbstractMember) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+        m.img = new Sprite(data.img);
+        m.animation = m.animation.cpy();
+        System.arraycopy(baseSynergy, 0, m.synergy, 0, baseSynergy.length);
+        m.setSynergy();
+        return m;
     }
 
     public static class MemberData {

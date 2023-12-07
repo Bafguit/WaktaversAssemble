@@ -1,5 +1,6 @@
 package com.fastcat.assemble.screens.battle;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstracts.AbstractSkill;
@@ -15,8 +16,9 @@ public class SkillDisplay extends AbstractUI {
 
     public AbstractSkill skill;
 
-    public SkillDisplay() {
-        super(FileHandler.getTexture("ui/mediumBlank"));
+    public SkillDisplay(AbstractSkill s) {
+        super(FileHandler.getTexture("ui/skillBg"));
+        skill = s;
         frame = new Sprite(FileHandler.getTexture("ui/skillFrame"));
     }
 
@@ -24,12 +26,10 @@ public class SkillDisplay extends AbstractUI {
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
             sb.draw(img, x, y, width, height);
+            if(!skill.canUse()) sb.setColor(Color.DARK_GRAY);
             sb.draw(skill.img, x, y, width, height);
-            sb.draw(frame, x, y);
-
-            if(timer >= 1f) {
-                //효과 설명 출력
-            }
+            sb.setColor(Color.WHITE);
+            sb.draw(frame, x, y, width, height);
         }
     }
 

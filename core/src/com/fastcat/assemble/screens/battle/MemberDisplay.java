@@ -30,7 +30,7 @@ public class MemberDisplay extends AbstractUI {
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
-        //descBg 높이: 140
+        //descBg 높이: 160
         descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDescBg"));
         descBg.basis = BasisType.BOTTOM;
         synergy = new SynergyDisplay[member.synergy.length];
@@ -96,7 +96,6 @@ public class MemberDisplay extends AbstractUI {
             member.animation.pos.set(x, y);
             member.animation.render(sb);
 
-            //hover시 이름 출력, 폰트 투명도 = timer
             fontName.alpha = timer;
             FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.9f, y + height * 0.9f);
 

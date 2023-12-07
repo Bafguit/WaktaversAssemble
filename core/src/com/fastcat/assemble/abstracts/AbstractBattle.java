@@ -44,18 +44,24 @@ public abstract class AbstractBattle implements Cloneable {
     public LinkedList<AbstractEnemy> enemies = new LinkedList<>();
     public Array<AbstractMember> members = new Array<>();
 
-    public Queue<AbstractCard> drawPile = new Queue<>();
-    public Array<AbstractCard> discardPile = new Array<>();
-    public Array<AbstractCard> exhaustPile = new Array<>();
-    public LinkedList<AbstractCard> hand = new LinkedList<>();
+    public Queue<AbstractMember> drawPile = new Queue<>();
+    public Array<AbstractMember> discardPile = new Array<>();
+    public Array<AbstractMember> exhaustPile = new Array<>();
+    public LinkedList<AbstractMember> hand = new LinkedList<>();
+    public AbstractSkill[] skills = new AbstractSkill[3];
 
-    public int wSize, hSize;
     public int energy;
 
-    public AbstractBattle(BattleType type, int w, int h) {
+    public AbstractBattle(BattleType type) {
         this.type = type;
-        wSize = w;
-        hSize = h;
+        Array<AbstractMember> mm = new Array<AbstractMember>(WakTower.game.deck);
+        FastCatUtils.staticShuffle(mm, WakTower.game.battleRandom, AbstractMember.class);
+        for(AbstractMember m : mm) {
+            drawPile.addLast(m.cpy());
+        }
+        for(int i = 0; i < WakTower.game.skills.length; i++) {
+            skills[i] = WakTower.game.skills[i].cpy();
+        }
         phase = BattlePhase.battleStart;
         resetSynergy();
     }
@@ -79,8 +85,8 @@ public abstract class AbstractBattle implements Cloneable {
                 }
                 amount -= s;
             }
-            FastCatUtils.staticShuffle(discardPile, WakTower.game.battleRandom, AbstractCard.class);
-            for(AbstractCard c : discardPile) {
+            FastCatUtils.staticShuffle(discardPile, WakTower.game.battleRandom, AbstractMember.class);
+            for(AbstractMember c : discardPile) {
                 drawPile.addLast(c);
             }
             for(int i = 0; i < amount; i++) {

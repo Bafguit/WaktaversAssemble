@@ -5,6 +5,6 @@ import com.fastcat.assemble.abstracts.AbstractBattle;
 public class TestBattle extends AbstractBattle {
 
     public TestBattle() {
-        super(BattleType.WEAK, 5, 4);
+        super(BattleType.WEAK);
     }
 }

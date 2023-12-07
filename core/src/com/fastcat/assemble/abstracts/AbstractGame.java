@@ -1,9 +1,5 @@
 package com.fastcat.assemble.abstracts;
 
-import java.util.HashMap;
-
-import org.checkerframework.checker.units.qual.g;
-
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
@@ -29,7 +25,7 @@ public class AbstractGame {
     public RandomXC battleRandom;
 
     public AbstractPlayer player;
-    public Array<AbstractCard> deck;
+    public Array<AbstractMember> deck;
     public Array<AbstractRelic> relics;
     public AbstractSkill[] skills;
 
