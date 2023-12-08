@@ -38,8 +38,9 @@ public class SpriteAnimation {
         generateAnimationData();
     }
 
-    private SpriteAnimation(String id) {
+    public SpriteAnimation(String id) {
         this.id = id;
+        generateUIAnimationData();
     }
 
     public void setAnimation(String key) {
@@ -49,11 +50,22 @@ public class SpriteAnimation {
     }
 
     private final void generateAnimationData() {
-        JsonValue json = FileHandler.getInstance().jsonMap.get("animation_" + id);
+        JsonValue json = FileHandler.getInstance().jsonMap.get("animation_" + type.name() + "_"  + id);
         for(JsonValue v : json.child) {
             Array<Sprite> frames = new Array<>();
             for(int i = 0; i < v.getInt("frameCount"); i++) {
                 FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + "/" + i + ".webp");
+            }
+            animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+        }
+    }
+
+    private final void generateUIAnimationData() {
+        JsonValue json = FileHandler.getInstance().jsonMap.get("animation_ui_"  + id);
+        for(JsonValue v : json.child) {
+            Array<Sprite> frames = new Array<>();
+            for(int i = 0; i < v.getInt("frameCount"); i++) {
+                FileHandler.getInstance().assetManager.get("animation/ui/" + id + "/" + v.name + "/" + i + ".webp");
             }
             animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
         }

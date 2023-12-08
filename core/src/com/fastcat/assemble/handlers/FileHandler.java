@@ -8,6 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.utils.SpriteAnimation;
 import com.fastcat.assemble.utils.WebpTextureLoader;
 
 import java.io.InputStreamReader;
@@ -79,25 +80,24 @@ public class FileHandler {
     }
 
     private void generateAnimationSprites() {
-        //member animation
-        for(JsonValue v : jsonMap.get("member").child) {
-            JsonValue v2 = generateJson("animation/member/" + v.name + "/config.json");
-            jsonMap.put("animation_" + v.name, v2);
-            for(JsonValue v3 : v2.child) {
-                for(int i = 0; i < v3.getInt("frameCount"); i++) {
-                    assetManager.load("animation/member/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
+        for(SpriteAnimation.SpriteAnimationType type : SpriteAnimation.SpriteAnimationType.values()) {
+            for(JsonValue v : jsonMap.get(type.name()).child) {
+                JsonValue v2 = generateJson("animation/" + type.name() + "/" + v.name + "/config.json");
+                jsonMap.put("animation_" + type.name() + "_" + v.name, v2);
+                for(JsonValue v3 : v2.child) {
+                    for(int i = 0; i < v3.getInt("frameCount"); i++) {
+                        assetManager.load("animation/" + type.name() + "/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
+                    }
                 }
             }
         }
 
-        //entity animation
-        for(JsonValue v : jsonMap.get("entity").child) {
-            JsonValue v2 = generateJson("animation/entity/" + v.name + "/config.json");
-            jsonMap.put("animation_" + v.name, v2);
-            for(JsonValue v3 : v2.child) {
-                for(int i = 0; i < v3.getInt("frameCount"); i++) {
-                    assetManager.load("animation/entity/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
-                }
+        //ui animation data
+        JsonValue v2 = generateJson("animation/ui/energy/config.json");
+        jsonMap.put("animation_ui_energy", v2);
+        for(JsonValue v3 : v2.child) {
+            for(int i = 0; i < v3.getInt("frameCount"); i++) {
+                assetManager.load("animation/ui/energy/" + v3.name + "/" + i + ".webp", Texture.class);
             }
         }
     }

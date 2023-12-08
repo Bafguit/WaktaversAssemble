@@ -33,7 +33,7 @@ public class AbstractGame {
 
     public AbstractBattle battle;
     public int gold;
-    public int floorNum, floorMax, drawAmount, maxHand, memberLimit, energyStart, energyCharge;
+    public int floorNum, floorMax, drawAmount, maxHand, memberLimit, energyStart, energyCharge, energyMax;
 
     public AbstractGame() {
         deck = new Array<>();
@@ -60,6 +60,7 @@ public class AbstractGame {
         memberLimit = 3;
         energyStart = 3;
         energyCharge = 1;
+        energyMax = 3;
     }
 
     public void update() {

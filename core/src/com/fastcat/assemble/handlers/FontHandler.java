@@ -22,7 +22,7 @@ import static com.fastcat.assemble.handlers.InputHandler.scaleY;
 public final class FontHandler implements Disposable {
 
     //Font File
-    private static final FreeTypeFontGenerator font = new FreeTypeFontGenerator(Gdx.files.internal("font.ttf"));
+    private static final FreeTypeFontGenerator font = new FreeTypeFontGenerator(Gdx.files.internal("font/" + SettingHandler.setting.language + ".ttf"));
 
     //Preload Fonts
     public static final FontData LOGO = new FontData(100, false);

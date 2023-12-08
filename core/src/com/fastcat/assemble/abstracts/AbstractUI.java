@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler.FontData;
@@ -26,6 +27,7 @@ import static com.fastcat.assemble.handlers.InputHandler.*;
 
 public abstract class AbstractUI implements Disposable, Cloneable {
 
+    public UIData data;
     protected SubText subs;
     public SubText subTexts;
     public AbstractUI parent;
@@ -416,6 +418,16 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         NONE,
         CENTER,
         CLICKED
+    }
+
+    public static class UIData {
+        public final String id;
+        public final String[] text;
+
+        public UIData(String id, JsonValue json) {
+            this.id = id;
+            text = json.asStringArray();
+        }
     }
 
     public static class SubText {

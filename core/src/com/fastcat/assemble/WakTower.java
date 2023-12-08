@@ -14,6 +14,7 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
@@ -34,22 +35,21 @@ public class WakTower extends ApplicationAdapter {
 	public static MainMenuScreen mainMenuScreen;
 
 	public static AbstractGame game;
-	public AbstractScreen screen;
-	public Array<AbstractScreen> tempScreen = new Array<>();
 	public static float tick;
 	public static boolean fading;
-
-	public static AbstractUI subText;
-
-	@Getter
-	private AssetManager assetManager;
-	private boolean isLoaded = false;
 
 	public static WebPPixmapFactory pixmapFactory;
 	public static WebPLoaderFactory webpFactory;
 
+	public static AbstractUI subText;
+	public AbstractScreen screen;
+	public Array<AbstractScreen> tempScreen = new Array<>();
+
 	public SpriteBatch sb;
-	Texture img;
+
+	private boolean isLoaded = false;
+
+	private UIData uiData;
 
 	public WakTower(WebPLoaderNativeInterface nativeInterface) {
 		webpFactory = new WebPLoaderFactory(nativeInterface);
@@ -65,7 +65,6 @@ public class WakTower extends ApplicationAdapter {
 		psb = new PolygonSpriteBatch();
 		sr = new SkeletonRenderer();
 		sb = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 		camera = new OrthographicCamera();
 		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
 		camera.setToOrtho(false, w, h);
@@ -74,10 +73,12 @@ public class WakTower extends ApplicationAdapter {
 		viewport = new FillViewport(w, h);
 		FileHandler.getInstance();
 		FontHandler.getInstance();
+		DataHandler.getInstance();
+		uiData = DataHandler.getInstance().uiData.get("loading");
 	}
 
 	private void load() {
-		DataHandler.getInstance();
+		DataHandler.getInstance().loadAsync();
 		//game = new AbstractGame();
 		mainMenuScreen = new MainMenuScreen();
 		screen = mainMenuScreen;
@@ -143,7 +144,7 @@ public class WakTower extends ApplicationAdapter {
         */
 		} else {
 			float p = FileHandler.getProcess();
-			FontHandler.renderCenter(sb, FontHandler.NB30, "리소스 불러오는 중\n" + p * 100 + "%", 0,
+			FontHandler.renderCenter(sb, FontHandler.NB30, uiData.text[0] + "\n" + p * 100 + "%", 0,
 					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
 		}
 		sb.end();
@@ -157,6 +158,5 @@ public class WakTower extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		sb.dispose();
-		img.dispose();
 	}
 }

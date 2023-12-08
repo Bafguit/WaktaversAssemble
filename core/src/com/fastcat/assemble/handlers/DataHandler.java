@@ -7,6 +7,7 @@ import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
 import com.fastcat.assemble.abstracts.AbstractRelic.RelicData;
 import com.fastcat.assemble.abstracts.AbstractSkill.SkillData;
@@ -21,6 +22,7 @@ public class DataHandler {
 
     private static DataHandler instance;
 
+    public final HashMap<String, AbstractUI.UIData> uiData = new HashMap<>();
     public final HashMap<String, AbstractEntity.EntityData> entityData = new HashMap<>();
     public final HashMap<String, AbstractRelic.RelicData> relicData = new HashMap<>();
     public final HashMap<String, AbstractMember.MemberData> memberData = new HashMap<>();
@@ -35,6 +37,18 @@ public class DataHandler {
     }
 
     private DataHandler() {
+        loadSync();
+    }
+
+    public void loadSync() {
+        //ui data
+        JsonValue json = FileHandler.getInstance().jsonMap.get("ui");
+        for(JsonValue v : json.child) {
+            uiData.put(v.name, new AbstractUI.UIData(v.name, v.child));
+        }
+    }
+
+    public void loadAsync() {
         //animation
         for(SpriteAnimationType data : SpriteAnimationType.values()) {
             JsonValue json = FileHandler.getInstance().jsonMap.get(data.name());
@@ -42,6 +56,7 @@ public class DataHandler {
                 animation.put(v.name, new SpriteAnimation(v.name, data));
             }
         }
+        animation.put("energy", new SpriteAnimation("energy"));
 
         //member data
         JsonValue json = FileHandler.getInstance().jsonMap.get("member");
