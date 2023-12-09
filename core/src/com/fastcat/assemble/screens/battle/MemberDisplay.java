@@ -5,8 +5,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
+import com.fastcat.assemble.actions.SummonMemberAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.ScreenHandler;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 
@@ -28,6 +31,7 @@ public class MemberDisplay extends AbstractUI {
         clickable = true;
         basis = BasisType.CENTER;
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
+        //frame 206x279
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
         //descBg 높이: 160
@@ -48,7 +52,7 @@ public class MemberDisplay extends AbstractUI {
 
     @Override
     protected void updateButton() {
-        
+        if(over) InputHandler.alreadyOver = true;
     }
 
     @Override
@@ -102,6 +106,13 @@ public class MemberDisplay extends AbstractUI {
             if(timer == 1f) {
                 //효과 설명 출력
             }
+        }
+    }
+
+    @Override
+    protected void onClickEnd() {
+        if(y > height) {
+            ActionHandler.bot(new SummonMemberAction(member));
         }
     }
 }

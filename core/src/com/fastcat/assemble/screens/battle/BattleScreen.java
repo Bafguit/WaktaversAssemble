@@ -3,19 +3,18 @@ package com.fastcat.assemble.screens.battle;
 import java.util.HashMap;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
-import com.fastcat.assemble.handlers.InputHandler;
 
 public class BattleScreen extends AbstractScreen {
 
     public PlayerDisplay player;
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
+    public HashMap<AbstractMember, MemberDisplay> hand;
     public HashMap<AbstractMember, MemberDisplay> members;
     public HashMap<AbstractSkill, SkillDisplay> skills;
     public HashMap<AbstractSynergy, SynergyDisplay> synergies;
@@ -24,6 +23,7 @@ public class BattleScreen extends AbstractScreen {
     public BattleScreen() {
         super(ScreenType.BASE);
         enemies = new HashMap<>();
+        hand = new HashMap<>();
         members = new HashMap<>();
         skills = new HashMap<>();
         synergies = new HashMap<>();
@@ -32,6 +32,7 @@ public class BattleScreen extends AbstractScreen {
 
     public void initialize() {
         player = new PlayerDisplay(WakTower.game.player);
+        hand.clear();
         members.clear();
         skills.clear();
         for(int i = 0; i < WakTower.game.skills.length; i++) {
@@ -42,20 +43,21 @@ public class BattleScreen extends AbstractScreen {
 
     @Override
     public void update() {
-        int c = 0;
+        int c = 0, hs = hand.size();
+        float hw = (110 * hs + 118) * 0.5f;
+        for(MemberDisplay h : hand.values()) {
+            h.fluid = true;
+            if(h.over) {
+                h.setPosition(hw - c * 110, 171);
+                h.update();
+            } else h.setPosition(hw - c * 110, 71);
+        }
+        for(MemberDisplay h : hand.values()) {
+            if(!h.over) h.update();
+        }
+
         for(MemberDisplay m : members.values()) {
-            if(m.isCard) {
-                c++;
-                int h = WakTower.game.battle.hand.size();
-                float cyl = Interpolation.exp5In.apply(0, 200, c / h);
-                float cxl = Interpolation.pow2Out.apply(0, 200, c / h);
-                float cy_r = Interpolation.circle.apply(cyl, 0, (c + 0.5f) / (h * 0.5f));
-                float cy_l = Interpolation.circle.apply(0, cyl, (c) / (h * 0.5f));
-                float cx = (cxl / (h - 1)) * c;
-                float ang = Interpolation.circle.apply(0, 360, c / h);
-                m.setPosition(cx * InputHandler.scaleX, (c < h / 2 ? cy_l : cy_r) * InputHandler.scaleY);
-                //todo 카드 렌더
-            }
+            
             m.update();
         }
         for(SynergyDisplay s : synergies.values()) {
@@ -69,6 +71,10 @@ public class BattleScreen extends AbstractScreen {
         for(EnemyDisplay e : enemies.values()) {
             e.update();
         }
+    }
+
+    public void addHand(AbstractMember member) {
+        hand.put(member, new MemberDisplay(member));
     }
 
     @Override

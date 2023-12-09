@@ -1,6 +1,5 @@
 package com.fastcat.assemble.screens.mainmenu;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractGame;
@@ -9,28 +8,28 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.screens.battle.BattleScreen;
 
-public class StartButton extends AbstractUI {
+public class StartGameButton extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
+    private final FontHandler.FontData fontGrey = FontHandler.TURN_CHANGE;
 
-    public StartButton() {
-        super(FileHandler.getTexture("ui/tile"));
-        setPosition(960, 400);
+    public StartGameButton() {
+        super(FileHandler.getTexture("ui/tile"), 960, 600, 200, 80);
+        setData("gameStartButton");
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            if (overable && !over) sb.setColor(Color.LIGHT_GRAY);
-            //sb.draw(img, x, y, width, height);
-            FontHandler.renderCenter(sb, font, "게임 시작", x + width * 0.5f, y + height * 0.5f);
+            FontHandler.renderCenter(sb, overable && over ? font : fontGrey, data.text[0], x + width * 0.5f, y + height * 0.5f);
         }
     }
 
     @Override
     public void onClick() {
+        //todo 화면전환 추가
         WakTower.game = new AbstractGame();
         BattleScreen battleScreen = new BattleScreen();
-        WakTower.application.screen = battleScreen;
+        WakTower.setScreen(battleScreen);
     }
 }

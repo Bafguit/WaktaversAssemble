@@ -4,5 +4,17 @@
   ],
   "turnEndButton": [
     "턴 종료"
+  ],
+  "gameStartButton": [
+    "게임 시작"
+  ],
+  "loadGameButton": [
+    "불러오기"
+  ],
+  "DictionaryButton": [
+    "도감"
+  ],
+  "SettingButton": [
+    "설정"
   ]
 }

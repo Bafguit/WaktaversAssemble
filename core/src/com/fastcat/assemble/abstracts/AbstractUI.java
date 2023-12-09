@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler.FontData;
 import com.fastcat.assemble.handlers.InputHandler;
@@ -152,6 +153,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             clicked = over && isLeftClick;
             hasClick = clicked || clicking;
             clicking = over && hasClick && isLeftClicking;
+            clickEnd = hasClick && !isLeftClicking;
         } else {
             clicked = hasClick && hasOver && isLeftClick;
             clicking = hasClick && hasOver && isLeftClicking;
@@ -184,7 +186,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                         }
                     }
                     if (clicking) onClicking();
-                    else if (hasClick && clickEnd) onClickEnd();
+                    else if (clickEnd) onClickEnd();
                 } else over = false;
             } else timer = 0;
             updateButton();
@@ -193,6 +195,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             hasOver = false;
             hasClick = false;
             clicked = false;
+            clickEnd = false;
         }
 
     }
@@ -444,6 +447,10 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         NONE,
         CENTER,
         CLICKED
+    }
+
+    protected final void setData(String id) {
+        data = DataHandler.getInstance().uiData.get(id);
     }
 
     public static class UIData {
