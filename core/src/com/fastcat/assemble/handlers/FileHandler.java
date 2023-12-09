@@ -84,7 +84,7 @@ public class FileHandler {
             for(JsonValue v : jsonMap.get(type.name())) {
                 JsonValue v2 = generateJson("animation/" + type.name() + "/" + v.name + "/config.json");
                 jsonMap.put("animation_" + type.name() + "_" + v.name, v2);
-                for(JsonValue v3 : v2.child) {
+                for(JsonValue v3 : v2) {
                     for(int i = 0; i < v3.getInt("frameCount"); i++) {
                         assetManager.load("animation/" + type.name() + "/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
                     }
@@ -95,7 +95,7 @@ public class FileHandler {
         //ui animation data
         JsonValue v2 = generateJson("animation/ui/energy/config.json");
         jsonMap.put("animation_ui_energy", v2);
-        for(JsonValue v3 : v2.child) {
+        for(JsonValue v3 : v2) {
             for(int i = 0; i < v3.getInt("frameCount"); i++) {
                 assetManager.load("animation/ui/energy/" + v3.name + "/" + i + ".webp", Texture.class);
             }

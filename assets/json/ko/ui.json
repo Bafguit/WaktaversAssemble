@@ -1,13 +1,8 @@
 {
-  "PlaceHolder": {
-    "NAME": "주사위",
-    "DESC": "이곳에 아이템을 장착할 수 있습니다."
-  },
-  "OldShield": {
-    "NAME": "낡은 방패",
-    "DESC": "턴 시작 시 잃는 보호막의 &b<70%>가 보존됩니다.",
-    "KEY": [
-      "Block"
-    ]
-  }
+  "PlaceHolder": [
+    "리소스 불러오는 중..."
+  ],
+  "OldShield": [
+    "턴 종료"
+  ]
 }

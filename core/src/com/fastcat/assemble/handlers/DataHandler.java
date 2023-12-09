@@ -44,7 +44,7 @@ public class DataHandler {
         //ui data
         JsonValue json = FileHandler.getInstance().jsonMap.get("ui");
         for(JsonValue v : json.child) {
-            uiData.put(v.name, new AbstractUI.UIData(v.name, v.child));
+            uiData.put(v.name, new AbstractUI.UIData(v.name, v.asStringArray()));
         }
     }
 

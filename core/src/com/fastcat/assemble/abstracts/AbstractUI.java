@@ -424,9 +424,9 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         public final String id;
         public final String[] text;
 
-        public UIData(String id, JsonValue json) {
+        public UIData(String id, String[] t) {
             this.id = id;
-            text = json.asStringArray();
+            text = t;
         }
     }
 
