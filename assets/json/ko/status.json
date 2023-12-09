@@ -1,25 +1,9 @@
 {
-  "IncreaseAttack": {
+  "Status": {
     "NAME": "공격력 증가",
     "DESC": "공격력이 증가한다.",
     "EX_DESC": [
       "공격력이 &b<",
-      "%> 증가한다."
-    ]
-  },
-  "IncreaseDefense": {
-    "NAME": "방어력 증가",
-    "DESC": "방어력이 증가한다.",
-    "EX_DESC": [
-      "방어력이 &b<",
-      "%> 증가한다."
-    ]
-  },
-  "IncreaseNextAttack": {
-    "NAME": "공격력 증가",
-    "DESC": "다음 공격의 공격력이 증가한다.",
-    "EX_DESC": [
-      "다음 공격의 공격력이 &b<",
       "%> 증가한다."
     ]
   }
