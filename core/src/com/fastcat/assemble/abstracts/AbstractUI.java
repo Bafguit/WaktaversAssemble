@@ -107,6 +107,32 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         clicking = false;
     }
 
+    public AbstractUI(Pixmap texture) {
+        this(texture, -10000, -10000);
+    }
+
+    public AbstractUI(Pixmap texture, float x, float y) {
+        this(texture, x, y, texture.getWidth(), texture.getHeight());
+    }
+
+    public AbstractUI(Pixmap img, float x, float y, float width, float height) {
+        this.img = new Sprite(new Texture(img));
+        realWidth = originWidth = width;
+        realHeight = originHeight = height;
+        this.width = width * scaleA;
+        this.height = height * scaleA;
+        originX = x;
+        originY = y;
+        pos = new Vector2i(0, 0);
+        setLocalPosition();
+        mouse = new Vector2(mx, my);
+        over = false;
+        enabled = true;
+        uiScale = 1.0f;
+        clicked = false;
+        clicking = false;
+    }
+
     public final void update() {
         foreUpdate();
         width = originWidth * scaleA;

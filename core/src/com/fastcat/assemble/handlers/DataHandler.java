@@ -43,7 +43,7 @@ public class DataHandler {
     public void loadSync() {
         //ui data
         JsonValue json = FileHandler.getInstance().jsonMap.get("ui");
-        for(JsonValue v : json.child) {
+        for(JsonValue v : json) {
             uiData.put(v.name, new AbstractUI.UIData(v.name, v.asStringArray()));
         }
     }

@@ -5,10 +5,12 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.utils.SpriteAnimation;
+import com.fastcat.assemble.utils.WebpPixmapLoader;
 import com.fastcat.assemble.utils.WebpTextureLoader;
 
 import java.io.InputStreamReader;
@@ -33,6 +35,7 @@ public class FileHandler {
         assetManager = new AssetManager();
         resolver = new InternalFileHandleResolver();
         assetManager.setLoader(Texture.class, ".webp", new WebpTextureLoader(resolver));
+        assetManager.setLoader(Pixmap.class, ".webp", new WebpPixmapLoader(resolver));
         jsonMap = new HashMap<>();
         loadSync();
         loadAsync();
@@ -75,8 +78,8 @@ public class FileHandler {
     }
 
     private void generateUI() {
-        assetManager.load("image/ui/tile.webp", Texture.class);
-        assetManager.load("image/ui/cardBg.webp", Texture.class);
+        assetManager.load("image/ui/tile.webp", Pixmap.class);
+        assetManager.load("image/ui/cardBg.webp", Pixmap.class);
     }
 
     private void generateAnimationSprites() {
@@ -86,7 +89,7 @@ public class FileHandler {
                 jsonMap.put("animation_" + type.name() + "_" + v.name, v2);
                 for(JsonValue v3 : v2) {
                     for(int i = 0; i < v3.getInt("frameCount"); i++) {
-                        assetManager.load("animation/" + type.name() + "/" + v.name + "/" + v3.name + "/" + i + ".webp", Texture.class);
+                        assetManager.load("animation/" + type.name() + "/" + v.name + "/" + v3.name + "/" + i + ".webp", Pixmap.class);
                     }
                 }
             }
@@ -97,7 +100,7 @@ public class FileHandler {
         jsonMap.put("animation_ui_energy", v2);
         for(JsonValue v3 : v2) {
             for(int i = 0; i < v3.getInt("frameCount"); i++) {
-                assetManager.load("animation/ui/energy/" + v3.name + "/" + i + ".webp", Texture.class);
+                assetManager.load("animation/ui/energy/" + v3.name + "/" + i + ".webp", Pixmap.class);
             }
         }
     }
@@ -115,6 +118,8 @@ public class FileHandler {
     }
 
     public static Texture getTexture(String path) {
-        return instance.assetManager.get("image/" + path + ".webp", Texture.class);
+        Texture t = new Texture(instance.assetManager.get("image/" + path + ".webp", Pixmap.class));
+		t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        return t;
     }
 }

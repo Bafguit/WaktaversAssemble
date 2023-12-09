@@ -1,8 +1,8 @@
 {
-  "PlaceHolder": [
+  "loading": [
     "리소스 불러오는 중..."
   ],
-  "OldShield": [
+  "turnEndButton": [
     "턴 종료"
   ]
 }
