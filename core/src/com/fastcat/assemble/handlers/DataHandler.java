@@ -61,37 +61,37 @@ public class DataHandler {
         //member data
         JsonValue json = FileHandler.getInstance().jsonMap.get("member");
         for(JsonValue v : json) {
-            memberData.put(v.name, new AbstractMember.MemberData(v.name, v.child));
+            memberData.put(v.name, new AbstractMember.MemberData(v.name, v));
         }
 
         //skill data
         json = FileHandler.getInstance().jsonMap.get("skill");
         for(JsonValue v : json) {
-            skillData.put(v.name, new SkillData(v.name, v.child));
+            skillData.put(v.name, new SkillData(v.name, v));
         }
 
         //relic data
         json = FileHandler.getInstance().jsonMap.get("relic");
         for(JsonValue v : json) {
-            relicData.put(v.name, new RelicData(v.name, v.child));
+            relicData.put(v.name, new RelicData(v.name, v));
         }
 
         //synergy data
         json = FileHandler.getInstance().jsonMap.get("synergy");
         for(JsonValue v : json) {
-            synergyData.put(v.name, new SynergyData(v.name, v.child));
+            synergyData.put(v.name, new SynergyData(v.name, v));
         }
 
         //entity data
         json = FileHandler.getInstance().jsonMap.get("entity");
         for(JsonValue v : json) {
-            entityData.put(v.name, new EntityData(v.name, v.child));
+            entityData.put(v.name, new EntityData(v.name, v));
         }
 
         //status data
         json = FileHandler.getInstance().jsonMap.get("status");
         for(JsonValue v : json) {
-            statusData.put(v.name, new StatusData(v.name, v.child));
+            statusData.put(v.name, new StatusData(v.name, v));
         }
     }
 }
