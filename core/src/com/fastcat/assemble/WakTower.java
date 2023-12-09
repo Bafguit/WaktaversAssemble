@@ -144,7 +144,7 @@ public class WakTower extends ApplicationAdapter {
         */
 		} else {
 			float p = FileHandler.getProcess();
-			FontHandler.renderCenter(sb, FontHandler.NB30, uiData.text[0] + "\n" + p * 100 + "%", 0,
+			FontHandler.renderCenter(sb, FontHandler.NB30, uiData.text[0] + "\n" + String.format("%.3f", p * 100) + "%", 0,
 					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
 		}
 		sb.end();

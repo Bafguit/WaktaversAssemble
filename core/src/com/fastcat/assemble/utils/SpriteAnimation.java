@@ -49,9 +49,9 @@ public class SpriteAnimation {
         current = animations.get(key);
     }
 
-    private final void generateAnimationData() {
+    private void generateAnimationData() {
         JsonValue json = FileHandler.getInstance().jsonMap.get("animation_" + type.name() + "_"  + id);
-        for(JsonValue v : json.child) {
+        for(JsonValue v : json) {
             Array<Sprite> frames = new Array<>();
             for(int i = 0; i < v.getInt("frameCount"); i++) {
                 FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + "/" + i + ".webp");
@@ -60,9 +60,9 @@ public class SpriteAnimation {
         }
     }
 
-    private final void generateUIAnimationData() {
+    private void generateUIAnimationData() {
         JsonValue json = FileHandler.getInstance().jsonMap.get("animation_ui_"  + id);
-        for(JsonValue v : json.child) {
+        for(JsonValue v : json) {
             Array<Sprite> frames = new Array<>();
             for(int i = 0; i < v.getInt("frameCount"); i++) {
                 FileHandler.getInstance().assetManager.get("animation/ui/" + id + "/" + v.name + "/" + i + ".webp");
