@@ -60,7 +60,10 @@ public abstract class AbstractSynergy {
             img = FileHandler.getTexture("synergy/" + id);
             gradeImg = new Texture[gradeDesc.length];
             for(int i = 1; i <= gradeDesc.length; i++) {
-                gradeImg[i - 1] = FileHandler.getTexture("synergy/" + id + "_" + i);
+                gradeImg[i - 1] = FileHandler.getTexture("synergy/" + id);
+
+                //todo 이걸로 바꾸기
+                //gradeImg[i - 1] = FileHandler.getTexture("synergy/" + id + "_" + i);
             }
         }
     }
