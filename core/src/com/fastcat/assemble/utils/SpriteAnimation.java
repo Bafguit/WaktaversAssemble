@@ -150,7 +150,7 @@ public class SpriteAnimation {
 
         public SpriteAnimationData(String key, Array<Sprite> sprites, float duration, boolean isLoop, Vector2 axis) {
             this.key = key;
-            frames = sprites.items;
+            frames = sprites.toArray(Sprite.class);
             frameDuration = duration;
             this.duration = frameDuration * frames.length;
             this.isLoop = isLoop;
