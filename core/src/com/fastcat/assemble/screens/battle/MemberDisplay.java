@@ -30,6 +30,7 @@ public class MemberDisplay extends AbstractUI {
         this.member = member;
         clickable = true;
         basis = BasisType.CENTER;
+        //tile 206x87
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
         //frame 206x279
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
