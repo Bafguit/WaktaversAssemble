@@ -81,7 +81,7 @@ public class FileHandler {
 
     private void generateAnimationSprites() {
         for(SpriteAnimation.SpriteAnimationType type : SpriteAnimation.SpriteAnimationType.values()) {
-            for(JsonValue v : jsonMap.get(type.name()).child) {
+            for(JsonValue v : jsonMap.get(type.name())) {
                 JsonValue v2 = generateJson("animation/" + type.name() + "/" + v.name + "/config.json");
                 jsonMap.put("animation_" + type.name() + "_" + v.name, v2);
                 for(JsonValue v3 : v2.child) {

@@ -1,22 +1,3 @@
 {
-  "enemy_1038_lunmag": {
-    "NAME": "편제 캐스터",
-    "DESC": ""
-  },
-  "enemy_1035_haxe": {
-    "NAME": "무장병력",
-    "DESC": ""
-  },
-  "enemy_1016_diaman": {
-    "NAME": "메탈 크랩",
-    "DESC": ""
-  },
-  "enemy_1010_demon": {
-    "NAME": "살카즈 전사",
-    "DESC": ""
-  },
-  "enemy_1012_dcross": {
-    "NAME": "살카즈 스나이퍼",
-    "DESC": ""
-  }
+  
 }
