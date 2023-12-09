@@ -85,23 +85,23 @@ public class FileHandler {
 
     private void generateMember() {
         for(JsonValue v : jsonMap.get("member")) {
-            assetManager.load("image/member/" + v.name, Pixmap.class);
+            assetManager.load("image/member/" + v.name + ".webp", Pixmap.class);
         }
 
         for(JsonValue v : jsonMap.get("relic")) {
-            assetManager.load("image/relic/" + v.name, Pixmap.class);
+            assetManager.load("image/relic/" + v.name + ".webp", Pixmap.class);
         }
 
         for(JsonValue v : jsonMap.get("skill")) {
-            assetManager.load("image/skill/" + v.name, Pixmap.class);
+            assetManager.load("image/skill/" + v.name + ".webp", Pixmap.class);
         }
 
         for(JsonValue v : jsonMap.get("status")) {
-            assetManager.load("image/status/" + v.name, Pixmap.class);
+            assetManager.load("image/status/" + v.name + ".webp", Pixmap.class);
         }
 
         for(JsonValue v : jsonMap.get("synergy")) {
-            assetManager.load("image/synergy/" + v.name, Pixmap.class);
+            assetManager.load("image/synergy/" + v.name + ".webp", Pixmap.class);
         }
     }
 
