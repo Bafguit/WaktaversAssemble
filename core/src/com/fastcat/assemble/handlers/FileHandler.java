@@ -49,6 +49,7 @@ public class FileHandler {
     private void loadAsync() {
         generateUI();
         generateAnimationSprites();
+        generateMember();
     }
 
     @SuppressWarnings("NewApi")
@@ -80,6 +81,28 @@ public class FileHandler {
     private void generateUI() {
         assetManager.load("image/ui/tile.webp", Pixmap.class);
         assetManager.load("image/ui/cardBg.webp", Pixmap.class);
+    }
+
+    private void generateMember() {
+        for(JsonValue v : jsonMap.get("member")) {
+            assetManager.load("image/member/" + v.name, Pixmap.class);
+        }
+
+        for(JsonValue v : jsonMap.get("relic")) {
+            assetManager.load("image/relic/" + v.name, Pixmap.class);
+        }
+
+        for(JsonValue v : jsonMap.get("skill")) {
+            assetManager.load("image/skill/" + v.name, Pixmap.class);
+        }
+
+        for(JsonValue v : jsonMap.get("status")) {
+            assetManager.load("image/status/" + v.name, Pixmap.class);
+        }
+
+        for(JsonValue v : jsonMap.get("synergy")) {
+            assetManager.load("image/synergy/" + v.name, Pixmap.class);
+        }
     }
 
     private void generateAnimationSprites() {
