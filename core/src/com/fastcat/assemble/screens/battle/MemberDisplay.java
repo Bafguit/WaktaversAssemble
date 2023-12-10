@@ -15,8 +15,8 @@ import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 
 public class MemberDisplay extends AbstractUI {
 
-    private final FontHandler.FontData fontName = FontHandler.TURN_CHANGE.cpy();
-    private final FontHandler.FontData fontDesc = FontHandler.TURN_CHANGE.cpy();
+    private final FontHandler.FontData fontName = FontHandler.SUB_NAME.cpy();
+    private final FontHandler.FontData fontDesc = FontHandler.SUB_DESC.cpy();
     private final AbstractUI.TempUI cardImg, tile, descBg; 
     private final SynergyDisplay[] synergy;
     private final Sprite frame;

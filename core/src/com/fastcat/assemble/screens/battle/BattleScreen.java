@@ -40,7 +40,7 @@ public class BattleScreen extends AbstractScreen {
         }
 
         testMember = new MemberDisplay(new Victory());
-        testMember.setPosition(960, 71);
+        testMember.setPosition(960, 540);
     }
 
     public void initialize() {
@@ -58,7 +58,7 @@ public class BattleScreen extends AbstractScreen {
     public void update() {
         testMember.update();
         int c = 0, hs = hand.size();
-        float hw = (110 * hs + 118) * 0.5f;
+        float hw = 960 + (110 * hs + 118) * 0.5f;
         for(MemberDisplay h : hand.values()) {
             h.fluid = true;
             if(h.over) {
