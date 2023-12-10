@@ -22,7 +22,7 @@ public class SpriteAnimation {
     private float singleTimer;
     private boolean singleTimerEnded;
 
-    private final String id;
+    private String id;
     private SpriteAnimationData current;
     private Queue<SpriteAnimationData> next = new Queue<>();
     private Color color = Color.WHITE.cpy();
@@ -42,6 +42,8 @@ public class SpriteAnimation {
         this.id = id;
         generateUIAnimationData();
     }
+
+    private SpriteAnimation() {}
 
     public void setAnimation(String key) {
         isRunning = true;
@@ -131,7 +133,8 @@ public class SpriteAnimation {
     }
 
     public SpriteAnimation cpy() {
-        SpriteAnimation a = new SpriteAnimation(id);
+        SpriteAnimation a = new SpriteAnimation();
+        a.id = id;
         a.type = type;
         for(SpriteAnimationData data : animations.values()) {
             a.animations.put(data.key, data.cpy());
