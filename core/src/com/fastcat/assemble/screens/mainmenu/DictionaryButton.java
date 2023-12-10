@@ -7,8 +7,8 @@ import com.fastcat.assemble.handlers.FontHandler;
 
 public class DictionaryButton extends AbstractUI {
 
-    private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
-    private final FontHandler.FontData fontGrey = FontHandler.TURN_CHANGE;
+    private final FontHandler.FontData font = FontHandler.MAIN;
+    private final FontHandler.FontData fontGrey = FontHandler.MAIN_GREY;
 
     public DictionaryButton() {
         super(FileHandler.getTexture("ui/tile"), 960, 400, 200, 80);

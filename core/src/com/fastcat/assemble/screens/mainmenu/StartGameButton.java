@@ -10,8 +10,8 @@ import com.fastcat.assemble.screens.battle.BattleScreen;
 
 public class StartGameButton extends AbstractUI {
 
-    private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
-    private final FontHandler.FontData fontGrey = FontHandler.TURN_CHANGE;
+    private final FontHandler.FontData font = FontHandler.MAIN;
+    private final FontHandler.FontData fontGrey = FontHandler.MAIN_GREY;
 
     public StartGameButton() {
         super(FileHandler.getTexture("ui/tile"), 960, 600, 200, 80);

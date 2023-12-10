@@ -7,8 +7,8 @@ import com.fastcat.assemble.handlers.FontHandler;
 
 public class LoadGameButton extends AbstractUI {
 
-    private final FontHandler.FontData font = FontHandler.TURN_CHANGE;
-    private final FontHandler.FontData fontGrey = FontHandler.TURN_CHANGE;
+    private final FontHandler.FontData font = FontHandler.MAIN;
+    private final FontHandler.FontData fontGrey = FontHandler.MAIN_GREY;
 
     public LoadGameButton() {
         super(FileHandler.getTexture("ui/tile"), 960, 500, 200, 80);
