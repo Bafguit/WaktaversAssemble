@@ -55,7 +55,15 @@ public class MemberDisplay extends AbstractUI {
     @Override
     protected void updateButton() {
         if(over) InputHandler.alreadyOver = true;
+        tile.update();
         cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
+        for(int i = 0; i < synergy.length; i++) {
+            SynergyDisplay s = synergy[i];
+            s.setPosition(originX + originWidth * 0.4f - s.originWidth * 1.1f * (synergy.length - 1 - i), originY + originHeight * 0.45f);
+            s.update();
+        }
+        descBg.setPosition(originX, cardImg.originY - cardImg.originHeight * 0.5f);
+        descBg.update();
     }
 
     @Override
@@ -74,17 +82,18 @@ public class MemberDisplay extends AbstractUI {
     protected void renderUi(SpriteBatch sb) {
         if(isCard) {
             sb.draw(img, x, y, width, height);
-            float yy = y - height * 0.5f + cardImg.height * 0.5f + 14 * InputHandler.scaleA;
-            sb.draw(cardImg.img, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
-            sb.draw(frame, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
+            float xx = x + width * 0.5f - cardImg.width * 0.5f;
+            float yy = y + height * 0.5f - cardImg.height * 0.5f - 14 * InputHandler.scaleA;
+            sb.draw(cardImg.img, xx, yy, cardImg.width, cardImg.height);
             
             if(timer > 0) {
                 descBg.img.setAlpha(timer);
-                descBg.render(sb);
+                sb.draw(descBg.img, xx, yy, descBg.width, descBg.height);
                 descBg.img.setAlpha(1f);
                 fontDesc.alpha = timer;
                 FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x + width * 0.1f, y + height * 0.2f, width * 0.8f);
             }
+            sb.draw(frame, xx, yy, cardImg.width, cardImg.height);
 
             FontHandler.renderMemberName(sb, fontName, member.name, x + width * 0.08f, y + height * 0.92f, width);
 
