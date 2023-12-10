@@ -79,7 +79,7 @@ public class BattleScreen extends AbstractScreen {
 
     @Override
     protected void render(SpriteBatch sb) {
-        if(WakTower.game.battle.isPlayerTurn()) {
+        /*if(WakTower.game.battle.isPlayerTurn()) {
             for(EnemyDisplay e : enemies.values()) {
                 e.render(sb);
             }
@@ -89,7 +89,7 @@ public class BattleScreen extends AbstractScreen {
             for(EnemyDisplay e : enemies.values()) {
                 e.render(sb);
             }
-        }
+        }*/
 
         for(MemberDisplay m : members.values()) {
             if(!m.isCard) m.render(sb);
