@@ -5,7 +5,7 @@ import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 
-public class SynergyDisplay extends AbstractUI {
+public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisplay> {
 
     public final SynergyDisplayType type;
     public AbstractSynergy synergy;
@@ -35,6 +35,11 @@ public class SynergyDisplay extends AbstractUI {
                 sb.draw(synergy.gradeImg[synergy.grade], x, y, width, height);
             }
         }
+    }
+
+    @Override
+    public int compareTo(SynergyDisplay sd) {
+        return sd.synergy.grade - this.synergy.grade;
     }
 
     public enum SynergyDisplayType {

@@ -7,6 +7,8 @@ import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.utils.SpriteAnimation;
@@ -50,6 +52,7 @@ public class FileHandler {
         generateUI();
         generateAnimationSprites();
         generateMember();
+        //todo 애니메이션과 ui를 제외한 다른 이미지는 전부 TextureAtlas로 불러오기
     }
 
     @SuppressWarnings("NewApi")
@@ -94,6 +97,8 @@ public class FileHandler {
         for(JsonValue v : jsonMap.get("member")) {
             assetManager.load("image/member/" + v.name + ".webp", Pixmap.class);
         }
+
+        assetManager.load("atlas/relic.atlas", TextureAtlas.class);
 
         for(JsonValue v : jsonMap.get("relic")) {
             assetManager.load("image/relic/" + v.name + ".webp", Pixmap.class);
@@ -151,5 +156,34 @@ public class FileHandler {
         Texture t = new Texture(instance.assetManager.get("image/" + path + ".webp", Pixmap.class));
 		t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         return t;
+    }
+
+    public static Sprite getRelic(String id) {
+        TextureAtlas atlas = instance.assetManager.get("atlas/relic.atlas", TextureAtlas.class);
+        return atlas.createSprite(id);
+    }
+
+    public static Sprite getSkill(String id) {
+        TextureAtlas atlas = instance.assetManager.get("atlas/skill.atlas", TextureAtlas.class);
+        return atlas.createSprite(id);
+    }
+
+    public static Sprite getMember(String id) {
+        TextureAtlas atlas = instance.assetManager.get("atlas/member.atlas", TextureAtlas.class);
+        return atlas.createSprite(id);
+    }
+
+    public static Sprite getStatus(String id) {
+        TextureAtlas atlas = instance.assetManager.get("atlas/status.atlas", TextureAtlas.class);
+        return atlas.createSprite(id);
+    }
+
+    public static Sprite getSynergy(String id) {
+        TextureAtlas atlas = instance.assetManager.get("atlas/synergy.atlas", TextureAtlas.class);
+        return atlas.createSprite(id);
+    }
+
+    public static TextureAtlas getAtlas(String type) {
+        return instance.assetManager.get("atlas/" + type + ".atlas", TextureAtlas.class);
     }
 }

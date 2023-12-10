@@ -18,6 +18,7 @@ public class SummonMemberAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             MemberDisplay m = WakTower.battleScreen.hand.remove(member);
+            WakTower.battleScreen.updateHandPosition();
             m.isCard = false;
             WakTower.battleScreen.members.put(member, m);
             member.animation.setAnimation("summon");

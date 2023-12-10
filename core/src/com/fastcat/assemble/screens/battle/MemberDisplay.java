@@ -2,6 +2,7 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
@@ -25,17 +26,17 @@ public class MemberDisplay extends AbstractUI {
     public boolean isCard;
 
     public MemberDisplay(AbstractMember member) {
-        //228x342
+        //285x428
         super(FileHandler.getTexture("ui/cardBg"));
         this.member = member;
         clickable = true;
         basis = BasisType.CENTER;
         //tile 206x87
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
-        //frame 206x279
+        //frame 258x349
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
-        //descBg 높이: 160
+        //descBg 258x200
         descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDesc"));
         descBg.basis = BasisType.BOTTOM;
         synergy = new SynergyDisplay[member.synergy.length];
@@ -57,18 +58,6 @@ public class MemberDisplay extends AbstractUI {
         if(over) InputHandler.alreadyOver = true;
         tile.update();
         cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
-        for(int i = 0; i < synergy.length; i++) {
-            SynergyDisplay s = synergy[i];
-            s.setPosition(originX + originWidth * 0.4f - s.originWidth * 1.1f * (synergy.length - 1 - i), originY + originHeight * 0.45f);
-            s.update();
-        }
-        descBg.setPosition(originX, cardImg.originY - cardImg.originHeight * 0.5f);
-        descBg.update();
-    }
-
-    @Override
-    protected void afterUpdate() {
-        tile.update();
         for(int i = 0; i < synergy.length; i++) {
             SynergyDisplay s = synergy[i];
             s.setPosition(originX + originWidth * 0.4f - s.originWidth * 1.1f * (synergy.length - 1 - i), originY + originHeight * 0.45f);
@@ -101,7 +90,7 @@ public class MemberDisplay extends AbstractUI {
             }
         } else {
             for(AbstractSynergy s : member.synergy) {
-                SynergyDisplay sd = ScreenHandler.getInstance().battleScreen.synergies.get(s);
+                SynergyDisplay sd = ScreenHandler.getInstance().battleScreen.synergyMap.get(s);
                 if(sd.over) {
                     tile.render(sb);
                     break;
@@ -118,6 +107,16 @@ public class MemberDisplay extends AbstractUI {
                 //효과 설명 출력
             }
         }
+    }
+
+    @Override
+    protected void onOver() {
+        if(isCard) WakTower.battleScreen.updateHandPosition();
+    }
+
+    @Override
+    protected void onOverEnd() {
+        if(isCard) WakTower.battleScreen.updateHandPosition();
     }
 
     @Override

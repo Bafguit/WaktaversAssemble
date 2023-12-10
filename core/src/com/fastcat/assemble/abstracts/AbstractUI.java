@@ -146,6 +146,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             x += parent.x;
             y += parent.y;
         }
+        boolean justOver = hasOver;
         hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !InputHandler.alreadyOver;
         if(isDesktop) {
             over = hasOver && isCursorInScreen;
@@ -176,6 +177,8 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                         if(timer >= 1f) timer = 1f;
                     }
                     subTexts = getSubText();
+                    if(!justOver && hasOver) onOver();
+                    else if(justOver && !hasOver) onOverEnd();
                     if (clicked) {
                         if (clickable) {
                             cursorX = mouse.x - localX;
@@ -318,6 +321,12 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         }
     }
 
+    public void forcePosition(float x, float y) {
+        originX = x;
+        originY = y;
+        setLocalPosition();
+    }
+
     public void setScale(float scale) {
         uiScale = scale;
         originWidth = realWidth * uiScale;
@@ -376,6 +385,10 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     protected void onClicking() {}
 
     protected void onClickEnd() {}
+
+    protected void onOver() {}
+
+    protected void onOverEnd() {}
 
     @Override
     public AbstractUI clone() {

@@ -18,7 +18,7 @@ public abstract class AbstractSynergy {
     public final int maxGrade;
     public final Sprite img;
     public final Sprite[] gradeImg;
-    public int baseMemCount, memberCount, grade, counter, globalGrade;
+    public int baseMemCount, memberCount, grade, counter, globalCount;
 
     public AbstractSynergy(String id) {
         this.id = id;
@@ -33,7 +33,7 @@ public abstract class AbstractSynergy {
         for(int i = 0; i < maxGrade; i++) {
             gradeImg[i] = new Sprite(data.gradeImg[i]);
         }
-        globalGrade = 0;
+        globalCount = 0;
         baseMemCount = memberCount = grade = counter = 0;
     }
 
@@ -58,11 +58,11 @@ public abstract class AbstractSynergy {
             gradeDesc = json.get("gradeDesc").asStringArray();
             gradeAmount = json.get("gradeAmount").asIntArray();
             img = FileHandler.getTexture("synergy/" + id);
-            gradeImg = new Texture[gradeDesc.length];
-            for(int i = 1; i <= gradeDesc.length; i++) {
-                gradeImg[i - 1] = FileHandler.getTexture("synergy/" + id);
+            gradeImg = new Texture[gradeDesc.length + 1];
+            for(int i = 0; i <= gradeDesc.length; i++) {
+                gradeImg[i] = FileHandler.getTexture("synergy/" + id);
 
-                //todo 이걸로 바꾸기
+                //todo 이걸로 바꾸기, 시너지 아이콘은 TextureAtlas로 불러오기 (크기는 작은데 양이 많아서)
                 //gradeImg[i - 1] = FileHandler.getTexture("synergy/" + id + "_" + i);
             }
         }
