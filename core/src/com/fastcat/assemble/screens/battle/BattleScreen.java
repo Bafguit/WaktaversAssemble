@@ -28,6 +28,7 @@ public class BattleScreen extends AbstractScreen {
         skills = new HashMap<>();
         synergies = new HashMap<>();
         turnEnd = new TurnEndButton();
+        initialize();
     }
 
     public void initialize() {
