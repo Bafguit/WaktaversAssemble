@@ -16,7 +16,7 @@ public class EnergyDisplay extends AbstractUI implements OnEnergyUpdated {
     public SpriteAnimation animation;
 
     public EnergyDisplay() {
-        super(FileHandler.getTexture("ui/energyBlank"));
+        super(FileHandler.getTexture("ui/synergyIcon"));
         animation = DataHandler.getInstance().animation.get("energy");
     }
 

@@ -17,9 +17,9 @@ public class SkillDisplay extends AbstractUI {
     public AbstractSkill skill;
 
     public SkillDisplay(AbstractSkill s) {
-        super(FileHandler.getTexture("ui/skillBg"));
+        super(FileHandler.getTexture("ui/tile"));
         skill = s;
-        frame = new Sprite(FileHandler.getTexture("ui/skillFrame"));
+        frame = new Sprite(FileHandler.getTexture("ui/tile"));
     }
 
     @Override

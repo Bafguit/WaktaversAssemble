@@ -19,9 +19,9 @@ public class TurnEndButton extends AbstractUI {
     private final Sprite disabledImg;
 
     public TurnEndButton() {
-        super(FileHandler.getTexture("ui/turnEnd"));
+        super(FileHandler.getTexture("ui/tile"));
         setPosition(960, 400);
-        disabledImg = new Sprite(FileHandler.getTexture("ui/turnEndDisabled"));
+        disabledImg = new Sprite(FileHandler.getTexture("ui/tile"));
         data = DataHandler.getInstance().uiData.get("turnEndButton");
     }
 

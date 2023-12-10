@@ -10,7 +10,7 @@ public class StatusDisplay extends AbstractUI {
     public AbstractStatus status;
 
     public StatusDisplay(AbstractStatus status) {
-        super(FileHandler.getTexture("ui/statusIcon"));
+        super(FileHandler.getTexture("ui/tile"));
         clickable = false;
         this.status = status;
     }
