@@ -74,9 +74,9 @@ public class MemberDisplay extends AbstractUI {
     protected void renderUi(SpriteBatch sb) {
         if(isCard) {
             sb.draw(img, x, y, width, height);
-            sb.draw(cardImg.img, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
-            sb.draw(frame, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
-            System.err.println("bgX: " + x + " | bgY: " + y + " | imgX: " + cardImg.x + " | imgY: " + cardImg.y);
+            float yy = y - height * 0.5f + cardImg.height * 0.5f + 14 * InputHandler.scaleA;
+            sb.draw(cardImg.img, x, yy, cardImg.width, cardImg.height);
+            sb.draw(frame, x, yy, cardImg.width, cardImg.height);
             
             if(timer > 0) {
                 descBg.img.setAlpha(timer);
