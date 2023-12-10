@@ -89,7 +89,7 @@ public class BattleScreen extends AbstractScreen {
             for(EnemyDisplay e : enemies.values()) {
                 e.render(sb);
             }
-        }*/
+        }
 
         for(MemberDisplay m : members.values()) {
             if(!m.isCard) m.render(sb);
@@ -101,7 +101,7 @@ public class BattleScreen extends AbstractScreen {
 
         for(SkillDisplay s : skills.values()) {
             s.render(sb);
-        }
+        }*/
 
         for(MemberDisplay m : members.values()) {
             if(m.isCard) m.render(sb);
