@@ -83,13 +83,12 @@ public class MemberDisplay extends AbstractUI {
         if(isCard) {
             sb.draw(img, x, y, width, height);
             float xx = x + width * 0.5f - cardImg.width * 0.5f;
-            float yy = y + height * 0.5f - cardImg.height * 0.5f - 14 * InputHandler.scaleA;
+            float yy = y + height * 0.5f - cardImg.height * 0.5f - 28 * InputHandler.scaleA;
             sb.draw(cardImg.img, xx, yy, cardImg.width, cardImg.height);
             
             if(timer > 0) {
-                descBg.img.setAlpha(timer);
-                sb.draw(descBg.img, xx, yy, descBg.width, descBg.height);
-                descBg.img.setAlpha(1f);
+                descBg.img.setBounds(xx, yy, descBg.width, descBg.height);
+                descBg.img.draw(sb, timer);
                 fontDesc.alpha = timer;
                 FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x + width * 0.1f, y + height * 0.2f, width * 0.8f);
             }
