@@ -75,7 +75,7 @@ public class MemberDisplay extends AbstractUI {
     protected void renderUi(SpriteBatch sb) {
         if(isCard) {
             sb.draw(img, x, y, width, height);
-            cardImg.render(sb);
+            sb.draw(cardImg.img, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
             sb.draw(frame, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
             
             if(timer > 0) {
