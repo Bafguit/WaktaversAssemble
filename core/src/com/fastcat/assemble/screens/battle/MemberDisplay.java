@@ -35,7 +35,6 @@ public class MemberDisplay extends AbstractUI {
         //frame 206x279
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
-        System.out.println(member.img.getTexture());
         //descBg 높이: 160
         descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDesc"));
         descBg.basis = BasisType.BOTTOM;
@@ -84,10 +83,10 @@ public class MemberDisplay extends AbstractUI {
                 descBg.render(sb);
                 descBg.img.setAlpha(1f);
                 fontDesc.alpha = timer;
-                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, originX - originWidth * 0.4f, originY - originHeight * 0.3f, originWidth * 0.8f);
+                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x - width * 0.4f, y - height * 0.3f, width * 0.8f);
             }
 
-            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.42f, originY + originHeight * 0.42f, originWidth);
+            FontHandler.renderMemberName(sb, fontName, member.name, x - width * 0.42f, y + height * 0.42f, width);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);

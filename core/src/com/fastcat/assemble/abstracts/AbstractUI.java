@@ -187,7 +187,10 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                     if (clicking) onClicking();
                     else if (clickEnd) onClickEnd();
                 } else over = false;
-            } else timer = 0;
+            } else if (timer > 0) {
+                timer -= WakTower.tick / 0.5f;
+                if(timer <= 0f) timer = 0f;
+            }
             updateButton();
         } else {
             over = false;

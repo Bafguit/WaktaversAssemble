@@ -123,6 +123,15 @@ public final class FontHandler implements Disposable {
         fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
     }
 
+    public static void renderMemberName(
+            SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
+        BitmapFont font = fontData.font;
+        font.getData().setScale(fontData.scale * InputHandler.scaleA);
+        layout.setText(font, text, fontData.color, bw, Align.left, false);
+        float ry = y + (layout.height) * 0.5f;
+        fontData.draw(sb, layout, fontData.alpha, x, ry);
+    }
+
     public static void renderLineRight(
             SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
@@ -236,9 +245,9 @@ public final class FontHandler implements Disposable {
             matcher = VAR_PATTERN.matcher(text);
         }
         font.getData().setScale(fontData.scale * InputHandler.scaleA);
-        layout.setText(font, text, fontData.color, bw * scaleX, Align.center, true);
-        float ry = y * scaleY + (layout.height) * 0.65f;
-        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
+        layout.setText(font, text, fontData.color, bw, Align.center, true);
+        float ry = y + (layout.height) * 0.65f;
+        fontData.draw(sb, layout, fontData.alpha, x, ry);
     }
 
     private static void renderLine(SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
