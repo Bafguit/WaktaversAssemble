@@ -81,6 +81,10 @@ public class FileHandler {
     private void generateUI() {
         assetManager.load("image/ui/tile.webp", Pixmap.class);
         assetManager.load("image/ui/cardBg.webp", Pixmap.class);
+        assetManager.load("image/ui/cardDesc.webp", Pixmap.class);
+        assetManager.load("image/ui/cardFrame.webp", Pixmap.class);
+        assetManager.load("image/ui/memberTile.webp", Pixmap.class);
+        assetManager.load("image/ui/synergyIcon.webp", Pixmap.class);
     }
 
     private void generateMember() {

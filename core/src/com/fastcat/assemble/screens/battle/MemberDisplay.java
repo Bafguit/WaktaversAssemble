@@ -36,7 +36,7 @@ public class MemberDisplay extends AbstractUI {
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
         //descBg 높이: 160
-        descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDescBg"));
+        descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDesc"));
         descBg.basis = BasisType.BOTTOM;
         synergy = new SynergyDisplay[member.synergy.length];
         for(int i = 0; i < member.synergy.length; i++) {
