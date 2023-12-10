@@ -85,6 +85,9 @@ public class FileHandler {
         assetManager.load("image/ui/cardFrame.webp", Pixmap.class);
         assetManager.load("image/ui/memberTile.webp", Pixmap.class);
         assetManager.load("image/ui/synergyIcon.webp", Pixmap.class);
+        assetManager.load("image/ui/sub_top.webp", Pixmap.class);
+        assetManager.load("image/ui/sub_mid.webp", Pixmap.class);
+        assetManager.load("image/ui/sub_bot.webp", Pixmap.class);
     }
 
     private void generateMember() {
