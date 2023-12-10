@@ -19,7 +19,7 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
     public LinkedList<StatusDisplay> status;
 
     public PlayerDisplay(AbstractPlayer player) {
-        super(FileHandler.getTexture("ui/entityBlank"));
+        super(FileHandler.getTexture("ui/tile"));
         status = new LinkedList<>();
         player.statusUpdatedListener.add(this);
     }

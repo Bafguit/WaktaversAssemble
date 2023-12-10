@@ -58,15 +58,14 @@ public class BattleScreen extends AbstractScreen {
         }
 
         for(MemberDisplay m : members.values()) {
-            
             m.update();
         }
         for(SynergyDisplay s : synergies.values()) {
             s.update();
         }
-        for(SkillDisplay s : skills.values()) {
+        /*for(SkillDisplay s : skills.values()) {
             s.update();
-        }
+        }*/
         turnEnd.update();
         player.update();
         for(EnemyDisplay e : enemies.values()) {
