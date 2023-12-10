@@ -16,6 +16,7 @@ public class StartGameButton extends AbstractUI {
     public StartGameButton() {
         super(FileHandler.getTexture("ui/tile"), 960, 600, 200, 80);
         setData("gameStartButton");
+        overable = true;
     }
 
     @Override

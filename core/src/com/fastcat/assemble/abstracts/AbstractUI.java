@@ -11,7 +11,6 @@ import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -147,9 +146,9 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             x += parent.x;
             y += parent.y;
         }
-        alreadyOver = hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !alreadyOver;
+        hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !InputHandler.alreadyOver;
         if(isDesktop) {
-            over = hasOver && isCursorInScreen && !InputHandler.alreadyOver;
+            over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;
             hasClick = clicked || clicking;
             clicking = over && hasClick && isLeftClicking;
