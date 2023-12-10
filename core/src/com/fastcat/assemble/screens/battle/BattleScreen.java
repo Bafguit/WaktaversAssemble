@@ -10,6 +10,8 @@ import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.battles.TestBattle;
+import com.fastcat.assemble.members.Hikiking;
+import com.fastcat.assemble.members.Victory;
 
 public class BattleScreen extends AbstractScreen {
 
@@ -30,7 +32,10 @@ public class BattleScreen extends AbstractScreen {
         synergies = new HashMap<>();
         turnEnd = new TurnEndButton();
         initialize();
-        WakTower.game.battle = new TestBattle();
+        for(int i = 0; i < 3; i++) {
+            addHand(new Victory());
+            addHand(new Hikiking());
+        }
     }
 
     public void initialize() {

@@ -63,11 +63,6 @@ public class AbstractGame {
         energyStart = 3;
         energyCharge = 1;
         energyMax = 3;
-
-        for(int i = 0; i < 5; i++) {
-            deck.add(new Victory());
-            deck.add(new Hikiking());
-        }
     }
 
     public void update() {
