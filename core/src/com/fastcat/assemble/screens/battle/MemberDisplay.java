@@ -83,10 +83,10 @@ public class MemberDisplay extends AbstractUI {
                 descBg.render(sb);
                 descBg.img.setAlpha(1f);
                 fontDesc.alpha = timer;
-                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x - width * 0.4f, y - height * 0.3f, width * 0.8f);
+                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x - width * 0.4f, y + height * 0.2f, width * 0.8f);
             }
 
-            FontHandler.renderMemberName(sb, fontName, member.name, x - width * 0.42f, y + height * 0.42f, width);
+            FontHandler.renderMemberName(sb, fontName, member.name, x - width * 0.42f, y + height * 0.92f, width);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);
