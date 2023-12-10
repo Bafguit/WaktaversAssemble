@@ -6,8 +6,8 @@ import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 
 public class Victory extends AbstractMember implements OnIncreaseGlobalDamage {
 
-    public Victory(String id) {
-        super(id);
+    public Victory() {
+        super("Victory");
         setValue(2, 1);
     }
 

@@ -64,6 +64,7 @@ public abstract class AbstractBattle implements Cloneable {
         }
         phase = BattlePhase.battleStart;
         resetSynergy();
+        turnDraw();
     }
 
     public void turnDraw() {

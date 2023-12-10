@@ -5,8 +5,8 @@ import com.fastcat.assemble.actions.MemberHikikingAction;
 
 public class Hikiking extends AbstractMember {
 
-    public Hikiking(String id) {
-        super(id);
+    public Hikiking() {
+        super("Hikiking");
         setAtk(2, 0);
         setValue(4, 1);
     }
