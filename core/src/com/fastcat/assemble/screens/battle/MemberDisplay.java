@@ -15,7 +15,7 @@ import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 
 public class MemberDisplay extends AbstractUI {
 
-    private final FontHandler.FontData fontName = FontHandler.SUB_NAME.cpy();
+    private final FontHandler.FontData fontName = FontHandler.SUB_DESC.cpy();
     private final FontHandler.FontData fontDesc = FontHandler.SUB_DESC.cpy();
     private final AbstractUI.TempUI cardImg, tile, descBg; 
     private final SynergyDisplay[] synergy;
@@ -35,6 +35,7 @@ public class MemberDisplay extends AbstractUI {
         //frame 206x279
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img.getTexture());
+        System.out.println(member.img.getTexture());
         //descBg 높이: 160
         descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDesc"));
         descBg.basis = BasisType.BOTTOM;
@@ -86,7 +87,7 @@ public class MemberDisplay extends AbstractUI {
                 FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, originX - originWidth * 0.4f, originY - originHeight * 0.3f, originWidth * 0.8f);
             }
 
-            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.42f, originY + originHeight * 0.43f, originWidth);
+            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.42f, originY + originHeight * 0.42f, originWidth);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);
