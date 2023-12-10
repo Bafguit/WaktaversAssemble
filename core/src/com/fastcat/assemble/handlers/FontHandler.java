@@ -27,8 +27,8 @@ public final class FontHandler implements Disposable {
     //Preload Fonts
     public static final FontData LOGO = new FontData(100, false);
     public static final FontData TURN_CHANGE = new FontData(60, false);
-    public static final FontData MAIN = new FontData(60, false);
-    public static final FontData MAIN_GREY = new FontData(60, false);
+    public static final FontData MAIN = new FontData(60, WHITE);
+    public static final FontData MAIN_GREY = new FontData(60, GRAY);
     public static final FontData ROLL = new FontData(40, false);
     public static final FontData NB30 = new FontData(30, false);
     public static final FontData NB26 = new FontData(26, false);
