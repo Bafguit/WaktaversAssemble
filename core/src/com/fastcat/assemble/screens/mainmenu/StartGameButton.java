@@ -30,7 +30,7 @@ public class StartGameButton extends AbstractUI {
     public void onClick() {
         //todo 화면전환 추가
         WakTower.game = new AbstractGame();
-        BattleScreen battleScreen = new BattleScreen();
-        WakTower.setScreen(battleScreen);
+        WakTower.battleScreen = new BattleScreen();
+        WakTower.setScreen(WakTower.battleScreen);
     }
 }
