@@ -60,7 +60,7 @@ public class MemberDisplay extends AbstractUI {
     @Override
     protected void afterUpdate() {
         tile.update();
-        cardImg.setPosition(originX, originY - originHeight * 0.1f);
+        cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
         cardImg.update();
         for(int i = 0; i < synergy.length; i++) {
             SynergyDisplay s = synergy[i];
@@ -76,6 +76,7 @@ public class MemberDisplay extends AbstractUI {
         if(isCard) {
             sb.draw(img, x, y, width, height);
             cardImg.render(sb);
+            sb.draw(frame, cardImg.x, cardImg.y, cardImg.width, cardImg.height);
             
             if(timer > 0) {
                 descBg.img.setAlpha(timer);
@@ -85,7 +86,7 @@ public class MemberDisplay extends AbstractUI {
                 FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, originX - originWidth * 0.4f, originY - originHeight * 0.3f, originWidth * 0.8f);
             }
 
-            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.45f, originY + originHeight * 0.45f, originWidth);
+            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.4f, originY + originHeight * 0.4f, originWidth);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);
