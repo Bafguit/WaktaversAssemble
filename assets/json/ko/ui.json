@@ -11,10 +11,10 @@
   "loadGameButton": [
     "불러오기"
   ],
-  "DictionaryButton": [
+  "dictionaryButton": [
     "도감"
   ],
-  "SettingButton": [
+  "settingButton": [
     "설정"
   ]
 }
