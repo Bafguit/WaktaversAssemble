@@ -23,6 +23,8 @@ public class BattleScreen extends AbstractScreen {
     public HashMap<AbstractSynergy, SynergyDisplay> synergies;
     public TurnEndButton turnEnd;
 
+    public MemberDisplay testMember;
+
     public BattleScreen() {
         super(ScreenType.BASE);
         enemies = new HashMap<>();
@@ -36,6 +38,9 @@ public class BattleScreen extends AbstractScreen {
             addHand(new Victory());
             addHand(new Hikiking());
         }
+
+        testMember = new MemberDisplay(new Victory());
+        testMember.setPosition(960, 71);
     }
 
     public void initialize() {
@@ -51,6 +56,7 @@ public class BattleScreen extends AbstractScreen {
 
     @Override
     public void update() {
+        testMember.update();
         int c = 0, hs = hand.size();
         float hw = (110 * hs + 118) * 0.5f;
         for(MemberDisplay h : hand.values()) {
@@ -113,5 +119,6 @@ public class BattleScreen extends AbstractScreen {
         for(MemberDisplay m : members.values()) {
             if(m.isCard) m.render(sb);
         }
+        testMember.render(sb);
     }
 }
