@@ -44,6 +44,7 @@ public class MemberDisplay extends AbstractUI {
         }
         isCard = true;
         trackable = TrackType.CENTER;
+        fluid = true;
     }
 
     @Override

@@ -40,7 +40,7 @@ public class BattleScreen extends AbstractScreen {
         }
 
         testMember = new MemberDisplay(new Victory());
-        testMember.setPosition(960, 540);
+        testMember.setPosition(200, 540);
     }
 
     public void initialize() {
