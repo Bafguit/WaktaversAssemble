@@ -86,7 +86,7 @@ public class MemberDisplay extends AbstractUI {
                 FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, originX - originWidth * 0.4f, originY - originHeight * 0.3f, originWidth * 0.8f);
             }
 
-            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.4f, originY + originHeight * 0.4f, originWidth);
+            FontHandler.renderLineLeft(sb, fontName, member.name, originX - originWidth * 0.42f, originY + originHeight * 0.43f, originWidth);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);
