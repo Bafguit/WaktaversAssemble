@@ -74,14 +74,18 @@ public abstract class AbstractBattle implements Cloneable {
     public void draw(int amount) {
         if(drawPile.size >= amount) {
             for(int i = 0; i < amount; i++) {
-                hand.add(drawPile.removeFirst());
+                AbstractMember m = drawPile.removeFirst();
+                hand.add(m);
+                WakTower.battleScreen.addHand(m);
                 if(hand.size() == WakTower.game.maxHand) break;
             }
         } else {
             if(drawPile.size > 0) {
                 int s = drawPile.size;
                 for(int i = 0; i < s; i++) {
-                    hand.add(drawPile.removeFirst());
+                    AbstractMember m = drawPile.removeFirst();
+                    hand.add(m);
+                    WakTower.battleScreen.addHand(m);
                     if(hand.size() == WakTower.game.maxHand) break;
                 }
                 amount -= s;
@@ -91,7 +95,9 @@ public abstract class AbstractBattle implements Cloneable {
                 drawPile.addLast(c);
             }
             for(int i = 0; i < amount; i++) {
-                hand.add(drawPile.removeFirst());
+                AbstractMember m = drawPile.removeFirst();
+                hand.add(m);
+                WakTower.battleScreen.addHand(m);
             }
             discardPile.clear();
         }
