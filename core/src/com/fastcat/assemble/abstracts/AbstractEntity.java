@@ -43,8 +43,13 @@ public abstract class AbstractEntity {
                 if(t.hasAmount) {
                     t.apply(s.amount);
                     if(t.amount == 0 || (t.amount < 0 && !t.canGoNegative)) {
-                        t.onRemove();
                         it.remove();
+                        t.onRemove();
+                        if(statusUpdatedListener.size > 0) {
+                            for(OnStatusUpdated listener : statusUpdatedListener) {
+                            listener.onStatusInitial(s);
+                            }
+                        }
                     }
                 }
                 return;
@@ -52,20 +57,46 @@ public abstract class AbstractEntity {
         }
         s.owner = this;
         status.add(s);
+        s.onInitial();
         if(statusUpdatedListener.size > 0) {
             for(OnStatusUpdated listener : statusUpdatedListener) {
-                listener.onStatusApplied(s);
+                listener.onStatusInitial(s);
             }
         }
-        s.onInitial();
     }
 
     public final void gainBlock(int amount) {
-        //todo 방어도 얻는 코드
+        if(amount > 0) {
+            block += 0;
+            if(isPlayer) {
+                for(AbstractRelic item : WakTower.game.relics) {
+                    item.onGainedBlock(amount);
+                }
+                for(AbstractMember c : WakTower.game.battle.members) {
+                    c.onGainedBlock(amount);
+                }
+            }
+            for(AbstractStatus s : status) {
+                s.onGainedBlock(amount);
+            }
+        }
     }
 
     public final void gainBarrier(int amount) {
-        //todo 보호막 얻는 코드
+        if(amount > 0) {
+            barrier += amount;
+            if(isPlayer) {
+                for(AbstractRelic item : WakTower.game.relics) {
+                    item.onGainBarrier(amount);
+                }
+                for(AbstractMember c : WakTower.game.battle.members) {
+                    c.onGainBarrier(amount);
+                }
+            }
+            for(AbstractStatus s : status) {
+                s.onGainBarrier(amount);
+            }
+        }
     }
 
     public final void takeDamage(DamageInfo info) {

@@ -47,17 +47,13 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
     protected void updateButton() {
         for(int i = 0; i < status.size(); i++) {
             StatusDisplay s = status.get(i);
+            s.setPosition(originX - originWidth * 0.5f + s.originWidth * i, originY - originHeight * 0.5f - s.originHeight);
             s.update();
         }
     }
 
     private void renderHealthBar(SpriteBatch sb) {
 
-    }
-
-    @Override
-    public void onStatusApplied(AbstractStatus status) {
-        this.status.add(new StatusDisplay(status));
     }
 
     @Override
@@ -70,5 +66,10 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onStatusInitial(AbstractStatus status) {
+        this.status.add(new StatusDisplay(status));
     }
 }

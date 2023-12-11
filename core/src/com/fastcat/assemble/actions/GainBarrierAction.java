@@ -7,13 +7,13 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 
-public class GainBlockAction extends AbstractAction {
+public class GainBarrierAction extends AbstractAction {
 
-    public GainBlockAction(AbstractEntity target, int blockAmount) {
+    public GainBarrierAction(AbstractEntity target, int blockAmount) {
         this(target, blockAmount, false);
     }
 
-    public GainBlockAction(AbstractEntity target, int blockAmount, boolean isFast) {
+    public GainBarrierAction(AbstractEntity target, int blockAmount, boolean isFast) {
         super(target, isFast ? 0.3f : 1.0f);
         amount = blockAmount;
     }
@@ -27,19 +27,19 @@ public class GainBlockAction extends AbstractAction {
                     int amt = amount;
                     if(e.isPlayer) {
                         for(AbstractRelic item : WakTower.game.relics) {
-                            amt = item.onGainBlock(amt);
+                            amt = item.onGainBarrier(amt);
                         }
                         for(AbstractMember c : WakTower.game.battle.members) {
-                            amt = c.onGainBlock(amt);
+                            amt = c.onGainBarrier(amt);
                         }
                     }
                     for(AbstractStatus s : e.status) {
-                        amt = s.onGainBlock(amt);
+                        amt = s.onGainBarrier(amt);
                     }
                     if(amt > 0) {
                         cnt++;
                         //todo 이펙트
-                        e.gainBlock(amt);
+                        e.gainBarrier(amt);
                     }
                 }
                 if(cnt == 0) isDone = true;

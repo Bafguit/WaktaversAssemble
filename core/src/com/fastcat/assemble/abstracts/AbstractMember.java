@@ -89,6 +89,18 @@ public abstract class AbstractMember implements Cloneable {
     public int damageTake(DamageInfo info, boolean isPlayer) {
         return info.damage;
     }
+    
+    public int onGainBlock(int amount) {
+        return amount;
+    }
+    
+    public int onGainBarrier(int amount) {
+        return amount;
+    }
+    
+    public void onGainedBlock(int amount) {}
+    
+    public void onGainedBarrier(int amount) {}
 
     public float damageTakeMultiply(DamageInfo info, boolean isPlayer) {
         return 1f;

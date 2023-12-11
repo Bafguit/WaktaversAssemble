@@ -49,6 +49,18 @@ public abstract class AbstractStatus {
     }
 
     public void damageTaken(DamageInfo info) {}
+    
+    public int onGainBlock(int amount) {
+        return amount;
+    }
+    
+    public int onGainBarrier(int amount) {
+        return amount;
+    }
+    
+    public void onGainedBlock(int amount) {}
+    
+    public void onGainedBarrier(int amount) {}
 
     public static class StatusData {
         public final String id, name, desc;

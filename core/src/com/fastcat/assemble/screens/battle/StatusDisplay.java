@@ -13,6 +13,7 @@ public class StatusDisplay extends AbstractUI {
         super(FileHandler.getTexture("ui/tile"));
         clickable = false;
         this.status = status;
+        basis = BasisType.BOTTOM_LEFT;
     }
 
     @Override

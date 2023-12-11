@@ -55,11 +55,6 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
     }
 
     @Override
-    public void onStatusApplied(AbstractStatus status) {
-        this.status.add(new StatusDisplay(status));
-    }
-
-    @Override
     public void onStatusRemoved(AbstractStatus status) {
         Iterator<StatusDisplay> itr = this.status.iterator();
         while(itr.hasNext()) {
@@ -69,5 +64,10 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
                 break;
             }
         }
+    }
+
+    @Override
+    public void onStatusInitial(AbstractStatus status) {
+        this.status.add(new StatusDisplay(status));
     }
 }

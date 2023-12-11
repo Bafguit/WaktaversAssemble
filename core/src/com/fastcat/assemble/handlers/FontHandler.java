@@ -34,6 +34,7 @@ public final class FontHandler implements Disposable {
     public static final FontData NB26 = new FontData(26, false);
     public static final FontData SUB_NAME = new FontData(24, false);
     public static final FontData SUB_DESC = new FontData(21, false);
+    public static final FontData HEALTH = new FontData(20, true);
 
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();
