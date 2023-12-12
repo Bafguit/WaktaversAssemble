@@ -10,6 +10,8 @@ public abstract class AbstractSkill implements Cloneable {
 
     public final SkillData data;
     public Sprite img;
+    public int upgradeCount = 0;
+    public String name, desc;
 
     public AbstractSkill(String id) {
         data = DataHandler.getInstance().skillData.get(id);

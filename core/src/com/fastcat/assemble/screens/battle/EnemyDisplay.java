@@ -10,6 +10,7 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
+import com.fastcat.assemble.utils.HealthBar;
 
 public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
 
@@ -17,19 +18,23 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
 
     public AbstractEnemy enemy;
     public LinkedList<StatusDisplay> status;
+    public HealthBar healthBar;
 
     public EnemyDisplay() {
-        super(FileHandler.getTexture("ui/entityBlank"));
+        super(FileHandler.getTexture("ui/tile"));
+        status = new LinkedList<>();
         enemy.statusUpdatedListener.add(this);
+        basis = BasisType.BOTTOM;
+        healthBar = new HealthBar(enemy);
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            enemy.animation.pos.set(x, y);
+            enemy.animation.pos.set(localX, localY);
             enemy.animation.render(sb);
 
-            renderHealthBar(sb);
+            healthBar.render(sb);
 
             for(int i = 0; i < status.size(); i++) {
                 StatusDisplay s = status.get(i);
@@ -46,12 +51,16 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
     protected void updateButton() {
         for(int i = 0; i < status.size(); i++) {
             StatusDisplay s = status.get(i);
+            s.setPosition(originX - originWidth * 0.5f + s.originWidth * i, originY - originHeight * 0.5f - s.originHeight);
             s.update();
         }
+        healthBar.update();
     }
 
-    private void renderHealthBar(SpriteBatch sb) {
-
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        healthBar.setPosition(x, y);
     }
 
     @Override

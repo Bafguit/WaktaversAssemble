@@ -10,6 +10,7 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
+import com.fastcat.assemble.utils.HealthBar;
 
 public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
 
@@ -17,20 +18,23 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
 
     public AbstractPlayer player;
     public LinkedList<StatusDisplay> status;
+    public HealthBar healthBar;
 
     public PlayerDisplay(AbstractPlayer player) {
         super(FileHandler.getTexture("ui/tile"));
         status = new LinkedList<>();
         player.statusUpdatedListener.add(this);
+        basis = BasisType.BOTTOM;
+        healthBar = new HealthBar(player);
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
-            player.animation.pos.set(x, y);
+            player.animation.pos.set(localX, localY);
             player.animation.render(sb);
 
-            renderHealthBar(sb);
+            healthBar.render(sb);
             
             for(int i = 0; i < status.size(); i++) {
                 StatusDisplay s = status.get(i);
@@ -50,10 +54,13 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
             s.setPosition(originX - originWidth * 0.5f + s.originWidth * i, originY - originHeight * 0.5f - s.originHeight);
             s.update();
         }
+        healthBar.update();
     }
 
-    private void renderHealthBar(SpriteBatch sb) {
-
+    @Override
+    public void setPosition(float x, float y) {
+        super.setPosition(x, y);
+        healthBar.setPosition(x, y);
     }
 
     @Override

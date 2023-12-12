@@ -97,7 +97,7 @@ public class MemberDisplay extends AbstractUI {
                 }
             }
 
-            member.animation.pos.set(x, y);
+            member.animation.pos.set(localX, localY);
             member.animation.render(sb);
 
             fontName.alpha = timer;

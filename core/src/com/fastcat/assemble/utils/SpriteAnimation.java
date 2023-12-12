@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.interfaces.OnAnimationFinished;
 
 import java.util.HashMap;
@@ -26,7 +27,7 @@ public class SpriteAnimation {
     private SpriteAnimationData current;
     private Queue<SpriteAnimationData> next = new Queue<>();
     private Color color = Color.WHITE.cpy();
-    private float timer = 0f;
+    private float timer = 0f, alpha = 1f;
     private boolean isRunning = true;
     private SpriteAnimationType type;
 
@@ -120,13 +121,15 @@ public class SpriteAnimation {
 
         if(hasAnimation) {
             Sprite frame = current.getFrame(timer);
-            sb.draw(frame, pos.x, pos.y);
+            frame.setCenter(pos.x, pos.y);
+            frame.setScale(InputHandler.scaleX);
+            frame.draw(sb, alpha);
             if(isRunning) tickDuration();
         }
     }
 
     private void tickDuration() {
-        timer += WakTower.tick;
+        timer += WakTower.tick * current.timescale;
         if(timer > current.duration) {
             timer -= current.duration;
         }

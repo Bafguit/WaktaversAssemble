@@ -1,9 +1,14 @@
 package com.fastcat.assemble.abstracts;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.DataHandler;
+import com.fastcat.assemble.handlers.EffectHandler;
+import com.fastcat.assemble.handlers.InputHandler;
+import com.fastcat.assemble.interfaces.OnHealthUpdated;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
@@ -23,6 +28,7 @@ public abstract class AbstractEntity {
     public boolean isDie, isDead;
     public LinkedList<AbstractStatus> status = new LinkedList<>();
     public Array<OnStatusUpdated> statusUpdatedListener = new Array<>();
+    public Array<OnHealthUpdated> healthUpdatedListener = new Array<>();
 
     public AbstractEntity(String id, boolean isPlayer) {
         this.id = id;
@@ -67,7 +73,7 @@ public abstract class AbstractEntity {
 
     public final void gainBlock(int amount) {
         if(amount > 0) {
-            block += 0;
+            block += amount;
             if(isPlayer) {
                 for(AbstractRelic item : WakTower.game.relics) {
                     item.onGainedBlock(amount);
@@ -95,6 +101,29 @@ public abstract class AbstractEntity {
             }
             for(AbstractStatus s : status) {
                 s.onGainBarrier(amount);
+            }
+        }
+    }
+
+    public final void heal(int amount) {
+        if(amount > 0) {
+            EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.LIME));
+            health += amount;
+            if(healthUpdatedListener.size > 0) {
+                for(OnHealthUpdated o : healthUpdatedListener) {
+                    o.onHealthUpdated(amount);
+                }
+            }
+            if(isPlayer) {
+                for(AbstractRelic item : WakTower.game.relics) {
+                    item.onHealed(amount);
+                }
+                for(AbstractMember c : WakTower.game.battle.members) {
+                    c.onHealed(amount);
+                }
+            }
+            for(AbstractStatus s : status) {
+                s.onHealed(amount);
             }
         }
     }
@@ -143,8 +172,13 @@ public abstract class AbstractEntity {
                 barrier = 0;
             }
         }
-        //todo 이펙트 (damage)
+        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.GOLD));
         health -= info.damage;
+        if(healthUpdatedListener.size > 0) {
+            for(OnHealthUpdated o : healthUpdatedListener) {
+                o.onHealthUpdated(-info.damage);
+            }
+        }
         if(health < 0) die();
         for(AbstractRelic item : WakTower.game.relics) {
             item.damageTaken(info, isPlayer);
@@ -159,7 +193,20 @@ public abstract class AbstractEntity {
         }
     }
 
-    public final void die() {}
+    public final void loseHealth(int amount) {
+        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.WHITE));
+        health -= amount;
+        if(healthUpdatedListener.size > 0) {
+            for(OnHealthUpdated o : healthUpdatedListener) {
+                o.onHealthUpdated(-amount);
+            }
+        }
+        if(health < 0) die();
+    }
+
+    public final void die() {
+        
+    }
 
     public boolean isAlive() {
         return !isDie && !isDead;

@@ -61,6 +61,12 @@ public abstract class AbstractStatus {
     public void onGainedBlock(int amount) {}
     
     public void onGainedBarrier(int amount) {}
+    
+    public int onHeal(int amount) {
+        return amount;
+    }
+    
+    public void onHealed(int amount) {}
 
     public static class StatusData {
         public final String id, name, desc;

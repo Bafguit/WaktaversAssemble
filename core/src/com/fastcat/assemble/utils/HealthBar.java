@@ -10,8 +10,9 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.FontHandler.FontData;
+import com.fastcat.assemble.interfaces.OnHealthUpdated;
 
-public class HealthBar {
+public class HealthBar implements OnHealthUpdated {
 
     private static final FontData font = FontHandler.HEALTH;
     private TempUI line, hbMid, hbLeft, hbRight;
@@ -20,16 +21,14 @@ public class HealthBar {
     public AbstractEntity entity;
     public float x, y, width, yetWidth;
     public float timer, tick;
-    
-    public HealthBar(AbstractEntity entity, float x, float y) {
+
+    public HealthBar(AbstractEntity entity) {
         this.entity = entity;
-        this.x = x;
-        this.y = y;
-        line = new TempUI(FileHandler.getTexture("ui/hb_line"), x, y);
+        line = new TempUI(FileHandler.getTexture("ui/hb_line"));
         line.basis = BasisType.CENTER_LEFT;
-        hbLeft = new TempUI(FileHandler.getTexture("ui/hb_left"), x + 2, y);
+        hbLeft = new TempUI(FileHandler.getTexture("ui/hb_left"));
         hbLeft.basis = BasisType.CENTER_LEFT;
-        hbMid = new TempUI(FileHandler.getTexture("ui/hb_mid"), x + 10, y);
+        hbMid = new TempUI(FileHandler.getTexture("ui/hb_mid"));
         hbMid.basis = BasisType.CENTER_LEFT;
         hbRight = new TempUI(FileHandler.getTexture("ui/hb_right"));
         hbRight.basis = BasisType.CENTER_LEFT;
@@ -37,6 +36,20 @@ public class HealthBar {
         yetRight = new Sprite(FileHandler.getTexture("ui/hb_yet_right"));
         yetLeft = new Sprite(FileHandler.getTexture("ui/hb_yet_left"));
         yetWidth = hbMid.originWidth;
+        entity.healthUpdatedListener.add(this);
+    }
+    
+    public HealthBar(AbstractEntity entity, float x, float y) {
+        this(entity);
+        setPosition(x, y);
+    }
+
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+        line.setPosition(x, y);
+        hbLeft.setPosition(x + 2, y);
+        hbMid.setPosition(x + 10, y);
     }
 
     public void update() {
@@ -61,6 +74,8 @@ public class HealthBar {
             
             sb.draw(line.img, line.x, line.y, line.width, line.height);
 
+            FontHandler.renderCenter(sb, font, entity.health + "/" + entity.maxHealth, line.x, line.y, line.width);
+
             if(timer > 0) {
                 timer -= WakTower.tick / 2;
                 if(timer <= 0) timer = 0;
@@ -73,7 +88,12 @@ public class HealthBar {
         
     }
 
-    public void yetReset() {
+    private void yetReset() {
         timer = 1f;
+    }
+
+    @Override
+    public void onHealthUpdated(int amount) {
+        yetReset();
     }
 }

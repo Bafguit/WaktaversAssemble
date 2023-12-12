@@ -48,6 +48,12 @@ public abstract class AbstractRelic {
     
     public void onGainedBarrier(int amount) {}
     
+    public int onHeal(int amount) {
+        return amount;
+    }
+    
+    public void onHealed(int amount) {}
+    
     public void onGain() {}
 
     public void onLose() {}
