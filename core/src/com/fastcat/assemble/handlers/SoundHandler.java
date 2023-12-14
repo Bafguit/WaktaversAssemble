@@ -46,7 +46,6 @@ public final class SoundHandler implements Disposable {
     }
 
     private static void generateMusic() {
-        String s;
         //music.put(s = "BATTLE_1", new MusicData(s, getMusic("sound/bgm/" + s.toLowerCase() + ".mp3")));
     }
 

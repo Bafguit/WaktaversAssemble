@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.GroupHandler;
-import com.fastcat.assemble.members.Hikiking;
-import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -80,7 +78,7 @@ public class AbstractGame {
         } else if(floorNum == floorMax) {
             ending();
         } else {
-            int f = floorNum / 10 + 1;
+            //int f = floorNum / 10 + 1;
             //todo 방 무작위 생성
             //rooms = new AbstractRoom(GroupHandler.monsterGroup.get("normal_" + f + "_" + WakTower.game.mapRandom.random(0, 9)));
         }

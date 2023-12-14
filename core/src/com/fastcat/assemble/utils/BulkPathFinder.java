@@ -1,5 +1,5 @@
 package com.fastcat.assemble.utils;
-
+/*
 import com.fastcat.assemble.WakTower;
 import org.ksdev.jps.Graph;
 import org.ksdev.jps.JPSDiagOneObstacle;
@@ -8,7 +8,7 @@ import java.util.Queue;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
+*/
 public class BulkPathFinder {
 /*
     private static int counter = 0;

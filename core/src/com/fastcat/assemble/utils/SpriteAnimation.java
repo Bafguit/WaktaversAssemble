@@ -1,7 +1,5 @@
 package com.fastcat.assemble.utils;
 
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +24,6 @@ public class SpriteAnimation {
     private String id;
     private SpriteAnimationData current;
     private Queue<SpriteAnimationData> next = new Queue<>();
-    private Color color = Color.WHITE.cpy();
     private float timer = 0f, alpha = 1f;
     private boolean isRunning = true;
     private SpriteAnimationType type;

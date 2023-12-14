@@ -2,9 +2,7 @@ package com.fastcat.assemble;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -22,7 +20,6 @@ import com.fastcat.assemble.utils.FillViewport;
 import io.github.zumikua.webploader.common.WebPLoaderFactory;
 import io.github.zumikua.webploader.common.WebPLoaderNativeInterface;
 import io.github.zumikua.webploader.common.WebPPixmapFactory;
-import lombok.Getter;
 
 public class WakTower extends ApplicationAdapter {
 

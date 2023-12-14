@@ -55,10 +55,8 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public float timer = 0;
     private float fromX;
     private float fromY;
-    private float fromZ;
     private float toX;
     private float toY;
-    private float toZ;
     private float distCount;
     public boolean over;
     public boolean fluid = false;
