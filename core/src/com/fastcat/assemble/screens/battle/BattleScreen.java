@@ -53,12 +53,15 @@ public class BattleScreen extends AbstractScreen {
 
     public void initialize() {
         player = new PlayerDisplay(WakTower.game.player);
+        player.setPosition(500, 600);
         hand.clear();
         members.clear();
         skills.clear();
         for(int i = 0; i < WakTower.game.skills.length; i++) {
             AbstractSkill s = WakTower.game.skills[i];
-            skills.put(s, new SkillDisplay(s));
+            SkillDisplay sd = new SkillDisplay(s);
+            sd.setPosition(960 - 100 * i, 800);
+            skills.put(s, sd);
         }
 
         int c = 0;
@@ -106,12 +109,12 @@ public class BattleScreen extends AbstractScreen {
         }
         /*for(SkillDisplay s : skills.values()) {
             s.update();
-        }*/
+        }
         turnEnd.update();
         player.update();
         for(EnemyDisplay e : enemies.values()) {
             e.update();
-        }
+        }*/
     }
 
     public void addHand(AbstractMember member) {
@@ -148,8 +151,8 @@ public class BattleScreen extends AbstractScreen {
         for(MemberDisplay m : members.values()) {
             if(!m.isCard) m.render(sb);
         }
-/* 
-        effectHandler.render(sb);
+
+        /*effectHandler.render(sb);
 
         turnEnd.render(sb);
 

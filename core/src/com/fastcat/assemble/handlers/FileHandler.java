@@ -91,6 +91,13 @@ public class FileHandler {
         assetManager.load("image/ui/sub_top.webp", Pixmap.class);
         assetManager.load("image/ui/sub_mid.webp", Pixmap.class);
         assetManager.load("image/ui/sub_bot.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_left.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_mid.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_right.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_line.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_yet_left.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_yet_mid.webp", Pixmap.class);
+        assetManager.load("image/ui/hb_yet_right.webp", Pixmap.class);
     }
 
     private void generateMember() {
@@ -98,7 +105,8 @@ public class FileHandler {
             assetManager.load("image/member/" + v.name + ".webp", Pixmap.class);
         }
 
-        assetManager.load("atlas/relic.atlas", TextureAtlas.class);
+        //todo atlas 만들기
+        //assetManager.load("atlas/relic.atlas", TextureAtlas.class);
 
         for(JsonValue v : jsonMap.get("relic")) {
             assetManager.load("image/relic/" + v.name + ".webp", Pixmap.class);
