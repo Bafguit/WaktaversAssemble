@@ -29,10 +29,10 @@ public class TurnEndButton extends AbstractUI {
             if (overable && !over) sb.setColor(Color.LIGHT_GRAY);
             if(clickable) {
                 sb.draw(img, x, y, width, height);
-                FontHandler.renderCenter(sb, enabledFont, data.text[0], x, y);
+                FontHandler.renderCenter(sb, enabledFont, data.text[0], localX, localY);
             } else {
                 sb.draw(disabledImg, x, y, width, height);
-                FontHandler.renderCenter(sb, disabledFont, data.text[0], x, y);
+                FontHandler.renderCenter(sb, disabledFont, data.text[0], localX, localY);
             }
         }
     }

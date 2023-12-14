@@ -23,7 +23,7 @@ public class DrawButton extends AbstractUI {
         if (enabled) {
             if(!over) sb.setColor(Color.LIGHT_GRAY);
             sb.draw(img, x, y, width, height);
-            FontHandler.renderCenter(sb, font, "드로우", x, y, width * 2);
+            FontHandler.renderCenter(sb, font, "드로우", localX, localY);
         }
     }
 
