@@ -1,0 +1,20 @@
+{
+  "loading": [
+    "Loading Resources..."
+  ],
+  "turnEndButton": [
+    "End Turn"
+  ],
+  "gameStartButton": [
+    "Start Game"
+  ],
+  "loadGameButton": [
+    "Load Game"
+  ],
+  "dictionaryButton": [
+    "Dictionary"
+  ],
+  "settingButton": [
+    "Setting"
+  ]
+}

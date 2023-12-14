@@ -20,7 +20,7 @@ import com.fastcat.assemble.synergies.Machinary;
 import com.fastcat.assemble.synergies.Magician;
 import com.fastcat.assemble.synergies.MainVocal;
 import com.fastcat.assemble.synergies.MindMaster;
-import com.fastcat.assemble.synergies.Nobless;
+import com.fastcat.assemble.synergies.Nobles;
 import com.fastcat.assemble.synergies.Nunna;
 import com.fastcat.assemble.synergies.OldMan;
 import com.fastcat.assemble.synergies.Timid;
@@ -125,7 +125,7 @@ public abstract class AbstractBattle implements Cloneable {
         synergy.add(Doormat.getInstance());
         synergy.add(Machinary.getInstance());
         synergy.add(MindMaster.getInstance());
-        synergy.add(Nobless.getInstance());
+        synergy.add(Nobles.getInstance());
         synergy.add(Nunna.getInstance());
         synergy.add(Timid.getInstance());
     }

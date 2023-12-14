@@ -1,108 +1,108 @@
 {
   "Guardian": {
-    "name": "수호자",
+    "name": " Guardian",
     "desc": "턴 종료 시 방어도를 얻습니다.",
     "gradeDesc": [
-      "방어도 +5",
-      "방어도 +12",
-      "방어도 +25",
-      "방어도 +50"
+      "Block +5",
+      "Block +12",
+      "Block +25",
+      "Block +50"
     ],
     "gradeAmount": [
       2, 4, 6, 8
     ]
   },
   "Crazy": {
-    "name": "광인",
+    "name": "Crazy",
     "desc": "턴 종료 시 카드를 뽑습니다.",
     "gradeDesc": [
-      "카드 1장",
-      "카드 2장",
-      "카드 3장",
-      "카드 4장"
+      "A Card",
+      "2 Cards",
+      "3 Cards",
+      "4 Cards"
     ],
     "gradeAmount": [
       2, 3, 4, 5
     ]
   },
   "Expert": {
-    "name": "전문가",
+    "name": "Expert",
     "desc": "전문가 멤버의 효과가 증가합니다.",
     "gradeDesc": [
-      "효과 +50%",
-      "효과 +75%",
-      "효과 +100%",
-      "효과 +150%"
+      "Effect +50%",
+      "Effect +75%",
+      "Effect +100%",
+      "Effect +150%"
     ],
     "gradeAmount": [
       1, 3, 5, 7
     ]
   },
   "Magician": {
-    "name": "마법사",
+    "name": "Magician",
     "desc": "멤버의 대미지가 증가합니다.",
     "gradeDesc": [
-      "대미지 +2",
-      "대미지 +3",
-      "대미지 +5",
-      "대미지 +10"
+      "Damage +2",
+      "Damage +3",
+      "Damage +5",
+      "Damage +10"
     ],
     "gradeAmount": [
       2, 4, 6, 8
     ]
   },
   "Isedol": {
-    "name": "이세돌",
+    "name": "Isedol",
     "desc": "우왁굳의 대미지가 증가합니다.",
     "gradeDesc": [
-      "대미지 +2",
-      "대미지 +5",
-      "대미지 +10"
+      "Damage +2",
+      "Damage +5",
+      "Damage +10"
     ],
     "gradeAmount": [
       2, 4, 6
     ]
   },
   "MainVocal": {
-    "name": "메인보컬",
+    "name": "Main Vocal",
     "desc": "우왁굳의 스킬이 강화됩니다.",
     "gradeDesc": [
-      "강화 +1",
-      "강화 +2",
-      "강화 +3",
-      "강화 +4"
+      "Upgrade +1",
+      "Upgrade +2",
+      "Upgrade +3",
+      "Upgrade +4"
     ],
     "gradeAmount": [
       2, 3, 4, 5
     ]
   },
   "Machinary": {
-    "name": "기계장치",
+    "name": "Machinary",
     "desc": "턴 종료 시 기계장치 멤버 하나당 무작위 적에게 대미지를 주거나 방어도를 얻습니다.",
     "gradeDesc": [
-      "대미지 2 또는 방어도 +2",
-      "대미지 3 또는 방어도 +3",
-      "대미지 5 또는 방어도 +5",
-      "대미지 8 또는 방어도 +8"
+      "Damage 2 or Block +2",
+      "Damage 3 or Block +3",
+      "Damage 5 or Block +5",
+      "Damage 8 or Block +8"
     ],
     "gradeAmount": [
       1, 2, 3, 4
     ]
   },
   "Timid": {
-    "name": "쭈글이",
+    "name": "Timid",
     "desc": "턴 종료 시 보호막을 얻습니다.",
     "gradeDesc": [
-      "보호막 +3",
-      "보호막 +8",
-      "보호막 +15"
+      "Barrier +3",
+      "Barrier +8",
+      "Barrier +15"
     ],
     "gradeAmount": [
       2, 3, 4
     ]
   },
   "Doormat": {
-    "name": "동네북",
+    "name": "Doormat",
     "desc": "우왁굳이 받는 대미지가 감소합니다.",
     "gradeDesc": [
       "받는 대미지 -1",
@@ -114,18 +114,18 @@
     ]
   },
   "Villain": {
-    "name": "악당",
+    "name": "Villain",
     "desc": "턴 종료 시 악당 멤버 하나당 골드를 얻습니다.",
     "gradeDesc": [
-      "골드 +1",
-      "골드 +2"
+      "Gold +1",
+      "Gold +2"
     ],
     "gradeAmount": [
       2, 4
     ]
   },
   "Kiddo": {
-    "name": "애송이",
+    "name": "Kiddo",
     "desc": "우왁굳이 받는 대미지를 회피합니다.",
     "gradeDesc": [
       "20% 확률로 회피",
@@ -137,7 +137,7 @@
     ]
   },
   "Nunna": {
-    "name": "눈나",
+    "name": "Nunna",
     "desc": "적이 받는 대미지가 증가합니다.",
     "gradeDesc": [
       "적이 받는 대미지 +25%",
@@ -149,7 +149,7 @@
     ]
   },
   "OldMan": {
-    "name": "노인",
+    "name": "Old Man",
     "desc": "적의 대미지가 감소합니다.",
     "gradeDesc": [
       "적의 대미지 -20%",
@@ -161,20 +161,20 @@
     ]
   },
   "Nobles": {
-    "name": "노블레스",
+    "name": "Nobles",
     "desc": "노블레스 멤버가 강화됩니다.",
     "gradeDesc": [
-      "강화 +1",
-      "강화 +2",
-      "강화 +3",
-      "강화 +4"
+      "Upgrade +1",
+      "Upgrade +2",
+      "Upgrade +3",
+      "Upgrade +4"
     ],
     "gradeAmount": [
       2, 3, 4, 5
     ]
   },
   "Badass": {
-    "name": "상남자",
+    "name": "Badass",
     "desc": "적의 방어도를 무시합니다.",
     "gradeDesc": [
       "우왁굳의 피해가 적의 방어도를 무시",
@@ -185,7 +185,7 @@
     ]
   },
   "MindMaster": {
-    "name": "심리술사",
+    "name": "Mind Master",
     "desc": "소환 시 다른 무작위 시너지로 변신합니다. (고유 시너지 제외)",
     "gradeDesc": [
       ""
@@ -195,7 +195,7 @@
     ]
   },
   "Competitor": {
-    "name": "경쟁자",
+    "name": "Competitor",
     "desc": "무작위 경쟁자 멤버만 효과를 발동합니다.",
     "gradeDesc": [
       "효과 2번 발동",
@@ -208,7 +208,7 @@
     ]
   },
   "Cat": {
-    "name": "고양이",
+    "name": "Cat",
     "desc": "턴이 끝나도 퇴장하지 않습니다.",
     "gradeDesc": [
       ""
@@ -218,7 +218,7 @@
     ]
   },
   "Cutey": {
-    "name": "귀염둥이",
+    "name": "Cutey",
     "desc": "다른 멤버 또는 시너지의 지원을 2배로 받습니다.",
     "gradeDesc": [
       ""

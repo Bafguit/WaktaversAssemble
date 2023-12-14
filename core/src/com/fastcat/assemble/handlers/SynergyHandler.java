@@ -15,7 +15,7 @@ import com.fastcat.assemble.synergies.Machinary;
 import com.fastcat.assemble.synergies.Magician;
 import com.fastcat.assemble.synergies.MainVocal;
 import com.fastcat.assemble.synergies.MindMaster;
-import com.fastcat.assemble.synergies.Nobless;
+import com.fastcat.assemble.synergies.Nobles;
 import com.fastcat.assemble.synergies.Nunna;
 import com.fastcat.assemble.synergies.OldMan;
 import com.fastcat.assemble.synergies.Timid;
@@ -52,7 +52,7 @@ public final class SynergyHandler {
             case "MindMaster":
                 return MindMaster.getInstance();
             case "Nobless":
-                return Nobless.getInstance();
+                return Nobles.getInstance();
             case "Nunna":
                 return Nunna.getInstance();
             case "OldMan":

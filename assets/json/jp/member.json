@@ -1,0 +1,20 @@
+{
+  "Victory": {
+    "name": "빅토리",
+    "desc": "&y<[즉발]> 이번 턴 동안 우왁굳과 다른 멤버의 피해가 {V} 증가합니다.",
+    "flavor": "빅토리~",
+    "synergy": [
+      "Crazy",
+      "MindMaster"
+    ]
+  },
+  "Hikiking": {
+    "name": "히키킹",
+    "desc": "무작위 적에게 피해를 2 만큼 4번 입힙니다.",
+    "flavor": "",
+    "synergy": [
+      "Competitor",
+      "Crazy"
+    ]
+  }
+}

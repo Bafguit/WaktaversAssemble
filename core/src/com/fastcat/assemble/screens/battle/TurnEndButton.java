@@ -3,8 +3,6 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.actions.EndTurnAction;
 import com.fastcat.assemble.handlers.ActionHandler;

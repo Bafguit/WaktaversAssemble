@@ -2,6 +2,7 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public abstract class AbstractAction implements Cloneable {
 
@@ -75,6 +76,18 @@ public abstract class AbstractAction implements Cloneable {
         if (duration > 0) {
             duration -= WakTower.tick;
         }
+    }
+
+    protected void addToBot(AbstractAction action) {
+        ActionHandler.bot(action);
+    }
+
+    protected void addToTop(AbstractAction action) {
+        ActionHandler.top(action);
+    }
+
+    protected void addToNext(AbstractAction action) {
+        ActionHandler.next(action);
     }
 
     @Override

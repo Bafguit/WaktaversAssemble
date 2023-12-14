@@ -1,0 +1,20 @@
+{
+  "loading": [
+    "리소스 불러오는 중..."
+  ],
+  "turnEndButton": [
+    "턴 종료"
+  ],
+  "gameStartButton": [
+    "게임 시작"
+  ],
+  "loadGameButton": [
+    "불러오기"
+  ],
+  "dictionaryButton": [
+    "도감"
+  ],
+  "settingButton": [
+    "설정"
+  ]
+}
