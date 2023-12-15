@@ -101,13 +101,6 @@ public class FileHandler {
     }
 
     private void generateMember() {
-        for(JsonValue v : jsonMap.get("member")) {
-            assetManager.load("image/member/" + v.name + ".webp", Pixmap.class);
-        }
-
-        //todo atlas 만들기
-        //assetManager.load("atlas/relic.atlas", TextureAtlas.class);
-
         for(JsonValue v : jsonMap.get("relic")) {
             assetManager.load("image/relic/" + v.name + ".webp", Pixmap.class);
         }
@@ -123,17 +116,22 @@ public class FileHandler {
         for(JsonValue v : jsonMap.get("synergy")) {
             assetManager.load("image/synergy/" + v.name + ".webp", Pixmap.class);
         }
+
+        assetManager.load("atlas/member.atlas", TextureAtlas.class);
+        /*assetManager.load("atlas/relic.atlas", TextureAtlas.class);
+        assetManager.load("atlas/skill.atlas", TextureAtlas.class);
+        assetManager.load("atlas/status.atlas", TextureAtlas.class);
+        assetManager.load("atlas/synergy.atlas", TextureAtlas.class);*/
     }
 
     private void generateAnimationSprites() {
         for(SpriteAnimation.SpriteAnimationType type : SpriteAnimation.SpriteAnimationType.values()) {
             for(JsonValue v : jsonMap.get(type.name())) {
-                JsonValue v2 = generateJson("animation/" + type.name() + "/" + v.name + "/config.json");
-                jsonMap.put("animation_" + type.name() + "_" + v.name, v2);
+                String url = "animation/" + type.name() + "/" + v.name;
+                JsonValue v2 = generateJson(url + "/config.json");
+                jsonMap.put(url, v2);
                 for(JsonValue v3 : v2) {
-                    for(int i = 0; i < v3.getInt("frameCount"); i++) {
-                        assetManager.load("animation/" + type.name() + "/" + v.name + "/" + v3.name + "/" + i + ".webp", Pixmap.class);
-                    }
+                    assetManager.load(url + "/" + v3.name + ".atlas", TextureAtlas.class);
                 }
             }
         }

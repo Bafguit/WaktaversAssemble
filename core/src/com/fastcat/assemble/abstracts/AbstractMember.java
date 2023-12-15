@@ -1,6 +1,5 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -35,7 +34,7 @@ public abstract class AbstractMember implements Cloneable {
         name = data.name;
         desc = data.desc;
         flavor = data.flavor;
-        img = new Sprite(data.img);
+        img = FileHandler.getMember(id);
         animation = data.animation.cpy();
         synergy = baseSynergy = new AbstractSynergy[data.synergy.length];
         setSynergy();
@@ -157,7 +156,7 @@ public abstract class AbstractMember implements Cloneable {
             e.printStackTrace();
             return null;
         }
-        m.img = new Sprite(data.img);
+        m.img = FileHandler.getMember(id);
         m.animation = m.animation.cpy();
         System.arraycopy(baseSynergy, 0, m.synergy, 0, baseSynergy.length);
         m.setSynergy();
@@ -169,7 +168,6 @@ public abstract class AbstractMember implements Cloneable {
         public final String name;
         public final String desc;
         public final String flavor;
-        public final Texture img;
         public final SpriteAnimation animation;
         public final String[] synergy;
 
@@ -178,7 +176,6 @@ public abstract class AbstractMember implements Cloneable {
             name = json.getString("name");
             desc = json.getString("desc");
             flavor = json.getString("flavor");
-            img = FileHandler.getTexture("member/" + id);
             animation = DataHandler.getInstance().animation.get(id);
             synergy = json.get("synergy").asStringArray();
         }

@@ -2,6 +2,7 @@ package com.fastcat.assemble.utils;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
@@ -52,22 +53,16 @@ public class SpriteAnimation {
     private void generateAnimationData() {
         JsonValue json = FileHandler.getInstance().jsonMap.get("animation_" + type.name() + "_"  + id);
         for(JsonValue v : json) {
-            Array<Sprite> frames = new Array<>();
-            for(int i = 0; i < v.getInt("frameCount"); i++) {
-                FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + "/" + i + ".webp");
-            }
-            animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+            TextureAtlas atlas = FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + ".atlas");
+            animations.put(v.name, new SpriteAnimationData(v.name, atlas.createSprites(), v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
         }
     }
 
     private void generateUIAnimationData() {
         JsonValue json = FileHandler.getInstance().jsonMap.get("animation_ui_"  + id);
         for(JsonValue v : json) {
-            Array<Sprite> frames = new Array<>();
-            for(int i = 0; i < v.getInt("frameCount"); i++) {
-                FileHandler.getInstance().assetManager.get("animation/ui/" + id + "/" + v.name + "/" + i + ".webp");
-            }
-            animations.put(v.name, new SpriteAnimationData(v.name, frames, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+            TextureAtlas atlas = FileHandler.getInstance().assetManager.get("animation/ui/" + id + "/" + v.name + ".atlas");
+            animations.put(v.name, new SpriteAnimationData(v.name, atlas.createSprites(), v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
         }
     }
 
