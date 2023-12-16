@@ -51,7 +51,7 @@ public class SpriteAnimation {
     }
 
     private void generateAnimationData() {
-        JsonValue json = FileHandler.getInstance().jsonMap.get("animation_" + type.name() + "_"  + id);
+        JsonValue json = FileHandler.getInstance().jsonMap.get("animation/" + type.name() + "/"  + id);
         for(JsonValue v : json) {
             TextureAtlas atlas = FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + ".atlas");
             animations.put(v.name, new SpriteAnimationData(v.name, atlas.createSprites(), v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));

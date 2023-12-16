@@ -16,5 +16,62 @@
       "Competitor",
       "Crazy"
     ]
+  },
+  "Sophia": {
+    "name": "소피아",
+    "desc": "&y<[즉발]> 카드를 {V}장 뽑고 {V}장 버립니다.",
+    "flavor": "",
+    "synergy": [
+      "Crazy",
+      "Villain"
+    ]
+  },
+  "Freeter": {
+    "name": "프리터",
+    "desc": "공격받을 때마다 해당 적에게 피해를 {A} 줍니다.",
+    "flavor": "",
+    "synergy": [
+      "Badass",
+      "Guardian"
+    ]
+  },
+  "Ninnin": {
+    "name": "닌닌",
+    "desc": "무작위 적에게 피해를 {A} 주고 &y<상처>를 {V} 부여합니다.",
+    "flavor": "",
+    "synergy": [
+      "Kiddo",
+      "Timid"
+    ]
+  },
+  "Jinburger": {
+    "name": "징버거",
+    "desc": "앞선 멤버 하나당 방어도를 {D} 얻습니다.",
+    "flavor": "",
+    "synergy": [
+      "Isedol",
+      "Nunna",
+      "Timid"
+    ]
+  },
+  "Gosegu": {
+    "name": "고세구",
+    "desc": "카드를 {V}장 뽑고 {V}장 버립니다.",
+    "flavor": "",
+    "synergy": [
+      "Isedol",
+      "Cat",
+      "Crazy"
+    ]
+  },
+  "Lilpa": {
+    "name": "릴파",
+    "desc": "앞선 멤버 하나당 무작위 적에게 피해를 {A} 줍니다.",
+    "flavor": "",
+    "synergy": [
+      "Isedol",
+      "MainVocal",
+      "Nunna"
+    ]
   }
 }
