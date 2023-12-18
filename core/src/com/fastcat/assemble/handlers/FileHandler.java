@@ -105,10 +105,6 @@ public class FileHandler {
             assetManager.load("image/relic/" + v.name + ".webp", Pixmap.class);
         }
 
-        for(JsonValue v : jsonMap.get("skill")) {
-            assetManager.load("image/skill/" + v.name + ".webp", Pixmap.class);
-        }
-
         for(JsonValue v : jsonMap.get("status")) {
             assetManager.load("image/status/" + v.name + ".webp", Pixmap.class);
         }
@@ -118,8 +114,9 @@ public class FileHandler {
         }
 
         assetManager.load("image/member/member.atlas", TextureAtlas.class);
+        assetManager.load("image/skill/skill.atlas", TextureAtlas.class);
+
         /*assetManager.load("atlas/relic.atlas", TextureAtlas.class);
-        assetManager.load("atlas/skill.atlas", TextureAtlas.class);
         assetManager.load("atlas/status.atlas", TextureAtlas.class);
         assetManager.load("atlas/synergy.atlas", TextureAtlas.class);*/
     }
@@ -168,7 +165,7 @@ public class FileHandler {
     }
 
     public static Sprite getSkill(String id) {
-        TextureAtlas atlas = instance.assetManager.get("atlas/skill.atlas", TextureAtlas.class);
+        TextureAtlas atlas = instance.assetManager.get("image/skill/skill.atlas", TextureAtlas.class);
         return atlas.createSprite(id);
     }
 
@@ -187,7 +184,7 @@ public class FileHandler {
         return atlas.createSprite(id);
     }
 
-    public static TextureAtlas getAtlas(String type) {
-        return instance.assetManager.get("atlas/" + type + ".atlas", TextureAtlas.class);
+    public static TextureAtlas getAtlas(String url) {
+        return instance.assetManager.get(url + ".atlas", TextureAtlas.class);
     }
 }

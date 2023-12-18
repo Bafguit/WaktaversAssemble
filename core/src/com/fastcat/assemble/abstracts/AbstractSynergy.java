@@ -2,6 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.actions.SynergyFlashAction;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -29,8 +30,8 @@ public abstract class AbstractSynergy {
         gradeAmount = data.gradeAmount;
         img = new Sprite(data.img);
         maxGrade = gradeDesc.length;
-        gradeImg = new Sprite[maxGrade];
-        for(int i = 0; i < maxGrade; i++) {
+        gradeImg = new Sprite[data.gradeImg.length];
+        for(int i = 0; i < gradeImg.length; i++) {
             gradeImg[i] = new Sprite(data.gradeImg[i]);
         }
         globalCount = 0;
@@ -48,8 +49,8 @@ public abstract class AbstractSynergy {
         public final String id, name, desc;
         public final String[] gradeDesc;
         public final int[] gradeAmount;
-        public final Texture img;
-        public final Texture[] gradeImg;
+        public final Sprite img;
+        public final Sprite[] gradeImg;
 
         public SynergyData(String id, JsonValue json) {
             this.id = id;
@@ -57,13 +58,14 @@ public abstract class AbstractSynergy {
             desc = json.getString("desc");
             gradeDesc = json.get("gradeDesc").asStringArray();
             gradeAmount = json.get("gradeAmount").asIntArray();
-            img = FileHandler.getTexture("synergy/" + id);
-            gradeImg = new Texture[gradeDesc.length + 1];
-            for(int i = 0; i <= gradeDesc.length; i++) {
-                gradeImg[i] = FileHandler.getTexture("synergy/" + id);
-
-                //todo 이걸로 바꾸기, 시너지 아이콘은 TextureAtlas로 불러오기 (크기는 작은데 양이 많아서)
-                //gradeImg[i - 1] = FileHandler.getTexture("synergy/" + id + "_" + i);
+            TextureAtlas a = FileHandler.getAtlas("image/synergy/synergy");
+            img = a.createSprite(id, -1);
+            gradeImg = new Sprite[gradeAmount[0] < 2 ? gradeDesc.length : gradeDesc.length + 1];
+            if(gradeAmount[0] == 0) gradeImg[0] = new Sprite(img);
+            else {
+                for(int i = 0; i <= gradeDesc.length; i++) {
+                    gradeImg[i] = a.createSprite(id, i);
+                }
             }
         }
     }

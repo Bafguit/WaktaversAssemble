@@ -20,9 +20,10 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
     public LinkedList<StatusDisplay> status;
     public HealthBar healthBar;
 
-    public EnemyDisplay() {
+    public EnemyDisplay(AbstractEnemy e) {
         super(FileHandler.getTexture("ui/tile"));
         status = new LinkedList<>();
+        enemy = e;
         enemy.statusUpdatedListener.add(this);
         basis = BasisType.BOTTOM;
         healthBar = new HealthBar(enemy);

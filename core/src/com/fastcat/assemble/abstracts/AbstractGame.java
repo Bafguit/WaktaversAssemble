@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.GroupHandler;
+import com.fastcat.assemble.skills.Skill1;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -51,7 +52,6 @@ public class AbstractGame {
         publicRandom = new RandomXC(seedLong);
         battleRandom = new RandomXC(seedLong);
         actionHandler = new ActionHandler();
-        skills = new AbstractSkill[3];
         gold = 100;
         floorNum = 0;
         floorMax = 30;
@@ -61,6 +61,11 @@ public class AbstractGame {
         energyStart = 3;
         energyCharge = 1;
         energyMax = 3;
+
+        skills = new AbstractSkill[3];
+        for(int i = 0; i < 3; i++) {
+            skills[i] = new Skill1();
+        }
     }
 
     public void update() {

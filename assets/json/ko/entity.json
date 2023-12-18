@@ -3,5 +3,10 @@
     "name": "플레이어",
     "desc": "설명",
     "health": 70
+  },
+  "Enemy1": {
+    "name": "적 1",
+    "desc": "설명",
+    "health": 30
   }
 }

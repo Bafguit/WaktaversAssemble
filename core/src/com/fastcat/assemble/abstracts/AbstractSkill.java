@@ -1,6 +1,5 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.DataHandler;
@@ -15,6 +14,9 @@ public abstract class AbstractSkill implements Cloneable {
 
     public AbstractSkill(String id) {
         data = DataHandler.getInstance().skillData.get(id);
+        name = data.name;
+        desc = data.desc;
+        img = new Sprite(data.img);
     }
 
     public boolean canUse() {
@@ -23,6 +25,10 @@ public abstract class AbstractSkill implements Cloneable {
 
     public final void use() {
 
+    }
+
+    public boolean canUpgrade() {
+        return upgradeCount < 1;
     }
 
     public AbstractSkill cpy() {
@@ -39,14 +45,14 @@ public abstract class AbstractSkill implements Cloneable {
 
     public static class SkillData {
         public final String id, name, desc, flavor;
-        public final Texture img;
+        public final Sprite img;
 
         public SkillData(String id, JsonValue json) {
             this.id = id;
             name = json.getString("name");
             desc = json.getString("desc");
             flavor = json.getString("flavor");
-            img = FileHandler.getTexture("skill/" + id);
+            img = FileHandler.getSkill(id);
         }
     }
 }

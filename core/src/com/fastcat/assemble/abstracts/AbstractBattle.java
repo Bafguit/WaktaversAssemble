@@ -130,6 +130,8 @@ public abstract class AbstractBattle implements Cloneable {
         synergy.add(Timid.getInstance());
     }
 
+    protected abstract void setEnemy();
+
     @Override
     public AbstractBattle clone() {
         try {

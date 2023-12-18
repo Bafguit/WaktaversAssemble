@@ -54,6 +54,13 @@ public class BattleScreen extends AbstractScreen {
     public void initialize() {
         player = new PlayerDisplay(WakTower.game.player);
         player.setPosition(500, 600);
+        int sz = WakTower.game.battle.enemies.size();
+        for(int i = 0; i < sz; i++) {
+            AbstractEnemy e = WakTower.game.battle.enemies.get(i);
+            EnemyDisplay ed = new EnemyDisplay(e);
+            ed.setPosition(1420 - 150 * (sz / 2 + i), sz == 1 ? 500 : i % 2 == 0 ? 570 : 430);
+            enemies.put(e, ed);
+        }
         hand.clear();
         members.clear();
         skills.clear();
@@ -107,14 +114,14 @@ public class BattleScreen extends AbstractScreen {
                 c++;
             }
         }
-        /*for(SkillDisplay s : skills.values()) {
+        for(SkillDisplay s : skills.values()) {
             s.update();
         }
         turnEnd.update();
         player.update();
         for(EnemyDisplay e : enemies.values()) {
             e.update();
-        }*/
+        }
     }
 
     public void addHand(AbstractMember member) {
@@ -136,7 +143,7 @@ public class BattleScreen extends AbstractScreen {
 
     @Override
     protected void render(SpriteBatch sb) {
-        /*if(WakTower.game.battle.isPlayerTurn()) {
+        if(WakTower.game.battle.isPlayerTurn()) {
             for(EnemyDisplay e : enemies.values()) {
                 e.render(sb);
             }
@@ -146,19 +153,19 @@ public class BattleScreen extends AbstractScreen {
             for(EnemyDisplay e : enemies.values()) {
                 e.render(sb);
             }
-        }*/
+        }
 
         for(MemberDisplay m : members.values()) {
             if(!m.isCard) m.render(sb);
         }
 
-        /*effectHandler.render(sb);
+        effectHandler.render(sb);
 
         turnEnd.render(sb);
 
         for(SkillDisplay s : skills.values()) {
             s.render(sb);
-        }*/
+        }
 
         for(SynergyDisplay s : synergies) {
             s.render(sb);
