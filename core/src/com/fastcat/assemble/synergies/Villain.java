@@ -15,6 +15,7 @@ public class Villain extends AbstractSynergy {
 
     @Override
     public void endOfTurn(boolean isPlayer) {
+        super.endOfTurn(isPlayer);
         flash();
         int gold = memberCount * grade;
         if(counter < max_gold) {

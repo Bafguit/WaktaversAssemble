@@ -10,6 +10,12 @@ public class Cat extends AbstractSynergy {
         super("Cat");
     }
 
+    @Override
+    public void reset() {
+        memberCount = getActualMemberCount();
+        grade = getGrade();
+    }
+
     public static Cat getInstance() {
         if(instance == null) {
             instance = new Cat();

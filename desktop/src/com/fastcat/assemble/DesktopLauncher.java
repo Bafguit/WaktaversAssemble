@@ -12,6 +12,10 @@ public class DesktopLauncher {
 		config.setResizable(false);
 		config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 20);
 		config.setTitle("Mousse's Adventure");
-		new Lwjgl3Application(new WakTower(new DesktopNativeInterface()), config);
+		try {
+			new Lwjgl3Application(new WakTower(new DesktopNativeInterface()), config);
+		} catch(Exception e) {
+			new ErrorWindow(e).setVisible(true);
+		}
 	}
 }

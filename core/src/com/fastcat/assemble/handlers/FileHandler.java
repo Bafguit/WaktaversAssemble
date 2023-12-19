@@ -109,16 +109,12 @@ public class FileHandler {
             assetManager.load("image/status/" + v.name + ".webp", Pixmap.class);
         }
 
-        for(JsonValue v : jsonMap.get("synergy")) {
-            assetManager.load("image/synergy/" + v.name + ".webp", Pixmap.class);
-        }
-
         assetManager.load("image/member/member.atlas", TextureAtlas.class);
         assetManager.load("image/skill/skill.atlas", TextureAtlas.class);
+        assetManager.load("image/synergy/synergy.atlas", TextureAtlas.class);
 
         /*assetManager.load("atlas/relic.atlas", TextureAtlas.class);
-        assetManager.load("atlas/status.atlas", TextureAtlas.class);
-        assetManager.load("atlas/synergy.atlas", TextureAtlas.class);*/
+        assetManager.load("atlas/status.atlas", TextureAtlas.class);*/
     }
 
     private void generateAnimationSprites() {
@@ -180,8 +176,8 @@ public class FileHandler {
     }
 
     public static Sprite getSynergy(String id) {
-        TextureAtlas atlas = instance.assetManager.get("atlas/synergy.atlas", TextureAtlas.class);
-        return atlas.createSprite(id);
+        TextureAtlas atlas = instance.assetManager.get("image/synergy/synergy.atlas", TextureAtlas.class);
+        return atlas.createSprite(id, -1);
     }
 
     public static TextureAtlas getAtlas(String url) {

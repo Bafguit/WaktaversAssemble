@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractUI;
+import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.screens.battle.BattleScreen;
@@ -30,6 +31,7 @@ public class StartGameButton extends AbstractUI {
     public void onClick() {
         //todo 화면전환 추가
         WakTower.game = new AbstractGame();
+        WakTower.game.battle = new TestBattle();
         WakTower.battleScreen = new BattleScreen();
         WakTower.setScreen(WakTower.battleScreen);
     }

@@ -14,6 +14,7 @@ public class Crazy extends AbstractSynergy {
 
     @Override
     public void endOfTurn(boolean isPlayer) {
+        super.endOfTurn(isPlayer);
         flash();
         ActionHandler.next(new DrawCardAction(grade));
     }

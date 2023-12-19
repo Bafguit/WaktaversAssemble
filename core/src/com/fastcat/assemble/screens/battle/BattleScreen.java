@@ -109,7 +109,7 @@ public class BattleScreen extends AbstractScreen {
         c = 0;
         for(SynergyDisplay s : synergies) {
             if(s.synergy.memberCount > 0) {
-                s.setPosition(70, 810 - c * 66);
+                s.setPosition(70, 810 - c * 100);
                 s.update();
                 c++;
             }
@@ -168,7 +168,9 @@ public class BattleScreen extends AbstractScreen {
         }
 
         for(SynergyDisplay s : synergies) {
-            s.render(sb);
+            if(s.enabled && s.synergy.memberCount > 0) {
+                s.render(sb);
+            }
         }
 
         drawButton.render(sb);

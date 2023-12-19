@@ -69,6 +69,13 @@ public abstract class AbstractMember implements Cloneable {
         upValue2 = up;
     }
 
+    public void summon() {
+        animation.setAnimation("summon");
+        for(AbstractSynergy s : synergy) {
+            s.addMember(this);
+        }
+    }
+
     public void onSummon() {}
 
     public void onExit() {}

@@ -51,7 +51,7 @@ public final class SynergyHandler {
                 return MainVocal.getInstance();
             case "MindMaster":
                 return MindMaster.getInstance();
-            case "Nobless":
+            case "Nobles":
                 return Nobles.getInstance();
             case "Nunna":
                 return Nunna.getInstance();

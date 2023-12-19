@@ -21,7 +21,7 @@ public class SummonMemberAction extends AbstractAction {
             WakTower.battleScreen.updateHandPosition();
             m.isCard = false;
             WakTower.battleScreen.members.put(member, m);
-            member.animation.setAnimation("summon");
+            member.summon();
         }
     }
 }
