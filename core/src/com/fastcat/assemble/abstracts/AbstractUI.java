@@ -53,6 +53,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public float originWidth;
     public float originHeight;
     public float timer = 0;
+    public float fluidDuration = 0.1f;
     private float fromX;
     private float fromY;
     private float toX;
@@ -78,6 +79,32 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public boolean tracking = false;
     public boolean mute = false;
     public TrackType trackable = TrackType.NONE;
+
+    public AbstractUI(Sprite texture) {
+        this(texture, -10000, -10000);
+    }
+
+    public AbstractUI(Sprite texture, float x, float y) {
+        this(texture, x, y, texture.getWidth(), texture.getHeight());
+    }
+
+    public AbstractUI(Sprite img, float x, float y, float width, float height) {
+        this.img = new Sprite(img);
+        realWidth = originWidth = width;
+        realHeight = originHeight = height;
+        this.width = width * scaleA;
+        this.height = height * scaleA;
+        originX = x;
+        originY = y;
+        pos = new Vector2i(0, 0);
+        setLocalPosition();
+        mouse = new Vector2(mx, my);
+        over = false;
+        enabled = true;
+        uiScale = 1.0f;
+        clicked = false;
+        clicking = false;
+    }
 
     public AbstractUI(Texture texture) {
         this(texture, -10000, -10000);
@@ -171,7 +198,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             if (over) {
                 if (overable) {
                     if(timer < 1f) {
-                        timer += WakTower.tick / 0.5f;
+                        timer += WakTower.tick / 0.25f;
                         if(timer >= 1f) timer = 1f;
                     }
                     subTexts = getSubText();
@@ -237,7 +264,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     }
 
     private void fluidPosition() {
-        distCount += WakTower.tick * 10;
+        distCount += WakTower.tick / fluidDuration;
         if(distCount > 1) {
             distCount = 1;
             fluiding = false;
@@ -398,6 +425,20 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     }
 
     public static class TempUI extends AbstractUI {
+        public TempUI(Sprite texture) {
+            super(texture);
+            overable = false;
+        }
+
+        public TempUI(Sprite texture, float x, float y) {
+            super(texture, x, y);
+            overable = false;
+        }
+
+        public TempUI(Sprite texture, float x, float y, float w, float h) {
+            super(texture, x, y, w, h);
+            overable = false;
+        }
         public TempUI(Texture texture) {
             super(texture);
             overable = false;

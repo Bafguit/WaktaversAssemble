@@ -3,6 +3,8 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.actions.StartBattleAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseWakDamage;
@@ -64,7 +66,7 @@ public abstract class AbstractBattle implements Cloneable {
         }
         phase = BattlePhase.battleStart;
         resetSynergy();
-        turnDraw();
+        ActionHandler.bot(new StartBattleAction());
     }
 
     public void turnDraw() {
@@ -94,12 +96,14 @@ public abstract class AbstractBattle implements Cloneable {
             for(AbstractMember c : discardPile) {
                 drawPile.addLast(c);
             }
-            for(int i = 0; i < amount; i++) {
-                AbstractMember m = drawPile.removeFirst();
-                hand.add(m);
-                WakTower.battleScreen.addHand(m);
-            }
             discardPile.clear();
+            if(drawPile.size > 0) {
+                for(int i = 0; i < amount; i++) {
+                    AbstractMember m = drawPile.removeFirst();
+                    hand.add(m);
+                    WakTower.battleScreen.addHand(m);
+                }
+            }
         }
     }
 

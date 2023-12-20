@@ -10,6 +10,8 @@ public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisp
     public final SynergyDisplayType type;
     public AbstractSynergy synergy;
 
+    public MemberDisplay member;
+
     public SynergyDisplay(SynergyDisplayType type) {
         super(FileHandler.getTexture("ui/synergyIcon"));
         clickable = false;
@@ -30,6 +32,8 @@ public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisp
     protected void renderUi(SpriteBatch sb) {
         if(synergy != null) {
             if(type == SynergyDisplayType.card) {
+                if(member.over) subTexts = getSubText();
+                else subTexts = null;
                 sb.draw(synergy.img, x, y, width, height);
             } else if(type == SynergyDisplayType.grade) {
                 sb.draw(synergy.gradeImg[synergy.grade], x, y, width, height);

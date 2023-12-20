@@ -167,7 +167,9 @@ public class FileHandler {
 
     public static Sprite getMember(String id) {
         TextureAtlas atlas = instance.assetManager.get("image/member/member.atlas", TextureAtlas.class);
-        return atlas.createSprite(id);
+        Sprite s = atlas.createSprite(id);
+        s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        return s;
     }
 
     public static Sprite getStatus(String id) {
@@ -177,7 +179,9 @@ public class FileHandler {
 
     public static Sprite getSynergy(String id) {
         TextureAtlas atlas = instance.assetManager.get("image/synergy/synergy.atlas", TextureAtlas.class);
-        return atlas.createSprite(id, -1);
+        Sprite s = atlas.createSprite(id, -1);
+        s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        return s;
     }
 
     public static TextureAtlas getAtlas(String url) {

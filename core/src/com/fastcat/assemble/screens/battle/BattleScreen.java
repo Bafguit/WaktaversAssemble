@@ -2,6 +2,7 @@ package com.fastcat.assemble.screens.battle;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.JsonValue;
@@ -21,7 +22,7 @@ public class BattleScreen extends AbstractScreen {
 
     public PlayerDisplay player;
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
-    public HashMap<AbstractMember, MemberDisplay> hand;
+    public LinkedList<MemberDisplay> hand;
     public HashMap<AbstractMember, MemberDisplay> members;
     public HashMap<AbstractSkill, SkillDisplay> skills;
     public HashMap<AbstractSynergy, SynergyDisplay> synergyMap;
@@ -34,7 +35,7 @@ public class BattleScreen extends AbstractScreen {
     public BattleScreen() {
         super(ScreenType.BASE);
         enemies = new HashMap<>();
-        hand = new HashMap<>();
+        hand = new LinkedList<>();
         members = new HashMap<>();
         skills = new HashMap<>();
         synergyMap = new HashMap<>();
@@ -83,15 +84,9 @@ public class BattleScreen extends AbstractScreen {
     @Override
     public void update() {
         testMember.update();
-
-        for(MemberDisplay h : hand.values()) {
-            if(h.over) {
-                h.update();
-                break;
-            }
-        }
-        for(MemberDisplay h : hand.values()) {
-            if(!h.over) h.update();
+        
+        for(MemberDisplay h : hand) {
+            h.update();
         }
 
         drawButton.update();
@@ -122,22 +117,24 @@ public class BattleScreen extends AbstractScreen {
         for(EnemyDisplay e : enemies.values()) {
             e.update();
         }
+        updateHandPosition();
     }
 
     public void addHand(AbstractMember member) {
         MemberDisplay m = new MemberDisplay(member);
         m.forcePosition(50, 50);
-        hand.put(member, m);
+        hand.add(m);
         updateHandPosition();
     }
 
     public void updateHandPosition() {
         int c = 0, hs = hand.size();
         float hw = 960 + (140 * hs + 145) * 0.5f;
-        for(MemberDisplay h : hand.values()) {
+        for(MemberDisplay h : hand) {
             if(h.over) {
                 h.setPosition(hw - 145 - c * 140, 214);
             } else h.setPosition(hw - 145 - c * 140, 107);
+            c++;
         }
     }
 
@@ -175,9 +172,31 @@ public class BattleScreen extends AbstractScreen {
 
         drawButton.render(sb);
 
-        for(MemberDisplay m : members.values()) {
-            if(m.isCard) m.render(sb);
+        for(int i = hand.size() - 1; i >= 0; i--) {
+            MemberDisplay d = hand.get(i);
+            if(!d.over) d.render(sb);
         }
+
+        for(int i = hand.size() - 1; i >= 0; i--) {
+            MemberDisplay d = hand.get(i);
+            if(d.over) d.render(sb);
+        }
+        
         testMember.render(sb);
+    }
+
+    public MemberDisplay getMemberFromHand(AbstractMember m) {
+        for(MemberDisplay d : hand) {
+            if(d.member == m) return d;
+        }
+        return null;
+    }
+
+    public int indexOfHand(AbstractMember m) {
+        for(int i = 0; i < hand.size(); i++) {
+            MemberDisplay d = hand.get(i);
+            if(d.member == m) return i;
+        }
+        return -1;
     }
 }

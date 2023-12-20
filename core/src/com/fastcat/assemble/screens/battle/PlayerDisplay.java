@@ -23,9 +23,10 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
     public PlayerDisplay(AbstractPlayer player) {
         super(FileHandler.getTexture("ui/tile"));
         status = new LinkedList<>();
-        player.statusUpdatedListener.add(this);
+        this.player = player;
+        this.player.statusUpdatedListener.add(this);
         basis = BasisType.BOTTOM;
-        healthBar = new HealthBar(player);
+        healthBar = new HealthBar(this.player);
     }
 
     @Override

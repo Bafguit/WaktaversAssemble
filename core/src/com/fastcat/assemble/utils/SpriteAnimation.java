@@ -29,7 +29,7 @@ public class SpriteAnimation {
     private boolean isRunning = true;
     private SpriteAnimationType type;
 
-    public Vector2 pos, size;
+    public Vector2 pos = new Vector2(), size = new Vector2();
 
     public SpriteAnimation(String id, SpriteAnimationType type) {
         this.id = id;

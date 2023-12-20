@@ -35,7 +35,9 @@ public class HealthBar implements OnHealthUpdated {
         yetMid = new Sprite(FileHandler.getTexture("ui/hb_yet_mid"));
         yetRight = new Sprite(FileHandler.getTexture("ui/hb_yet_right"));
         yetLeft = new Sprite(FileHandler.getTexture("ui/hb_yet_left"));
-        yetWidth = hbMid.originWidth;
+        float h = (entity.health - 1) / (entity.maxHealth - 1);
+        width = hbMid.width * h;
+        yetWidth = width;
         entity.healthUpdatedListener.add(this);
     }
     
@@ -66,11 +68,11 @@ public class HealthBar implements OnHealthUpdated {
 
             sb.draw(yetMid, hbMid.x, hbMid.y, yetWidth, hbMid.height);
             sb.draw(yetLeft, hbLeft.x, hbLeft.y, hbLeft.width, hbLeft.height);
-            sb.draw(yetRight, hbMid.x + yetWidth, hbRight.y, hbRight.width, hbRight.height);
+            sb.draw(yetRight, hbMid.x + yetWidth, hbLeft.y, hbRight.width, hbRight.height);
 
             sb.draw(hbLeft.img, hbLeft.x, hbLeft.y, hbLeft.width, hbLeft.height);
             sb.draw(hbMid.img, hbMid.x, hbMid.y, width, hbMid.height);
-            sb.draw(hbRight.img, hbMid.x + width, hbRight.y, hbRight.width, hbRight.height);
+            sb.draw(hbRight.img, hbMid.x + width, hbLeft.y, hbRight.width, hbRight.height);
             
             sb.draw(line.img, line.x, line.y, line.width, line.height);
 

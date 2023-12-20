@@ -9,8 +9,10 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.interfaces.OnMouseScrolled;
+import com.fastcat.assemble.interfaces.OnScaleUpdated;
 
 import java.nio.ByteBuffer;
+import java.util.LinkedList;
 import java.util.zip.Deflater;
 
 public final class InputHandler {
@@ -37,6 +39,7 @@ public final class InputHandler {
     public static int my;
 
     public static Array<OnMouseScrolled> scrollListener = new Array<>();
+    public static LinkedList<OnScaleUpdated> scaleUpdateListener = new LinkedList<>();
 
     public static boolean textInputMode;
     private static String typedText = "";
@@ -175,6 +178,12 @@ public final class InputHandler {
 
             PixmapIO.writePNG(Gdx.files.local("screen.png"), pixmap, Deflater.DEFAULT_COMPRESSION, true);
             pixmap.dispose();
+        }
+    }
+
+    public void updateScale() {
+        for(OnScaleUpdated s : scaleUpdateListener) {
+            s.onScaleUpdated();
         }
     }
 }

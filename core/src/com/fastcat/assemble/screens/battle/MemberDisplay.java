@@ -16,14 +16,15 @@ import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 
 public class MemberDisplay extends AbstractUI {
 
-    private final FontHandler.FontData fontName = FontHandler.SUB_DESC.cpy();
-    private final FontHandler.FontData fontDesc = FontHandler.SUB_DESC.cpy();
+    private final FontHandler.FontData fontName = FontHandler.CARD_DESC.cpy();
+    private final FontHandler.FontData fontDesc = FontHandler.CARD_DESC.cpy();
     private final AbstractUI.TempUI cardImg, tile, descBg; 
     private final SynergyDisplay[] synergy;
     private final Sprite frame;
 
     public final AbstractMember member;
     public boolean isCard;
+    public int cardIndex = -1;
 
     public MemberDisplay(AbstractMember member) {
         //285x428
@@ -35,17 +36,21 @@ public class MemberDisplay extends AbstractUI {
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
         //frame 258x349
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
-        cardImg = new AbstractUI.TempUI(member.img.getTexture());
+        cardImg = new AbstractUI.TempUI(member.img);
         //descBg 258x200
         descBg = new AbstractUI.TempUI(FileHandler.getTexture("ui/cardDesc"));
         descBg.basis = BasisType.BOTTOM;
         synergy = new SynergyDisplay[member.synergy.length];
         for(int i = 0; i < member.synergy.length; i++) {
-            synergy[i] = new SynergyDisplay(member.synergy[i], SynergyDisplayType.card);
+            SynergyDisplay d = new SynergyDisplay(member.synergy[i], SynergyDisplayType.card);
+            d.member = this;
+            d.overable = false;
+            synergy[i] = d;
         }
         isCard = true;
         trackable = TrackType.CENTER;
         fluid = true;
+        fluidDuration = 0.05f;
     }
 
     @Override
@@ -108,7 +113,7 @@ public class MemberDisplay extends AbstractUI {
             }
         }
     }
-
+/*
     @Override
     protected void onOver() {
         if(isCard) WakTower.battleScreen.updateHandPosition();
@@ -118,7 +123,7 @@ public class MemberDisplay extends AbstractUI {
     protected void onOverEnd() {
         if(isCard) WakTower.battleScreen.updateHandPosition();
     }
-
+*/
     @Override
     protected void onClickEnd() {
         if(y > height) {

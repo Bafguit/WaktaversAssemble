@@ -34,7 +34,6 @@ public abstract class AbstractSynergy {
         maxGrade = gradeDesc.length;
         gradeImg = new Sprite[data.gradeImg.length];
         for(int i = 0; i < gradeImg.length; i++) {
-            if(data.gradeImg[i] == null) throw new NullPointerException("Length: " + data.gradeImg.length + " | Name: " + data.name + " | Grade: " + i + " | Synergy Image is Null.");
             gradeImg[i] = new Sprite(data.gradeImg[i]);
         }
         globalCount = 0;
@@ -103,11 +102,14 @@ public abstract class AbstractSynergy {
             gradeAmount = json.get("gradeAmount").asIntArray();
             TextureAtlas a = FileHandler.getAtlas("image/synergy/synergy");
             img = a.createSprite(id, -1);
+            img.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
             gradeImg = new Sprite[gradeAmount[0] < 2 ? gradeAmount.length : gradeAmount.length + 1];
             if(gradeAmount[0] == 0) gradeImg[0] = new Sprite(img);
             else {
-                for(int i = 0; i < gradeDesc.length; i++) {
-                    gradeImg[i] = a.createSprite(id, i);
+                for(int i = 0; i < gradeImg.length; i++) {
+                    Sprite s = a.createSprite(id, i);
+                    s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+                    gradeImg[i] = s;
                 }
             }
         }

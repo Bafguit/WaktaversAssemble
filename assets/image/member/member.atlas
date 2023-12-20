@@ -1,7 +1,20 @@
+
 member.png
-	size: 1024, 512
-	repeat: none
+size: 1024, 512
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
 Hikiking
-	bounds: 2, 2, 258, 349
+  rotate: false
+  xy: 2, 2
+  size: 258, 349
+  orig: 258, 349
+  offset: 0, 0
+  index: -1
 Victory
-	bounds: 262, 2, 258, 349
+  rotate: false
+  xy: 262, 2
+  size: 258, 349
+  orig: 258, 349
+  offset: 0, 0
+  index: -1
