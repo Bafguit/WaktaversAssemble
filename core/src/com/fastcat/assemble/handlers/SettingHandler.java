@@ -13,8 +13,8 @@ public final class SettingHandler {
         Preferences prefs = Gdx.app.getPreferences("WakTowerSetting");
         setting.screenMode = prefs.getInteger("screenMode", 0);
         if (setting.screenMode == 0) {
-            setting.width = prefs.getInteger("width", 640);
-            setting.height = prefs.getInteger("height", 360);
+            setting.width = prefs.getInteger("width", 1280);
+            setting.height = prefs.getInteger("height", 720);
         }
 
         // 볼륨 설정

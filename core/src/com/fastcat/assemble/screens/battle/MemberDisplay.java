@@ -45,6 +45,7 @@ public class MemberDisplay extends AbstractUI {
             SynergyDisplay d = new SynergyDisplay(member.synergy[i], SynergyDisplayType.card);
             d.member = this;
             d.overable = false;
+            d.setScale(0.7f);
             synergy[i] = d;
         }
         isCard = true;
@@ -65,7 +66,9 @@ public class MemberDisplay extends AbstractUI {
         cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
         for(int i = 0; i < synergy.length; i++) {
             SynergyDisplay s = synergy[i];
-            s.setPosition(originX + originWidth * 0.4f - s.originWidth * 1.1f * (synergy.length - 1 - i), originY + originHeight * 0.45f);
+            float rx = localX / InputHandler.scaleX;
+            float ry = localY / InputHandler.scaleY;
+            s.setPosition(rx + originWidth * 0.4f - s.originWidth * 1.05f * (synergy.length - 1 - i), ry + originHeight * 0.42f);
             s.update();
         }
         descBg.setPosition(originX, cardImg.originY - cardImg.originHeight * 0.5f);
@@ -124,8 +127,15 @@ public class MemberDisplay extends AbstractUI {
         if(isCard) WakTower.battleScreen.updateHandPosition();
     }
 */
+
+    @Override
+    protected void onClick() {
+        WakTower.battleScreen.clicked = this;
+    }
+
     @Override
     protected void onClickEnd() {
+        WakTower.battleScreen.clicked = null;
         if(y > height) {
             ActionHandler.bot(new SummonMemberAction(member));
         }

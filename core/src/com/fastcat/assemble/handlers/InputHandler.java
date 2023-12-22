@@ -182,6 +182,7 @@ public final class InputHandler {
     }
 
     public void updateScale() {
+        update();
         for(OnScaleUpdated s : scaleUpdateListener) {
             s.onScaleUpdated();
         }

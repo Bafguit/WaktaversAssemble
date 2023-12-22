@@ -23,13 +23,13 @@ public class BattleScreen extends AbstractScreen {
     public PlayerDisplay player;
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
     public LinkedList<MemberDisplay> hand;
+    public MemberDisplay clicked;
     public HashMap<AbstractMember, MemberDisplay> members;
     public HashMap<AbstractSkill, SkillDisplay> skills;
     public HashMap<AbstractSynergy, SynergyDisplay> synergyMap;
     public SynergyDisplay[] synergies;
     public TurnEndButton turnEnd;
 
-    public MemberDisplay testMember;
     public DrawButton drawButton;
 
     public BattleScreen() {
@@ -46,9 +46,6 @@ public class BattleScreen extends AbstractScreen {
             addHand(new Victory());
             addHand(new Hikiking());
         }
-
-        testMember = new MemberDisplay(new Victory());
-        testMember.setPosition(200, 540);
         drawButton = new DrawButton();
     }
 
@@ -83,10 +80,11 @@ public class BattleScreen extends AbstractScreen {
 
     @Override
     public void update() {
-        testMember.update();
+
+        if(clicked != null) clicked.update();
         
         for(MemberDisplay h : hand) {
-            h.update();
+            if(!h.clicking) h.update();
         }
 
         drawButton.update();
@@ -128,13 +126,38 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void updateHandPosition() {
-        int c = 0, hs = hand.size();
-        float hw = 960 + (140 * hs + 145) * 0.5f;
+        int c = 0, cw = 0, hs = hand.size();
+        boolean hasOver = false;
         for(MemberDisplay h : hand) {
-            if(h.over) {
-                h.setPosition(hw - 145 - c * 140, 214);
-            } else h.setPosition(hw - 145 - c * 140, 107);
-            c++;
+            if(h != clicked) {
+                if(c > 0 && h.over) {
+                    hasOver = true;
+                    break;
+                }
+                c++;
+            } else {
+                hs -= 1;
+                break;
+            }
+        }
+        c = 0;
+        float hw = 960 + (140 * hs + (hasOver ? 290 : 145)) * 0.5f;
+        if(clicked == null) {
+            for(MemberDisplay h : hand) {
+                if(h.over) {
+                    if(c > 0) cw += 145;
+                    h.setPosition(hw - 145 - cw, 214);
+                } else h.setPosition(hw - 145 - cw, 107);
+                cw += 140;
+                c++;
+            }
+        } else {
+            for(MemberDisplay h : hand) {
+                if(h != clicked) {
+                    h.setPosition(hw - 145 - c * 140, 107);
+                    c++;
+                }
+            }
         }
     }
 
@@ -172,6 +195,8 @@ public class BattleScreen extends AbstractScreen {
 
         drawButton.render(sb);
 
+        if(clicked != null) clicked.render(sb);
+
         for(int i = hand.size() - 1; i >= 0; i--) {
             MemberDisplay d = hand.get(i);
             if(!d.over) d.render(sb);
@@ -181,8 +206,6 @@ public class BattleScreen extends AbstractScreen {
             MemberDisplay d = hand.get(i);
             if(d.over) d.render(sb);
         }
-        
-        testMember.render(sb);
     }
 
     public MemberDisplay getMemberFromHand(AbstractMember m) {
