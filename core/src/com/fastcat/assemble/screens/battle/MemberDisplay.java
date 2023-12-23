@@ -56,7 +56,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
 
     @Override
     protected void foreUpdate() {
-        clickable = fluid = isCard; 
+        clickable = fluid = isCard && WakTower.game.battle.members.size < WakTower.game.memberLimit; 
     }
 
     @Override

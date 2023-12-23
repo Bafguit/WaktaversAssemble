@@ -13,6 +13,8 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.actions.StartBattleAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
@@ -44,10 +46,6 @@ public class BattleScreen extends AbstractScreen {
         synergies = new SynergyDisplay[19];
         turnEnd = new TurnEndButton();
         initialize();
-        for(int i = 0; i < 3; i++) {
-            addHand(new Victory());
-            addHand(new Hikiking());
-        }
         drawButton = new DrawButton();
     }
 
@@ -78,6 +76,7 @@ public class BattleScreen extends AbstractScreen {
             synergyMap.put(s.synergy, s);
         }
         Arrays.sort(synergies);
+        ActionHandler.bot(new StartBattleAction());
     }
 
     @Override
@@ -108,7 +107,7 @@ public class BattleScreen extends AbstractScreen {
         Arrays.sort(synergies);
         for(SynergyDisplay s : synergies) {
             if(s.synergy.memberCount > 0) {
-                s.setPosition(70, 810 - c * s.height * 1.1f);
+                s.setPosition(70, 810 - c * s.height * 1.5f);
                 c++;
             } else s.setPosition(-10000, -10000);
             s.update();
@@ -182,7 +181,7 @@ public class BattleScreen extends AbstractScreen {
         }
 
         for(MemberDisplay m : members.values()) {
-            if(!m.isCard) m.render(sb);
+            m.render(sb);
         }
 
         effectHandler.render(sb);

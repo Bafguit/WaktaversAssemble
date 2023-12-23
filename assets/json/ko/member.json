@@ -16,5 +16,25 @@
       "Competitor",
       "Crazy"
     ]
+  },
+  "Jingburger": {
+    "name": "징버거",
+    "desc": "앞선 멤버 하나당 방어도를 {D} 얻습니다.",
+    "flavor": "",
+    "synergy": [
+      "Isedol",
+      "Nunna",
+      "Timid"
+    ]
+  },
+  "Gosegu": {
+    "name": "고세구",
+    "desc": "카드를 {V}장 뽑고 {V}장 버립니다.",
+    "flavor": "",
+    "synergy": [
+      "Isedol",
+      "Cat",
+      "Crazy"
+    ]
   }
 }

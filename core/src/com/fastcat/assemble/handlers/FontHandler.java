@@ -25,21 +25,22 @@ import static com.fastcat.assemble.handlers.InputHandler.scaleY;
 public final class FontHandler implements Disposable {
 
     //Font File
-    private static final FreeTypeFontGenerator font = new FreeTypeFontGenerator(Gdx.files.internal("font/" + SettingHandler.setting.language + ".ttf"));
+    private static final FreeTypeFontGenerator medium = new FreeTypeFontGenerator(Gdx.files.internal("font/medium.ttf"));
+    private static final FreeTypeFontGenerator bold = new FreeTypeFontGenerator(Gdx.files.internal("font/bold.ttf"));
 
     //Preload Fonts
-    public static final FontData LOGO = new FontData(100, false);
-    public static final FontData TURN_CHANGE = new FontData(60, false);
+    public static final FontData LOGO = new FontData(100, false, FontType.BOLD);
+    public static final FontData TURN_CHANGE = new FontData(40, false, FontType.BOLD);
     public static final FontData MAIN = new FontData(60, WHITE);
     public static final FontData MAIN_GREY = new FontData(60, GRAY);
     public static final FontData ROLL = new FontData(40, false);
     public static final FontData NB30 = new FontData(30, false);
     public static final FontData NB26 = new FontData(26, false);
-    public static final FontData CARD_NAME = new FontData(24, false);
+    public static final FontData CARD_NAME = new FontData(24, false, FontType.BOLD);
     public static final FontData CARD_DESC = new FontData(21, false);
     public static final FontData SUB_NAME = new FontData(22, WHITE, false, false);
     public static final FontData SUB_DESC = new FontData(20, WHITE, false, false);
-    public static final FontData HEALTH = new FontData(20, true);
+    public static final FontData HEALTH = new FontData(20, true, FontType.BOLD);
 
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();
@@ -83,7 +84,28 @@ public final class FontHandler implements Disposable {
         parameter.color = color;
         parameter.borderColor = bColor;
         parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
-        return font.generateFont(parameter);
+        return medium.generateFont(parameter);
+    }
+
+    public static BitmapFont generate(int size, boolean border, FontType type) {
+        return generate(size, WHITE, DARK_GRAY, border, type);
+    }
+
+    public static BitmapFont generate(int size, Color color, Color bColor, boolean border, FontType type) {
+        return generate(size, color, bColor, true, border, type);
+    }
+
+    public static BitmapFont generate(int size, Color color, Color bColor, boolean shadow, boolean border, FontType type) {
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        parameter.characters = "";
+        parameter.incremental = true;
+        parameter.shadowOffsetX = parameter.shadowOffsetY = shadow ? 2 : 0;
+        parameter.size = size;
+        parameter.color = color;
+        parameter.borderColor = bColor;
+        parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
+        FreeTypeFontGenerator g = type == FontType.MEDIUM ? medium : bold;
+        return g.generateFont(parameter);
     }
 
     public static void renderCenter(SpriteBatch sb, FontData font, String text, float x, float y) {
@@ -278,7 +300,8 @@ public final class FontHandler implements Disposable {
 
     @Override
     public void dispose() {
-        font.dispose();
+        medium.dispose();
+        bold.dispose();
         TURN_CHANGE.dispose();
         LOGO.dispose();
         ROLL.dispose();
@@ -296,6 +319,7 @@ public final class FontHandler implements Disposable {
         public float alpha = 1.0f;
         public boolean shadow;
         public boolean border;
+        public FontType type;
 
         public FontData(int size, Color color, boolean shadow, boolean border) {
             this(size, shadow, border, color, new Color(0.2f, 0.2f, 0.2f, 1));
@@ -322,11 +346,41 @@ public final class FontHandler implements Disposable {
             this.font.getData().markupEnabled = true;
             this.shadow = shadow;
             this.border = border;
+            this.type = FontType.MEDIUM;
+            InputHandler.scaleUpdateListener.add(this);
+        }
+
+        public FontData(int size, Color color, boolean shadow, boolean border, FontType type) {
+            this(size, shadow, border, color, new Color(0.2f, 0.2f, 0.2f, 1), type);
+        }
+
+        public FontData(int size, boolean border, FontType type) {
+            this(size, true, border, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), type);
+        }
+
+        public FontData(int size, boolean shadow, boolean border, FontType type) {
+            this(size, shadow, border, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), type);
+        }
+
+        public FontData(int size, Color color, FontType type) {
+            this(size, true, false, color, new Color(0.2f, 0.2f, 0.2f, 1), type);
+        }
+
+        public FontData(int size, boolean shadow, boolean border, Color color, Color bColor, FontType type) {
+            originSize = size;
+            this.size = (int) (originSize * InputHandler.scaleA);
+            this.color = color.cpy();
+            this.bColor = bColor.cpy();
+            this.font = generate(this.size, this.color, this.bColor, shadow, border, type);
+            this.font.getData().markupEnabled = true;
+            this.shadow = shadow;
+            this.border = border;
+            this.type = type;
             InputHandler.scaleUpdateListener.add(this);
         }
 
         public final FontData cpy() {
-            return new FontData(originSize, shadow, border, new Color(color), new Color(bColor));
+            return new FontData(originSize, shadow, border, new Color(color), new Color(bColor), type);
         }
 
         public final void draw(SpriteBatch sb, GlyphLayout layout, float alpha, float x, float y) {
@@ -345,7 +399,11 @@ public final class FontHandler implements Disposable {
         @Override
         public void onScaleUpdated() {
             font.dispose();
-            font = generate(this.originSize, this.color, this.bColor, shadow, border);
+            font = generate(this.originSize, this.color, this.bColor, shadow, border, type);
         }
+    }
+
+    public enum FontType {
+        MEDIUM, BOLD
     }
 }

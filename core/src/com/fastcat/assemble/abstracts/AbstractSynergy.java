@@ -78,9 +78,8 @@ public abstract class AbstractSynergy {
         grade = getGrade();
     }
 
-    public void endOfTurn(boolean isPlayer) {
-        if(!isPlayer) reset();
-    }
+    public void endOfTurn(boolean isPlayer) {}
+
     public void gradeUp() {}
 
     public void flash() {
