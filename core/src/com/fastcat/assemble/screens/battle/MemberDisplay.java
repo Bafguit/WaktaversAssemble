@@ -2,6 +2,7 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
@@ -14,7 +15,7 @@ import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.ScreenHandler;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 
-public class MemberDisplay extends AbstractUI {
+public class MemberDisplay extends AbstractUI implements Disposable {
 
     private final FontHandler.FontData fontName = FontHandler.CARD_DESC.cpy();
     private final FontHandler.FontData fontDesc = FontHandler.CARD_DESC.cpy();
@@ -49,7 +50,6 @@ public class MemberDisplay extends AbstractUI {
             synergy[i] = d;
         }
         isCard = true;
-        trackable = TrackType.CENTER;
         fluid = true;
         fluidDuration = 0.05f;
     }
@@ -68,7 +68,7 @@ public class MemberDisplay extends AbstractUI {
             SynergyDisplay s = synergy[i];
             float rx = localX / InputHandler.scaleX;
             float ry = localY / InputHandler.scaleY;
-            s.setPosition(rx + originWidth * 0.4f - s.originWidth * 1.05f * (synergy.length - 1 - i), ry + originHeight * 0.42f);
+            s.setPosition(rx + originWidth * 0.4f - s.originWidth * (synergy.length - 1 - i), ry + originHeight * 0.433f);
             s.update();
         }
         descBg.setPosition(originX, cardImg.originY - cardImg.originHeight * 0.5f);
@@ -98,7 +98,7 @@ public class MemberDisplay extends AbstractUI {
             }
         } else {
             for(AbstractSynergy s : member.synergy) {
-                SynergyDisplay sd = ScreenHandler.getInstance().battleScreen.synergyMap.get(s);
+                SynergyDisplay sd = WakTower.battleScreen.synergyMap.get(s);
                 if(sd.over) {
                     tile.render(sb);
                     break;
@@ -139,5 +139,12 @@ public class MemberDisplay extends AbstractUI {
         if(y > height) {
             ActionHandler.bot(new SummonMemberAction(member));
         }
+        WakTower.battleScreen.updateHandPosition();
+    }
+
+    @Override
+    public void dispose() {
+        fontName.dispose();
+        fontDesc.dispose();
     }
 }

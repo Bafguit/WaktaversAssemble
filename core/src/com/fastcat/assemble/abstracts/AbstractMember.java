@@ -1,7 +1,9 @@
 package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -11,6 +13,11 @@ import com.fastcat.assemble.utils.SpriteAnimation;
 
 
 public abstract class AbstractMember implements Cloneable {
+
+    private static final String[] MIND_MASTER_SYNERGY = new String[] {
+        "Guardian", "Crazy", "Expert", "Magician", "MainVocal", "Machinary",
+        "Doormat", "Villain", "Kiddo", "Nobles", "Competitor", "Timid"
+    };
 
     public final MemberData data;
 
@@ -73,6 +80,26 @@ public abstract class AbstractMember implements Cloneable {
         animation.setAnimation("summon");
         for(AbstractSynergy s : synergy) {
             s.addMember(this);
+        }
+    }
+    
+    public void onDrawn() {
+        for(int i = 0; i < synergy.length; i++) {
+            AbstractSynergy s = synergy[i];
+            if(s.id.equals("MindMaster")) {
+                Array<String> ss = new Array<>();
+                for(String k : MIND_MASTER_SYNERGY) {
+                    boolean b = true;
+                    for(AbstractSynergy sn : synergy) {
+                        if(sn.id.equals(k)) {
+                            b = false;
+                            break;
+                        }
+                    }
+                    if(b) ss.add(k);
+                }
+                synergy[i] = SynergyHandler.getSynergyInstance(ss.get(WakTower.game.publicRandom.random(0, ss.size - 1)));
+            }
         }
     }
 

@@ -178,7 +178,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             clicked = over && isLeftClick;
             hasClick = clicked || clicking;
             clicking = over && hasClick && isLeftClicking;
-            clickEnd = hasClick && !isLeftClicking;
+            clickEnd = hasClick && (!isLeftClicking || !isCursorInScreen);
         } else {
             clicked = hasClick && hasOver && isLeftClick;
             clicking = hasClick && hasOver && isLeftClicking;

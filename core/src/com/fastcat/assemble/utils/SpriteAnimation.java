@@ -122,7 +122,7 @@ public class SpriteAnimation {
 
     private void tickDuration() {
         timer += WakTower.tick * current.timescale;
-        if(timer > current.duration) {
+        if(timer >= current.duration) {
             timer -= current.duration;
         }
     }

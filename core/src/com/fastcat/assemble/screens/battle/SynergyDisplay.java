@@ -3,6 +3,7 @@ package com.fastcat.assemble.screens.battle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractUI.SubText.SubWay;
 import com.fastcat.assemble.handlers.FileHandler;
 
 public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisplay> {
@@ -29,11 +30,18 @@ public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisp
     }
 
     @Override
+    protected void updateButton() {
+        if(type == SynergyDisplayType.card) {
+            if(member.over) subTexts = getSubText();
+            else subTexts = null;
+        } else if(over) subTexts = getSubText();
+        else subTexts = null;
+    }
+
+    @Override
     protected void renderUi(SpriteBatch sb) {
         if(synergy != null) {
             if(type == SynergyDisplayType.card) {
-                if(member.over) subTexts = getSubText();
-                else subTexts = null;
                 sb.draw(synergy.img, x, y, width, height);
             } else if(type == SynergyDisplayType.grade) {
                 sb.draw(synergy.gradeImg[synergy.grade], x, y, width, height);

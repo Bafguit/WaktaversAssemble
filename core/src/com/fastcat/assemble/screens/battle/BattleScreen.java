@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
@@ -13,6 +14,7 @@ import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.members.Victory;
@@ -81,7 +83,10 @@ public class BattleScreen extends AbstractScreen {
     @Override
     public void update() {
 
-        if(clicked != null) clicked.update();
+        if(clicked != null) {
+            clicked.forcePosition(InputHandler.mx / InputHandler.scaleX, InputHandler.my / InputHandler.scaleY);
+            clicked.update();
+        }
         
         for(MemberDisplay h : hand) {
             if(!h.clicking) h.update();
@@ -103,9 +108,9 @@ public class BattleScreen extends AbstractScreen {
         for(SynergyDisplay s : synergies) {
             if(s.synergy.memberCount > 0) {
                 s.setPosition(70, 810 - c * 100);
-                s.update();
                 c++;
-            }
+            } else s.setPosition(-10000, -10000);
+            s.update();
         }
         for(SkillDisplay s : skills.values()) {
             s.update();
