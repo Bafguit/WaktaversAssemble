@@ -29,6 +29,7 @@ public class DrawButton extends AbstractUI {
 
     @Override
     public void onClick() {
-        WakTower.battleScreen.addHand(WakTower.game.battleRandom.random(0, 1) == 1 ? new Victory() : new Hikiking());
+        WakTower.game.battle.drawPile.addFirst(WakTower.game.battleRandom.random(0, 1) == 1 ? new Victory() : new Hikiking());
+        WakTower.game.battle.draw(1);
     }
 }

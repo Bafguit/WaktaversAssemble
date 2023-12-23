@@ -88,9 +88,9 @@ public class FileHandler {
         assetManager.load("image/ui/cardFrame.webp", Pixmap.class);
         assetManager.load("image/ui/memberTile.webp", Pixmap.class);
         assetManager.load("image/ui/synergyIcon.webp", Pixmap.class);
-        assetManager.load("image/ui/sub_top.webp", Pixmap.class);
-        assetManager.load("image/ui/sub_mid.webp", Pixmap.class);
-        assetManager.load("image/ui/sub_bot.webp", Pixmap.class);
+        assetManager.load("image/ui/sub_top.png", Pixmap.class);
+        assetManager.load("image/ui/sub_mid.png", Pixmap.class);
+        assetManager.load("image/ui/sub_bot.png", Pixmap.class);
         assetManager.load("image/ui/hb_left.webp", Pixmap.class);
         assetManager.load("image/ui/hb_mid.webp", Pixmap.class);
         assetManager.load("image/ui/hb_right.webp", Pixmap.class);
@@ -151,6 +151,12 @@ public class FileHandler {
 
     public static Texture getTexture(String path) {
         Texture t = new Texture(instance.assetManager.get("image/" + path + ".webp", Pixmap.class));
+		t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        return t;
+    }
+
+    public static Texture getPng(String path) {
+        Texture t = new Texture(instance.assetManager.get("image/" + path + ".png", Pixmap.class));
 		t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         return t;
     }

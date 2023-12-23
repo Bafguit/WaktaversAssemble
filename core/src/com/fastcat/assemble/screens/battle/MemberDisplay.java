@@ -56,7 +56,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
 
     @Override
     protected void foreUpdate() {
-        clickable = isCard; 
+        clickable = fluid = isCard; 
     }
 
     @Override
@@ -68,6 +68,8 @@ public class MemberDisplay extends AbstractUI implements Disposable {
             SynergyDisplay s = synergy[i];
             float rx = localX / InputHandler.scaleX;
             float ry = localY / InputHandler.scaleY;
+            s.overOnlyOne = !over;
+            s.overable = over;
             s.setPosition(rx + originWidth * 0.4f - s.originWidth * (synergy.length - 1 - i), ry + originHeight * 0.433f);
             s.update();
         }

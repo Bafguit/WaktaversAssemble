@@ -1,20 +1,12 @@
-
 member.png
-size: 1024, 512
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
+	size: 2048, 512
+	filter: Linear, Linear
+	repeat: none
+Gosegu
+	bounds: 522, 2, 258, 349
 Hikiking
-  rotate: false
-  xy: 2, 2
-  size: 258, 349
-  orig: 258, 349
-  offset: 0, 0
-  index: -1
+	bounds: 2, 2, 258, 349
+Jinburger
+	bounds: 262, 2, 258, 349
 Victory
-  rotate: false
-  xy: 262, 2
-  size: 258, 349
-  orig: 258, 349
-  offset: 0, 0
-  index: -1
+	bounds: 782, 2, 258, 349

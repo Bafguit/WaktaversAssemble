@@ -68,6 +68,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public boolean clickEnd = true;
     public boolean enabled;
     public boolean showImg = true;
+    public boolean overOnlyOne = true;
     private boolean hasClick = false;
 
     public Vector2 mouse;
@@ -172,7 +173,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             y += parent.y;
         }
         boolean justOver = hasOver;
-        hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !InputHandler.alreadyOver;
+        hasOver = mouse.x > x && mouse.x < x + width && mouse.y > y && mouse.y < y + height && !(InputHandler.alreadyOver && overOnlyOne);
         if(isDesktop) {
             over = hasOver && isCursorInScreen;
             clicked = over && isLeftClick;
@@ -259,6 +260,12 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                 sc = 10 * scaleA;
                 subP = y + height + sc;
                 subTexts.render(sb, x + width / 2, subP, subWay);
+            } else if(subWay == SubText.SubWay.RIGHT) {
+                sc = 10 * scaleA;
+                subTexts.render(sb, x + width + sc, y + height * 0.5f, subWay);
+            } else if(subWay == SubText.SubWay.LEFT) {
+                sc = 10 * scaleA;
+                subTexts.render(sb, x - sc, y + height * 0.5f, subWay);
             }
         }
     }
@@ -534,9 +541,9 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         public SubText(String name, String desc) {
             this.name = name;
             this.desc = desc;
-            top = new TempUI(FileHandler.getTexture("ui/sub_top"));
-            mid = new TempUI(FileHandler.getTexture("ui/sub_mid"));
-            bot = new TempUI(FileHandler.getTexture("ui/sub_bot"));
+            top = new TempUI(FileHandler.getPng("ui/sub_top"));
+            mid = new TempUI(FileHandler.getPng("ui/sub_mid"));
+            bot = new TempUI(FileHandler.getPng("ui/sub_bot"));
             nameLayout = new GlyphLayout();
             descLayout = new GlyphLayout();
             nameFont = SUB_NAME;
@@ -555,38 +562,39 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                 d = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(nameFont.color));
                 matcher = COLOR_PATTERN.matcher(d);
             }
-            nameFont.font.getData().setScale(nameFont.scale * scaleA);
-            descFont.font.getData().setScale(descFont.scale * scaleA);
-            nameLayout.setText(nameFont.font, n, nameFont.color, mid.width * 0.92f, Align.bottomLeft, true);
+            nameLayout.setText(nameFont.font, n, nameFont.color, mid.width * 0.92f, Align.bottomLeft, false);
             descLayout.setText(descFont.font, d, descFont.color, mid.width * 0.92f, Align.bottomLeft, true);
-            nameFont.font.getData().setScale(nameFont.scale);
-            descFont.font.getData().setScale(descFont.scale);
             line = descLayout.runs.size;
             ww = mid.width;
             hh = bot.height;
             mh = mid.height * 0.4f + descLayout.height + nameLayout.height * 1.5f;
             if(way == SubWay.DOWN) y -= (hh + hh + mh);
+            else if(way != SubWay.UP) y -= (hh + hh + mh) * 0.5f;
             float tw = ww * 0.5f, sc = 10 * scaleY, w = Gdx.graphics.getWidth();
-            if((x - tw) < sc) {
-                x = sc;
-            } else if((x + tw) > (w - sc)) {
-                x = w - sc - ww;
-            } else {
-                x -= tw;
+            if(way != SubWay.RIGHT && way != SubWay.LEFT) {
+                if((x - tw) < sc) {
+                    x = sc;
+                } else if((x + tw) > (w - sc)) {
+                    x = w - sc - ww;
+                } else {
+                    x -= tw;
+                }
             }
             float yy = 0;
             sb.draw(bot.img, x, y, ww, hh);
             sb.draw(mid.img, x, y + (yy += hh), ww, mh);
             sb.draw(top.img, x, y + (yy += mh), ww, hh);
             yy += hh;
-            float ny = y + mid.height + mh, dy = y + mid.height + (mh - nameLayout.height * 1.5f);
+            float dy = y + hh + descLayout.height, ny = dy + nameLayout.height * 2f;
             renderSubText(sb, nameFont, n, x + ww * 0.04f, ny, mid.width * 0.92f, false);
             renderSubText(sb, descFont, d, x + ww * 0.04f, dy, mid.width * 0.92f, true);
         }
 
         public enum SubWay {
             DOWN,
-            UP
+            UP,
+            RIGHT,
+            LEFT
         }
     }
 }

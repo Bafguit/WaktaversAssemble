@@ -1,20 +1,20 @@
 {
     "idle": {
-      "frameDuration": 0.1,
+      "frameDuration": 0.067,
       "isLoop": true,
-      "axisX": 150,
-      "axisY": 0
+      "axisX": 160,
+      "axisY": 30
     },
     "hit": {
-      "frameDuration": 0.1,
+      "frameDuration": 0.067,
       "isLoop": false,
-      "axisX": 150,
-      "axisY": 0
+      "axisX": 160,
+      "axisY": 30
     },
     "die": {
-      "frameDuration": 0.1,
+      "frameDuration": 0.067,
       "isLoop": false,
-      "axisX": 150,
-      "axisY": 0
+      "axisX": 160,
+      "axisY": 30
     }
   }

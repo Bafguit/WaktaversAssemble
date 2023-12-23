@@ -105,9 +105,10 @@ public class BattleScreen extends AbstractScreen {
             m.update();
         }
         c = 0;
+        Arrays.sort(synergies);
         for(SynergyDisplay s : synergies) {
             if(s.synergy.memberCount > 0) {
-                s.setPosition(70, 810 - c * 100);
+                s.setPosition(70, 810 - c * s.height * 1.1f);
                 c++;
             } else s.setPosition(-10000, -10000);
             s.update();
