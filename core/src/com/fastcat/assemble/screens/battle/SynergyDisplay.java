@@ -8,7 +8,7 @@ import com.fastcat.assemble.abstracts.AbstractUI.SubText.SubWay;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
-public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisplay> {
+public class SynergyDisplay extends AbstractUI {
 
     private static final String HINT = FontHandler.getHexColor(Color.LIGHT_GRAY);
     private static final String WHITE = FontHandler.getHexColor(Color.WHITE);
@@ -44,7 +44,7 @@ public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisp
 
     @Override
     protected SubText getSubText() {
-        subs.name = synergy.name + " | " + synergy.memberCount;
+        subs.name = synergy.name;
         String s = synergy.desc + (synergy.gradeAmount[0] > 0 ? "\n" : "");
         for(int i = 0; i < synergy.gradeAmount.length; i++) {
             int amt = synergy.gradeAmount[i];
@@ -69,16 +69,16 @@ public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisp
         }
     }
 
-    @Override
-    public int compareTo(SynergyDisplay sd) {
-        int cg = synergy.gradeAmount[0], cc = 0, ng = sd.synergy.gradeAmount[0], nc = 0;
+    public float compareTo(SynergyDisplay sd) {
+        int cg = synergy.gradeAmount[0], ng = sd.synergy.gradeAmount[0];
         int g1 = synergy.getGrade(), g2 = sd.synergy.getGrade();
+        float cc = 0, nc = 0;
 
-        if(cg == 1) cc = ((g1 + 1) / synergy.gradeAmount.length) * 100;
-        else if(cg >= 2) cc = ((g1) / synergy.gradeAmount.length) * 100;
+        if(cg == 1) cc = ((g1 + 1) / synergy.gradeAmount.length);
+        else if(cg >= 2) cc = ((g1) / synergy.gradeAmount.length);
 
-        if(ng == 1) nc = ((g2 + 1) / sd.synergy.gradeAmount.length) * 100;
-        else if(ng >= 2) nc = ((g2) / sd.synergy.gradeAmount.length) * 100;
+        if(ng == 1) nc = ((g2 + 1) / sd.synergy.gradeAmount.length);
+        else if(ng >= 2) nc = ((g2) / sd.synergy.gradeAmount.length);
 
         return nc - cc;
     }

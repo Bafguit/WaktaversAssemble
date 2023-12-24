@@ -21,6 +21,7 @@ public abstract class AbstractSynergy {
     public final Sprite img;
     public final Sprite[] gradeImg;
     public int baseMemCount, memberCount, grade, counter, globalCount;
+    public int priority = 0;
     public Array<AbstractMember> members;
 
     public AbstractSynergy(String id) {
@@ -43,8 +44,13 @@ public abstract class AbstractSynergy {
 
     public void addMember(AbstractMember m) {
         members.add(m);
+        update();
+    }
+
+    public void update() {
         memberCount = getActualMemberCount();
         grade = getGrade();
+        priority = (int) ((((float) (grade + (gradeAmount[0] == 1 ? 1 : 0))) / ((float) gradeImg.length)) * 100);
     }
 
     public int getActualMemberCount() {
@@ -65,7 +71,7 @@ public abstract class AbstractSynergy {
         for(int i = gradeAmount.length; i > 0; i--) {
             int a = gradeAmount[i - 1];
             if(memberCount >= a) {
-                if(a == 1) break;
+                if(a == 1) return i - 1;
                 else return i;
             }
         }

@@ -109,10 +109,8 @@ public class BattleScreen extends AbstractScreen {
         sortSynergies();
         for(int i = 0; i < synergyDisplays.size(); i++) {
             SynergyDisplay s = synergyDisplays.get(i);
-            if(s.synergy.memberCount > 0) {
-                s.setPosition(70, 810 - c * s.height * 1.5f);
-                c++;
-            } else s.setPosition(-10000, -10000);
+            s.setPosition(70, 810 - c * s.originHeight * 1.05f);
+            c++;
             s.update();
         }
         for(SkillDisplay s : skills.values()) {
@@ -130,12 +128,14 @@ public class BattleScreen extends AbstractScreen {
         synergyDisplays.clear();
         for(int i = 0; i < synergies.length; i++) {
             SynergyDisplay s1 = synergies[i];
-            int j = 0;
-            for(j = 0; j < synergyDisplays.size(); j++) {
-                int c = s1.compareTo(synergyDisplays.get(j));
-                if(c < 1) break;
+            if(s1.synergy.memberCount > 0) {
+                int j = 0;
+                for(j = 0; j < synergyDisplays.size(); j++) {
+                    SynergyDisplay sn = synergyDisplays.get(j);
+                    if(s1.synergy.priority > sn.synergy.priority) break;
+                }
+                synergyDisplays.add(j, s1);
             }
-            synergyDisplays.add(j, s1);
         }
     }
 
@@ -208,8 +208,9 @@ public class BattleScreen extends AbstractScreen {
             s.render(sb);
         }
 
-        for(SynergyDisplay s : synergyDisplays) {
-            if(s.enabled && s.synergy.memberCount > 0) {
+        for(int i = 0; i < synergyDisplays.size(); i++) {
+            SynergyDisplay s = synergyDisplays.get(i);
+            if(s.enabled) {
                 s.render(sb);
             }
         }
