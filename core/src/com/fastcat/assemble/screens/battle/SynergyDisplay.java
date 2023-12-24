@@ -71,7 +71,16 @@ public class SynergyDisplay extends AbstractUI implements Comparable<SynergyDisp
 
     @Override
     public int compareTo(SynergyDisplay sd) {
-        return (((sd.synergy.grade + 1) / (sd.synergy.gradeImg.length - 1)) * 100) - (((this.synergy.grade + 1) / (this.synergy.gradeImg.length - 1)) * 100);
+        int cg = synergy.gradeAmount[0], cc = 0, ng = sd.synergy.gradeAmount[0], nc = 0;
+        int g1 = synergy.getGrade(), g2 = sd.synergy.getGrade();
+
+        if(cg == 1) cc = ((g1 + 1) / synergy.gradeAmount.length) * 100;
+        else if(cg >= 2) cc = ((g1) / synergy.gradeAmount.length) * 100;
+
+        if(ng == 1) nc = ((g2 + 1) / sd.synergy.gradeAmount.length) * 100;
+        else if(ng >= 2) nc = ((g2) / sd.synergy.gradeAmount.length) * 100;
+
+        return nc - cc;
     }
 
     public enum SynergyDisplayType {

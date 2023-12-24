@@ -32,6 +32,7 @@ public class BattleScreen extends AbstractScreen {
     public HashMap<AbstractSkill, SkillDisplay> skills;
     public HashMap<AbstractSynergy, SynergyDisplay> synergyMap;
     public SynergyDisplay[] synergies;
+    public LinkedList<SynergyDisplay> synergyDisplays;
     public TurnEndButton turnEnd;
 
     public DrawButton drawButton;
@@ -44,6 +45,7 @@ public class BattleScreen extends AbstractScreen {
         skills = new HashMap<>();
         synergyMap = new HashMap<>();
         synergies = new SynergyDisplay[19];
+        synergyDisplays = new LinkedList<>();
         turnEnd = new TurnEndButton();
         initialize();
         drawButton = new DrawButton();
@@ -75,7 +77,7 @@ public class BattleScreen extends AbstractScreen {
             synergies[c++] = s;
             synergyMap.put(s.synergy, s);
         }
-        Arrays.sort(synergies);
+        sortSynergies();
         ActionHandler.bot(new StartBattleAction());
     }
 
@@ -96,16 +98,17 @@ public class BattleScreen extends AbstractScreen {
         int c = 0;
         for(MemberDisplay m : members.values()) {
             if(c < 4) {
-                m.setPosition(940 - 103 - 210 * c, 500);
+                m.forcePosition(940 - 103 - 210 * c, 500);
             } else {
-                m.setPosition(940 - 170 - 210 * (c - 4), 400);
+                m.forcePosition(940 - 170 - 210 * (c - 4), 400);
             }
             c++;
             m.update();
         }
         c = 0;
-        Arrays.sort(synergies);
-        for(SynergyDisplay s : synergies) {
+        sortSynergies();
+        for(int i = 0; i < synergyDisplays.size(); i++) {
+            SynergyDisplay s = synergyDisplays.get(i);
             if(s.synergy.memberCount > 0) {
                 s.setPosition(70, 810 - c * s.height * 1.5f);
                 c++;
@@ -121,6 +124,19 @@ public class BattleScreen extends AbstractScreen {
             e.update();
         }
         updateHandPosition();
+    }
+
+    private void sortSynergies() {
+        synergyDisplays.clear();
+        for(int i = 0; i < synergies.length; i++) {
+            SynergyDisplay s1 = synergies[i];
+            int j = 0;
+            for(j = 0; j < synergyDisplays.size(); j++) {
+                int c = s1.compareTo(synergyDisplays.get(j));
+                if(c < 1) break;
+            }
+            synergyDisplays.add(j, s1);
+        }
     }
 
     public void addHand(AbstractMember member) {
@@ -192,7 +208,7 @@ public class BattleScreen extends AbstractScreen {
             s.render(sb);
         }
 
-        for(SynergyDisplay s : synergies) {
+        for(SynergyDisplay s : synergyDisplays) {
             if(s.enabled && s.synergy.memberCount > 0) {
                 s.render(sb);
             }
