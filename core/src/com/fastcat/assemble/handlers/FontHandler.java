@@ -40,6 +40,8 @@ public final class FontHandler implements Disposable {
     public static final FontData CARD_DESC = new FontData(21, false);
     public static final FontData SUB_NAME = new FontData(22, WHITE, false, false);
     public static final FontData SUB_DESC = new FontData(20, WHITE, false, false);
+    public static final FontData SYN_NAME = new FontData(22, WHITE, true, false);
+    public static final FontData SYN_DESC = new FontData(20, new Color(0.9f, 0.9f, 0.9f, 1.0f), true, false);
     public static final FontData HEALTH = new FontData(20, true, FontType.BOLD);
 
     //GlyphLayout
@@ -141,9 +143,9 @@ public final class FontHandler implements Disposable {
     public static void renderLineLeft(
             SpriteBatch sb, FontData fontData, String text, float x, float y, float bw) {
         BitmapFont font = fontData.font;
-        layout.setText(font, text, fontData.color, bw * scaleX, Align.left, false);
-        float ry = y * scaleY + (layout.height) * 0.54f;
-        fontData.draw(sb, layout, fontData.alpha, x * scaleX, ry);
+        layout.setText(font, text, fontData.color, bw, Align.left, false);
+        float ry = y + (layout.height) * 0.54f;
+        fontData.draw(sb, layout, fontData.alpha, x, ry);
     }
 
     public static void renderMemberName(

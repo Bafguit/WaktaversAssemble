@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEnemy;
@@ -28,7 +29,7 @@ public class BattleScreen extends AbstractScreen {
     public HashMap<AbstractEnemy, EnemyDisplay> enemies;
     public LinkedList<MemberDisplay> hand;
     public MemberDisplay clicked;
-    public HashMap<AbstractMember, MemberDisplay> members;
+    public Array<MemberDisplay> members;
     public HashMap<AbstractSkill, SkillDisplay> skills;
     public HashMap<AbstractSynergy, SynergyDisplay> synergyMap;
     public SynergyDisplay[] synergies;
@@ -41,7 +42,7 @@ public class BattleScreen extends AbstractScreen {
         super(ScreenType.BASE);
         enemies = new HashMap<>();
         hand = new LinkedList<>();
-        members = new HashMap<>();
+        members = new Array<>();
         skills = new HashMap<>();
         synergyMap = new HashMap<>();
         synergies = new SynergyDisplay[19];
@@ -96,15 +97,20 @@ public class BattleScreen extends AbstractScreen {
         drawButton.update();
 
         int c = 0;
-        for(MemberDisplay m : members.values()) {
+        for(MemberDisplay m : members) {
             if(c < 4) {
                 m.forcePosition(940 - 103 - 210 * c, 550);
             } else {
                 m.forcePosition(940 - 170 - 210 * (c - 4), 500);
             }
             c++;
+        }
+
+        for(int i = members.size - 1; i >= 0; i--) {
+            MemberDisplay m = members.get(i);
             m.update();
         }
+
         c = 0;
         sortSynergies();
         for(int i = 0; i < synergyDisplays.size(); i++) {
@@ -196,7 +202,7 @@ public class BattleScreen extends AbstractScreen {
             }
         }
 
-        for(MemberDisplay m : members.values()) {
+        for(MemberDisplay m : members) {
             m.render(sb);
         }
 

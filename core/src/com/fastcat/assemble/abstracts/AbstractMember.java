@@ -52,8 +52,9 @@ public abstract class AbstractMember implements Cloneable {
     }
 
     private final void setSynergy() {
-        baseSynergy[0] = SynergyHandler.getSynergyInstance(data.synergy[0]);
-        baseSynergy[1] = SynergyHandler.getSynergyInstance(data.synergy[1]);
+        for(int i = 0; i < data.synergy.length; i++) {
+            baseSynergy[i] = SynergyHandler.getSynergyInstance(data.synergy[i]);
+        }
     }
 
     protected final void setAtk(int base, int up) {
@@ -164,7 +165,7 @@ public abstract class AbstractMember implements Cloneable {
             case "A":
                 return calculatedAtk();
             case "D":
-                return calculatedAtk();
+                return calculatedDef();
             case "V":
                 return value;
             case "X":

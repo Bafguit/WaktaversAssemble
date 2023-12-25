@@ -6,7 +6,9 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.members.Gosegu;
 import com.fastcat.assemble.members.Hikiking;
+import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Victory;
 
 public class DrawButton extends AbstractUI {
@@ -29,7 +31,8 @@ public class DrawButton extends AbstractUI {
 
     @Override
     public void onClick() {
-        WakTower.game.battle.drawPile.addFirst(WakTower.game.battleRandom.random(0, 1) == 1 ? new Victory() : new Hikiking());
+        int r = WakTower.game.battleRandom.random(0, 3);
+        WakTower.game.battle.drawPile.addFirst(new Victory());
         WakTower.game.battle.draw(1);
     }
 }

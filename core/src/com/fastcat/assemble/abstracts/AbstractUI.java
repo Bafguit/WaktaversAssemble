@@ -80,6 +80,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
     public boolean tracking = false;
     public boolean mute = false;
     public TrackType trackable = TrackType.NONE;
+    public float subInt = 10;
 
     public AbstractUI(Sprite texture) {
         this(texture, -10000, -10000);
@@ -253,19 +254,19 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             img.setColor(WHITE);
             float sc, subP;
             if (subWay == SubText.SubWay.DOWN) {
-                sc = -10 * scaleA;
+                sc = -subInt * scaleA;
                 subP = y + sc;
-                subTexts.render(sb, x + width / 2, subP, subWay);
+                subTexts.render(sb, x + width / 2, subP, subWay, subInt);
             } else if (subWay == SubText.SubWay.UP) {
-                sc = 10 * scaleA;
+                sc = subInt * scaleA;
                 subP = y + height + sc;
-                subTexts.render(sb, x + width / 2, subP, subWay);
+                subTexts.render(sb, x + width / 2, subP, subWay, subInt);
             } else if(subWay == SubText.SubWay.RIGHT) {
-                sc = 10 * scaleA;
-                subTexts.render(sb, x + width + sc, y + height * 0.5f, subWay);
+                sc = subInt * scaleA;
+                subTexts.render(sb, x + width + sc, y + height * 0.5f, subWay, subInt);
             } else if(subWay == SubText.SubWay.LEFT) {
-                sc = 10 * scaleA;
-                subTexts.render(sb, x - sc, y + height * 0.5f, subWay);
+                sc = subInt * scaleA;
+                subTexts.render(sb, x - sc, y + height * 0.5f, subWay, subInt);
             }
         }
     }
@@ -550,7 +551,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             descFont = SUB_DESC;
         }
 
-        public void render(SpriteBatch sb, float x, float y, SubWay way) {
+        public void render(SpriteBatch sb, float x, float y, SubWay way, float subInt) {
             mid.update();
             top.update();
             bot.update();
@@ -570,7 +571,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             mh = mid.height * 0.4f + descLayout.height + nameLayout.height * 1.5f;
             if(way == SubWay.DOWN) y -= (hh + hh + mh);
             else if(way != SubWay.UP) y -= (hh + hh + mh) * 0.5f;
-            float tw = ww * 0.5f, sc = 10 * scaleY, w = Gdx.graphics.getWidth();
+            float tw = ww * 0.5f, sc = subInt * scaleY, w = Gdx.graphics.getWidth();
             if(way != SubWay.RIGHT && way != SubWay.LEFT) {
                 if((x - tw) < sc) {
                     x = sc;
