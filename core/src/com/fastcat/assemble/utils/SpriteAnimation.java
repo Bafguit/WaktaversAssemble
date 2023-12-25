@@ -14,6 +14,8 @@ import com.fastcat.assemble.interfaces.OnAnimationFinished;
 
 import java.util.HashMap;
 
+import javax.management.RuntimeErrorException;
+
 public class SpriteAnimation {
 
     private final HashMap<String, SpriteAnimationData> animations = new HashMap<>();
@@ -25,7 +27,7 @@ public class SpriteAnimation {
     private String id;
     private SpriteAnimationData current;
     private Queue<SpriteAnimationData> next = new Queue<>();
-    private float timer = 0f, alpha = 1f;
+    private float timer = 0f, alpha = 1f, scale = 1.0f;
     private boolean isRunning = true;
     private SpriteAnimationType type;
 
@@ -113,11 +115,16 @@ public class SpriteAnimation {
 
         if(hasAnimation) {
             Sprite frame = current.getFrame(timer);
+            float sc = scale * InputHandler.scaleA;
             frame.setCenter(pos.x, pos.y);
-            frame.setScale(InputHandler.scaleX);
+            frame.setScale(sc);
             frame.draw(sb, alpha);
             if(isRunning) tickDuration();
         }
+    }
+
+    public void setScale(float s) {
+        scale = s;
     }
 
     private void tickDuration() {

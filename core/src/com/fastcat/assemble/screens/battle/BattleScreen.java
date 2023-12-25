@@ -98,9 +98,9 @@ public class BattleScreen extends AbstractScreen {
         int c = 0;
         for(MemberDisplay m : members.values()) {
             if(c < 4) {
-                m.forcePosition(940 - 103 - 210 * c, 500);
+                m.forcePosition(940 - 103 - 210 * c, 550);
             } else {
-                m.forcePosition(940 - 170 - 210 * (c - 4), 400);
+                m.forcePosition(940 - 170 - 210 * (c - 4), 500);
             }
             c++;
             m.update();

@@ -3,6 +3,7 @@ package com.fastcat.assemble.handlers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.TextureAtlasLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -12,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.utils.SpriteAnimation;
+import com.fastcat.assemble.utils.TextureAtlasFilterLoader;
 import com.fastcat.assemble.utils.WebpPixmapLoader;
 import com.fastcat.assemble.utils.WebpTextureLoader;
 
@@ -38,6 +40,7 @@ public class FileHandler {
         resolver = new InternalFileHandleResolver();
         assetManager.setLoader(Texture.class, ".webp", new WebpTextureLoader(resolver));
         assetManager.setLoader(Pixmap.class, ".webp", new WebpPixmapLoader(resolver));
+        assetManager.setLoader(TextureAtlas.class, new TextureAtlasFilterLoader(resolver));
         jsonMap = new HashMap<>();
         loadSync();
         loadAsync();
