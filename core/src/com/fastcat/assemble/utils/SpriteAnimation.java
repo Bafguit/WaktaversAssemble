@@ -68,6 +68,10 @@ public class SpriteAnimation {
         }
     }
 
+    public String getID() {
+        return id;
+    }
+
     public void addAnimation(String key) {
         next.addLast(animations.get(key));
     }
@@ -120,6 +124,7 @@ public class SpriteAnimation {
             frame.setScale(sc);
             frame.draw(sb, alpha);
             if(isRunning) tickDuration();
+            throw new RuntimeException(frame.getX() + ", " + frame.getY());
         }
     }
 

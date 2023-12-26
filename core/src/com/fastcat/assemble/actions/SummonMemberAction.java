@@ -20,6 +20,7 @@ public class SummonMemberAction extends AbstractAction {
             MemberDisplay m = WakTower.battleScreen.hand.remove(WakTower.battleScreen.indexOfHand(member));
             WakTower.battleScreen.updateHandPosition();
             m.isCard = false;
+            m.isUsing = false;
             WakTower.battleScreen.members.add(m);
             member.summon();
         }

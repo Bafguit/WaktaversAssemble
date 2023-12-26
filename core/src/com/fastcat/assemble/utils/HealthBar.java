@@ -49,9 +49,9 @@ public class HealthBar implements OnHealthUpdated {
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;
-        line.setPosition(x, y);
-        hbLeft.setPosition(x + 2, y);
-        hbMid.setPosition(x + 10, y);
+        line.setPosition(x, this.y);
+        hbLeft.setPosition(x + 2, this.y);
+        hbMid.setPosition(x + 10, this.y);
     }
 
     public void update() {
@@ -76,7 +76,7 @@ public class HealthBar implements OnHealthUpdated {
             
             sb.draw(line.img, line.x, line.y, line.width, line.height);
 
-            FontHandler.renderCenter(sb, font, entity.health + "/" + entity.maxHealth, line.x, line.y, line.width);
+            FontHandler.renderCenter(sb, font, entity.health + "/" + entity.maxHealth, line.x, line.y + line.height * 0.5f, line.width);
 
             if(timer > 0) {
                 timer -= WakTower.tick / 2;

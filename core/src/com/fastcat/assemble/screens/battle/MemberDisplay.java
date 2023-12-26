@@ -27,6 +27,8 @@ public class MemberDisplay extends AbstractUI implements Disposable {
     public boolean isCard;
     public int cardIndex = -1;
 
+    public boolean isUsing = false;
+
     public MemberDisplay(AbstractMember member) {
         //285x428
         super(FileHandler.getTexture("ui/cardBg"));
@@ -57,7 +59,9 @@ public class MemberDisplay extends AbstractUI implements Disposable {
 
     @Override
     protected void foreUpdate() {
-        clickable = fluid = isCard && WakTower.game.battle.members.size < WakTower.game.memberLimit; 
+        clickable = fluid = isCard && WakTower.game.battle.members.size < WakTower.game.memberLimit && !isUsing; 
+        if(isCard) basis = BasisType.CENTER;
+        else basis = BasisType.BOTTOM;
     }
 
     @Override
@@ -112,7 +116,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
             member.animation.render(sb);
 
             fontName.alpha = timer;
-            FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.9f, y + height * 0.9f);
+            FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.5f, y);
 
             if(timer == 1f) {
                 //효과 설명 출력
@@ -141,6 +145,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
         WakTower.battleScreen.clicked = null;
         if(y > height) {
             ActionHandler.bot(new SummonMemberAction(member));
+            isUsing = true;
         }
         WakTower.battleScreen.updateHandPosition();
     }

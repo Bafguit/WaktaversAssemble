@@ -26,7 +26,7 @@ import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 public class BattleScreen extends AbstractScreen {
 
     public PlayerDisplay player;
-    public HashMap<AbstractEnemy, EnemyDisplay> enemies;
+    public LinkedList<EnemyDisplay> enemies;
     public LinkedList<MemberDisplay> hand;
     public MemberDisplay clicked;
     public Array<MemberDisplay> members;
@@ -40,7 +40,7 @@ public class BattleScreen extends AbstractScreen {
 
     public BattleScreen() {
         super(ScreenType.BASE);
-        enemies = new HashMap<>();
+        enemies = new LinkedList<>();
         hand = new LinkedList<>();
         members = new Array<>();
         skills = new HashMap<>();
@@ -54,13 +54,13 @@ public class BattleScreen extends AbstractScreen {
 
     public void initialize() {
         player = new PlayerDisplay(WakTower.game.player);
-        player.setPosition(500, 600);
+        player.setPosition(400, 650);
         int sz = WakTower.game.battle.enemies.size();
         for(int i = 0; i < sz; i++) {
             AbstractEnemy e = WakTower.game.battle.enemies.get(i);
             EnemyDisplay ed = new EnemyDisplay(e);
-            ed.setPosition(1420 - 150 * (sz / 2 + i), sz == 1 ? 500 : i % 2 == 0 ? 570 : 430);
-            enemies.put(e, ed);
+            ed.setPosition(1400, sz == 1 ? 600 : i % 2 == 0 ? 670 : 530);
+            enemies.add(ed);
         }
         hand.clear();
         members.clear();
@@ -91,7 +91,7 @@ public class BattleScreen extends AbstractScreen {
         }
         
         for(MemberDisplay h : hand) {
-            if(!h.clicking) h.update();
+            if(!h.isUsing && !h.clicking) h.update();
         }
 
         drawButton.update();
@@ -99,9 +99,9 @@ public class BattleScreen extends AbstractScreen {
         int c = 0;
         for(MemberDisplay m : members) {
             if(c < 4) {
-                m.forcePosition(940 - 103 - 210 * c, 550);
+                m.forcePosition(940 - 103 - 210 * c, 450);
             } else {
-                m.forcePosition(940 - 170 - 210 * (c - 4), 500);
+                m.forcePosition(940 - 170 - 210 * (c - 4), 400);
             }
             c++;
         }
@@ -124,7 +124,7 @@ public class BattleScreen extends AbstractScreen {
         }
         turnEnd.update();
         player.update();
-        for(EnemyDisplay e : enemies.values()) {
+        for(EnemyDisplay e : enemies) {
             e.update();
         }
         updateHandPosition();
@@ -191,13 +191,13 @@ public class BattleScreen extends AbstractScreen {
     @Override
     protected void render(SpriteBatch sb) {
         if(WakTower.game.battle.isPlayerTurn()) {
-            for(EnemyDisplay e : enemies.values()) {
+            for(EnemyDisplay e : enemies) {
                 e.render(sb);
             }
             player.render(sb);
         } else {
             player.render(sb);
-            for(EnemyDisplay e : enemies.values()) {
+            for(EnemyDisplay e : enemies) {
                 e.render(sb);
             }
         }

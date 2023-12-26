@@ -27,24 +27,23 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
         this.player.statusUpdatedListener.add(this);
         basis = BasisType.BOTTOM;
         healthBar = new HealthBar(this.player);
+        this.player.animation.setAnimation("idle");
+        this.player.animation.setScale(0.25f);
     }
 
     @Override
     protected void renderUi(SpriteBatch sb) {
-        if (enabled) {
-            player.animation.pos.set(localX, localY);
-            player.animation.render(sb);
+        player.animation.pos.set(localX, localY);
+        player.animation.render(sb);
+        healthBar.render(sb);
+        
+        for(int i = 0; i < status.size(); i++) {
+            StatusDisplay s = status.get(i);
+            s.render(sb);
+        }
 
-            healthBar.render(sb);
-            
-            for(int i = 0; i < status.size(); i++) {
-                StatusDisplay s = status.get(i);
-                s.render(sb);
-            }
-
-            if(timer >= 1f) {
-                //효과 설명 출력
-            }
+        if(timer >= 1f) {
+            //효과 설명 출력
         }
     }
 
