@@ -18,12 +18,12 @@ public class TurnStartEffectAction extends AbstractAction {
         if(duration == baseDuration) {
             //todo 이펙트 실행
             for(AbstractMember member : WakTower.game.battle.members) {
-                member.animation.setAnimation("exit");
+                if(!member.hasSynergy("Cat")) member.animation.setAnimation("exit");
             }
         }
         
         if(isDone) {
-            WakTower.game.battle.members.clear();
+            WakTower.game.battle.clearMember();
         }
     }
 }

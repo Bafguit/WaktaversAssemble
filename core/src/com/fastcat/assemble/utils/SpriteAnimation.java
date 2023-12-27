@@ -120,11 +120,12 @@ public class SpriteAnimation {
         if(hasAnimation) {
             Sprite frame = current.getFrame(timer);
             float sc = scale * InputHandler.scaleA;
-            frame.setCenter(pos.x, pos.y);
             frame.setScale(sc);
+            frame.setOrigin(frame.getWidth() / 2, 0);
+            frame.setPosition(pos.x - frame.getWidth() / 2, pos.y);
             frame.draw(sb, alpha);
             if(isRunning) tickDuration();
-            throw new RuntimeException(frame.getX() + ", " + frame.getY());
+            //throw new RuntimeException(frame.getX() + ", " + frame.getY() + ", " + frame.getScaleX());
         }
     }
 

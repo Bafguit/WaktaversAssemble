@@ -28,7 +28,7 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
         basis = BasisType.BOTTOM;
         healthBar = new HealthBar(enemy);
         enemy.animation.setAnimation("idle");
-        enemy.animation.setScale(0.25f);
+        enemy.animation.setScale(0.35f);
     }
 
     @Override

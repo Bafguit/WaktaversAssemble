@@ -47,11 +47,11 @@ public class HealthBar implements OnHealthUpdated {
     }
 
     public void setPosition(float x, float y) {
-        this.x = x;
+        this.x = x - line.originWidth / 2;
         this.y = y;
-        line.setPosition(x, this.y);
-        hbLeft.setPosition(x + 2, this.y);
-        hbMid.setPosition(x + 10, this.y);
+        line.setPosition(this.x, this.y);
+        hbLeft.setPosition(this.x + 2, this.y);
+        hbMid.setPosition(this.x + 10, this.y);
     }
 
     public void update() {

@@ -183,6 +183,20 @@ public abstract class AbstractMember implements Cloneable {
         return atk;
     }
 
+    public boolean hasSynergy(AbstractSynergy s) {
+        for(AbstractSynergy sy : synergy) {
+            if(sy.id.equals(s.id)) return true;
+        }
+        return false;
+    }
+
+    public boolean hasSynergy(String id) {
+        for(AbstractSynergy sy : synergy) {
+            if(sy.id.equals(id)) return true;
+        }
+        return false;
+    }
+
     public AbstractMember cpy() {
         AbstractMember m;
         try {

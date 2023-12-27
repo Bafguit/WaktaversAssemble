@@ -28,7 +28,7 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
         basis = BasisType.BOTTOM;
         healthBar = new HealthBar(this.player);
         this.player.animation.setAnimation("idle");
-        this.player.animation.setScale(0.25f);
+        this.player.animation.setScale(0.35f);
     }
 
     @Override

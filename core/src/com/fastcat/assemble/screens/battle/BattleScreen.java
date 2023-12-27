@@ -54,7 +54,7 @@ public class BattleScreen extends AbstractScreen {
 
     public void initialize() {
         player = new PlayerDisplay(WakTower.game.player);
-        player.setPosition(400, 650);
+        player.setPosition(500, 650);
         int sz = WakTower.game.battle.enemies.size();
         for(int i = 0; i < sz; i++) {
             AbstractEnemy e = WakTower.game.battle.enemies.get(i);
@@ -101,7 +101,7 @@ public class BattleScreen extends AbstractScreen {
             if(c < 4) {
                 m.forcePosition(940 - 103 - 210 * c, 450);
             } else {
-                m.forcePosition(940 - 170 - 210 * (c - 4), 400);
+                m.forcePosition(940 - 170 - 210 * (c - 4), 370);
             }
             c++;
         }

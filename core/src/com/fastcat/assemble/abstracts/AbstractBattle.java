@@ -2,6 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
+import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.actions.StartBattleAction;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -29,6 +30,7 @@ import com.fastcat.assemble.synergies.Timid;
 import com.fastcat.assemble.synergies.Villain;
 import com.fastcat.assemble.utils.FastCatUtils;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class AbstractBattle implements Cloneable {
@@ -135,6 +137,14 @@ public abstract class AbstractBattle implements Cloneable {
         synergy.add(Nobles.getInstance());
         synergy.add(Nunna.getInstance());
         synergy.add(Timid.getInstance());
+    }
+
+    public void clearMember() {
+        ArrayIterator<AbstractMember> itr = members.iterator();
+        while (itr.hasNext()) {
+            AbstractMember m = itr.next();
+            if(!m.id.equals("Cat")) itr.remove();
+        }
     }
 
     protected abstract void setEnemy();

@@ -37,6 +37,8 @@ public class MemberDisplay extends AbstractUI implements Disposable {
         basis = BasisType.CENTER;
         //tile 206x87
         tile = new AbstractUI.TempUI(FileHandler.getTexture("ui/memberTile"));
+        tile.overable = true;
+        tile.pix();
         //frame 258x349
         frame = new Sprite(FileHandler.getTexture("ui/cardFrame"));
         cardImg = new AbstractUI.TempUI(member.img);
@@ -60,26 +62,34 @@ public class MemberDisplay extends AbstractUI implements Disposable {
     @Override
     protected void foreUpdate() {
         clickable = fluid = isCard && WakTower.game.battle.members.size < WakTower.game.memberLimit && !isUsing; 
-        if(isCard) basis = BasisType.CENTER;
-        else basis = BasisType.BOTTOM;
+        if(isCard) {
+            basis = BasisType.CENTER;
+        } else {
+            basis = BasisType.BOTTOM;
+        }
     }
 
     @Override
     protected void updateButton() {
-        if(over) InputHandler.alreadyOver = true;
-        tile.update();
-        cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
-        for(int i = 0; i < synergy.length; i++) {
-            SynergyDisplay s = synergy[i];
-            float rx = localX / InputHandler.scaleX;
-            float ry = localY / InputHandler.scaleY;
-            s.overOnlyOne = !over;
-            s.overable = over;
-            s.setPosition(rx + originWidth * 0.4f - s.originWidth * (synergy.length - 1 - i), ry + originHeight * 0.433f);
-            s.update();
+        if(!isCard) {
+            tile.setPosition(originX, originY);
+            tile.update();
+            if(tile.over) InputHandler.alreadyOver = true;
+        } else {
+            if(over) InputHandler.alreadyOver = true;
+            cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
+            for(int i = 0; i < synergy.length; i++) {
+                SynergyDisplay s = synergy[i];
+                float rx = localX / InputHandler.scaleX;
+                float ry = localY / InputHandler.scaleY;
+                s.overOnlyOne = !over;
+                s.overable = over;
+                s.setPosition(rx + originWidth * 0.4f - s.originWidth * (synergy.length - 1 - i), ry + originHeight * 0.433f);
+                s.update();
+            }
+            descBg.setPosition(originX, cardImg.originY - cardImg.originHeight * 0.5f);
+            descBg.update();
         }
-        descBg.setPosition(originX, cardImg.originY - cardImg.originHeight * 0.5f);
-        descBg.update();
     }
 
     @Override
@@ -115,7 +125,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
             member.animation.pos.set(localX, localY);
             member.animation.render(sb);
 
-            fontName.alpha = timer;
+            fontName.alpha = tile.timer;
             FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.5f, y);
 
             if(timer == 1f) {
