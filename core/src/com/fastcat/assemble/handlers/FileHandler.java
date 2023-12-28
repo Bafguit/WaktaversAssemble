@@ -77,7 +77,6 @@ public class FileHandler {
         jsonMap.put("entity", generateJson("json/" + SettingHandler.setting.language + "/entity.json"));
         jsonMap.put("relic", generateJson("json/" + SettingHandler.setting.language + "/relic.json"));
         jsonMap.put("member", generateJson("json/" + SettingHandler.setting.language + "/member.json"));
-        jsonMap.put("skill", generateJson("json/" + SettingHandler.setting.language + "/skill.json"));
         jsonMap.put("status", generateJson("json/" + SettingHandler.setting.language + "/status.json"));
         jsonMap.put("synergy", generateJson("json/" + SettingHandler.setting.language + "/synergy.json"));
         jsonMap.put("ui", generateJson("json/" + SettingHandler.setting.language + "/ui.json"));
@@ -100,6 +99,7 @@ public class FileHandler {
         assetManager.load("image/ui/hb_yet_left.webp", Pixmap.class);
         assetManager.load("image/ui/hb_yet_mid.webp", Pixmap.class);
         assetManager.load("image/ui/hb_yet_right.webp", Pixmap.class);
+        assetManager.load("image/ui/synergyNameBg.png", Pixmap.class);
     }
 
     private void generateMember() {
@@ -112,7 +112,6 @@ public class FileHandler {
         }
 
         assetManager.load("image/member/member.atlas", TextureAtlas.class);
-        assetManager.load("image/skill/skill.atlas", TextureAtlas.class);
         assetManager.load("image/synergy/synergy.atlas", TextureAtlas.class);
 
         /*assetManager.load("atlas/relic.atlas", TextureAtlas.class);
@@ -165,11 +164,6 @@ public class FileHandler {
 
     public static Sprite getRelic(String id) {
         TextureAtlas atlas = instance.assetManager.get("atlas/relic.atlas", TextureAtlas.class);
-        return atlas.createSprite(id);
-    }
-
-    public static Sprite getSkill(String id) {
-        TextureAtlas atlas = instance.assetManager.get("image/skill/skill.atlas", TextureAtlas.class);
         return atlas.createSprite(id);
     }
 

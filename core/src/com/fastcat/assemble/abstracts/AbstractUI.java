@@ -313,7 +313,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         }
         Pixmap pixmap = texture.getTextureData().consumePixmap();
         Color c = new Color(pixmap.getPixel(LocalX, LocalY));
-        pixmap.dispose();
+        //pixmap.dispose();
         return c;
     }
 

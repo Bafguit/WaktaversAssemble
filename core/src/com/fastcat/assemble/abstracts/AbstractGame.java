@@ -9,7 +9,6 @@ import com.fastcat.assemble.members.Gosegu;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Victory;
-import com.fastcat.assemble.skills.Skill1;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -32,7 +31,6 @@ public class AbstractGame {
     public AbstractPlayer player;
     public Array<AbstractMember> deck;
     public Array<AbstractRelic> relics;
-    public AbstractSkill[] skills;
 
     public AbstractRoom[] rooms;
 
@@ -65,11 +63,6 @@ public class AbstractGame {
         energyStart = 3;
         energyCharge = 1;
         energyMax = 3;
-
-        skills = new AbstractSkill[3];
-        for(int i = 0; i < 3; i++) {
-            skills[i] = new Skill1();
-        }
 
         deck.add(new Victory());
         deck.add(new Hikiking());

@@ -10,7 +10,7 @@ public class Badass extends AbstractSynergy {
         super("Badass");
     }
 
-    public boolean isOnlyWak() {
+    public boolean isOnlyBadass() {
         return grade == 1;
     }
 

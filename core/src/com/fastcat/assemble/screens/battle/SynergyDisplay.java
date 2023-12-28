@@ -20,13 +20,19 @@ public class SynergyDisplay extends AbstractUI {
     public final SynergyDisplayType type;
     public AbstractSynergy synergy;
 
+    private TempUI nameBg;
+
     public MemberDisplay member;
 
     public SynergyDisplay(SynergyDisplayType type) {
         super(FileHandler.getTexture("ui/synergyIcon"));
         clickable = false;
         this.type = type;
-        if(type == SynergyDisplayType.grade) overOnlyOne = false;
+        nameBg = new TempUI(FileHandler.getPng("ui/synergyNameBg"));
+        nameBg.basis = BasisType.CENTER_LEFT;
+        if(type == SynergyDisplayType.grade) {
+            overOnlyOne = false;
+        }
     }
 
     public SynergyDisplay(AbstractSynergy s, SynergyDisplayType type) {
@@ -44,6 +50,8 @@ public class SynergyDisplay extends AbstractUI {
         if(over) {
             subTexts = getSubText();
         } else subTexts = null;
+        nameBg.setPosition(originX, originY);
+        nameBg.update();
     }
 
     @Override
@@ -72,6 +80,7 @@ public class SynergyDisplay extends AbstractUI {
             } else if(type == SynergyDisplayType.grade) {
                 subInt = originWidth * 1.6f;
                 subWay = SubWay.RIGHT;
+                sb.draw(nameBg.img, x + width * 1.06f, nameBg.y, nameBg.width, nameBg.height);
                 sb.draw(synergy.gradeImg[synergy.grade], x, y, width, height);
                 FontHandler.renderLineLeft(sb, NAME, synergy.name, x + width * 1.1f, y + height * 0.75f, width * 3);
                 int next;
@@ -80,7 +89,7 @@ public class SynergyDisplay extends AbstractUI {
                 } else {
                     next = synergy.gradeAmount[synergy.gradeAmount.length - 1];
                 }
-                FontHandler.renderLineLeft(sb, AMOUNT, synergy.memberCount + " / " + next, x + width * 1.1f, y + height * 0.25f, width * 3);
+                FontHandler.renderLineLeft(sb, AMOUNT, synergy.memberCount + " / " + next, x + width * 1.1f, y + height * 0.26f, width * 3);
             }
         }
     }

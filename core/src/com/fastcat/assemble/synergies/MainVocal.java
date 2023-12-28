@@ -10,8 +10,12 @@ public class MainVocal extends AbstractSynergy {
         super("MainVocal");
     }
 
-    public int upgradeWakSkill() {
-        return grade - 1;
+    public int upgradeAmount() {
+        if(grade == 1) return 2;
+        else if(grade == 2) return 3;
+        else if(grade == 3) return 5;
+        else if(grade == 4) return 8;
+        return 0;
     }
 
     public static MainVocal getInstance() {

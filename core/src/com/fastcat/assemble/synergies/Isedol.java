@@ -10,8 +10,8 @@ public class Isedol extends AbstractSynergy {
         super("Isedol");
     }
 
-    public int increaseWakDamage() {
-        return grade == 1 ? 2 : grade == 2 ? 5 : 10;
+    public int repeatAmount() {
+        return grade == 1 ? 2 : 3;
     }
 
     public static Isedol getInstance() {

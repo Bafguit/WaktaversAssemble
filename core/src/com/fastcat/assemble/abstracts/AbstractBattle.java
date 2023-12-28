@@ -52,7 +52,6 @@ public abstract class AbstractBattle implements Cloneable {
     public Array<AbstractMember> discardPile = new Array<>();
     public Array<AbstractMember> exhaustPile = new Array<>();
     public LinkedList<AbstractMember> hand = new LinkedList<>();
-    public AbstractSkill[] skills = new AbstractSkill[3];
 
     public int energy;
 
@@ -62,9 +61,6 @@ public abstract class AbstractBattle implements Cloneable {
         FastCatUtils.staticShuffle(mm, WakTower.game.battleRandom, AbstractMember.class);
         for(AbstractMember m : mm) {
             drawPile.addLast(m.cpy());
-        }
-        for(int i = 0; i < WakTower.game.skills.length; i++) {
-            skills[i] = WakTower.game.skills[i].cpy();
         }
         phase = BattlePhase.battleStart;
         resetSynergy();

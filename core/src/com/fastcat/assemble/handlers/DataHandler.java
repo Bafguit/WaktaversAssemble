@@ -4,13 +4,11 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractRelic;
-import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
 import com.fastcat.assemble.abstracts.AbstractRelic.RelicData;
-import com.fastcat.assemble.abstracts.AbstractSkill.SkillData;
 import com.fastcat.assemble.abstracts.AbstractStatus.StatusData;
 import com.fastcat.assemble.abstracts.AbstractSynergy.SynergyData;
 import com.fastcat.assemble.utils.SpriteAnimation;
@@ -28,7 +26,6 @@ public class DataHandler {
     public final HashMap<String, AbstractMember.MemberData> memberData = new HashMap<>();
     public final HashMap<String, AbstractSynergy.SynergyData> synergyData = new HashMap<>();
     public final HashMap<String, AbstractStatus.StatusData> statusData = new HashMap<>();
-    public final HashMap<String, AbstractSkill.SkillData> skillData = new HashMap<>();
     public final HashMap<String, SpriteAnimation> animation = new HashMap<>();
 
     public static DataHandler getInstance() {
@@ -62,12 +59,6 @@ public class DataHandler {
         JsonValue json = FileHandler.getInstance().jsonMap.get("member");
         for(JsonValue v : json) {
             memberData.put(v.name, new AbstractMember.MemberData(v.name, v));
-        }
-
-        //skill data
-        json = FileHandler.getInstance().jsonMap.get("skill");
-        for(JsonValue v : json) {
-            skillData.put(v.name, new SkillData(v.name, v));
         }
 
         //relic data

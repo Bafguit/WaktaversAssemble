@@ -12,7 +12,6 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractScreen;
-import com.fastcat.assemble.abstracts.AbstractSkill;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.actions.StartBattleAction;
 import com.fastcat.assemble.handlers.ActionHandler;
@@ -30,7 +29,6 @@ public class BattleScreen extends AbstractScreen {
     public LinkedList<MemberDisplay> hand;
     public MemberDisplay clicked;
     public Array<MemberDisplay> members;
-    public HashMap<AbstractSkill, SkillDisplay> skills;
     public HashMap<AbstractSynergy, SynergyDisplay> synergyMap;
     public SynergyDisplay[] synergies;
     public LinkedList<SynergyDisplay> synergyDisplays;
@@ -43,7 +41,6 @@ public class BattleScreen extends AbstractScreen {
         enemies = new LinkedList<>();
         hand = new LinkedList<>();
         members = new Array<>();
-        skills = new HashMap<>();
         synergyMap = new HashMap<>();
         synergies = new SynergyDisplay[19];
         synergyDisplays = new LinkedList<>();
@@ -64,13 +61,6 @@ public class BattleScreen extends AbstractScreen {
         }
         hand.clear();
         members.clear();
-        skills.clear();
-        for(int i = 0; i < WakTower.game.skills.length; i++) {
-            AbstractSkill s = WakTower.game.skills[i];
-            SkillDisplay sd = new SkillDisplay(s);
-            sd.setPosition(960 - 100 * i, 800);
-            skills.put(s, sd);
-        }
 
         int c = 0;
         for(JsonValue v : FileHandler.getInstance().jsonMap.get("synergy")) {
@@ -96,14 +86,15 @@ public class BattleScreen extends AbstractScreen {
 
         drawButton.update();
 
-        int c = 0;
+        int ii = 0, jj = 0;
         for(MemberDisplay m : members) {
-            if(c < 4) {
-                m.forcePosition(940 - 103 - 210 * c, 450);
-            } else {
-                m.forcePosition(940 - 170 - 210 * (c - 4), 370);
+            m.forcePosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj));
+
+            ii++;
+            if(ii == 3) {
+                jj++;
+                ii = 0;
             }
-            c++;
         }
 
         for(int i = members.size - 1; i >= 0; i--) {
@@ -111,15 +102,12 @@ public class BattleScreen extends AbstractScreen {
             m.update();
         }
 
-        c = 0;
+        int c = 0;
         sortSynergies();
         for(int i = 0; i < synergyDisplays.size(); i++) {
             SynergyDisplay s = synergyDisplays.get(i);
             s.setPosition(70, 810 - c * s.originHeight * 1.05f);
             c++;
-            s.update();
-        }
-        for(SkillDisplay s : skills.values()) {
             s.update();
         }
         turnEnd.update();
@@ -209,10 +197,6 @@ public class BattleScreen extends AbstractScreen {
         effectHandler.render(sb);
 
         turnEnd.render(sb);
-
-        for(SkillDisplay s : skills.values()) {
-            s.render(sb);
-        }
 
         for(int i = 0; i < synergyDisplays.size(); i++) {
             SynergyDisplay s = synergyDisplays.get(i);
