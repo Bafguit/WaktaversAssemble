@@ -6,6 +6,7 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.handlers.ActionHandler;
 
 public class EndTurnAction extends AbstractAction {
     
@@ -31,6 +32,8 @@ public class EndTurnAction extends AbstractAction {
             for(AbstractStatus status : WakTower.game.player.status) {
                 status.endOfTurn(isPlayer);
             }
+
+            ActionHandler.bot(new StartTurnAction(false));
         }
     }
 }

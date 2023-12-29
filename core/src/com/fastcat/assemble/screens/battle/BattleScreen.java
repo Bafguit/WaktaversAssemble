@@ -144,31 +144,31 @@ public class BattleScreen extends AbstractScreen {
         int c = 0, cw = 0, hs = hand.size();
         boolean hasOver = false;
         for(MemberDisplay h : hand) {
-            if(h != clicked) {
+            if(h != clicked && !h.isUsing) {
                 if(c > 0 && h.over) {
                     hasOver = true;
-                    break;
                 }
-                c++;
             } else {
                 hs -= 1;
-                break;
             }
+            c++;
         }
         c = 0;
         float hw = 960 + (140 * hs + (hasOver ? 290 : 145)) * 0.5f;
         if(clicked == null) {
             for(MemberDisplay h : hand) {
-                if(h.over) {
-                    if(c > 0) cw += 145;
-                    h.setPosition(hw - 145 - cw, 214);
-                } else h.setPosition(hw - 145 - cw, 107);
-                cw += 140;
-                c++;
+                if(!h.isUsing) {
+                    if(h.over) {
+                        if(c > 0) cw += 145;
+                        h.setPosition(hw - 145 - cw, 214);
+                    } else h.setPosition(hw - 145 - cw, 107);
+                    cw += 140;
+                    c++;
+                }
             }
         } else {
             for(MemberDisplay h : hand) {
-                if(h != clicked) {
+                if(h != clicked && !h.isUsing) {
                     h.setPosition(hw - 145 - c * 140, 107);
                     c++;
                 }

@@ -17,13 +17,13 @@ public class UpColorTextEffect extends AbstractEffect {
     private final String text;
 
     public UpColorTextEffect(float x, float y, int damage, Color color) {
-        super(x, y, 0.4f);
-        font = new FontHandler.FontData(FontHandler.NB26.size, color, false, false);
+        super(x, y, 0.7f);
+        font = new FontHandler.FontData(26, color, false, false);
         damage = Math.max(damage, 0);
         text = String.valueOf(damage);
         ui.basis = AbstractUI.BasisType.CENTER;
-        ui.setX(ui.originX + (MathUtils.random(0, 20) - 10) * InputHandler.scaleX);
-        ui.setY(ui.originY + MathUtils.random(0, 10) * InputHandler.scaleY);
+        ui.setX(ui.originX + (MathUtils.random(0, 20) - 10));
+        ui.setY(ui.originY + MathUtils.random(0, 10));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class UpColorTextEffect extends AbstractEffect {
             ui.originY += WakTower.tick * 100;
         }
         ui.update();
-        renderCenter(sb, font, text, ui.x, ui.y + 80 * InputHandler.scaleY, ui.width * 10);
+        renderCenter(sb, font, text, ui.x, ui.localY, ui.width);
     }
 
     @Override

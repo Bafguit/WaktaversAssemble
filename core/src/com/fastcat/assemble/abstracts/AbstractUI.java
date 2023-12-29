@@ -206,16 +206,16 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                     subTexts = getSubText();
                     if(!justOver && hasOver) onOver();
                     else if(justOver && !hasOver) onOverEnd();
-                    if (clicked) {
-                        if (clickable) {
+                    if (clickable) {
+                        if (clicked) {
                             cursorX = mouse.x - localX;
                             cursorY = mouse.y - localY;
                             if (!mute) SoundHandler.playSfx("CLICK");
                             onClick();
                         }
+                        if (clicking) onClicking();
+                        else if (clickEnd) onClickEnd();
                     }
-                    if (clicking) onClicking();
-                    else if (clickEnd) onClickEnd();
                 } else over = false;
             } else if (timer > 0) {
                 timer -= WakTower.tick / 0.5f;

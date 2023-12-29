@@ -16,5 +16,9 @@
   ],
   "settingButton": [
     "설정"
+  ],
+  "turnChangeEffect": [
+    "나의 턴",
+    "적 턴"
   ]
 }

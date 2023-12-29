@@ -12,6 +12,5 @@ public class TestBattle extends AbstractBattle {
     @Override
     protected void setEnemy() {
         enemies.addLast(new Enemy1());
-        enemies.addLast(new Enemy1());
     }
 }

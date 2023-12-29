@@ -154,7 +154,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
     protected void onClickEnd() {
         WakTower.battleScreen.clicked = null;
         if(y > height) {
-            ActionHandler.bot(new SummonMemberAction(member));
+            ActionHandler.bot(new SummonMemberAction(this));
             isUsing = true;
         }
         WakTower.battleScreen.updateHandPosition();

@@ -3,11 +3,13 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.FileHandler;
 
 public abstract class AbstractEffect implements Disposable {
 
     protected final AbstractUI ui = new AbstractUI.TempUI(FileHandler.getTexture("ui/tile"));
+    protected UIData data;
 
     public float baseDuration;
     public float duration;

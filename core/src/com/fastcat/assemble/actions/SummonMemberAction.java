@@ -1,15 +1,19 @@
 package com.fastcat.assemble.actions;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.effects.UpColorTextEffect;
+import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.screens.battle.MemberDisplay;
 
 public class SummonMemberAction extends AbstractAction {
 
-    private final AbstractMember member;
+    private final MemberDisplay member;
 
-    public SummonMemberAction(AbstractMember m) {
+    public SummonMemberAction(MemberDisplay m) {
         super(1f);
         this.member = m;
     }
@@ -17,12 +21,14 @@ public class SummonMemberAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            MemberDisplay m = WakTower.battleScreen.hand.remove(WakTower.battleScreen.indexOfHand(member));
+            WakTower.battleScreen.hand.remove(member);
             WakTower.battleScreen.updateHandPosition();
-            m.isCard = false;
-            m.isUsing = false;
-            WakTower.battleScreen.members.add(m);
-            member.summon();
+            member.isCard = false;
+            member.isUsing = false;
+            WakTower.battleScreen.members.add(member);
+            member.member.summon();
+            WakTower.battleScreen.update();
+            EffectHandler.add(new UpColorTextEffect(member.originX, member.originY + 100, MathUtils.random(1, 100), Color.CYAN));
         }
     }
 }
