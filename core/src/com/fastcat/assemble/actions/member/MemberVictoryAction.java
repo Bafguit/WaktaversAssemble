@@ -1,4 +1,4 @@
-package com.fastcat.assemble.actions;
+package com.fastcat.assemble.actions.member;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;

@@ -1,7 +1,7 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.MemberVictoryAction;
+import com.fastcat.assemble.actions.member.MemberVictoryAction;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 
 public class Victory extends AbstractMember implements OnIncreaseGlobalDamage {

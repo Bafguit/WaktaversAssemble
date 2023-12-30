@@ -1,26 +1,8 @@
 {
-  "Victory": {
-    "name": "빅토리",
-    "desc": "&y<[즉발]> 이번 턴 동안 우왁굳과 다른 멤버의 피해가 {V} 증가합니다.",
-    "flavor": "빅토리~",
-    "synergy": [
-      "Crazy",
-      "MindMaster"
-    ]
-  },
-  "Hikiking": {
-    "name": "히키킹",
-    "desc": "무작위 적에게 피해를 2 만큼 {V}번 입힙니다.",
-    "flavor": "",
-    "synergy": [
-      "Competitor",
-      "Crazy"
-    ]
-  },
   "Jingburger": {
     "name": "징버거",
     "desc": "앞선 멤버 하나당 방어도를 {D} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Isedol",
       "Nunna",
@@ -29,12 +11,358 @@
   },
   "Gosegu": {
     "name": "고세구",
-    "desc": "카드를 {V}장 뽑고 {V}장 버립니다.",
-    "flavor": "",
+    "desc": "턴 시작 시 카드를 {V}장 뽑고 {V}장 버립니다.",
+    "flavor": "done",
     "synergy": [
       "Isedol",
       "Cat",
       "Crazy"
+    ]
+  },
+  "Lilpa": {
+    "name": "릴파",
+    "desc": "앞선 멤버 하나당 무작위 적에게 피해를 {A} 줍니다.",
+    "flavor": "done",
+    "synergy": [
+      "Isedol",
+      "MainVocal",
+      "Nunna"
+    ]
+  },
+  "Ine": {
+    "name": "아이네",
+    "desc": "보호막을 {D} 얻습니다.",
+    "flavor": "done",
+    "synergy": [
+      "Isedol",
+      "Magician",
+      "MainVocal"
+    ]
+  },
+  "Viichan": {
+    "name": "비챤",
+    "desc": "무작위 적에게 피해를 {A} 줍니다. 발동할 때마다 피해가 {V} 증가합니다.",
+    "flavor": "done",
+    "synergy": [
+      "Isedol",
+      "Cutey",
+      "Kiddo"
+    ]
+  },
+  "Jururu": {
+    "name": "주르르",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Isedol",
+      "Nobles"
+    ]
+  },
+  "Victory": {
+    "name": "빅토리",
+    "desc": "&y<[즉발]> 이번 턴 동안 다른 멤버의 피해가 {V} 증가합니다.",
+    "flavor": "빅토리~",
+    "synergy": [
+      "Crazy",
+      "MindMaster"
+    ]
+  },
+  "Hikiking": {
+    "name": "히키킹",
+    "desc": "무작위 적에게 피해를 {A} 만큼 {V}번 줍니다.",
+    "flavor": "done",
+    "synergy": [
+      "Competitor",
+      "Crazy"
+    ]
+  },
+  "Sophia": {
+    "name": "소피아",
+    "desc": "&y<[즉발]> 카드를 {V}장 뽑고 {V}장 버립니다.",
+    "flavor": "done",
+    "synergy": [
+      "Crazy",
+      "Villain"
+    ]
+  },
+  "Freeter": {
+    "name": "프리터",
+    "desc": "공격받을 때마다 해당 적에게 피해를 {A} 줍니다.",
+    "flavor": "",
+    "synergy": [
+      "Badass",
+      "Guardian"
+    ]
+  },
+  "Duksu": {
+    "name": "이덕수 할아바이",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Competitor",
+      "OldMan"
+    ]
+  },
+  "Hodd": {
+    "name": "노스페라투 호드",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Guardian",
+      "Magician"
+    ]
+  },
+  "Gwonmin": {
+    "name": "권민",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Expert",
+      "MindMaster"
+    ]
+  },
+  "Yungter": {
+    "name": "융터르",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Expert",
+      "MindMaster"
+    ]
+  },
+  "Kimchimandu": {
+    "name": "김치만두번영택사스가",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "Kiddo"
+    ]
+  },
+  "Dopamine": {
+    "name": "도파민 박사",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "Expert",
+      "OldMan"
+    ]
+  },
+  "Haku": {
+    "name": "하쿠0089",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Kiddo",
+      "Machinary"
+    ]
+  },
+  "Chunsik": {
+    "name": "곽춘식",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Competitor",
+      "Guardian"
+    ]
+  },
+  "CallyCarly": {
+    "name": "캘리칼리 데이비슨",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Badass",
+      "Villain"
+    ]
+  },
+  "Rusuk": {
+    "name": "해루석",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Crazy",
+      "MainVocal"
+    ]
+  },
+  "Dokohyeji": {
+    "name": "독고혜지",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Competitor",
+      "Kiddo"
+    ]
+  },
+  "Pungsin": {
+    "name": "풍신",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "OldMan",
+      "Magician"
+    ]
+  },
+  "Bujeong": {
+    "name": "부정형인간",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "Timid"
+    ]
+  },
+  "Wakpago": {
+    "name": "왁파고",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "Machinary"
+    ]
+  },
+  "Roentgenium": {
+    "name": "뢴트게늄",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "MainVocal"
+    ]
+  },
+  "BusinessKim": {
+    "name": "비즈니스킴",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Expert",
+      "Nobles"
+    ]
+  },
+  "Ninnin": {
+    "name": "닌닌",
+    "desc": "무작위 적에게 피해를 {A} 주고 &y<상처>를 {V} 부여합니다.",
+    "flavor": "",
+    "synergy": [
+      "Kiddo",
+      "Timid"
+    ]
+  },
+  "IceKekki": {
+    "name": "아이 쓰께끼",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Guardian",
+      "MindMaster"
+    ]
+  },
+  "Bulgom": {
+    "name": "불곰",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Guardian",
+      "Nobles"
+    ]
+  },
+  "AmadeusChoi": {
+    "name": "아마데우스 최",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Expert",
+      "MindMaster"
+    ]
+  },
+  "Soosemi": {
+    "name": "수셈이",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Kiddo",
+      "Timid"
+    ]
+  },
+  "Gilbert": {
+    "name": "철도왕 길버트",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Expert",
+      "Machinary"
+    ]
+  },
+  "Sulivan": {
+    "name": "캡틴 설리반",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Competitor",
+      "Villain"
+    ]
+  },
+  "Sirian": {
+    "name": "시리안 레인",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Expert",
+      "Guardian"
+    ]
+  },
+  "Kreeze": {
+    "name": "크리즈",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Guardian",
+      "Machinary"
+    ]
+  },
+  "Chouroky": {
+    "name": "데스해머 쵸로키",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Kiddo",
+      "Villain"
+    ]
+  },
+  "Seyong": {
+    "name": "미미짱짱세용",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Crazy",
+      "Magician"
+    ]
+  },
+  "Jentoo": {
+    "name": "사랑전도사 젠투",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "Guardian"
+    ]
+  },
+  "Jinhe": {
+    "name": "진희",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Doormat",
+      "Magician"
+    ]
+  },
+  "Valentine": {
+    "name": "미스 발렌타인",
+    "desc": "",
+    "flavor": "",
+    "synergy": [
+      "Nobles",
+      "Nunna"
     ]
   }
 }

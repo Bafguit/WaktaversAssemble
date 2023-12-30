@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.EffectHandler;
+import com.fastcat.assemble.interfaces.OnTempScreenClosed;
 
 public abstract class AbstractScreen implements Screen {
 
@@ -16,6 +17,8 @@ public abstract class AbstractScreen implements Screen {
     public final Array<AbstractUI> ui = new Array<>();
     public final ScreenType type;
     public Sprite background;
+
+    private Array<OnTempScreenClosed> onClosedListener = new Array<>();
 
     public AbstractScreen(ScreenType type) {
         this.type = type;
@@ -60,12 +63,20 @@ public abstract class AbstractScreen implements Screen {
 
     @Override
     public void hide() {
-
+        if(type == ScreenType.TEMP) {
+            for(OnTempScreenClosed otc : onClosedListener) {
+                otc.onTempScreenClosed();
+            }
+        }
     }
 
     @Override
     public void dispose() {
 
+    }
+
+    public final void addListener(OnTempScreenClosed l) {
+        onClosedListener.add(l);
     }
 
     public final EffectHandler getEffectHandler() {

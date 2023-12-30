@@ -12,6 +12,7 @@ public abstract class AbstractAction implements Cloneable {
     public Array<AbstractEntity> target = new Array<>();
     public AbstractCard.CardTarget tar = AbstractCard.CardTarget.NONE;
     public boolean isDone = false;
+    public boolean run = true;
     public float baseDuration = DUR_DEFAULT;
     public float duration = DUR_DEFAULT;
     public int amount;
@@ -52,7 +53,7 @@ public abstract class AbstractAction implements Cloneable {
                 if (preAction != null) target = preAction.target;
                 //else if (tar != AbstractCard.CardTarget.NONE) target = AbstractSkill.getTargets(actor, tar);
             updateAction();
-            TickDuration();
+            if(run) TickDuration();
         }
     }
 

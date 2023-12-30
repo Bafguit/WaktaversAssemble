@@ -1,7 +1,7 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.MemberHikikingAction;
+import com.fastcat.assemble.actions.member.MemberHikikingAction;
 
 public class Hikiking extends AbstractMember {
 

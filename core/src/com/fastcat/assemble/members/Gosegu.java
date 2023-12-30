@@ -9,6 +9,12 @@ public class Gosegu extends AbstractMember {
         setValue(2, 1);
     }
 
+    public void startOfTurn(boolean isPlayer) {
+        if(isPlayer) {
+            //todo 드로우 후 버리기
+        }
+    }
+
     @Override
     public void onSummon() {
         

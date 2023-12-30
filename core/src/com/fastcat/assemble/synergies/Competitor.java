@@ -17,6 +17,14 @@ public class Competitor extends AbstractSynergy {
         return chars.get(WakTower.game.battleRandom.random(0, chars.size - 1));
     }
 
+    public int repeatAmount() {
+        if(grade == 1) return 2;
+        else if(grade == 2) return 3;
+        else if(grade == 3) return 5;
+        else if(grade == 4) return 8;
+        else return 1;
+    }
+
     public static Competitor getInstance() {
         if(instance == null) {
             instance = new Competitor();

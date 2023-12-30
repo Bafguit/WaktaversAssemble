@@ -180,7 +180,7 @@ public abstract class AbstractMember implements Cloneable {
     }
 
     public int calculatedDef() {
-        return atk;
+        return def;
     }
 
     public boolean hasSynergy(AbstractSynergy s) {
@@ -196,6 +196,8 @@ public abstract class AbstractMember implements Cloneable {
         }
         return false;
     }
+
+    public void afterUse() {}
 
     public AbstractMember cpy() {
         AbstractMember m;
