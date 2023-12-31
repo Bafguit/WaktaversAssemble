@@ -113,6 +113,7 @@ public abstract class AbstractSynergy {
             else {
                 for(int i = 0; i < gradeImg.length; i++) {
                     Sprite s = a.createSprite(id, i);
+                    if(s == null) throw new NullPointerException(id + " is NULL");
                     s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
                     gradeImg[i] = s;
                 }

@@ -1,4 +1,20 @@
 {
+  "Messi": {
+    "name": "메시",
+    "desc": "무작위 적에게 피해를 {A} 줍니다.",
+    "flavor": "done",
+    "synergy": [
+      "Cutey"
+    ]
+  },
+  "Angel": {
+    "name": "엔젤",
+    "desc": "방어도를 {D} 얻습니다.",
+    "flavor": "done",
+    "synergy": [
+      "Nunna"
+    ]
+  },
   "Jingburger": {
     "name": "징버거",
     "desc": "앞선 멤버 하나당 방어도를 {D} 얻습니다.",

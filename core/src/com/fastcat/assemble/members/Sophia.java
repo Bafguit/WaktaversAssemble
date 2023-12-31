@@ -1,7 +1,8 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.member.MemberSophiaAction;
+import com.fastcat.assemble.actions.DrawAndDiscardAction;
+import com.fastcat.assemble.actions.MemberSkillAnimationAction;
 
 public class Sophia extends AbstractMember {
 
@@ -12,6 +13,7 @@ public class Sophia extends AbstractMember {
 
     @Override
     public void onSummon() {
-        next(new MemberSophiaAction(this));
+        next(new MemberSkillAnimationAction(this));
+        next(new DrawAndDiscardAction(value));
     }
 }

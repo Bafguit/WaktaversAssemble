@@ -207,6 +207,13 @@ Expert
   orig: 96, 96
   offset: 0, 0
   index: 1
+Expert
+  rotate: false
+  xy: 1668, 198
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: 4
 Guardian
   rotate: false
   xy: 296, 198
@@ -263,13 +270,6 @@ Isedol
   orig: 96, 96
   offset: 0, 0
   index: -1
-Isedol
-  rotate: false
-  xy: 786, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
 Isedol
   rotate: false
   xy: 1178, 296
@@ -452,13 +452,6 @@ Nobles
   orig: 96, 96
   offset: 0, 0
   index: 2
-Nobles
-  rotate: false
-  xy: 394, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
 Nobles
   rotate: false
   xy: 590, 2

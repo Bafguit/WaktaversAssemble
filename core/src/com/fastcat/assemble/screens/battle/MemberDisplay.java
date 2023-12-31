@@ -56,7 +56,6 @@ public class MemberDisplay extends AbstractUI implements Disposable {
         isCard = true;
         fluid = true;
         fluidDuration = 0.05f;
-        member.animation.setScale(0.2f);
     }
 
     @Override

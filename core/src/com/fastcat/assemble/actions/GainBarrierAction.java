@@ -9,6 +9,17 @@ import com.fastcat.assemble.abstracts.AbstractStatus;
 
 public class GainBarrierAction extends AbstractAction {
 
+    public AbstractMember from;
+
+    public GainBarrierAction(AbstractEntity target, AbstractMember member) {
+        this(target, member, false);
+    }
+
+    public GainBarrierAction(AbstractEntity target, AbstractMember member, boolean isFast) {
+        super(target, isFast ? 0.3f : 1.0f);
+        from = member;
+    }
+
     public GainBarrierAction(AbstractEntity target, int blockAmount) {
         this(target, blockAmount, false);
     }
@@ -23,6 +34,7 @@ public class GainBarrierAction extends AbstractAction {
         if(duration == baseDuration) {
             if(target.size > 0) {
                 int cnt = 0;
+                if(from != null) amount = from.calculatedDef();
                 for(AbstractEntity e : target) {
                     int amt = amount;
                     if(e.isPlayer) {
