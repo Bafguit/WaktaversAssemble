@@ -120,9 +120,13 @@ public abstract class AbstractMember implements Cloneable {
 
     public void endOfTurn(boolean isPlayer) {}
 
-    public int damageTake(DamageInfo info, boolean isPlayer) {
+    public int damageTake(DamageInfo info) {
         return info.damage;
     }
+    
+    public void onAttack(DamageInfo info, Array<AbstractEntity> target) {}
+
+    public void onDamage(DamageInfo info, AbstractEntity target) {}
     
     public int onGainBlock(int amount) {
         return amount;
@@ -142,11 +146,11 @@ public abstract class AbstractMember implements Cloneable {
     
     public void onHealed(int amount) {}
 
-    public float damageTakeMultiply(DamageInfo info, boolean isPlayer) {
+    public float damageTakeMultiply(DamageInfo info) {
         return 1f;
     }
 
-    public void damageTaken(DamageInfo info, boolean isPlayer) {}
+    public void damageTaken(DamageInfo info) {}
 
     protected final void bot(AbstractAction action) {
         ActionHandler.bot(action);

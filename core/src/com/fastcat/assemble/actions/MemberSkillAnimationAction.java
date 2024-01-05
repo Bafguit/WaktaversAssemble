@@ -12,9 +12,14 @@ public class MemberSkillAnimationAction extends AbstractAction {
         member = m;
     }
 
+    public MemberSkillAnimationAction(AbstractMember m, float delay) {
+        super(delay);
+        member = m;
+    }
+
     @Override
     protected void updateAction() {
-        if(isDone) {
+        if(duration == baseDuration) {
             member.animation.setAnimation("skill");
             member.animation.addAnimation("idle");
         }

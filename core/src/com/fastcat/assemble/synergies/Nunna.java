@@ -10,6 +10,13 @@ public class Nunna extends AbstractSynergy {
         super("Nunna");
     }
 
+    public float damageMultiply() {
+        if(grade == 1) return 1.25f;
+        else if(grade == 2) return 1.5f;
+        else if(grade == 3) return 2f;
+        else return 1f;
+    }
+
     public static Nunna getInstance() {
         if(instance == null) {
             instance = new Nunna();

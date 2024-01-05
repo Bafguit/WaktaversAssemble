@@ -59,7 +59,7 @@ public final class RandomXC {
 
     public int random(int range) {
         ++this.counter;
-        return this.random.nextInt(range + 1);
+        return this.random.nextInt(range);
     }
 
     public int random(int start, int end) {

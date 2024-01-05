@@ -16,14 +16,21 @@ public class Villain extends AbstractSynergy {
     @Override
     public void endOfTurn(boolean isPlayer) {
         super.endOfTurn(isPlayer);
-        flash();
         int gold = memberCount * grade;
         if(counter < max_gold) {
+            flash();
             int comb = counter + gold;
             if(comb > max_gold)
                 gold -= comb - max_gold;
+            counter += gold;
             ActionHandler.next(new GainGoldAction(gold));
         }
+    }
+
+    @Override
+    public void endOfBattle() {
+        super.endOfBattle();
+        counter = 0;
     }
 
     public static Villain getInstance() {

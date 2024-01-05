@@ -1,6 +1,7 @@
 package com.fastcat.assemble.synergies;
 
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.utils.DamageInfo;
 
 public class Doormat extends AbstractSynergy {
 
@@ -8,6 +9,13 @@ public class Doormat extends AbstractSynergy {
 
     private Doormat() {
         super("Doormat");
+    }
+
+    public int damageTake(DamageInfo info) {
+        if(grade == 1) return info.damage - 2;
+        else if(grade == 2) return info.damage - 3;
+        else if(grade == 3) return info.damage - 5;
+        else return info.damage;
     }
 
     public static Doormat getInstance() {

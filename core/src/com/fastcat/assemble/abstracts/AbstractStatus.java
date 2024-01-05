@@ -2,6 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -49,6 +50,10 @@ public abstract class AbstractStatus {
     }
 
     public void damageTaken(DamageInfo info) {}
+
+    public void onAttack(DamageInfo info, Array<AbstractEntity> target) {}
+
+    public void onDamage(DamageInfo info, AbstractEntity target) {}
     
     public int onGainBlock(int amount) {
         return amount;

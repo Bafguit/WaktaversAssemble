@@ -86,6 +86,8 @@ public abstract class AbstractSynergy {
 
     public void endOfTurn(boolean isPlayer) {}
 
+    public void endOfBattle() {}
+
     public void gradeUp() {}
 
     public void flash() {

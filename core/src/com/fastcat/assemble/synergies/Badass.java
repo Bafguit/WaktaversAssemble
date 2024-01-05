@@ -1,6 +1,7 @@
 package com.fastcat.assemble.synergies;
 
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.utils.DamageInfo;
 
 public class Badass extends AbstractSynergy {
 
@@ -10,8 +11,11 @@ public class Badass extends AbstractSynergy {
         super("Badass");
     }
 
-    public boolean isOnlyBadass() {
-        return grade == 1;
+    public boolean ignoreDef(DamageInfo info) {
+        if(info.member != null) {
+            if((grade == 1 && info.member.hasSynergy(this)) || grade == 2) return true;
+        }
+        return false;
     }
 
     public static Badass getInstance() {

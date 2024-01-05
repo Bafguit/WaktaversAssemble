@@ -11,7 +11,9 @@ public class Isedol extends AbstractSynergy {
     }
 
     public int repeatAmount() {
-        return grade == 1 ? 2 : 3;
+        if(grade == 1) return 2;
+        else if(grade == 2) return 3;
+        else return 1;
     }
 
     public static Isedol getInstance() {

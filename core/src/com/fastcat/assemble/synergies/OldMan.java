@@ -11,8 +11,8 @@ public class OldMan extends AbstractSynergy {
         super("OldMan");
     }
 
-    public float damageMultiply(DamageInfo info) {
-        if(!info.source.isPlayer)
+    public float damageMultiply() {
+        if(grade > 0)
             return 1 - ((float)((10 + 10 * grade) * 0.01f));
         return 1f;
     }

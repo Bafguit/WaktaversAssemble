@@ -16,8 +16,10 @@ public class Guardian extends AbstractSynergy {
     @Override
     public void endOfTurn(boolean isPlayer) {
         super.endOfTurn(isPlayer);
-        flash();
-        ActionHandler.next(new GainBlockAction(WakTower.game.player, grade == 1 ? 5 : grade == 2 ? 12 : grade == 3 ? 25 : 50, true));
+        if(grade > 0) {
+            flash();
+            ActionHandler.next(new GainBlockAction(WakTower.game.player, grade == 1 ? 5 : grade == 2 ? 12 : grade == 3 ? 25 : 50, true));
+        }
     }
 
     public static Guardian getInstance() {

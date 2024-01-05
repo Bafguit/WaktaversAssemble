@@ -10,8 +10,14 @@ import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.interfaces.OnHealthUpdated;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
+import com.fastcat.assemble.synergies.Badass;
+import com.fastcat.assemble.synergies.Doormat;
+import com.fastcat.assemble.synergies.Kiddo;
+import com.fastcat.assemble.synergies.Nunna;
+import com.fastcat.assemble.synergies.OldMan;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
+import com.fastcat.assemble.utils.DamageInfo.DamageType;
 import com.fastcat.assemble.utils.SpriteAnimation.SpriteAnimationType;
 
 import java.util.Iterator;
@@ -129,47 +135,64 @@ public abstract class AbstractEntity {
     }
 
     public final void takeDamage(DamageInfo info) {
-        for(AbstractRelic item : WakTower.game.relics) {
-            info.damage = item.damageTake(info, isPlayer);
-        }
-        for(AbstractMember c : WakTower.game.battle.members) {
-            info.damage = c.damageTake(info, isPlayer);
-        }
-        for(AbstractStatus s : status) {
-            info.damage = s.damageTake(info);
-        }
-        float td = 1f;
-        for(AbstractRelic item : WakTower.game.relics) {
-            td *= item.damageTakeMultiply(info, isPlayer);
-        }
-        for(AbstractMember c : WakTower.game.battle.members) {
-            td *= c.damageTakeMultiply(info, isPlayer);
-        }
-        for(AbstractStatus s : status) {
-            td *= s.damageTakeMultiply(info);
-        }
-        info.damage = (int)(info.damage * td);
-        if(info.damage <= 0) return;
-        if(block > 0) {
-            if(info.damage <= block) {
-                //todo 이펙트 (damage)
-                block -= info.damage;
+        if(isPlayer) {
+            boolean kiddo = Kiddo.getInstance().isEvaded();
+            if(kiddo) {
+                //evade effect
                 return;
-            } else {
-                //todo 이펙트 (block)
-                info.damage -= block;
-                block = 0;
             }
         }
-        if(barrier > 0) {
-            if(info.damage <= barrier) {
-                //todo 이펙트 (damage)
-                barrier -= info.damage;
-                return;
-            } else {
-                //todo 이펙트 (barrier)
-                info.damage -= barrier;
-                barrier = 0;
+        boolean fromEnemy = info.source != null && !info.source.isPlayer && isPlayer;
+        if(info.type != DamageType.LOSE) {
+            for(AbstractRelic item : WakTower.game.relics) {
+                info.damage = item.damageTake(info);
+            }
+            if(fromEnemy) info.damage = Doormat.getInstance().damageTake(info);
+            for(AbstractMember c : WakTower.game.battle.members) {
+                info.damage = c.damageTake(info);
+            }
+            for(AbstractStatus s : status) {
+                info.damage = s.damageTake(info);
+            }
+           if(info.damage <= 0) return;
+            float td = 1f;
+            for(AbstractRelic item : WakTower.game.relics) {
+                td *= item.damageTakeMultiply(info);
+            }
+            if(!isPlayer) td *= Nunna.getInstance().damageMultiply();
+            else if(fromEnemy) td *= OldMan.getInstance().damageMultiply();
+            for(AbstractMember c : WakTower.game.battle.members) {
+                td *= c.damageTakeMultiply(info);
+            }
+            for(AbstractStatus s : status) {
+                td *= s.damageTakeMultiply(info);
+            }
+            info.damage = (int)(info.damage * td);
+            if(info.damage <= 0) return;
+            boolean ignore = !isPlayer && info.source != null && info.source.isPlayer && Badass.getInstance().ignoreDef(info);
+            if(!ignore) {
+                if(block > 0) {
+                    if(info.damage <= block) {
+                        //todo 이펙트 (damage)
+                        block -= info.damage;
+                        return;
+                    } else {
+                        //todo 이펙트 (block)
+                        info.damage -= block;
+                        block = 0;
+                    }
+                }
+                if(barrier > 0) {
+                    if(info.damage <= barrier) {
+                        //todo 이펙트 (damage)
+                        barrier -= info.damage;
+                        return;
+                    } else {
+                        //todo 이펙트 (barrier)
+                        info.damage -= barrier;
+                        barrier = 0;
+                    }
+                }
             }
         }
         EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.GOLD));
@@ -179,16 +202,30 @@ public abstract class AbstractEntity {
                 o.onHealthUpdated(-info.damage);
             }
         }
-        if(health < 0) die();
-        for(AbstractRelic item : WakTower.game.relics) {
-            item.damageTaken(info, isPlayer);
-        }
-        for(AbstractMember c : WakTower.game.battle.members) {
-            c.damageTaken(info, isPlayer);
-        }
-        if(health > 0) {
-            for(AbstractStatus s : status) {
-                s.damageTaken(info);
+        if(health <= 0) die();
+
+        if(info.type != DamageType.LOSE) {
+            for(AbstractRelic item : WakTower.game.relics) {
+                item.onDamage(info, this);
+            }
+            for(AbstractMember c : WakTower.game.battle.members) {
+                c.onDamage(info, this);
+            }
+            if(info.source != null) {
+                for(AbstractStatus s : status) {
+                    s.onDamage(info, this);
+                }
+            }
+            for(AbstractRelic item : WakTower.game.relics) {
+                item.damageTaken(info);
+            }
+            for(AbstractMember c : WakTower.game.battle.members) {
+                c.damageTaken(info);
+            }
+            if(health > 0) {
+                for(AbstractStatus s : status) {
+                    s.damageTaken(info);
+                }
             }
         }
     }

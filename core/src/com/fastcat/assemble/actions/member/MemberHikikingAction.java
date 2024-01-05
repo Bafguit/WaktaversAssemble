@@ -50,7 +50,7 @@ public class MemberHikikingAction extends AbstractAction implements OnAnimationF
 
     @Override
     public void onSingleFinished(String key) {
-        DamageInfo info = new DamageInfo(member.calculatedAtk(), WakTower.game.player, DamageInfo.DamageType.member);
+        DamageInfo info = new DamageInfo(member.calculatedAtk(), WakTower.game.player, DamageInfo.DamageType.NORMAL);
         target.get(count++).takeDamage(info);
         member.animation.addAnimationFinishedListener(this);
     }
