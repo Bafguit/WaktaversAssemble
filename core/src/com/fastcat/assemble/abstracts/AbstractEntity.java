@@ -173,22 +173,22 @@ public abstract class AbstractEntity {
             if(!ignore) {
                 if(block > 0) {
                     if(info.damage <= block) {
-                        //todo 이펙트 (damage)
+                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.CYAN));
                         block -= info.damage;
                         return;
                     } else {
-                        //todo 이펙트 (block)
+                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -block, Color.CYAN));
                         info.damage -= block;
                         block = 0;
                     }
                 }
                 if(barrier > 0) {
                     if(info.damage <= barrier) {
-                        //todo 이펙트 (damage)
+                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.SALMON));
                         barrier -= info.damage;
                         return;
                     } else {
-                        //todo 이펙트 (barrier)
+                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -barrier, Color.SALMON));
                         info.damage -= barrier;
                         barrier = 0;
                     }

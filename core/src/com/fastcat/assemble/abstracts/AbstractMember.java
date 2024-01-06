@@ -36,6 +36,7 @@ public abstract class AbstractMember implements Cloneable {
     public int atk, baseAtk, upAtk, def, baseDef, upDef;
     public int value, baseValue, upValue, value2, baseValue2, upValue2;
     public boolean remain = false;
+    public boolean instant = false, passive = false;
     public SpriteAnimation animation;
     public final AbstractSynergy[] baseSynergy;
     public AbstractSynergy[] synergy;
@@ -120,11 +121,16 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractSynergy s : WakTower.game.battle.synergy) {
             s.onSummon(this);
         }
+        for(AbstractMember m : WakTower.game.battle.members) {
+            m.onSummon(this);
+        }
         for(AbstractStatus s : WakTower.game.player.status) {
             s.onSummon(this);
         }
         onSummoned();
     }
+
+    public void onSummon(AbstractMember m) {}
 
     protected void onSummoned() {}
 

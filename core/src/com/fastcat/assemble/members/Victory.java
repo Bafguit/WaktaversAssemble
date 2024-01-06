@@ -9,6 +9,7 @@ public class Victory extends AbstractMember implements OnIncreaseMemberDamage {
     public Victory() {
         super("Victory");
         setValue(2, 1);
+        instant = true;
     }
 
     @Override
