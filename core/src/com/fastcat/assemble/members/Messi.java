@@ -16,8 +16,13 @@ public class Messi extends AbstractMember {
     @Override
     public void endOfTurn(boolean isPlayer) {
         if(isPlayer) {
-            next(new MemberSkillAnimationAction(this));
-            next(new DamageAction(new DamageInfo(this, DamageType.NORMAL)));
+            use();
         }
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberSkillAnimationAction(this));
+        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL)));
     }
 }

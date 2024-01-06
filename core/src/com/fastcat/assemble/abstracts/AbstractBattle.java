@@ -43,7 +43,6 @@ public abstract class AbstractBattle implements Cloneable {
     //todo 턴 종료 시 클리어
     public LinkedList<OnIncreaseGlobalDamage> turnGlobalDamage = new LinkedList<>();
     public LinkedList<OnIncreaseMemberDamage> turnMemberDamage = new LinkedList<>();
-    public LinkedList<OnIncreaseWakDamage> turnWakDamage = new LinkedList<>();
 
     public LinkedList<AbstractEnemy> enemies = new LinkedList<>();
     public Array<AbstractMember> members = new Array<>();

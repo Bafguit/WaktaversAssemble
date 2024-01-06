@@ -2,9 +2,9 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.member.MemberVictoryAction;
-import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
+import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 
-public class Victory extends AbstractMember implements OnIncreaseGlobalDamage {
+public class Victory extends AbstractMember implements OnIncreaseMemberDamage {
 
     public Victory() {
         super("Victory");
@@ -12,17 +12,22 @@ public class Victory extends AbstractMember implements OnIncreaseGlobalDamage {
     }
 
     @Override
-    public void onSummon() {
-        next(new MemberVictoryAction(this));
+    protected void onSummoned() {
+        use();
     }
 
     @Override
-    public int increaseGlobalDamage() {
+    public int increaseMemberDamage() {
         return value;
     }
 
     @Override
-    public float multiplyGlobalDamage() {
+    protected void useMember() {
+        next(new MemberVictoryAction(this));
+    }
+
+    @Override
+    public float multiplyMemberDamage() {
         return 1f;
     }
     

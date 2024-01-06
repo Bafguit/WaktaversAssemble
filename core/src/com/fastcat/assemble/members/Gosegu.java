@@ -13,8 +13,13 @@ public class Gosegu extends AbstractMember {
 
     public void startOfTurn(boolean isPlayer) {
         if(isPlayer) {
-            next(new MemberSkillAnimationAction(this));
-            next(new DrawAndDiscardAction(value));
+            use();
         }
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberSkillAnimationAction(this));
+        next(new DrawAndDiscardAction(value));
     }
 }

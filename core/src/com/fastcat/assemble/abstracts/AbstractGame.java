@@ -39,9 +39,9 @@ public class AbstractGame {
     public int floorNum, floorMax, drawAmount, maxHand, memberLimit, energyStart, energyCharge, energyMax;
 
     public AbstractGame() {
-        deck = new Array<>();
         relics = new Array<>();
         player = new AbstractPlayer();
+        deck = player.getStartDeck();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);
@@ -63,11 +63,6 @@ public class AbstractGame {
         energyStart = 3;
         energyCharge = 1;
         energyMax = 3;
-
-        deck.add(new Victory());
-        deck.add(new Hikiking());
-        deck.add(new Jingburger());
-        deck.add(new Gosegu());
     }
 
     public void update() {

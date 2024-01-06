@@ -13,6 +13,11 @@ public class Hikiking extends AbstractMember {
 
     @Override
     public void endOfTurn(boolean isPlayer) {
-        if(isPlayer) next(new MemberHikikingAction(this));
+        if(isPlayer) use();
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberHikikingAction(this));
     }
 }

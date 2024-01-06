@@ -54,6 +54,14 @@ public abstract class AbstractStatus {
     public void onAttack(DamageInfo info, Array<AbstractEntity> target) {}
 
     public void onDamage(DamageInfo info, AbstractEntity target) {}
+
+    public int calculateAtk(int atk) {
+        return atk;
+    }
+
+    public int calculateDef(int def) {
+        return def;
+    }
     
     public int onGainBlock(int amount) {
         return amount;
@@ -72,6 +80,8 @@ public abstract class AbstractStatus {
     }
     
     public void onHealed(int amount) {}
+
+    public void onSummon(AbstractMember m) {}
 
     public static class StatusData {
         public final String id, name, desc;

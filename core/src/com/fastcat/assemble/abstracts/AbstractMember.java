@@ -8,6 +8,9 @@ import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
+import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
+import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
+import com.fastcat.assemble.synergies.Magician;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
 
@@ -20,6 +23,8 @@ public abstract class AbstractMember implements Cloneable {
     };
 
     public final MemberData data;
+
+    public AbstractMember tempClone;
 
     public String id;
     public String name;
@@ -82,6 +87,7 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractSynergy s : synergy) {
             s.addMember(this);
         }
+        onSummon();
     }
     
     public void onDrawn() {
@@ -104,12 +110,39 @@ public abstract class AbstractMember implements Cloneable {
         }
     }
 
-    public void onSummon() {}
+    public final void onSummon() {
+        for(AbstractMember m : WakTower.game.battle.members) {
+            m.newTemp();
+        }
+        for(AbstractRelic r : WakTower.game.relics) {
+            r.onSummon(this);
+        }
+        for(AbstractSynergy s : WakTower.game.battle.synergy) {
+            s.onSummon(this);
+        }
+        for(AbstractStatus s : WakTower.game.player.status) {
+            s.onSummon(this);
+        }
+        onSummoned();
+    }
+
+    protected void onSummoned() {}
 
     public void onExit() {}
 
     public void prepare() {
         synergy = baseSynergy;
+        newTemp();
+    }
+
+    public void newTemp() {
+        tempClone = this.cpy();
+    }
+
+    public void upgradeTemp(int amount) {
+        for(int i = 0; i < amount; i++) {
+            tempClone.upgrade(false);
+        }
     }
 
     public String getName() {
@@ -164,6 +197,46 @@ public abstract class AbstractMember implements Cloneable {
         ActionHandler.next(action);
     }
 
+    public void upgrade() {
+        if(upgradeCount < upgradeLimit) {
+            upgradeCount++;
+
+            baseAtk += upAtk;
+            if(baseAtk < 0) baseAtk = 0;
+
+            baseDef += upDef;
+            if(baseDef < 0) baseDef = 0;
+
+            baseValue += upValue;
+            if(baseValue < 0) baseValue = 0;
+            value = baseValue;
+
+            baseValue2 += upValue2;
+            if(baseValue2 < 0) baseValue2 = 0;
+            value2 = baseValue2;
+        }
+    }
+
+    public void upgrade(boolean hasLimit) {
+        if(!hasLimit || upgradeCount < upgradeLimit) {
+            upgradeCount++;
+            
+            baseAtk += upAtk;
+            if(baseAtk < 0) baseAtk = 0;
+
+            baseDef += upDef;
+            if(baseDef < 0) baseDef = 0;
+
+            baseValue += upValue;
+            if(baseValue < 0) baseValue = 0;
+            value = baseValue;
+
+            baseValue2 += upValue2;
+            if(baseValue2 < 0) baseValue2 = 0;
+            value2 = baseValue2;
+        }
+    }
+
     public int getKeyValue(String key) {
         switch (key) {
             case "A":
@@ -180,6 +253,21 @@ public abstract class AbstractMember implements Cloneable {
     }
 
     public int calculatedAtk() {
+        int a = baseAtk;
+        for(OnIncreaseGlobalDamage g : WakTower.game.battle.turnGlobalDamage) {
+            a += g.increaseGlobalDamage();
+        }
+        for(OnIncreaseMemberDamage g : WakTower.game.battle.turnMemberDamage) {
+            a += g.increaseMemberDamage();
+        }
+        for(AbstractRelic r : WakTower.game.relics) {
+            a = r.calculateAtk(a);
+        }
+        Magician mgc = Magician.getInstance();
+        if(mgc.grade > 0) a += mgc.increaseMemberDamage();
+        for(AbstractStatus s : WakTower.game.player.status) {
+            a = s.calculateAtk(a);
+        }
         return atk;
     }
 
@@ -201,6 +289,22 @@ public abstract class AbstractMember implements Cloneable {
         return false;
     }
 
+    public final void use() {
+        int r = 1;
+        for(AbstractRelic rl : WakTower.game.relics) {
+            r += rl.repeatAmount(this) - 1;
+        }
+        for(AbstractSynergy s : WakTower.game.battle.synergy) {
+            r += s.repeatAmount(this) - 1;
+        }
+        for(int i = 0; i < r; i++) {
+            useMember();
+        }
+        afterUse();
+    }
+
+    protected abstract void useMember();
+
     public void afterUse() {}
 
     public AbstractMember cpy() {
@@ -213,8 +317,6 @@ public abstract class AbstractMember implements Cloneable {
         }
         m.img = FileHandler.getMember(id);
         m.animation = m.animation.cpy();
-        System.arraycopy(baseSynergy, 0, m.synergy, 0, baseSynergy.length);
-        m.setSynergy();
         return m;
     }
 

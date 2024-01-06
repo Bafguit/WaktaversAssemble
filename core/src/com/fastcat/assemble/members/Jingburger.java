@@ -12,6 +12,11 @@ public class Jingburger extends AbstractMember {
 
     @Override
     public void endOfTurn(boolean isPlayer) {
-        if(isPlayer) next(new MemberJingburgerAction(this));
+        if(isPlayer) use();
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberJingburgerAction(this));
     }
 }

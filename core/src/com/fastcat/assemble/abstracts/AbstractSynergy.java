@@ -78,6 +78,16 @@ public abstract class AbstractSynergy {
         return 0;
     }
 
+    public int upgradeAmount() {
+        return 0;
+    }
+
+    public void onSummon(AbstractMember m) {}
+
+    public int repeatAmount(AbstractMember m) {
+        return 1;
+    }
+
     public void reset() {
         members.clear();
         memberCount = getActualMemberCount();

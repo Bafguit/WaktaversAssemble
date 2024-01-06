@@ -12,7 +12,12 @@ public class Sophia extends AbstractMember {
     }
 
     @Override
-    public void onSummon() {
+    protected void onSummoned() {
+        use();
+    }
+
+    @Override
+    protected void useMember() {
         next(new MemberSkillAnimationAction(this));
         next(new DrawAndDiscardAction(value));
     }

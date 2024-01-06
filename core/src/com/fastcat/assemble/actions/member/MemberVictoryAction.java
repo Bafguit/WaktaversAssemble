@@ -18,7 +18,7 @@ public class MemberVictoryAction extends AbstractAction {
         if(duration == baseDuration) {
             victory.animation.setAnimation("skill");
             victory.animation.addAnimation("idle");
-            WakTower.game.battle.turnGlobalDamage.add(victory);
+            WakTower.game.battle.turnMemberDamage.add(victory);
         }
     }
 }

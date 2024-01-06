@@ -40,6 +40,14 @@ public abstract class AbstractRelic {
     public void onAttack(DamageInfo info, Array<AbstractEntity> target) {}
 
     public void onDamage(DamageInfo info, AbstractEntity target) {}
+
+    public int calculateAtk(int atk) {
+        return atk;
+    }
+
+    public int calculateDef(int def) {
+        return def;
+    }
     
     public int onGainBlock(int amount) {
         return amount;
@@ -70,6 +78,12 @@ public abstract class AbstractRelic {
     public void startOfTurn(boolean isPlayer) {}
 
     public void startOfBattle() {}
+
+    public void onSummon(AbstractMember m) {}
+
+    public int repeatAmount(AbstractMember m) {
+        return 1;
+    }
 
     public static class RelicData {
         public final String id, name, desc, flavor;

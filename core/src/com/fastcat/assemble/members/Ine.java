@@ -15,8 +15,13 @@ public class Ine extends AbstractMember {
     @Override
     public void endOfTurn(boolean isPlayer) {
         if(isPlayer) {
-            next(new MemberSkillAnimationAction(this));
-            next(new GainBarrierAction(WakTower.game.player, this));
+            use();
         }
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberSkillAnimationAction(this));
+        next(new GainBarrierAction(WakTower.game.player, this));
     }
 }

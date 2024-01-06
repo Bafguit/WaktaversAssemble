@@ -12,6 +12,11 @@ public class Lilpa extends AbstractMember {
 
     @Override
     public void endOfTurn(boolean isPlayer) {
-        if(isPlayer) next(new MemberLilpaAction(this));
+        if(isPlayer) use();
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberLilpaAction(this));
     }
 }
