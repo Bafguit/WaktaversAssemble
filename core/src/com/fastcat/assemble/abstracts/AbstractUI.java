@@ -538,6 +538,7 @@ public abstract class AbstractUI implements Disposable, Cloneable {
         public String desc;
         public int line;
         public float ww, hh, mh;
+        public AbstractMember member;
 
         public SubText(String name, String desc) {
             this.name = name;
@@ -551,17 +552,45 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             descFont = SUB_DESC;
         }
 
+        public SubText(AbstractMember m) {
+            name = "";
+            desc = "";
+            top = new TempUI(FileHandler.getPng("ui/sub_top"));
+            mid = new TempUI(FileHandler.getPng("ui/sub_mid"));
+            bot = new TempUI(FileHandler.getPng("ui/sub_bot"));
+            nameLayout = new GlyphLayout();
+            descLayout = new GlyphLayout();
+            nameFont = SUB_NAME;
+            descFont = SUB_DESC;
+            member = m;
+        }
+
         public void render(SpriteBatch sb, float x, float y, SubWay way, float subInt) {
             mid.update();
             top.update();
             bot.update();
-            String n = getColorKey("y") + name, d = desc;
+            String n, d;
+            if(member != null) {
+                n = getColorKey("y") + member.getName();
+                d = member.desc;
+            } else {
+                n = getColorKey("y") + name;
+                d = desc;
+            }
             Matcher matcher = COLOR_PATTERN.matcher(d);
             while (matcher.find()) {
                 String mt = matcher.group(1);
                 String mmt = matcher.group(2);
                 d = matcher.replaceFirst(getColorKey(mt) + mmt + getHexColor(nameFont.color));
                 matcher = COLOR_PATTERN.matcher(d);
+            }
+            if(member != null) {
+                matcher = VAR_PATTERN.matcher(d);
+                while (matcher.find()) {
+                    String mt = matcher.group(1);
+                    d = matcher.replaceFirst(member.getKeyValue(mt) + getHexColor(descFont.color));
+                    matcher = VAR_PATTERN.matcher(d);
+                }
             }
             nameLayout.setText(nameFont.font, n, nameFont.color, mid.width * 0.92f, Align.bottomLeft, false);
             descLayout.setText(descFont.font, d, descFont.color, mid.width * 0.92f, Align.bottomLeft, true);

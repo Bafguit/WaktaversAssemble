@@ -2,7 +2,6 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.DamageAction;
-import com.fastcat.assemble.actions.DrawAndDiscardAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
@@ -14,11 +13,6 @@ public class Freeter extends AbstractMember {
     public Freeter() {
         super("Freeter");
         setAtk(3, 2);
-    }
-
-    @Override
-    protected void onSummoned() {
-        use();
     }
 
     public void damageTaken(DamageInfo info) {

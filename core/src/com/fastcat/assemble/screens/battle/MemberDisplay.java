@@ -8,6 +8,7 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
+import com.fastcat.assemble.abstracts.AbstractUI.SubText.SubWay;
 import com.fastcat.assemble.actions.SummonMemberAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -64,8 +65,10 @@ public class MemberDisplay extends AbstractUI implements Disposable {
         clickable = fluid = isCard && WakTower.game.battle.members.size < WakTower.game.memberLimit && !isUsing; 
         if(isCard) {
             basis = BasisType.CENTER;
+            subWay = SubWay.UP;
         } else {
             basis = BasisType.BOTTOM;
+            subWay = SubWay.RIGHT;
         }
     }
 
@@ -74,7 +77,12 @@ public class MemberDisplay extends AbstractUI implements Disposable {
         if(!isCard) {
             tile.setPosition(originX, originY);
             tile.update();
-            if(tile.over) InputHandler.alreadyOver = true;
+            if(tile.over) {
+                InputHandler.alreadyOver = true;
+                if(tile.timer == 1f) {
+                    subTexts = new SubText(member.tempClone);
+                }
+            } else subTexts = null;
         } else {
             if(over) InputHandler.alreadyOver = true;
             cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
@@ -129,7 +137,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
             FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.5f, y);
 
             if(timer == 1f) {
-                //효과 설명 출력
+                
             }
         }
     }
