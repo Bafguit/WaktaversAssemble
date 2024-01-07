@@ -7,6 +7,8 @@ import com.fastcat.assemble.utils.DamageInfo;
 
 public class Kimchimandu extends AbstractMember {
 
+    private boolean summoned = true;
+
     public Kimchimandu() {
         super("Kimchimandu");
         setValue(2, 1);
@@ -18,5 +20,25 @@ public class Kimchimandu extends AbstractMember {
     }
 
     @Override
-    protected void useMember() {}
+    protected void onSummoned() {
+        value = 0;
+        summoned = true;
+        use();
+    }
+
+    @Override
+    public void onSummon(AbstractMember m) {
+        value = 0;
+        use();
+    }
+
+    @Override
+    protected void useMember() {
+        if(summoned) {
+            //todo value increase action
+            summoned = false;
+        } else {
+            value += baseValue;
+        }
+    }
 }

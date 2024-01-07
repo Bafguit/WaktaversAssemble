@@ -62,7 +62,7 @@ public class DamageAction extends AbstractAction {
                     for(AbstractEnemy e : WakTower.game.battle.enemies) {
                         if(e.isAlive()) entities.add(e);
                     }
-                    int r = WakTower.game.battleRandom.random(entities.size);
+                    int r = WakTower.game.battleRandom.random(entities.size - 1);
                     ent = entities.get(r);
                 }
                 target.add(ent);

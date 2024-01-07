@@ -78,7 +78,7 @@ public class SynergyDisplay extends AbstractUI {
                 subWay = SubWay.UP;
                 sb.draw(synergy.img, x, y, width, height);
             } else if(type == SynergyDisplayType.grade) {
-                subInt = originWidth * 1.6f;
+                subInt = originWidth * 2f;
                 subWay = SubWay.RIGHT;
                 sb.draw(nameBg.img, x + width * 1.06f, nameBg.y, nameBg.width, nameBg.height);
                 sb.draw(synergy.gradeImg[synergy.grade], x, y, width, height);

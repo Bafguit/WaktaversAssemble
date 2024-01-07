@@ -10,6 +10,7 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
+import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
 import com.fastcat.assemble.synergies.Magician;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.SpriteAnimation;
@@ -19,7 +20,7 @@ public abstract class AbstractMember implements Cloneable {
 
     private static final String[] MIND_MASTER_SYNERGY = new String[] {
         "Guardian", "Crazy", "Expert", "Magician", "MainVocal", "Machinary",
-        "Doormat", "Villain", "Kiddo", "Nobles", "Competitor", "Timid"
+        "Doormat", "Villain", "Kiddo", "Nobles", "Timid"
     };
 
     public final MemberData data;
@@ -122,7 +123,7 @@ public abstract class AbstractMember implements Cloneable {
             s.onSummon(this);
         }
         for(AbstractMember m : WakTower.game.battle.members) {
-            m.onSummon(this);
+            if(m != this) m.onSummon(this);
         }
         for(AbstractStatus s : WakTower.game.player.status) {
             s.onSummon(this);
@@ -260,6 +261,7 @@ public abstract class AbstractMember implements Cloneable {
 
     public int calculatedAtk() {
         int a = baseAtk;
+
         for(OnIncreaseGlobalDamage g : WakTower.game.battle.turnGlobalDamage) {
             a += g.increaseGlobalDamage();
         }
@@ -274,11 +276,49 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractStatus s : WakTower.game.player.status) {
             a = s.calculateAtk(a);
         }
-        return atk;
+
+        for(OnIncreaseGlobalDamage g : WakTower.game.battle.turnGlobalDamage) {
+            a *= g.multiplyGlobalDamage();
+        }
+        for(OnIncreaseMemberDamage g : WakTower.game.battle.turnMemberDamage) {
+            a *= g.multiplyMemberDamage();
+        }
+        for(AbstractRelic r : WakTower.game.relics) {
+            a *= r.multiplyAtk();
+        }
+        for(AbstractStatus s : WakTower.game.player.status) {
+            a *= s.multiplyAtk();
+        }
+
+        atk = a;
+        return a;
     }
 
     public int calculatedDef() {
-        return def;
+        int d = baseDef;
+        
+        for(OnIncreaseMemberDef g : WakTower.game.battle.turnMemberDef) {
+            d += g.increaseMemberDef();
+        }
+        for(AbstractRelic r : WakTower.game.relics) {
+            d = r.calculateDef(d);
+        }
+        for(AbstractStatus s : WakTower.game.player.status) {
+            d = s.calculateDef(d);
+        }
+
+        for(OnIncreaseMemberDef g : WakTower.game.battle.turnMemberDef) {
+            d *= g.multiplyMemberDef();
+        }
+        for(AbstractRelic r : WakTower.game.relics) {
+            d *= r.multiplyDef();
+        }
+        for(AbstractStatus s : WakTower.game.player.status) {
+            d *= s.multiplyDef();
+        }
+
+        def = d;
+        return d;
     }
 
     public boolean hasSynergy(AbstractSynergy s) {

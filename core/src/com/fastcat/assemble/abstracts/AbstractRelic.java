@@ -48,6 +48,14 @@ public abstract class AbstractRelic {
     public int calculateDef(int def) {
         return def;
     }
+
+    public float multiplyAtk() {
+        return 1f;
+    }
+
+    public float multiplyDef() {
+        return 1f;
+    }
     
     public int onGainBlock(int amount) {
         return amount;

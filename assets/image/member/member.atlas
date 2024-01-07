@@ -1,95 +1,99 @@
 member.png
-	size: 2048, 2048
-	filter: Linear, Linear
-	repeat: none
+size:2048,2048
+filter:Linear,Linear
+repeat:none
+Angel
+bounds:262,704,256,349
 Bujeong
-	bounds: 776, 2, 256, 349
+bounds:1294,704,256,349
 Bulgom
-	bounds: 260, 2, 256, 349
+bounds:260,2,256,349
 BusinessKim
-	bounds: 1034, 2, 256, 349
+bounds:1552,704,256,349
 Butterus
-	bounds: 1554, 1406, 256, 349
+bounds:776,2,256,349
 CallyCarly
-	bounds: 1294, 704, 256, 349
+bounds:1034,2,256,349
 Chouloky
-	bounds: 1552, 704, 256, 349
+bounds:1550,353,256,349
 Chunsik
-	bounds: 2, 2, 256, 349
+bounds:520,1055,256,349
 Dandap
-	bounds: 778, 1055, 256, 349
+bounds:778,1055,256,349
 Dokohyeji
-	bounds: 778, 704, 256, 349
+bounds:1036,1055,256,349
 Dopamine
-	bounds: 2, 353, 256, 349
+bounds:2,353,256,349
 Duksu
-	bounds: 1550, 353, 256, 349
+bounds:1292,2,256,349
 Freeter
-	bounds: 522, 1406, 256, 349
+bounds:522,1406,256,349
 Gosegu
-	bounds: 262, 1406, 258, 349
+bounds:262,1406,258,349
 Hikiking
-	bounds: 2, 1406, 258, 349
+bounds:2,1406,258,349
 Hodd
-	bounds: 1038, 1406, 256, 349
+bounds:518,353,256,349
 IceKkeki
-	bounds: 260, 353, 256, 349
+bounds:520,704,256,349
 Jentoo
-	bounds: 262, 1055, 256, 349
+bounds:262,1055,256,349
 Jingburger
-	bounds: 2, 1055, 258, 349
+bounds:2,1055,258,349
 Jururu
-	bounds: 1296, 1406, 256, 349
+bounds:518,2,256,349
 Kimchimandu
-	bounds: 1292, 353, 256, 349
+bounds:1550,2,256,349
 Kreeze
-	bounds: 780, 1406, 256, 349
+bounds:780,1406,256,349
 Lilpa
-	bounds: 1294, 1055, 256, 349
+bounds:1034,353,256,349
+Messi
+bounds:776,353,256,349
 Pungsin
-	bounds: 776, 353, 256, 349
+bounds:1036,704,256,349
 Roentgenium
-	bounds: 1036, 1055, 256, 349
+bounds:1296,1406,256,349
 Rusuk
-	bounds: 518, 2, 256, 349
+bounds:1294,1055,256,349
 Seyong
-	bounds: 262, 704, 256, 349
+bounds:2,2,256,349
 Sirian
-	bounds: 518, 353, 256, 349
-Soosemi
-	bounds: 1292, 2, 256, 349
+bounds:778,704,256,349
 Sophia
-	bounds: 520, 1055, 256, 349
+bounds:260,353,256,349
 Sulivan
-	bounds: 1036, 704, 256, 349
+bounds:1554,1406,256,349
 Valentine
-	bounds: 1552, 1055, 256, 349
+bounds:1292,353,256,349
 Victory
-	bounds: 2, 704, 258, 349
+bounds:2,704,258,349
 Viichan
-	bounds: 1034, 353, 256, 349
-Wakpago
-	bounds: 1550, 2, 256, 349
+bounds:1552,1055,256,349
 Yungter
-	bounds: 520, 704, 256, 349
+bounds:1038,1406,256,349
 
 member2.png
-	size: 2048, 1024
-	filter: Linear, Linear
-	repeat: none
+size:2048,1024
+filter:Linear,Linear
+repeat:none
 AmadeusChoi
-	bounds: 518, 353, 256, 349
+bounds:518,353,256,349
 Charlotte
-	bounds: 776, 2, 256, 349
+bounds:1034,2,256,349
 Gilbert
-	bounds: 518, 2, 256, 349
+bounds:776,2,256,349
 Gwonmin
-	bounds: 776, 353, 256, 349
+bounds:1034,353,256,349
 Haku
-	bounds: 2, 2, 256, 349
+bounds:260,2,256,349
 Ine
-	bounds: 260, 353, 256, 349
+bounds:518,2,256,349
 Jinhe
-	bounds: 2, 353, 256, 349
+bounds:260,353,256,349
 Ninnin
-	bounds: 260, 2, 256, 349
+bounds:776,353,256,349
+Soosemi
+bounds:2,353,256,349
+Wakpago
+bounds:2,2,256,349

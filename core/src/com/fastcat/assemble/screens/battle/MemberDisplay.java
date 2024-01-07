@@ -1,5 +1,6 @@
 package com.fastcat.assemble.screens.battle;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
@@ -103,11 +104,11 @@ public class MemberDisplay extends AbstractUI implements Disposable {
                 descBg.img.setBounds(xx, yy, descBg.width, descBg.height);
                 descBg.img.draw(sb, timer);
                 fontDesc.alpha = timer;
-                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x + width * 0.1f, y + height * 0.2f, width * 0.8f);
+                FontHandler.renderMemberDesc(sb, member, fontDesc, member.desc, x + width * 0.1f, y + height * 0.215f, width * 0.8f);
             }
             sb.draw(frame, xx, yy, cardImg.width, cardImg.height);
 
-            FontHandler.renderMemberName(sb, fontName, member.name, x + width * 0.08f, y + height * 0.92f, width);
+            FontHandler.renderMemberName(sb, fontName, member.name, x + width * 0.08f, y + height * 0.935f, width);
 
             for(SynergyDisplay s : synergy) {
                 s.render(sb);

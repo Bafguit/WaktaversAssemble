@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
@@ -21,6 +22,7 @@ import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
+import com.fastcat.assemble.utils.FastCatUtils;
 
 public class BattleScreen extends AbstractScreen {
 
@@ -141,37 +143,17 @@ public class BattleScreen extends AbstractScreen {
     }
 
     public void updateHandPosition() {
-        int c = 0, cw = 0, hs = hand.size();
-        boolean hasOver = false;
+        int c = 0, hs = hand.size();
         for(MemberDisplay h : hand) {
-            if(h != clicked && !h.isUsing) {
-                if(c > 0 && h.over) {
-                    hasOver = true;
-                }
-            } else {
+            if(h == clicked || h.isUsing) {
                 hs -= 1;
             }
-            c++;
         }
-        c = 0;
-        float hw = 960 + (140 * hs + (hasOver ? 290 : 145)) * 0.5f;
-        if(clicked == null) {
-            for(MemberDisplay h : hand) {
-                if(!h.isUsing) {
-                    if(h.over) {
-                        if(c > 0) cw += 145;
-                        h.setPosition(hw - 145 - cw, 214);
-                    } else h.setPosition(hw - 145 - cw, 107);
-                    cw += 140;
+        float hw = 960 + (140 * (hs) + 145) * 0.5f;
+        for(MemberDisplay h : hand) {
+            if(h != clicked && !h.isUsing) {
+                    h.setPosition(hw - 145 - c * 140, h.hasOver ? 219 : 107);
                     c++;
-                }
-            }
-        } else {
-            for(MemberDisplay h : hand) {
-                if(h != clicked && !h.isUsing) {
-                    h.setPosition(hw - 145 - c * 140, 107);
-                    c++;
-                }
             }
         }
     }
@@ -207,8 +189,6 @@ public class BattleScreen extends AbstractScreen {
 
         drawButton.render(sb);
 
-        if(clicked != null) clicked.render(sb);
-
         for(int i = hand.size() - 1; i >= 0; i--) {
             MemberDisplay d = hand.get(i);
             if(!d.over) d.render(sb);
@@ -218,6 +198,8 @@ public class BattleScreen extends AbstractScreen {
             MemberDisplay d = hand.get(i);
             if(d.over) d.render(sb);
         }
+
+        if(clicked != null) clicked.render(sb);
     }
 
     public MemberDisplay getMemberFromHand(AbstractMember m) {

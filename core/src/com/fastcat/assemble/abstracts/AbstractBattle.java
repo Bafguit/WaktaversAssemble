@@ -8,6 +8,7 @@ import com.fastcat.assemble.actions.StartBattleAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
+import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
 import com.fastcat.assemble.interfaces.OnIncreaseWakDamage;
 import com.fastcat.assemble.synergies.Badass;
 import com.fastcat.assemble.synergies.Cat;
@@ -43,6 +44,7 @@ public abstract class AbstractBattle implements Cloneable {
     //todo 턴 종료 시 클리어
     public LinkedList<OnIncreaseGlobalDamage> turnGlobalDamage = new LinkedList<>();
     public LinkedList<OnIncreaseMemberDamage> turnMemberDamage = new LinkedList<>();
+    public LinkedList<OnIncreaseMemberDef> turnMemberDef = new LinkedList<>();
 
     public LinkedList<AbstractEnemy> enemies = new LinkedList<>();
     public Array<AbstractMember> members = new Array<>();
