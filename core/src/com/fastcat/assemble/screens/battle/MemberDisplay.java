@@ -1,6 +1,9 @@
 package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.Gdx;
+import static com.fastcat.assemble.handlers.FontHandler.VAR_PATTERN;
+import static com.fastcat.assemble.handlers.FontHandler.getHexColor;
+
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
@@ -16,6 +19,7 @@ import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.ScreenHandler;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
+import java.util.regex.Matcher;
 
 public class MemberDisplay extends AbstractUI implements Disposable {
 
@@ -73,6 +77,21 @@ public class MemberDisplay extends AbstractUI implements Disposable {
     }
 
     @Override
+    protected SubText getSubText() {
+        if(!isCard && tile.over) {
+            String n = member.tempClone.getName(), d = member.tempClone.desc;
+            Matcher matcher = VAR_PATTERN.matcher(d);
+            while (matcher.find()) {
+                String mt = matcher.group(1);
+                d = matcher.replaceFirst(member.getKeyValue(mt) + getHexColor(Color.WHITE));
+                matcher = VAR_PATTERN.matcher(d);
+            }
+            subs = new SubText(n, d);
+        } else subs = null;
+        return subs;
+    }
+
+    @Override
     protected void updateButton() {
         if(!isCard) {
             tile.setPosition(originX, originY);
@@ -80,9 +99,9 @@ public class MemberDisplay extends AbstractUI implements Disposable {
             if(tile.over) {
                 InputHandler.alreadyOver = true;
                 if(tile.timer == 1f) {
-                    subTexts = new SubText(member.tempClone);
+                    subs = new SubText(member.tempClone);
                 }
-            } else subTexts = null;
+            } else subs = null;
         } else {
             if(over) InputHandler.alreadyOver = true;
             cardImg.setPosition(originX, originY - originHeight * 0.5f + 14 + cardImg.originHeight * 0.5f);
@@ -161,7 +180,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
     @Override
     protected void onClickEnd() {
         WakTower.battleScreen.clicked = null;
-        if(y > height) {
+        if(y > height * 0.5f) {
             ActionHandler.bot(new SummonMemberAction(this));
             isUsing = true;
         }

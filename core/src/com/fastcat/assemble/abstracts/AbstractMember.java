@@ -89,6 +89,7 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractSynergy s : synergy) {
             s.addMember(this);
         }
+        newTemp();
         onSummon();
     }
     
@@ -361,8 +362,6 @@ public abstract class AbstractMember implements Cloneable {
             e.printStackTrace();
             return null;
         }
-        m.img = FileHandler.getMember(id);
-        m.animation = m.animation.cpy();
         return m;
     }
 

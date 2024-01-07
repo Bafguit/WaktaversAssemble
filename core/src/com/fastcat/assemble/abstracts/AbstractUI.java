@@ -570,13 +570,8 @@ public abstract class AbstractUI implements Disposable, Cloneable {
             top.update();
             bot.update();
             String n, d;
-            if(member != null) {
-                n = getColorKey("y") + member.getName();
-                d = member.desc;
-            } else {
-                n = getColorKey("y") + name;
-                d = desc;
-            }
+            n = getColorKey("y") + name;
+            d = desc;
             Matcher matcher = COLOR_PATTERN.matcher(d);
             while (matcher.find()) {
                 String mt = matcher.group(1);
@@ -585,12 +580,6 @@ public abstract class AbstractUI implements Disposable, Cloneable {
                 matcher = COLOR_PATTERN.matcher(d);
             }
             if(member != null) {
-                matcher = VAR_PATTERN.matcher(d);
-                while (matcher.find()) {
-                    String mt = matcher.group(1);
-                    d = matcher.replaceFirst(member.getKeyValue(mt) + getHexColor(descFont.color));
-                    matcher = VAR_PATTERN.matcher(d);
-                }
             }
             nameLayout.setText(nameFont.font, n, nameFont.color, mid.width * 0.92f, Align.bottomLeft, false);
             descLayout.setText(descFont.font, d, descFont.color, mid.width * 0.92f, Align.bottomLeft, true);
