@@ -3,12 +3,14 @@ package com.fastcat.assemble.handlers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.SkinLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.utils.SpriteAnimation;
@@ -83,6 +85,7 @@ public class FileHandler {
     }
 
     private void generateUI() {
+        assetManager.load("atlas/ui.atlas", Skin.class);
         assetManager.load("image/ui/tile.webp", Pixmap.class);
         assetManager.load("image/ui/cardBg.webp", Pixmap.class);
         assetManager.load("image/ui/cardDesc.webp", Pixmap.class);
@@ -112,6 +115,7 @@ public class FileHandler {
         }
 
         assetManager.load("image/member/member.atlas", TextureAtlas.class);
+        assetManager.load("image/member/member.atlas", Skin.class);
         assetManager.load("image/synergy/synergy.atlas", TextureAtlas.class);
 
         /*assetManager.load("atlas/relic.atlas", TextureAtlas.class);
@@ -181,9 +185,17 @@ public class FileHandler {
 
     public static Sprite getSynergy(String id) {
         TextureAtlas atlas = instance.assetManager.get("image/synergy/synergy.atlas", TextureAtlas.class);
-        Sprite s = atlas.createSprite(id, -1);
+        Sprite s = atlas.createSprite(id);
         s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         return s;
+    }
+
+    public static Skin getMember() {
+        return instance.assetManager.get("image/member/member.atlas", Skin.class);
+    }
+
+    public static Skin getUI() {
+        return instance.assetManager.get("atlas/ui.atlas", Skin.class);
     }
 
     public static TextureAtlas getAtlas(String url) {

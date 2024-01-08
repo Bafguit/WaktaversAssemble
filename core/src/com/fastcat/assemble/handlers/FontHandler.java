@@ -44,6 +44,9 @@ public final class FontHandler implements Disposable {
     public static final FontData SYN_DESC = new FontData(20, new Color(0.9f, 0.9f, 0.9f, 1.0f), false, false, FontType.BOLD);
     public static final FontData HEALTH = new FontData(20, true, FontType.BOLD);
 
+    public static final BitmapFont BF_CARD_NAME = generate(24, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false, FontType.BOLD);
+    public static final BitmapFont BF_CARD_DESC = generate(21, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false);
+
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();
 
@@ -86,7 +89,7 @@ public final class FontHandler implements Disposable {
         parameter.color = color;
         parameter.borderColor = bColor;
         parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
-        return instance.medium.generateFont(parameter);
+        return medium.generateFont(parameter);
     }
 
     public static BitmapFont generate(int size, boolean border, FontType type) {
@@ -106,7 +109,7 @@ public final class FontHandler implements Disposable {
         parameter.color = color;
         parameter.borderColor = bColor;
         parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
-        FreeTypeFontGenerator g = type == FontType.MEDIUM ? instance.medium : instance.bold;
+        FreeTypeFontGenerator g = type == FontType.MEDIUM ? medium : bold;
         return g.generateFont(parameter);
     }
 

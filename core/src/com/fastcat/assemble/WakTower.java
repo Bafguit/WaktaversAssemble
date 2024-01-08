@@ -3,6 +3,7 @@ package com.fastcat.assemble;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
@@ -102,6 +103,14 @@ public class WakTower extends ApplicationAdapter {
 		}
 	}
 
+	private void act(float delta) {
+
+	}
+
+	private void draw(Batch batch, float parentAlpha) {
+
+	}
+
 	@Override
 	public void render () {
 		if(!FileHandler.isFinished()) {
@@ -118,7 +127,7 @@ public class WakTower extends ApplicationAdapter {
 
 		if (isLoaded) {
 			/** Update */
-			update();
+			act(tick);
 		}
 		sb.setProjectionMatrix(camera.combined);
 		sb.enableBlending();
