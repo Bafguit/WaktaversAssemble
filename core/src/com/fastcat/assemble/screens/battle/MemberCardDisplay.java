@@ -6,15 +6,20 @@ import static com.fastcat.assemble.handlers.FontHandler.BF_CARD_NAME;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
+import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.FontHandler;
 
 public class MemberCardDisplay extends ImageButton {
 
@@ -27,8 +32,10 @@ public class MemberCardDisplay extends ImageButton {
 
     public AbstractMember member;
 
+    private DragListener dragListener;
+
     public MemberCardDisplay(AbstractMember member) {
-        super(FileHandler.getUI(), "cardBg");
+        super(FileHandler.getUI().getDrawable("cardBg"));
         this.member = member;
         memberImage = new Image(FileHandler.getMember(), member.id);
         memberFrame = new Image(FileHandler.getUI(), "cardFrame");
@@ -40,6 +47,22 @@ public class MemberCardDisplay extends ImageButton {
         addActor(memberFrame);
         addActor(memberDesc);
         addActor(memberName);
+        dragListener = new DragListener() {
+	        public void dragStop (InputEvent event, float sx, float sy, int pointer) {
+                if(!member.canUse() && sy > (getHeight() * 0.75f)) {
+                    cancel();
+                } else if(sy > getHeight()) {
+                    addAction(Actions.fadeOut(0.25f));
+                } else {
+                    MoveToAction mv = Actions.action(MoveToAction.class);
+                    mv.setPosition(getDragStartX(), getDragStartY());
+                    addAction(Actions.moveTo(getDragStartX(), getDragStartY(), 0.1f, Interpolation.circle));
+                }
+	        }
+        };
+        ClickListener cl = getClickListener();
+        dragListener.setTapSquareSize(cl.getTapSquareSize());
+        dragListener.setButton(cl.getButton());
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -37,6 +38,8 @@ public class WakTower extends ApplicationAdapter {
 	public static AbstractGame game;
 	public static float tick;
 	public static boolean fading;
+
+	public static Stage stage;
 
 	public static WebPPixmapFactory pixmapFactory;
 	public static WebPLoaderFactory webpFactory;
@@ -98,17 +101,15 @@ public class WakTower extends ApplicationAdapter {
 			if (s != null) {
 				s.update();
 			}
-		} else if(screen != null) {
+		} else if(stage == null && screen != null) {
 			screen.update();
 		}
 	}
 
 	private void act(float delta) {
-
-	}
-
-	private void draw(Batch batch, float parentAlpha) {
-
+		if(stage != null) {
+			stage.act(delta);
+		}
 	}
 
 	@Override
@@ -126,7 +127,7 @@ public class WakTower extends ApplicationAdapter {
 		tick = Gdx.graphics.getDeltaTime();
 
 		if (isLoaded) {
-			/** Update */
+			update();
 			act(tick);
 		}
 		sb.setProjectionMatrix(camera.combined);
@@ -138,7 +139,8 @@ public class WakTower extends ApplicationAdapter {
 		super.render();
 
 		if (isLoaded) {
-			if(screen != null) screen.render(tick);
+			if(stage != null) stage.draw();
+			else if(screen != null) screen.render(tick);
 			if (tempScreen.size > 0) {
 				for (AbstractScreen s : tempScreen) {
 					if (s != null) s.render(tick);

@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.utils.SkinAtlasLoader;
 import com.fastcat.assemble.utils.SpriteAnimation;
 import com.fastcat.assemble.utils.TextureAtlasFilterLoader;
 import com.fastcat.assemble.utils.WebpPixmapLoader;
@@ -42,6 +43,7 @@ public class FileHandler {
         assetManager.setLoader(Texture.class, ".webp", new WebpTextureLoader(resolver));
         assetManager.setLoader(Pixmap.class, ".webp", new WebpPixmapLoader(resolver));
         assetManager.setLoader(TextureAtlas.class, new TextureAtlasFilterLoader(resolver));
+        assetManager.setLoader(Skin.class, new SkinAtlasLoader(resolver));
         jsonMap = new HashMap<>();
         loadSync();
         loadAsync();
@@ -114,7 +116,7 @@ public class FileHandler {
             assetManager.load("image/status/" + v.name + ".webp", Pixmap.class);
         }
 
-        assetManager.load("image/member/member.atlas", TextureAtlas.class);
+        //assetManager.load("image/member/member.atlas", TextureAtlas.class);
         assetManager.load("image/member/member.atlas", Skin.class);
         assetManager.load("image/synergy/synergy.atlas", TextureAtlas.class);
 
@@ -172,8 +174,8 @@ public class FileHandler {
     }
 
     public static Sprite getMember(String id) {
-        TextureAtlas atlas = instance.assetManager.get("image/member/member.atlas", TextureAtlas.class);
-        Sprite s = atlas.createSprite(id);
+        Skin atlas = instance.assetManager.get("image/member/member.atlas", Skin.class);
+        Sprite s = new Sprite(atlas.getRegion(id));
         s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         return s;
     }

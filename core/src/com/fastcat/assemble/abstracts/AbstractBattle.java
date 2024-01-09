@@ -66,7 +66,7 @@ public abstract class AbstractBattle implements Cloneable {
         setEnemy();
         phase = BattlePhase.battleStart;
         resetSynergy();
-        ActionHandler.bot(new StartBattleAction());
+        //ActionHandler.bot(new StartBattleAction());
     }
 
     public void turnDraw() {

@@ -354,6 +354,10 @@ public abstract class AbstractMember implements Cloneable {
 
     public void afterUse() {}
 
+    public boolean canUse() {
+        return true;
+    }
+
     public AbstractMember cpy() {
         AbstractMember m;
         try {
