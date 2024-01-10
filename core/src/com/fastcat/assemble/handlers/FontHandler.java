@@ -46,6 +46,7 @@ public final class FontHandler implements Disposable {
 
     public static final BitmapFont BF_CARD_NAME = generate(24, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false, FontType.BOLD);
     public static final BitmapFont BF_CARD_DESC = generate(21, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false);
+    public static final BitmapFont BF_SUB_DESC = generate(20, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), false, false);
 
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();

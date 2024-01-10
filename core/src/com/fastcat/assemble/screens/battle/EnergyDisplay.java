@@ -7,7 +7,7 @@ import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.interfaces.OnEnergyUpdated;
-import com.fastcat.assemble.utils.SpriteAnimation;
+import com.fastcat.assemble.scene2d.SpriteAnimation;
 
 public class EnergyDisplay extends AbstractUI implements OnEnergyUpdated {
 

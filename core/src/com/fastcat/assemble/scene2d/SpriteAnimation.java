@@ -1,9 +1,10 @@
-package com.fastcat.assemble.utils;
+package com.fastcat.assemble.scene2d;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
@@ -14,9 +15,7 @@ import com.fastcat.assemble.interfaces.OnAnimationFinished;
 
 import java.util.HashMap;
 
-import javax.management.RuntimeErrorException;
-
-public class SpriteAnimation {
+public class SpriteAnimation extends Table {
 
     private final HashMap<String, SpriteAnimationData> animations = new HashMap<>();
     private final Array<OnAnimationFinished> animationFinishedListeners = new Array<>();

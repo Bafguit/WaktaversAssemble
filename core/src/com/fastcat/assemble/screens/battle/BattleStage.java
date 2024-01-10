@@ -2,6 +2,7 @@ package com.fastcat.assemble.screens.battle;
 
 import java.util.LinkedList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -9,6 +10,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.handlers.InputHandler;
+import com.fastcat.assemble.members.Jingburger;
 
 public class BattleStage extends Stage {
 
@@ -21,12 +24,18 @@ public class BattleStage extends Stage {
         super(new ScreenViewport(WakTower.camera));
         this.battle = battle;
         handTable = new Table();
-        handTable.setDebug(true);
-        handTable.align(Align.bottom);
-        for(AbstractMember m : battle.drawPile) {
+        this.addActor(handTable);
+        /*for(AbstractMember m : battle.drawPile) {
             MemberCardDisplay mcd = new MemberCardDisplay(m);
             handTable.addActor(mcd);
             memberCards.add(mcd);
-        }
+        }*/
+        MemberCardDisplay md = new MemberCardDisplay(new Jingburger());
+        //handTable.addActor(md);
+        handTable.setFillParent(true);
+        handTable.center();
+        handTable.addActor(md);
+        handTable.setScale(InputHandler.scaleA);
+        setDebugAll(true);
     }
 }

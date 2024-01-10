@@ -11,9 +11,9 @@ import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
+import com.fastcat.assemble.scene2d.SpriteAnimation;
 import com.fastcat.assemble.synergies.Magician;
 import com.fastcat.assemble.utils.DamageInfo;
-import com.fastcat.assemble.utils.SpriteAnimation;
 
 
 public abstract class AbstractMember implements Cloneable {
