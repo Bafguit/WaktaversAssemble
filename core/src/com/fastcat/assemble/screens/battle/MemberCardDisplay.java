@@ -6,15 +6,23 @@ import static com.fastcat.assemble.handlers.FontHandler.BF_CARD_NAME;
 import static com.fastcat.assemble.handlers.FontHandler.BF_SUB_DESC;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -28,16 +36,18 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.FontHandler.FontData;
 
-public class MemberCardDisplay extends ImageButton {
+public class MemberCardDisplay extends Table {
 
     private final Image memberImage;
     private final Image memberFrame;
+    private final Image descBg;
     private final Label memberDesc;
     private final Label memberName;
 
-    private ImageButton[] synergies;
+    private SynergyIcon[] synergies;
 
     private float timer = 0;
 
@@ -46,26 +56,30 @@ public class MemberCardDisplay extends ImageButton {
     private DragListener dragListener;
 
     public MemberCardDisplay(AbstractMember member) {
-        super(FileHandler.getUI().getDrawable("cardBg"));
-        //align(Align.center);
+        setBackground(FileHandler.getUI().getDrawable("cardBg"));
+        setTouchable(Touchable.enabled);
+        setBounds(0, 0, 285, 428);
+        align(Align.center);
         this.member = member;
         memberImage = new Image(FileHandler.getMember(), member.id);
-        memberImage.setPosition(13.5f, 14);
         memberFrame = new Image(FileHandler.getUI(), "cardFrame");
-        memberFrame.setPosition(13.5f, 14);
-        LabelStyle ls = new LabelStyle(BF_CARD_DESC, WHITE);
-        ls.background = FileHandler.getUI().getDrawable("cardDesc");
-        memberDesc = new Label(member.desc, ls);
+        descBg = new Image(FileHandler.getUI(), "cardDescBg");
+        memberDesc = new Label(member.desc, new LabelStyle(BF_CARD_DESC, WHITE));
         memberDesc.setWrap(true);
-        memberDesc.setAlignment(Align.left);
-        memberDesc.setPosition(13.5f, 14);
         memberName = new Label(member.getName(), new LabelStyle(BF_CARD_NAME, WHITE));
         memberName.setPosition(13.5f, 385);
         memberName.setAlignment(Align.left);
-        addActor(memberImage);
-        addActor(memberFrame);
-        addActor(memberDesc);
-        addActor(memberName);
+
+        Stack stack = new Stack(memberImage, memberFrame, descBg, memberDesc);
+
+
+        add(memberName).expandX().align(Align.left).height(60).padLeft(14);
+        for(int i = 0; i < member.synergy.length; i++) {
+            add(new SynergyIcon(member, i)).align(Align.center).width(48).height(48);
+        }
+        row();
+        add(stack).expand().pad(14, 14, 14, 14);
+
         dragListener = new DragListener() {
 	        public void drag (InputEvent event, float sx, float sy, int pointer) {
                 if(!member.canUse() && sy > (getHeight() * 0.75f)) {
@@ -84,11 +98,12 @@ public class MemberCardDisplay extends ImageButton {
 	        }
         };
         addListener(dragListener);
+
     }
 
     @Override
 	public void act (float delta) {
-        if(isOver()) {
+        if(isTouchFocusTarget()) {
             timer += delta;
             if(timer > 1) timer = 1;
         } else {
@@ -113,17 +128,27 @@ public class MemberCardDisplay extends ImageButton {
         private static final FontData NAME = FontHandler.SYN_NAME;
         private static final FontData AMOUNT = FontHandler.SYN_DESC;
 
+        private AbstractMember owner;
         private AbstractSynergy synergy;
+        private int index;
         private TextTooltip tooltip;
 
-        public SynergyIcon() {
+        public SynergyIcon(AbstractMember m, int index) {
             super(FileHandler.getSynergy().getDrawable("Isedol"));
+            owner = m;
+            this.index = index;
+            synergy = m.synergy[index];
+        }
+
+        @Override
+        public void act(float delta) {
+            if(synergy != owner.synergy[index]) setSynergy(owner.synergy[index]);
+            super.act(delta);
         }
 
         public void setSynergy(AbstractSynergy s) {
             synergy = s;
-            Drawable d = FileHandler.getSynergy().getDrawable(synergy.id);
-            setStyle(new ImageButtonStyle(d, d, d, d, d, d));
+            setBackground(FileHandler.getSynergy().getDrawable(synergy.id));
 
             String text = synergy.name + "\n" + synergy.desc;
             for(int i = 0; i < synergy.gradeAmount.length; i++) {
@@ -132,10 +157,12 @@ public class MemberCardDisplay extends ImageButton {
                 else text += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
             }
 
+            clearListeners();
             TextTooltipStyle tts = new TextTooltipStyle(new LabelStyle(BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
             tooltip = new TextTooltip(text, tts);
             
             tooltip.setInstant(true);
+            addListener(tooltip);
         }
     }
 }

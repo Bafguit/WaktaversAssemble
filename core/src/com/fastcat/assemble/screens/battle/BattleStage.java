@@ -33,8 +33,7 @@ public class BattleStage extends Stage {
         MemberCardDisplay md = new MemberCardDisplay(new Jingburger());
         //handTable.addActor(md);
         handTable.setFillParent(true);
-        handTable.center();
-        handTable.addActor(md);
+        handTable.add(md).center();
         handTable.setScale(InputHandler.scaleA);
         setDebugAll(true);
     }
