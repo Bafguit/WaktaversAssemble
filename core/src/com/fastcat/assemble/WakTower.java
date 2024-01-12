@@ -70,7 +70,7 @@ public class WakTower extends ApplicationAdapter {
 		sb = new SpriteBatch();
 		camera = new OrthographicCamera();
 		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
-		camera.setToOrtho(false, w, h);
+		camera.setToOrtho(false, 1920, 1080);
 		camera.update();
 
 		viewport = new FillViewport(w, h);

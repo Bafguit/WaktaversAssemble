@@ -21,7 +21,7 @@ public class BattleStage extends Stage {
     public LinkedList<MemberCardDisplay> memberCards = new LinkedList<>();
     
     public BattleStage(AbstractBattle battle) {
-        super(new ScreenViewport(WakTower.camera));
+        super(WakTower.viewport);
         this.battle = battle;
         handTable = new Table();
         this.addActor(handTable);
@@ -33,8 +33,8 @@ public class BattleStage extends Stage {
         MemberCardDisplay md = new MemberCardDisplay(new Jingburger());
         //handTable.addActor(md);
         handTable.setFillParent(true);
-        handTable.add(md).center();
-        handTable.setScale(InputHandler.scaleA);
+        handTable.add(md);
         setDebugAll(true);
+        Gdx.input.setInputProcessor(this);
     }
 }

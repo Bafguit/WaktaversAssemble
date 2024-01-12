@@ -19,6 +19,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
@@ -32,6 +33,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Null;
+import com.badlogic.gdx.utils.Scaling;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -39,9 +42,10 @@ import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.FontHandler.FontData;
 
-public class MemberCardDisplay extends Table {
+public class MemberCardDisplay extends Button {
+    private final Table root;
 
-    private final Image memberImage;
+    private final Table memberImage;
     private final Image memberFrame;
     private final Image descBg;
     private final Label memberDesc;
@@ -54,34 +58,60 @@ public class MemberCardDisplay extends Table {
     public AbstractMember member;
 
     private DragListener dragListener;
+    private boolean over = false;
 
     public MemberCardDisplay(AbstractMember member) {
-        setBackground(FileHandler.getUI().getDrawable("cardBg"));
-        setTouchable(Touchable.enabled);
-        setBounds(0, 0, 285, 428);
-        align(Align.center);
+		super(FileHandler.getUI().getDrawable("cardBg"));
+        root = new Table();
+
+        align(Align.right);
+        root.setFillParent(true);
+        root.align(Align.center);
+        add(root);
+
         this.member = member;
-        memberImage = new Image(FileHandler.getMember(), member.id);
+
+        memberImage = new Table(FileHandler.getMember());
+        memberImage.setBackground(member.id);
+        memberImage.setFillParent(true);
+
         memberFrame = new Image(FileHandler.getUI(), "cardFrame");
-        descBg = new Image(FileHandler.getUI(), "cardDescBg");
+
+        descBg = new Image(FileHandler.getUI(), "cardDesc");
+
         memberDesc = new Label(member.desc, new LabelStyle(BF_CARD_DESC, WHITE));
         memberDesc.setWrap(true);
+
+        Stack s = new Stack(descBg, memberDesc);
+
+        memberImage.add(s).expandX().center().bottom();
+
         memberName = new Label(member.getName(), new LabelStyle(BF_CARD_NAME, WHITE));
         memberName.setPosition(13.5f, 385);
         memberName.setAlignment(Align.left);
 
-        Stack stack = new Stack(memberImage, memberFrame, descBg, memberDesc);
+        Stack stack = new Stack(memberImage, memberFrame);
 
 
-        add(memberName).expandX().align(Align.left).height(60).padLeft(14);
+        root.add(memberName).expandX().align(Align.topLeft).padTop(14).padLeft(14);
+        Cell<SynergyIcon> c = null;
         for(int i = 0; i < member.synergy.length; i++) {
-            add(new SynergyIcon(member, i)).align(Align.center).width(48).height(48);
+            c = root.add(new SynergyIcon(member, i)).align(Align.topRight).width(33.6f).height(33.6f).padTop(14);
         }
-        row();
-        add(stack).expand().pad(14, 14, 14, 14);
+        if(c != null) c.padRight(14);
+        root.row();
+        root.add(stack).expand().pad(14, 14, 14, 14);
+
+        MemberCardDisplay md = this;
 
         dragListener = new DragListener() {
+	        public void dragStart (InputEvent event, float sx, float sy, int pointer) {
+                setDragStartX(md.getX());
+                setDragStartY(md.getY());
+	        }
+
 	        public void drag (InputEvent event, float sx, float sy, int pointer) {
+                moveBy(sx - getWidth() / 2, sy - getHeight() / 2);
                 if(!member.canUse() && sy > (getHeight() * 0.75f)) {
                     cancel();
                 }
@@ -91,23 +121,29 @@ public class MemberCardDisplay extends Table {
                 if(sy > getHeight()) {
                     addAction(Actions.fadeOut(0.25f));
                 } else {
-                    MoveToAction mv = Actions.action(MoveToAction.class);
-                    mv.setPosition(getDragStartX(), getDragStartY());
                     addAction(Actions.moveTo(getDragStartX(), getDragStartY(), 0.1f, Interpolation.circle));
                 }
 	        }
         };
         addListener(dragListener);
+        addListener(new InputListener() {
+	        public void enter (InputEvent event, float x, float y, int pointer, @Null Actor fromActor) {
+                over = true;
+	        }
 
+	        public void exit (InputEvent event, float x, float y, int pointer, @Null Actor toActor) {
+                over = false;
+	        }
+        });
     }
 
     @Override
 	public void act (float delta) {
-        if(isTouchFocusTarget()) {
-            timer += delta;
+        if(over) {
+            timer += delta * 4;
             if(timer > 1) timer = 1;
         } else {
-            timer -= delta;
+            timer -= delta * 4;
             if(timer < 0) timer = 0;
         }
 		super.act(delta);
@@ -116,7 +152,7 @@ public class MemberCardDisplay extends Table {
     @Override
     public void draw(Batch batch, float parentAlpha) {
         Color c = memberDesc.getColor();
-        memberDesc.setColor(c.r, c.b, c.g, c.a * timer);
+        memberDesc.setColor(c.r, c.b, c.g, timer);
         super.draw(batch, parentAlpha);
     }
 
