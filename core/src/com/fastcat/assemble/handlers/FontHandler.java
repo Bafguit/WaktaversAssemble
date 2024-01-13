@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
@@ -25,8 +26,8 @@ import static com.fastcat.assemble.handlers.InputHandler.scaleY;
 public final class FontHandler implements Disposable {
 
     //Font File
-    private static final FreeTypeFontGenerator medium = new FreeTypeFontGenerator(Gdx.files.internal("font/medium.ttf"));
-    private static final FreeTypeFontGenerator bold = new FreeTypeFontGenerator(Gdx.files.internal("font/bold.ttf"));
+    private static final FreeTypeFontGenerator medium = new FreeTypeFontGenerator(Gdx.files.internal("font/bold.ttf"));
+    private static final FreeTypeFontGenerator bold = new FreeTypeFontGenerator(Gdx.files.internal("font/extra.ttf"));
 
     //Preload Fonts
     public static final FontData LOGO = new FontData(100, false, FontType.BOLD);
@@ -44,9 +45,10 @@ public final class FontHandler implements Disposable {
     public static final FontData SYN_DESC = new FontData(20, new Color(0.9f, 0.9f, 0.9f, 1.0f), false, false, FontType.BOLD);
     public static final FontData HEALTH = new FontData(20, true, FontType.BOLD);
 
-    public static final BitmapFont BF_CARD_NAME = generate(24, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false, FontType.BOLD);
-    public static final BitmapFont BF_CARD_DESC = generate(21, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false);
+    public static final BitmapFont BF_CARD_NAME = generate(26, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false, FontType.BOLD);
+    public static final BitmapFont BF_CARD_DESC = generate(24, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false);
     public static final BitmapFont BF_SUB_DESC = generate(20, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), false, false);
+    public static final BitmapFont BF_NB30 = generate(30, new Color(1, 1, 1, 1), new Color(0.2f, 0.2f, 0.2f, 1), true, false);
 
     //GlyphLayout
     public static final GlyphLayout layout = new GlyphLayout();
@@ -90,7 +92,9 @@ public final class FontHandler implements Disposable {
         parameter.color = color;
         parameter.borderColor = bColor;
         parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
-        return medium.generateFont(parameter);
+        BitmapFont f = medium.generateFont(parameter);
+        f.getData().markupEnabled = true;
+        return f;
     }
 
     public static BitmapFont generate(int size, boolean border, FontType type) {
@@ -111,7 +115,9 @@ public final class FontHandler implements Disposable {
         parameter.borderColor = bColor;
         parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
         FreeTypeFontGenerator g = type == FontType.MEDIUM ? medium : bold;
-        return g.generateFont(parameter);
+        BitmapFont f = g.generateFont(parameter);
+        f.getData().markupEnabled = true;
+        return f;
     }
 
     public static void renderCenter(SpriteBatch sb, FontData font, String text, float x, float y) {

@@ -7,6 +7,7 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
@@ -245,18 +246,24 @@ public abstract class AbstractMember implements Cloneable {
         }
     }
 
-    public int getKeyValue(String key) {
+    public String getKeyValue(String key) {
         switch (key) {
             case "A":
-                return calculatedAtk();
+                int a = calculatedAtk();
+                String s = FontHandler.getColorKey(a < baseAtk ? "r" : a > baseAtk ? "g" :  "b");
+                s += a + FontHandler.getColorKey("w");
+                return s;
             case "D":
-                return calculatedDef();
+                a = calculatedDef();
+                s = FontHandler.getColorKey(a < baseAtk ? "r" : a > baseAtk ? "g" :  "b");
+                s += a + FontHandler.getColorKey("w");
+                return s;
             case "V":
-                return value;
+                return FontHandler.getColorKey("b") + value + FontHandler.getColorKey("w");
             case "X":
-                return value2;
+                return FontHandler.getColorKey("b") + value2 + FontHandler.getColorKey("w");
             default:
-                return 0;
+                return "0";
         }
     }
 

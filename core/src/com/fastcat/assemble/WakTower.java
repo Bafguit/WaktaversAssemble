@@ -16,6 +16,7 @@ import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;
+import com.fastcat.assemble.screens.LoadingStage;
 import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
@@ -69,44 +70,31 @@ public class WakTower extends ApplicationAdapter {
 		sr = new SkeletonRenderer();
 		sb = new SpriteBatch();
 		camera = new OrthographicCamera();
-		float w = Gdx.graphics.getWidth(), h = Gdx.graphics.getHeight();
 		camera.setToOrtho(false, 1920, 1080);
 		camera.update();
 
-		viewport = new FillViewport(w, h);
+		viewport = new FillViewport(1920, 1080);
+		viewport.setCamera(camera);
 		FileHandler.getInstance();
 		FontHandler.getInstance();
 		DataHandler.getInstance();
 		uiData = DataHandler.getInstance().uiData.get("loading");
+		
+		stage = new LoadingStage();
 	}
 
 	private void load() {
 		DataHandler.getInstance().loadAsync();
 		//game = new AbstractGame();
-		mainMenuScreen = new MainMenuScreen();
-		screen = mainMenuScreen;
 	}
 
-	private void update() {
-		subText = null;
-		camera.update();
+	private void act(float delta) {
 		InputHandler.getInstance().update();
 
 		if(game != null) {
 			game.update();
 		}
 
-		if (tempScreen.size > 0) {
-			AbstractScreen s = tempScreen.get(tempScreen.size - 1);
-			if (s != null) {
-				s.update();
-			}
-		} else if(stage == null && screen != null) {
-			screen.update();
-		}
-	}
-
-	private void act(float delta) {
 		if(stage != null) {
 			stage.act(delta);
 		}
@@ -126,10 +114,8 @@ public class WakTower extends ApplicationAdapter {
 
 		tick = Gdx.graphics.getDeltaTime();
 
-		if (isLoaded) {
-			update();
-			act(tick);
-		}
+		act(tick);
+
 		sb.setProjectionMatrix(camera.combined);
 		sb.enableBlending();
 		sb.begin();
@@ -138,31 +124,10 @@ public class WakTower extends ApplicationAdapter {
 		// actionHandler.render(sb);
 		super.render();
 
-		if (isLoaded) {
-			if(stage != null) stage.draw();
-			else if(screen != null) screen.render(tick);
-			if (tempScreen.size > 0) {
-				for (AbstractScreen s : tempScreen) {
-					if (s != null) s.render(tick);
-				}
-			}
-			if(game != null) game.render(sb);
-			if(subText != null) subText.renderSub(sb);
-        /*
-        		sb.setColor(Color.WHITE);
-        		sb.draw(cursor.img, InputHandler.mx, InputHandler.my - cursor.height / 2, cursor.width / 2, cursor.height / 2);
-        */
-		} else {
-			float p = FileHandler.getProcess();
-			FontHandler.renderCenter(sb, FontHandler.NB30, uiData.text[0] + "\n" + String.format("%.1f", p * 100) + "%", 0,
-					540 * InputHandler.scaleY, 1920 * InputHandler.scaleX);
-		}
-		sb.end();
-	}
+		if(stage != null) stage.draw();
+		if(game != null) game.render(sb);
 
-	public static void setScreen(AbstractScreen sc) {
-		sc.update();
-		application.screen = sc;
+		sb.end();
 	}
 	
 	@Override

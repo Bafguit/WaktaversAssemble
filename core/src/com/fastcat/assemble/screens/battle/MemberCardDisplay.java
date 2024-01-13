@@ -5,6 +5,9 @@ import static com.fastcat.assemble.handlers.FontHandler.BF_CARD_DESC;
 import static com.fastcat.assemble.handlers.FontHandler.BF_CARD_NAME;
 import static com.fastcat.assemble.handlers.FontHandler.BF_SUB_DESC;
 
+import java.util.regex.Matcher;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -17,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
+import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
@@ -47,9 +51,12 @@ public class MemberCardDisplay extends Button {
 
     private final Table memberImage;
     private final Image memberFrame;
+    private final Table imageRoot;
     private final Image descBg;
     private final Label memberDesc;
     private final Label memberName;
+
+    private float rotation;
 
     private SynergyIcon[] synergies;
 
@@ -62,9 +69,8 @@ public class MemberCardDisplay extends Button {
 
     public MemberCardDisplay(AbstractMember member) {
 		super(FileHandler.getUI().getDrawable("cardBg"));
+        setTransform(true);
         root = new Table();
-
-        align(Align.right);
         root.setFillParent(true);
         root.align(Align.center);
         add(root);
@@ -81,31 +87,38 @@ public class MemberCardDisplay extends Button {
 
         memberDesc = new Label(member.desc, new LabelStyle(BF_CARD_DESC, WHITE));
         memberDesc.setWrap(true);
+        memberDesc.setAlignment(Align.center);
 
         Stack s = new Stack(descBg, memberDesc);
 
-        memberImage.add(s).expandX().center().bottom();
+        imageRoot = new Table();
+        imageRoot.center().bottom();
+
+        imageRoot.add(s).expandX().bottom();
+
+        memberImage.add(imageRoot).expand().bottom();
 
         memberName = new Label(member.getName(), new LabelStyle(BF_CARD_NAME, WHITE));
-        memberName.setPosition(13.5f, 385);
         memberName.setAlignment(Align.left);
 
         Stack stack = new Stack(memberImage, memberFrame);
 
 
-        root.add(memberName).expandX().align(Align.topLeft).padTop(14).padLeft(14);
+        root.add(memberName).expandX().center().left().padTop(14).padLeft(14);
         Cell<SynergyIcon> c = null;
         for(int i = 0; i < member.synergy.length; i++) {
-            c = root.add(new SynergyIcon(member, i)).align(Align.topRight).width(33.6f).height(33.6f).padTop(14);
+            c = root.add(new SynergyIcon(member, i)).center().right().width(33.6f).height(33.6f).padTop(14);
         }
         if(c != null) c.padRight(14);
         root.row();
-        root.add(stack).expand().pad(14, 14, 14, 14);
+        root.add(stack).expand().pad(14).colspan(4);
 
         MemberCardDisplay md = this;
 
         dragListener = new DragListener() {
 	        public void dragStart (InputEvent event, float sx, float sy, int pointer) {
+                rotation = getRotation();
+                setRotation(0);
                 setDragStartX(md.getX());
                 setDragStartY(md.getY());
 	        }
@@ -121,7 +134,7 @@ public class MemberCardDisplay extends Button {
                 if(sy > getHeight()) {
                     addAction(Actions.fadeOut(0.25f));
                 } else {
-                    addAction(Actions.moveTo(getDragStartX(), getDragStartY(), 0.1f, Interpolation.circle));
+                    addAction(Actions.parallel(Actions.moveTo(getDragStartX(), getDragStartY(), 0.1f, Interpolation.circle), Actions.rotateTo(rotation, 0.1f, Interpolation.circle)));
                 }
 	        }
         };
@@ -146,6 +159,23 @@ public class MemberCardDisplay extends Button {
             timer -= delta * 4;
             if(timer < 0) timer = 0;
         }
+
+        String text = member.data.desc;
+        Matcher matcher = FontHandler.COLOR_PATTERN.matcher(text);
+        while (matcher.find()) {
+            String mt = matcher.group(1);
+            String mmt = matcher.group(2);
+            text = matcher.replaceFirst(FontHandler.getColorKey(mt) + mmt + FontHandler.getHexColor(Color.WHITE));
+            matcher = FontHandler.COLOR_PATTERN.matcher(text);
+        }
+        matcher = FontHandler.VAR_PATTERN.matcher(text);
+        while (matcher.find()) {
+            String mt = matcher.group(1);
+            text = matcher.replaceFirst(member.getKeyValue(mt));
+            matcher = FontHandler.VAR_PATTERN.matcher(text);
+        }
+        memberDesc.setText(text);
+        
 		super.act(delta);
 	}
 
@@ -153,27 +183,29 @@ public class MemberCardDisplay extends Button {
     public void draw(Batch batch, float parentAlpha) {
         Color c = memberDesc.getColor();
         memberDesc.setColor(c.r, c.b, c.g, timer);
+        c = imageRoot.getColor();
+        imageRoot.setColor(c.r, c.b, c.g, timer);
         super.draw(batch, parentAlpha);
     }
 
-    private static class SynergyIcon extends ImageButton {
+    private static class SynergyIcon extends Image {
 
         private static final String HINT = FontHandler.getHexColor(Color.GRAY);
         private static final String HINT_2 = FontHandler.getHexColor(Color.LIGHT_GRAY);
         private static final String WHITE = FontHandler.getHexColor(Color.WHITE);
-        private static final FontData NAME = FontHandler.SYN_NAME;
-        private static final FontData AMOUNT = FontHandler.SYN_DESC;
+        private static final String NAME = FontHandler.getColorKey("y");
 
         private AbstractMember owner;
         private AbstractSynergy synergy;
         private int index;
         private TextTooltip tooltip;
+        private boolean over = false;
 
         public SynergyIcon(AbstractMember m, int index) {
             super(FileHandler.getSynergy().getDrawable("Isedol"));
             owner = m;
             this.index = index;
-            synergy = m.synergy[index];
+            setSynergy(owner.synergy[index]);
         }
 
         @Override
@@ -184,20 +216,24 @@ public class MemberCardDisplay extends Button {
 
         public void setSynergy(AbstractSynergy s) {
             synergy = s;
-            setBackground(FileHandler.getSynergy().getDrawable(synergy.id));
+            setDrawable(FileHandler.getSynergy().getDrawable(synergy.id));
 
-            String text = synergy.name + "\n" + synergy.desc;
-            for(int i = 0; i < synergy.gradeAmount.length; i++) {
-                int amt = synergy.gradeAmount[i];
-                if(synergy.grade == i + (amt == 1 ? 0 : 1)) text += "\n(" + amt + ") " + synergy.gradeDesc[i];
-                else text += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
+            String text = NAME + synergy.name + WHITE + "\n\n" + synergy.desc;
+            if(synergy.gradeAmount.length > 1) {
+                text += "\n";
+                for(int i = 0; i < synergy.gradeAmount.length; i++) {
+                    int amt = synergy.gradeAmount[i];
+                    if(synergy.grade == i + (amt == 1 ? 0 : 1)) text += "\n(" + amt + ") " + synergy.gradeDesc[i];
+                    else text += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
+                }
             }
 
-            clearListeners();
+            if(tooltip != null) removeListener(tooltip);
             TextTooltipStyle tts = new TextTooltipStyle(new LabelStyle(BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
             tooltip = new TextTooltip(text, tts);
-            
             tooltip.setInstant(true);
+            tooltip.getManager().initialTime = 0.5f;
+            tooltip.getContainer().pad(14);
             addListener(tooltip);
         }
     }

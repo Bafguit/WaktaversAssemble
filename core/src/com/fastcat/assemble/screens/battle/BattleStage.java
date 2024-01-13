@@ -3,6 +3,7 @@ package com.fastcat.assemble.screens.battle;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -11,6 +12,7 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.handlers.InputHandler;
+import com.fastcat.assemble.members.Gosegu;
 import com.fastcat.assemble.members.Jingburger;
 
 public class BattleStage extends Stage {
@@ -30,9 +32,13 @@ public class BattleStage extends Stage {
             handTable.addActor(mcd);
             memberCards.add(mcd);
         }*/
-        MemberCardDisplay md = new MemberCardDisplay(new Jingburger());
         //handTable.addActor(md);
         handTable.setFillParent(true);
+        MemberCardDisplay md = new MemberCardDisplay(new Gosegu());
+        md.setRotation(-30);
+        handTable.add(md);
+        md = new MemberCardDisplay(new Jingburger());
+        md.setRotation(30);
         handTable.add(md);
         setDebugAll(true);
         Gdx.input.setInputProcessor(this);

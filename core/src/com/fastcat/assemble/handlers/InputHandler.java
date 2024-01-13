@@ -68,6 +68,10 @@ public final class InputHandler {
             scaleA = scaleX;
         }
 
+        scaleA = 1.0f;
+        scaleX = 1.0f;
+        scaleY = 1.0f;
+
         initialScale = scaleA;
 
         Gdx.input.setInputProcessor(new InputAdapter() {
@@ -127,14 +131,14 @@ public final class InputHandler {
     public void update() {
         int gx = Gdx.input.getX(), gy = Gdx.input.getY(), sw = Gdx.graphics.getWidth(), sh = Gdx.graphics.getHeight();
         float sx = (float) sw / 1920.0f, sy = (float) sh / 1080.0f;
-        if(sx > 0) scaleX = sx;
+        /*if(sx > 0) scaleX = sx;
         if(sy > 0) scaleY = sy;
         float a = ((float) sh) / ((float) sw);
         if(a <= 0.5625f) {
             scaleA = scaleY;
         } else {
             scaleA = scaleX;
-        }
+        }*/
         isCursorInScreen = gx < sw && gx > 0 && gy < sh && gy > 0;
 
         mx = Math.max(Math.min(gx, sw), 0);
