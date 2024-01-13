@@ -56,16 +56,21 @@ public class MemberCardDisplay extends Button {
     private final Label memberDesc;
     private final Label memberName;
 
+    private int zIndex;
     private float rotation;
 
     private SynergyIcon[] synergies;
 
     private float timer = 0;
+    private float beforeX = 0;
+    private float beforeY = 0;
 
     public AbstractMember member;
 
     private DragListener dragListener;
     private boolean over = false;
+    private boolean overing = false;
+    private boolean drag = false;
 
     public MemberCardDisplay(AbstractMember member) {
 		super(FileHandler.getUI().getDrawable("cardBg"));
@@ -80,19 +85,25 @@ public class MemberCardDisplay extends Button {
         memberImage = new Table(FileHandler.getMember());
         memberImage.setBackground(member.id);
         memberImage.setFillParent(true);
+        memberImage.setTouchable(Touchable.disabled);
 
         memberFrame = new Image(FileHandler.getUI(), "cardFrame");
+        memberFrame.setTouchable(Touchable.disabled);
 
         descBg = new Image(FileHandler.getUI(), "cardDesc");
+        descBg.setTouchable(Touchable.disabled);
 
         memberDesc = new Label(member.desc, new LabelStyle(BF_CARD_DESC, WHITE));
         memberDesc.setWrap(true);
         memberDesc.setAlignment(Align.center);
+        memberDesc.setTouchable(Touchable.disabled);
 
         Stack s = new Stack(descBg, memberDesc);
+        s.setTouchable(Touchable.disabled);
 
         imageRoot = new Table();
         imageRoot.center().bottom();
+        imageRoot.setTouchable(Touchable.disabled);
 
         imageRoot.add(s).expandX().bottom();
 
@@ -100,8 +111,10 @@ public class MemberCardDisplay extends Button {
 
         memberName = new Label(member.getName(), new LabelStyle(BF_CARD_NAME, WHITE));
         memberName.setAlignment(Align.left);
+        memberName.setTouchable(Touchable.disabled);
 
         Stack stack = new Stack(memberImage, memberFrame);
+        stack.setTouchable(Touchable.disabled);
 
 
         root.add(memberName).expandX().center().left().padTop(14).padLeft(14);
@@ -112,21 +125,22 @@ public class MemberCardDisplay extends Button {
         if(c != null) c.padRight(14);
         root.row();
         root.add(stack).expand().pad(14).colspan(4);
+        root.setTouchable(Touchable.childrenOnly);
 
         MemberCardDisplay md = this;
 
         dragListener = new DragListener() {
 	        public void dragStart (InputEvent event, float sx, float sy, int pointer) {
-                rotation = getRotation();
-                setRotation(0);
-                setDragStartX(md.getX());
-                setDragStartY(md.getY());
+                if(!drag && !overing) drag = true;
 	        }
 
 	        public void drag (InputEvent event, float sx, float sy, int pointer) {
-                moveBy(sx - getWidth() / 2, sy - getHeight() / 2);
-                if(!member.canUse() && sy > (getHeight() * 0.75f)) {
-                    cancel();
+                if(!drag && !overing) cancel();
+                else {
+                    moveBy(sx - getWidth() / 2, sy - getHeight() / 2);
+                    if(!member.canUse() && sy > (getHeight() * 0.75f)) {
+                        cancel();
+                    }
                 }
 	        }
 
@@ -134,18 +148,58 @@ public class MemberCardDisplay extends Button {
                 if(sy > getHeight()) {
                     addAction(Actions.fadeOut(0.25f));
                 } else {
-                    addAction(Actions.parallel(Actions.moveTo(getDragStartX(), getDragStartY(), 0.1f, Interpolation.circle), Actions.rotateTo(rotation, 0.1f, Interpolation.circle)));
+                    setZIndex(zIndex);
+                    MoveToAction action = new MoveToAction() {
+	                    protected void end () {
+                            drag = false;
+                            over = false;
+	                    }
+                    };
+                    action.setPosition(beforeX, beforeY);
+                    action.setDuration(0.1f);
+                    action.setInterpolation(Interpolation.circle);
+                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f, Interpolation.circle)));
                 }
 	        }
         };
         addListener(dragListener);
         addListener(new InputListener() {
-	        public void enter (InputEvent event, float x, float y, int pointer, @Null Actor fromActor) {
-                over = true;
+	        public void enter (InputEvent event, float mx, float my, int pointer, @Null Actor fromActor) {
+                if(!over && !overing && !drag) {
+                    overing = true;
+                    beforeX = md.getX();
+                    beforeY = md.getY();
+                    rotation = getRotation();
+                    zIndex = getZIndex();
+                    toFront();
+                    MoveToAction action = new MoveToAction() {
+                        protected void end () {
+                            over = true;
+                            overing = false;
+                        }
+                    };
+                    action.setPosition(beforeX, 0);
+                    action.setDuration(0.1f);
+                    action.setInterpolation(Interpolation.circle);
+                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle), Actions.scaleTo(1.15f, 1.15f, 0.1f, Interpolation.circle)));
+                }
 	        }
 
-	        public void exit (InputEvent event, float x, float y, int pointer, @Null Actor toActor) {
-                over = false;
+	        public void exit (InputEvent event, float mx, float my, int pointer, @Null Actor toActor) {
+                if((over || overing) && !drag) {
+                    overing = true;
+                    setZIndex(zIndex);
+                    MoveToAction action = new MoveToAction() {
+                        protected void end () {
+                            over = false;
+                            overing = false;
+                        }
+                    };
+                    action.setPosition(beforeX, beforeY);
+                    action.setDuration(0.1f);
+                    action.setInterpolation(Interpolation.circle);
+                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f, Interpolation.circle)));
+                }
 	        }
         });
     }
@@ -153,10 +207,10 @@ public class MemberCardDisplay extends Button {
     @Override
 	public void act (float delta) {
         if(over) {
-            timer += delta * 4;
+            timer += delta * 10;
             if(timer > 1) timer = 1;
         } else {
-            timer -= delta * 4;
+            timer -= delta * 10;
             if(timer < 0) timer = 0;
         }
 
@@ -232,7 +286,6 @@ public class MemberCardDisplay extends Button {
             TextTooltipStyle tts = new TextTooltipStyle(new LabelStyle(BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
             tooltip = new TextTooltip(text, tts);
             tooltip.setInstant(true);
-            tooltip.getManager().initialTime = 0.5f;
             tooltip.getContainer().pad(14);
             addListener(tooltip);
         }

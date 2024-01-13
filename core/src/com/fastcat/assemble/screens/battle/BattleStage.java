@@ -13,7 +13,9 @@ import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.members.Gosegu;
+import com.fastcat.assemble.members.Ine;
 import com.fastcat.assemble.members.Jingburger;
+import com.fastcat.assemble.members.Victory;
 
 public class BattleStage extends Stage {
 
@@ -26,6 +28,7 @@ public class BattleStage extends Stage {
         super(WakTower.viewport);
         this.battle = battle;
         handTable = new Table();
+        handTable.bottom();
         this.addActor(handTable);
         /*for(AbstractMember m : battle.drawPile) {
             MemberCardDisplay mcd = new MemberCardDisplay(m);
@@ -34,12 +37,27 @@ public class BattleStage extends Stage {
         }*/
         //handTable.addActor(md);
         handTable.setFillParent(true);
+
         MemberCardDisplay md = new MemberCardDisplay(new Gosegu());
-        md.setRotation(-30);
-        handTable.add(md);
+        md.setOrigin(Align.bottom);
+        md.setRotation(9);
+        handTable.add(md).bottom().padBottom(-75);
+
         md = new MemberCardDisplay(new Jingburger());
-        md.setRotation(30);
-        handTable.add(md);
+        md.setOrigin(Align.bottom);
+        md.setRotation(3);
+        handTable.add(md).bottom().padBottom(-50).padLeft(-30);
+
+        md = new MemberCardDisplay(new Victory());
+        md.setOrigin(Align.bottom);
+        md.setRotation(-3);
+        handTable.add(md).bottom().padBottom(-50).padLeft(-30);
+
+        md = new MemberCardDisplay(new Ine());
+        md.setOrigin(Align.bottom);
+        md.setRotation(-9);
+        handTable.add(md).bottom().padBottom(-75).padLeft(-30);
+
         setDebugAll(true);
         Gdx.input.setInputProcessor(this);
     }

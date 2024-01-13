@@ -2,6 +2,7 @@ package com.fastcat.assemble.handlers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -94,6 +95,7 @@ public final class FontHandler implements Disposable {
         parameter.borderWidth = border ? parameter.size * 0.04f : 0.0f;
         BitmapFont f = medium.generateFont(parameter);
         f.getData().markupEnabled = true;
+        f.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         return f;
     }
 
@@ -117,6 +119,7 @@ public final class FontHandler implements Disposable {
         FreeTypeFontGenerator g = type == FontType.MEDIUM ? medium : bold;
         BitmapFont f = g.generateFont(parameter);
         f.getData().markupEnabled = true;
+        f.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
         return f;
     }
 
