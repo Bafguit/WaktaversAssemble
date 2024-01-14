@@ -79,7 +79,7 @@ public abstract class AbstractBattle implements Cloneable {
                 AbstractMember m = drawPile.removeFirst();
                 hand.add(m);
                 m.onDrawn();
-                WakTower.battleScreen.addHand(m);
+                //WakTower.battleScreen.addHand(m);
                 if(hand.size() == WakTower.game.maxHand) break;
             }
         } else {
@@ -89,7 +89,7 @@ public abstract class AbstractBattle implements Cloneable {
                     AbstractMember m = drawPile.removeFirst();
                     hand.add(m);
                     m.onDrawn();
-                    WakTower.battleScreen.addHand(m);
+                    //WakTower.battleScreen.addHand(m);
                     if(hand.size() == WakTower.game.maxHand) break;
                 }
                 amount -= s;
@@ -104,7 +104,7 @@ public abstract class AbstractBattle implements Cloneable {
                     AbstractMember m = drawPile.removeFirst();
                     hand.add(m);
                     m.onDrawn();
-                    WakTower.battleScreen.addHand(m);
+                    //WakTower.battleScreen.addHand(m);
                 }
             }
         }

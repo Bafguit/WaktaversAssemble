@@ -61,6 +61,7 @@ public class MemberCardDisplay extends Button {
 
     public MemberCardDisplay(AbstractMember member) {
 		super(FileHandler.getUI().getDrawable("cardBg"));
+        setName("memberCardDisplay");
         setTransform(true);
         root = new Table();
         root.setFillParent(true);
@@ -115,7 +116,7 @@ public class MemberCardDisplay extends Button {
         if(c != null) c.padRight(14);
         root.row();
         root.add(stack).expand().pad(14).colspan(4);
-        root.setTouchable(Touchable.childrenOnly);
+        //root.setTouchable(Touchable.childrenOnly);
 
         MemberCardDisplay md = this;
 
@@ -176,7 +177,19 @@ public class MemberCardDisplay extends Button {
 	        }
 
 	        public void exit (InputEvent event, float mx, float my, int pointer, @Null Actor toActor) {
-                if((over || overing || hit(mx, my, true) != null) && !drag) {
+                if((over || overing) && !drag) {
+                    String name = getName();
+                    if(name != null && name.equals("synergyIcon")) {
+                        if(toActor == md) return;
+                    }
+                    if(toActor != null) {
+                        name = toActor.getName();
+                        if(name != null) {
+                            if(name.equals("synergyIcon") && toActor.getParent() == root) return;
+                            else if(name.equals("memberCardDisplay") && toActor.hashCode() == md.hashCode()) return;
+                        }
+                    }
+
                     overing = true;
                     setZIndex(zIndex);
                     MoveToAction action = new MoveToAction() {
@@ -248,6 +261,7 @@ public class MemberCardDisplay extends Button {
             owner = m;
             this.index = index;
             setSynergy(owner.synergy[index]);
+            setName("synergyIcon");
         }
 
         @Override

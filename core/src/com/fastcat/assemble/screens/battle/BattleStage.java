@@ -3,8 +3,9 @@ package com.fastcat.assemble.screens.battle;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer.Cell;
+import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -16,6 +17,7 @@ import com.fastcat.assemble.members.Gosegu;
 import com.fastcat.assemble.members.Ine;
 import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Victory;
+import com.fastcat.assemble.utils.FastCatUtils;
 
 public class BattleStage extends Stage {
 
@@ -29,15 +31,24 @@ public class BattleStage extends Stage {
         this.battle = battle;
         handTable = new Table();
         handTable.bottom();
-        this.addActor(handTable);
-        /*for(AbstractMember m : battle.drawPile) {
-            MemberCardDisplay mcd = new MemberCardDisplay(m);
-            handTable.addActor(mcd);
-            memberCards.add(mcd);
-        }*/
-        //handTable.addActor(md);
         handTable.setFillParent(true);
-
+        this.addActor(handTable);
+/*
+        battle.turnDraw();
+        int i = 0, s = battle.hand.size();
+        float pad = Interpolation.linear.apply(30, 60, (s + 1) / (WakTower.game.maxHand + 1));
+        float r = 3 * s;
+        for(AbstractMember m : battle.hand) {
+            MemberCardDisplay mcd = new MemberCardDisplay(m);
+            mcd.setRotation(-FastCatUtils.mirrorInterpolation(Interpolation.pow2InInverse, Interpolation.pow2InInverse, 0, r, r * 2, (i + 1) / (s + 1)) - r);
+            Cell<MemberCardDisplay> c = handTable.add(mcd).bottom();
+            if(i > 0) c.padLeft(-pad);
+            float pb = 100 * Interpolation.pow2In.apply(0f, 1, (s + 1) / (WakTower.game.maxHand + 1));
+            c.padBottom(FastCatUtils.returnInterpolation(Interpolation.pow2InInverse, 0, pb, i / (s - 1)) - (100 + pb));
+            memberCards.add(mcd);
+            i++;
+        }
+*/
         MemberCardDisplay md = new MemberCardDisplay(new Gosegu());
         md.setOrigin(Align.bottom);
         md.setRotation(9);

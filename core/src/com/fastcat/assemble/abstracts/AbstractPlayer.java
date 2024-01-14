@@ -2,6 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.members.Angel;
+import com.fastcat.assemble.members.Kimchimandu;
 import com.fastcat.assemble.members.Messi;
 
 public class AbstractPlayer extends AbstractEntity {
@@ -15,7 +16,7 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new Messi());
         a.add(new Messi());
         a.add(new Messi());
-        a.add(new Messi());
+        a.add(new Kimchimandu());
         a.add(new Messi());
         a.add(new Angel());
         a.add(new Angel());
