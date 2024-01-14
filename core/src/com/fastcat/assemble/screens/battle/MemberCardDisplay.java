@@ -7,9 +7,7 @@ import static com.fastcat.assemble.handlers.FontHandler.BF_SUB_DESC;
 
 import java.util.regex.Matcher;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -20,31 +18,20 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
-import com.badlogic.gdx.scenes.scene2d.ui.Container;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton.ImageButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip.TextTooltipStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.DragAndDrop;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
-import com.badlogic.gdx.utils.Scaling;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
-import com.fastcat.assemble.handlers.FontHandler.FontData;
 
 public class MemberCardDisplay extends Button {
     private final Table root;
@@ -119,8 +106,11 @@ public class MemberCardDisplay extends Button {
 
         root.add(memberName).expandX().center().left().padTop(14).padLeft(14);
         Cell<SynergyIcon> c = null;
+        synergies = new SynergyIcon[member.synergy.length];
         for(int i = 0; i < member.synergy.length; i++) {
-            c = root.add(new SynergyIcon(member, i)).center().right().width(33.6f).height(33.6f).padTop(14);
+            SynergyIcon sc = new SynergyIcon(member, i);
+            c = root.add(sc).center().right().width(33.6f).height(33.6f).padTop(14);
+            synergies[i] = sc;
         }
         if(c != null) c.padRight(14);
         root.row();
@@ -186,7 +176,7 @@ public class MemberCardDisplay extends Button {
 	        }
 
 	        public void exit (InputEvent event, float mx, float my, int pointer, @Null Actor toActor) {
-                if((over || overing) && !drag) {
+                if((over || overing || hit(mx, my, true) != null) && !drag) {
                     overing = true;
                     setZIndex(zIndex);
                     MoveToAction action = new MoveToAction() {
@@ -245,18 +235,16 @@ public class MemberCardDisplay extends Button {
     private static class SynergyIcon extends Image {
 
         private static final String HINT = FontHandler.getHexColor(Color.GRAY);
-        private static final String HINT_2 = FontHandler.getHexColor(Color.LIGHT_GRAY);
         private static final String WHITE = FontHandler.getHexColor(Color.WHITE);
         private static final String NAME = FontHandler.getColorKey("y");
 
         private AbstractMember owner;
         private AbstractSynergy synergy;
         private int index;
-        private TextTooltip tooltip;
-        private boolean over = false;
+        public TextTooltip tooltip;
 
         public SynergyIcon(AbstractMember m, int index) {
-            super(FileHandler.getSynergy().getDrawable("Isedol"));
+            super();
             owner = m;
             this.index = index;
             setSynergy(owner.synergy[index]);
