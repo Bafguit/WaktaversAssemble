@@ -26,10 +26,9 @@ public class FastCatUtils {
         return (float) Math.sqrt(Math.abs(fromX - toX) + Math.abs(fromY - toY));
     }
 
-    public static float returnInterpolation(Interpolation ip, float start, float max, float a) {
-        if(a < 0.5f) return ip.apply(start, max, a / 0.5f);
-        else if(a > 0.5f) return ip.apply(max, start, (a - 0.5f) / 0.5f);
-        else return max;
+    public static float returnInterpolation(Interpolation ip, Interpolation ip2, float start, float max, float a) {
+        if(a <= 0.5f) return ip.apply(start, max, a / 0.5f);
+        else return ip2.apply(max, start, (a - 0.5f) / 0.5f);
     }
 
     public static float mirrorInterpolation(Interpolation ip, Interpolation ip2, float start, float center, float end, float a) {

@@ -17,6 +17,8 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new Messi());
         a.add(new Messi());
         a.add(new Kimchimandu());
+        a.add(new Kimchimandu());
+        a.add(new Kimchimandu());
         a.add(new Messi());
         a.add(new Angel());
         a.add(new Angel());

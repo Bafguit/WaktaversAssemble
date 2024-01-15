@@ -41,7 +41,7 @@ public class MemberCardDisplay extends Button {
     private final Table imageRoot;
     private final Image descBg;
     private final Label memberDesc;
-    private final Label memberName;
+    public final Label memberName;
 
     private int zIndex;
     private float rotation;
@@ -172,7 +172,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(beforeX, 0);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle), Actions.scaleTo(1.15f, 1.15f, 0.1f, Interpolation.circle)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle)));
                 }
 	        }
 
@@ -201,7 +201,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(beforeX, beforeY);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f, Interpolation.circle)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle)));
                 }
 	        }
         });

@@ -4,7 +4,9 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
@@ -33,22 +35,34 @@ public class BattleStage extends Stage {
         handTable.bottom();
         handTable.setFillParent(true);
         this.addActor(handTable);
-/*
+
         battle.turnDraw();
         int i = 0, s = battle.hand.size();
-        float pad = Interpolation.linear.apply(30, 60, (s + 1) / (WakTower.game.maxHand + 1));
-        float r = 3 * s;
-        for(AbstractMember m : battle.hand) {
-            MemberCardDisplay mcd = new MemberCardDisplay(m);
-            mcd.setRotation(-FastCatUtils.mirrorInterpolation(Interpolation.pow2InInverse, Interpolation.pow2InInverse, 0, r, r * 2, (i + 1) / (s + 1)) - r);
-            Cell<MemberCardDisplay> c = handTable.add(mcd).bottom();
-            if(i > 0) c.padLeft(-pad);
-            float pb = 100 * Interpolation.pow2In.apply(0f, 1, (s + 1) / (WakTower.game.maxHand + 1));
-            c.padBottom(FastCatUtils.returnInterpolation(Interpolation.pow2InInverse, 0, pb, i / (s - 1)) - (100 + pb));
+        if(s == 1) {
+            MemberCardDisplay mcd = new MemberCardDisplay(battle.hand.get(0));
+            handTable.add(mcd).bottom();
             memberCards.add(mcd);
-            i++;
+        } else {
+            float g = (s - 2) / (WakTower.game.maxHand - 2);
+            float pad = Interpolation.linear.apply(50, 120, g);
+            float r = 6 - Interpolation.pow2InInverse.apply(0, 4, g);
+            float startRotation = r * (s - 1) / 2;
+            float hMax = Interpolation.pow2In.apply(0, 80, g);
+            for(AbstractMember m : battle.hand) {
+                MemberCardDisplay mcd = new MemberCardDisplay(m);
+                mcd.setOrigin(Align.bottom);
+                if(s > 1) mcd.setRotation(startRotation - (r * i));
+                Cell<MemberCardDisplay> c = handTable.add(mcd).bottom();
+                if(i > 0) c.padLeft(-pad);
+                float sf = (s - 1) / 2;
+                if(i < sf) c.padBottom(-hMax - 80 + Interpolation.pow2Out.apply(0, hMax, i / sf));
+                else if(i > sf) c.padBottom(-hMax - 80 + (80 - Interpolation.pow2Out.apply(hMax, 0, (i - sf) / sf)));
+                else c.padBottom(-80);
+                memberCards.add(mcd);
+                i++;
+            }
         }
-*/
+/*
         MemberCardDisplay md = new MemberCardDisplay(new Gosegu());
         md.setOrigin(Align.bottom);
         md.setRotation(9);
@@ -68,8 +82,38 @@ public class BattleStage extends Stage {
         md.setOrigin(Align.bottom);
         md.setRotation(-9);
         handTable.add(md).bottom().padBottom(-75).padLeft(-30);
-
+*/
         setDebugAll(true);
         Gdx.input.setInputProcessor(this);
     }
+
+    public void addMemberCardInHand(AbstractMember member) {
+
+    }
+/*
+    private void updateHandPosition() {
+        int i = 0, s = handTable.getChildren().size;
+        if(s == 1) {
+            Actor md = handTable.getChild(0);
+            Cell<Actor> c = handTable.getCell(md);
+            md.addAction(Actions.);
+            handTable.add(mcd).bottom();
+            memberCards.add(mcd);
+        } else {
+            float g = (s - 2) / (WakTower.game.maxHand - 2);
+            float pad = Interpolation.linear.apply(30, 60, g);
+            float r = 12 - Interpolation.pow2InInverse.apply(0, 12, g);
+            float startRotation = (r * s) / 2;
+            float hMax = Interpolation.pow2In.apply(0, -100, g);
+            for(AbstractMember m : battle.hand) {
+                MemberCardDisplay mcd = new MemberCardDisplay(m);
+                if(s > 1) mcd.setRotation(startRotation - (r * i));
+                Cell<MemberCardDisplay> c = handTable.add(mcd).bottom();
+                if(i > 0) c.padLeft(-pad);
+                c.padBottom(-FastCatUtils.returnInterpolation(Interpolation.pow2OutInverse, 0, hMax, i / (s - 1)) - (hMax - 100));
+                memberCards.add(mcd);
+                i++;
+            }
+        }
+    }*/
 }
