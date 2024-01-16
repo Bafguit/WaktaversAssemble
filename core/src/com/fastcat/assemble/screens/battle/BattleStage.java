@@ -4,22 +4,14 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.handlers.InputHandler;
-import com.fastcat.assemble.members.Gosegu;
-import com.fastcat.assemble.members.Ine;
-import com.fastcat.assemble.members.Jingburger;
-import com.fastcat.assemble.members.Victory;
-import com.fastcat.assemble.utils.FastCatUtils;
 
 public class BattleStage extends Stage {
 
@@ -54,10 +46,30 @@ public class BattleStage extends Stage {
                 if(s > 1) mcd.setRotation(startRotation - (r * i));
                 Cell<MemberCardDisplay> c = handTable.add(mcd).bottom();
                 if(i > 0) c.padLeft(-pad);
-                float sf = (s - 1) / 2;
-                if(i < sf) c.padBottom(-hMax - 80 + Interpolation.pow2Out.apply(0, hMax, i / sf));
-                else if(i > sf) c.padBottom(-hMax - 80 + (80 - Interpolation.pow2Out.apply(hMax, 0, (i - sf) / sf)));
-                else c.padBottom(-80);
+                float sf = (float)s / 2f;
+                float pd = -70, alpha = 0.5f;
+                if(s % 2 == 0) {
+                    if(i < sf) {
+                        int sff = MathUtils.floor(sf);
+                        alpha = ((float) i) / (float)(sff - 1);
+                        pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
+                    } else if(i > sf) {
+                        int sff = MathUtils.ceil(sf);
+                        alpha = ((float)i - sff) / (float)(sff - 1);
+                        pd -= Interpolation.pow2In.apply(0, hMax, alpha);
+                    }
+                } else {
+                    float sff = (float)MathUtils.floor(sf);
+                    if(i < (sf - 1)) {
+                        alpha = ((float) i) / sff;
+                        pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
+                    } else if(i > sf) {
+                        alpha = ((float)i - sff) / sff;
+                        pd -= Interpolation.pow2In.apply(0, hMax, alpha);
+                    }
+                }
+                c.padBottom(pd);
+                mcd.memberName.setText(pd + ", " + alpha);
                 memberCards.add(mcd);
                 i++;
             }

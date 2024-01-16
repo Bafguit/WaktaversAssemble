@@ -63,6 +63,7 @@ public class MemberCardDisplay extends Button {
 		super(FileHandler.getUI().getDrawable("cardBg"));
         setName("memberCardDisplay");
         setTransform(true);
+        setScale(0.9f);
         root = new Table();
         root.setFillParent(true);
         root.align(Align.center);
@@ -149,7 +150,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(beforeX, beforeY);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f, Interpolation.circle)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(0.9f, 0.9f, 0.1f)));
                 }
 	        }
         };
@@ -172,7 +173,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(beforeX, 0);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f)));
                 }
 	        }
 
@@ -201,7 +202,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(beforeX, beforeY);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(0.9f, 0.9f, 0.1f)));
                 }
 	        }
         });
