@@ -74,6 +74,7 @@ public abstract class AbstractBattle implements Cloneable {
     }
 
     public void draw(int amount) {
+        if(hand.size() < WakTower.game.maxHand) {
         if(drawPile.size >= amount) {
             for(int i = 0; i < amount; i++) {
                 AbstractMember m = drawPile.removeFirst();
@@ -107,6 +108,7 @@ public abstract class AbstractBattle implements Cloneable {
                     //WakTower.battleScreen.addHand(m);
                 }
             }
+        }
         }
     }
 

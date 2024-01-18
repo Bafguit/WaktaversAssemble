@@ -7,6 +7,8 @@ import static com.fastcat.assemble.handlers.FontHandler.BF_SUB_DESC;
 
 import java.util.regex.Matcher;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
+
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
@@ -16,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -44,13 +48,11 @@ public class MemberCardDisplay extends Button {
     public final Label memberName;
 
     private int zIndex;
-    private float rotation;
+    private float baseX, baseY, baseScale, baseRotation;
 
     private SynergyIcon[] synergies;
 
     private float timer = 0;
-    private float beforeX = 0;
-    private float beforeY = 0;
 
     public AbstractMember member;
 
@@ -147,10 +149,10 @@ public class MemberCardDisplay extends Button {
                             over = false;
 	                    }
                     };
-                    action.setPosition(beforeX, beforeY);
+                    action.setPosition(baseX, baseY, Align.bottom);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(0.9f, 0.9f, 0.1f)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle), Actions.scaleTo(0.9f, 0.9f, 0.1f)));
                 }
 	        }
         };
@@ -159,9 +161,6 @@ public class MemberCardDisplay extends Button {
 	        public void enter (InputEvent event, float mx, float my, int pointer, @Null Actor fromActor) {
                 if(!over && !overing && !drag) {
                     overing = true;
-                    beforeX = md.getX();
-                    beforeY = md.getY();
-                    rotation = getRotation();
                     zIndex = getZIndex();
                     toFront();
                     MoveToAction action = new MoveToAction() {
@@ -170,7 +169,7 @@ public class MemberCardDisplay extends Button {
                             overing = false;
                         }
                     };
-                    action.setPosition(beforeX, 0);
+                    action.setPosition(baseX, 0, Align.bottom);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
                     addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f)));
@@ -199,13 +198,15 @@ public class MemberCardDisplay extends Button {
                             overing = false;
                         }
                     };
-                    action.setPosition(beforeX, beforeY);
+                    action.setPosition(baseX, baseY, Align.bottom);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(rotation, 0.1f, Interpolation.circle), Actions.scaleTo(0.9f, 0.9f, 0.1f)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle), Actions.scaleTo(baseScale, baseScale, 0.1f)));
                 }
 	        }
         });
+
+        setOrigin(Align.bottom);
     }
 
     @Override
@@ -244,6 +245,23 @@ public class MemberCardDisplay extends Button {
         c = imageRoot.getColor();
         imageRoot.setColor(c.r, c.b, c.g, timer);
         super.draw(batch, parentAlpha);
+    }
+
+    public void setBase(float x, float y, float rotation, float scale) {
+        baseX = x;
+        baseY = y;
+        baseRotation = rotation;
+        baseScale = scale;
+    }
+
+    public void resetPosition() {
+        ParallelAction action = new ParallelAction();
+        MoveToAction m = Actions.moveToAligned(baseX, baseY, Align.bottom, 0.1f, Interpolation.circle);
+        m.setStartPosition(getX(), getY());
+        action.addAction(m);
+        setScale(baseScale);
+        action.addAction(Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle));
+        addAction(action);
     }
 
     private static class SynergyIcon extends Image {
