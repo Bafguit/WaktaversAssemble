@@ -7,8 +7,6 @@ import static com.fastcat.assemble.handlers.FontHandler.BF_SUB_DESC;
 
 import java.util.regex.Matcher;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.MoveAction;
-
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
@@ -19,7 +17,6 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.actions.ScaleToAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -256,10 +253,8 @@ public class MemberCardDisplay extends Button {
 
     public void resetPosition() {
         ParallelAction action = new ParallelAction();
-        MoveToAction m = Actions.moveToAligned(baseX, baseY, Align.bottom, 0.1f, Interpolation.circle);
-        m.setStartPosition(getX(), getY());
-        action.addAction(m);
-        setScale(baseScale);
+        action.addAction(Actions.moveToAligned(baseX, baseY, Align.bottom, 0.1f, Interpolation.circle));
+        action.addAction(Actions.scaleTo(baseScale, baseScale, 0.1f, Interpolation.circle));
         action.addAction(Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle));
         addAction(action);
     }
