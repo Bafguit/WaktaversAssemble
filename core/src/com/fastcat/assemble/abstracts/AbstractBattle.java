@@ -10,6 +10,7 @@ import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
 import com.fastcat.assemble.interfaces.OnIncreaseWakDamage;
+import com.fastcat.assemble.screens.battle.BattleStage;
 import com.fastcat.assemble.synergies.Badass;
 import com.fastcat.assemble.synergies.Cat;
 import com.fastcat.assemble.synergies.Competitor;
@@ -35,6 +36,8 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class AbstractBattle implements Cloneable {
+
+    private BattleStage stage;
 
     public BattleType type;
     public BattlePhase phase;
@@ -67,6 +70,10 @@ public abstract class AbstractBattle implements Cloneable {
         phase = BattlePhase.battleStart;
         resetSynergy();
         //ActionHandler.bot(new StartBattleAction());
+    }
+
+    public void setStage(BattleStage stage) {
+        this.stage = stage;
     }
 
     public void turnDraw() {
@@ -110,6 +117,7 @@ public abstract class AbstractBattle implements Cloneable {
             }
         }
         }
+        if(stage != null) stage.updateHandPosition();
     }
 
     public boolean isPlayerTurn() {

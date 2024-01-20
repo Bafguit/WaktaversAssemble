@@ -131,7 +131,7 @@ public class FileHandler {
                 JsonValue v2 = generateJson(url + "/config.json");
                 jsonMap.put(url, v2);
                 for(JsonValue v3 : v2) {
-                    assetManager.load(url + "/" + v3.name + ".atlas", TextureAtlas.class);
+                    assetManager.load(url + "/" + v3.name + ".atlas", Skin.class);
                 }
             }
         }
@@ -140,7 +140,7 @@ public class FileHandler {
         JsonValue v2 = generateJson("animation/ui/energy/config.json");
         jsonMap.put("animation_ui_energy", v2);
         for(JsonValue v3 : v2) {
-            assetManager.load("animation/ui/energy/" + v3.name + ".atlas", TextureAtlas.class);
+            assetManager.load("animation/ui/energy/" + v3.name + ".atlas", Skin.class);
         }
     }
 

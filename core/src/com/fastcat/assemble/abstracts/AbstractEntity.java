@@ -59,7 +59,7 @@ public abstract class AbstractEntity {
                         t.onRemove();
                         if(statusUpdatedListener.size > 0) {
                             for(OnStatusUpdated listener : statusUpdatedListener) {
-                            listener.onStatusInitial(s);
+                                listener.onStatusRemoved(s);
                             }
                         }
                     }

@@ -31,6 +31,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
@@ -57,12 +58,13 @@ public class MemberCardDisplay extends Button {
     private boolean over = false;
     private boolean overing = false;
     private boolean drag = false;
+    private float overScale = 0.95f;
 
     public MemberCardDisplay(AbstractMember member) {
 		super(FileHandler.getUI().getDrawable("cardBg"));
         setName("memberCardDisplay");
         setTransform(true);
-        setScale(0.9f);
+        setScale(0.85f);
         root = new Table();
         root.setFillParent(true);
         root.align(Align.center);
@@ -126,10 +128,11 @@ public class MemberCardDisplay extends Button {
 	        }
 
 	        public void drag (InputEvent event, float sx, float sy, int pointer) {
-                if(!drag && !overing) cancel();
+                if((!drag && !overing) || ActionHandler.isRunning) cancel();
                 else {
                     moveBy(sx - getWidth() / 2, sy - getHeight() / 2);
                     if(!member.canUse() && sy > (getHeight() * 0.75f)) {
+                        member.use();
                         cancel();
                     }
                 }
@@ -149,7 +152,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(baseX, baseY, Align.bottom);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle), Actions.scaleTo(0.9f, 0.9f, 0.1f)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle), Actions.scaleTo(baseScale, baseScale, 0.1f)));
                 }
 	        }
         };
@@ -169,7 +172,7 @@ public class MemberCardDisplay extends Button {
                     action.setPosition(baseX, 0, Align.bottom);
                     action.setDuration(0.1f);
                     action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle), Actions.scaleTo(1, 1, 0.1f)));
+                    addAction(Actions.parallel(action, Actions.rotateTo(0, 0.1f, Interpolation.circle), Actions.scaleTo(overScale, overScale, 0.1f)));
                 }
 	        }
 

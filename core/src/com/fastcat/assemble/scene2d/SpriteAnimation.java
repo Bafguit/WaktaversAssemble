@@ -1,10 +1,17 @@
 package com.fastcat.assemble.scene2d;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
@@ -14,6 +21,8 @@ import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.interfaces.OnAnimationFinished;
 
 import java.util.HashMap;
+
+import org.checkerframework.common.subtyping.qual.Bottom;
 
 public class SpriteAnimation extends Table {
 
@@ -30,20 +39,34 @@ public class SpriteAnimation extends Table {
     private boolean isRunning = true;
     private SpriteAnimationType type;
 
+    private Image render;
+
     public Vector2 pos = new Vector2(), size = new Vector2();
 
     public SpriteAnimation(String id, SpriteAnimationType type) {
         this.id = id;
         this.type = type;
         generateAnimationData();
+        setDefault();
     }
 
     public SpriteAnimation(String id) {
         this.id = id;
         generateUIAnimationData();
+        setDefault();
     }
 
-    private SpriteAnimation() {}
+    private SpriteAnimation() {
+        setDefault();
+    }
+
+    private final void setDefault() {
+        render = new Image();
+        bottom();
+        add(render).bottom();
+        row();
+        //추가
+    }
 
     public void setAnimation(String key) {
         isRunning = true;
@@ -54,16 +77,16 @@ public class SpriteAnimation extends Table {
     private void generateAnimationData() {
         JsonValue json = FileHandler.getInstance().jsonMap.get("animation/" + type.name() + "/"  + id);
         for(JsonValue v : json) {
-            TextureAtlas atlas = FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + ".atlas");
-            animations.put(v.name, new SpriteAnimationData(v.name, atlas.createSprites(), v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+            Skin atlas = FileHandler.getInstance().assetManager.get("animation/" + type + "/" + id + "/" + v.name + ".atlas");
+            animations.put(v.name, new SpriteAnimationData(v.name, atlas, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
         }
     }
 
     private void generateUIAnimationData() {
         JsonValue json = FileHandler.getInstance().jsonMap.get("animation_ui_"  + id);
         for(JsonValue v : json) {
-            TextureAtlas atlas = FileHandler.getInstance().assetManager.get("animation/ui/" + id + "/" + v.name + ".atlas");
-            animations.put(v.name, new SpriteAnimationData(v.name, atlas.createSprites(), v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
+            Skin atlas = FileHandler.getInstance().assetManager.get("animation/ui/" + id + "/" + v.name + ".atlas");
+            animations.put(v.name, new SpriteAnimationData(v.name, atlas, v.getFloat("frameDuration"), v.getBoolean("isLoop"), new Vector2(v.getInt("axisX", 0), v.getInt("axisY", 0))));
         }
     }
 
@@ -85,7 +108,8 @@ public class SpriteAnimation extends Table {
         singleTimerEnded = false;
     }
 
-    public void render(SpriteBatch sb) {
+    @Override
+    public void act(float delta) {
         boolean hasAnimation = true;
 
         if(current != null) {
@@ -117,15 +141,19 @@ public class SpriteAnimation extends Table {
         }
 
         if(hasAnimation) {
-            Sprite frame = current.getFrame(timer);
-            float sc = scale * InputHandler.scaleA;
-            frame.setScale(sc);
-            frame.setOrigin(frame.getWidth() / 2, 0);
-            frame.setPosition(pos.x - frame.getWidth() / 2, pos.y);
-            frame.draw(sb, alpha);
+            Drawable frame = current.getFrame(timer);
+            render.setDrawable(frame);
+            render.setScale(scale);
+            render.setOrigin(Align.bottom);
             if(isRunning) tickDuration();
             //throw new RuntimeException(frame.getX() + ", " + frame.getY() + ", " + frame.getScaleX());
         }
+        super.act(delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        super.draw(batch, parentAlpha);
     }
 
     public void setScale(float s) {
@@ -151,36 +179,39 @@ public class SpriteAnimation extends Table {
 
     public class SpriteAnimationData {
 
-        private final Sprite[] frames;
+        private final Skin skin;
+        private final Drawable[] frames;
         private float duration, frameDuration, timescale = 1.0f;
         private boolean isLoop;
         private Vector2 axis;
 
         public final String key;
 
-        public SpriteAnimationData(String key, Array<Sprite> sprites, float duration, boolean isLoop, Vector2 axis) {
+        public SpriteAnimationData(String key, Skin sprites, float duration, boolean isLoop, Vector2 axis) {
             this.key = key;
-            frames = sprites.toArray(Sprite.class);
+            this.skin = sprites;
+            Array<SpriteDrawable> ds = new Array<>();
+            TextureAtlas atlas = sprites.getAtlas();
+            for(Sprite s : atlas.createSprites()) {
+                ds.add(new SpriteDrawable(s));
+            }
+            frames = ds.toArray(Drawable.class);
             frameDuration = duration;
             this.duration = frameDuration * frames.length;
             this.isLoop = isLoop;
             this.axis = new Vector2(axis);
         }
 
-        public Sprite getFrame(float time) {
+        public Drawable getFrame(float time) {
             return getFrame((int) (time / frameDuration));
         }
 
-        public Sprite getFrame(int number) {
+        public Drawable getFrame(int number) {
             return frames[number % frames.length];
         }
 
         public SpriteAnimationData cpy() {
-            Array<Sprite> temp = new Array<>();
-            for(Sprite s : frames) {
-                temp.add(new Sprite(s));
-            }
-            return new SpriteAnimationData(key, temp, frameDuration, isLoop, new Vector2(axis));
+            return new SpriteAnimationData(key, skin, frameDuration, isLoop, new Vector2(axis));
         }
     }
 

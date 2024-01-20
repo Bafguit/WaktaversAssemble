@@ -5,24 +5,15 @@ import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
@@ -47,7 +38,6 @@ public class BattleStage extends Stage {
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 battle.draw(1);
-                updateHandPosition();
 		        return true;
 	        }
         });
@@ -56,7 +46,6 @@ public class BattleStage extends Stage {
         this.addActor(handTable);
 
         battle.turnDraw();
-        updateHandPosition();
         /*
         int i = 0, s = battle.hand.size();
         if(s == 1) {
@@ -138,17 +127,17 @@ public class BattleStage extends Stage {
             if(md == null) {
                 md = new MemberCardDisplay(m);
                 memberCards.put(m, md);
-                md.setPosition(0, 0, Align.bottom);
-                md.setScale(0.9f);
+                md.setScale(0.5f);
                 md.setRotation(-70);
-                handTable.add(md).maxSize(285, 428);
+                this.addActor(md);
+                md.setPosition(0, 0, Align.bottom);
             }
-            md.setBase(960, -70, 0, 0.9f);
+            md.setBase(960, -70, 0, 0.85f);
             md.resetPosition();
         } else if(s > 1) {
             float bx, by, br, bs;
             float g = (float)(s - 2) / (float)(WakTower.game.maxHand - 2);
-            float pad = Interpolation.linear.apply(80, 120, g);
+            float pad = Interpolation.linear.apply(90, 130, g);
             float r = 7 - Interpolation.pow2InInverse.apply(0, 4, g);
             float startRotation = r * (s - 1) / 2, startX = 960 - ((285 - pad) * (s - 1)) / 2;
             final float hMax = Interpolation.pow2In.apply(0, 80, g);
@@ -158,15 +147,15 @@ public class BattleStage extends Stage {
                 if(mcd == null) {
                     mcd = new MemberCardDisplay(m);
                     memberCards.put(m, mcd);
-                    mcd.setPosition(0, 0, Align.bottom);
-                    mcd.setScale(0.9f);
+                    mcd.setScale(0.5f);
                     mcd.setRotation(-70);
-                    handTable.add(mcd).maxSize(285, 428);
+                    this.addActor(mcd);
+                    mcd.setPosition(0, 0, Align.bottom);
                 }
                 br = startRotation - (r * i);
                 bx = startX + (285 - pad) * i;
                 int sf = s / 2;
-                float pd = -70, alpha = 0.5f;
+                float pd = -60, alpha = 0.5f;
                 if(s % 2 == 0) {
                     if(i < sf) {
                         alpha = ((float) i) / (float)(sf - 1);
@@ -185,7 +174,7 @@ public class BattleStage extends Stage {
                     }
                 }
                 by = pd;
-                bs = 0.9f;
+                bs = 0.85f;
                 mcd.setBase(bx, by, br, bs);
                 mcd.resetPosition();
             }
