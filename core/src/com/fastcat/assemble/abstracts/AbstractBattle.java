@@ -76,6 +76,10 @@ public abstract class AbstractBattle implements Cloneable {
         this.stage = stage;
     }
 
+    public BattleStage getStage() {
+        return stage;
+    }
+
     public void turnDraw() {
         draw(WakTower.game.drawAmount);
     }

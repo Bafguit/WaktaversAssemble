@@ -150,7 +150,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
             }
 
             member.animation.pos.set(localX, localY);
-            member.animation.render(sb);
+            //member.animation.render(sb);
 
             fontName.alpha = tile.timer;
             FontHandler.renderCenter(sb, fontName, member.name, x + width * 0.5f, y);
@@ -181,7 +181,7 @@ public class MemberDisplay extends AbstractUI implements Disposable {
     protected void onClickEnd() {
         WakTower.battleScreen.clicked = null;
         if(y > height * 0.5f) {
-            ActionHandler.bot(new SummonMemberAction(this));
+            //ActionHandler.bot(new SummonMemberAction(this));
             isUsing = true;
         }
         WakTower.battleScreen.updateHandPosition();

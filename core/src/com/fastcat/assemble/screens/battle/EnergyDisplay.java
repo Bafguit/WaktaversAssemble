@@ -24,7 +24,7 @@ public class EnergyDisplay extends AbstractUI implements OnEnergyUpdated {
     protected void renderUi(SpriteBatch sb) {
         sb.draw(img, x, y, width, height);
         animation.pos.set(x, y);
-        animation.render(sb);
+        //animation.render(sb);
         FontHandler.renderCenter(sb, font, WakTower.game.battle.energy + "/" + WakTower.game.energyMax, x, y, width * 2);
     }
 

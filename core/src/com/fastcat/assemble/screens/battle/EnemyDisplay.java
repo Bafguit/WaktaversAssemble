@@ -35,7 +35,7 @@ public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
     protected void renderUi(SpriteBatch sb) {
         if (enabled) {
             enemy.animation.pos.set(localX, localY);
-            enemy.animation.render(sb);
+            //enemy.animation.render(sb);
 
             healthBar.render(sb);
 

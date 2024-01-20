@@ -1,7 +1,9 @@
 package com.fastcat.assemble.utils;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractUI.BasisType;
@@ -12,7 +14,7 @@ import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.FontHandler.FontData;
 import com.fastcat.assemble.interfaces.OnHealthUpdated;
 
-public class HealthBar implements OnHealthUpdated {
+public class HealthBar extends Table implements OnHealthUpdated {
 
     private static final FontData font = FontHandler.HEALTH;
     private TempUI line, hbMid, hbLeft, hbRight;
@@ -88,6 +90,18 @@ public class HealthBar implements OnHealthUpdated {
             if(yetWidth <= width) yetWidth = width;
         }
         
+    }
+
+    @Override
+    public void act(float delta) {
+
+        super.act(delta);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+
+        super.draw(batch, parentAlpha);
     }
 
     private void yetReset() {

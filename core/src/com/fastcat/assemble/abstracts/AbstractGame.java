@@ -59,7 +59,7 @@ public class AbstractGame {
         floorMax = 30;
         drawAmount = 5;
         maxHand = 10;
-        memberLimit = 3;
+        memberLimit = 8;
         energyStart = 3;
         energyCharge = 1;
         energyMax = 3;

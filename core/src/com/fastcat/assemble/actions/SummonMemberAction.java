@@ -7,13 +7,15 @@ import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.EffectHandler;
+import com.fastcat.assemble.screens.battle.BattleStage;
+import com.fastcat.assemble.screens.battle.MemberCardDisplay;
 import com.fastcat.assemble.screens.battle.MemberDisplay;
 
 public class SummonMemberAction extends AbstractAction {
 
-    private final MemberDisplay member;
+    private final MemberCardDisplay member;
 
-    public SummonMemberAction(MemberDisplay m) {
+    public SummonMemberAction(MemberCardDisplay m) {
         super(1f);
         this.member = m;
     }
@@ -21,14 +23,12 @@ public class SummonMemberAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            WakTower.battleScreen.hand.remove(member);
-            WakTower.battleScreen.updateHandPosition();
-            member.isCard = false;
-            member.isUsing = false;
-            WakTower.battleScreen.members.add(member);
+            BattleStage stage = WakTower.game.battle.getStage();
+            stage.removeHand(member.member);
+            WakTower.game.battle.members.add(member.member);
+            stage.updateMemberPosition();
             member.member.summon();
-            WakTower.battleScreen.update();
-            EffectHandler.add(new UpColorTextEffect(member.originX, member.originY + 100, MathUtils.random(1, 100), Color.CYAN));
+            //EffectHandler.add(new UpColorTextEffect(member.getX(), member.getY() + 100, MathUtils.random(1, 100), Color.CYAN));
         }
     }
 }

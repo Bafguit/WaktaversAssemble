@@ -62,9 +62,11 @@ public class SpriteAnimation extends Table {
 
     private final void setDefault() {
         render = new Image();
+        setOrigin(Align.bottom);
         bottom();
+        render.setOrigin(Align.bottom);
         add(render).bottom();
-        row();
+        //row();
         //추가
     }
 
@@ -145,7 +147,7 @@ public class SpriteAnimation extends Table {
             render.setDrawable(frame);
             render.setScale(scale);
             render.setOrigin(Align.bottom);
-            if(isRunning) tickDuration();
+            if(isRunning) tickDuration(delta);
             //throw new RuntimeException(frame.getX() + ", " + frame.getY() + ", " + frame.getScaleX());
         }
         super.act(delta);
@@ -160,8 +162,8 @@ public class SpriteAnimation extends Table {
         scale = s;
     }
 
-    private void tickDuration() {
-        timer += WakTower.tick * current.timescale;
+    private void tickDuration(float delta) {
+        timer += delta * current.timescale;
         if(timer >= current.duration) {
             timer -= current.duration;
         }

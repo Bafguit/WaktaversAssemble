@@ -34,7 +34,7 @@ public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
     @Override
     protected void renderUi(SpriteBatch sb) {
         player.animation.pos.set(localX, localY);
-        player.animation.render(sb);
+        //player.animation.render(sb);
         healthBar.render(sb);
         
         for(int i = 0; i < status.size(); i++) {

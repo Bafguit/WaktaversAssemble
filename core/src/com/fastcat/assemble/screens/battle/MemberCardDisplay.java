@@ -29,8 +29,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip.TextTooltipStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.actions.SummonMemberAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -128,31 +130,22 @@ public class MemberCardDisplay extends Button {
 	        }
 
 	        public void drag (InputEvent event, float sx, float sy, int pointer) {
-                if((!drag && !overing) || ActionHandler.isRunning) cancel();
+                if((!drag && !overing) || ActionHandler.isRunning) cancelUse();
                 else {
                     moveBy(sx - getWidth() / 2, sy - getHeight() / 2);
                     if(!member.canUse() && sy > (getHeight() * 0.75f)) {
                         member.use();
-                        cancel();
+                        cancelUse();
                     }
                 }
 	        }
 
 	        public void dragStop (InputEvent event, float sx, float sy, int pointer) {
-                if(sy > getHeight()) {
+                if(md.getY(Align.center) > 350 && WakTower.game.battle.members.size < WakTower.game.memberLimit) {
+                    ActionHandler.bot(new SummonMemberAction(md));
                     addAction(Actions.fadeOut(0.25f));
                 } else {
-                    setZIndex(zIndex);
-                    MoveToAction action = new MoveToAction() {
-	                    protected void end () {
-                            drag = false;
-                            over = false;
-	                    }
-                    };
-                    action.setPosition(baseX, baseY, Align.bottom);
-                    action.setDuration(0.1f);
-                    action.setInterpolation(Interpolation.circle);
-                    addAction(Actions.parallel(action, Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle), Actions.scaleTo(baseScale, baseScale, 0.1f)));
+                    cancelUse();
                 }
 	        }
         };
@@ -207,6 +200,20 @@ public class MemberCardDisplay extends Button {
         });
 
         setOrigin(Align.bottom);
+    }
+
+    private void cancelUse() {
+        setZIndex(zIndex);
+        MoveToAction action = new MoveToAction() {
+            protected void end () {
+                drag = false;
+                over = false;
+            }
+        };
+        action.setPosition(baseX, baseY, Align.bottom);
+        action.setDuration(0.1f);
+        action.setInterpolation(Interpolation.circle);
+        addAction(Actions.parallel(action, Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle), Actions.scaleTo(baseScale, baseScale, 0.1f)));
     }
 
     @Override

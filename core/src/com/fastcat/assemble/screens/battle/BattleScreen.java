@@ -93,7 +93,7 @@ public class BattleScreen extends AbstractScreen {
             m.forcePosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj));
 
             ii++;
-            if(ii == 3) {
+            if(ii == 4) {
                 jj++;
                 ii = 0;
             }

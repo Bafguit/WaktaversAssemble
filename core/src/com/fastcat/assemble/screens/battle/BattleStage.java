@@ -4,36 +4,53 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
 public class BattleStage extends Stage {
 
     private Table handTable;
+    private Table fieldTable;
 
     public final AbstractBattle battle;
     public HashMap<AbstractMember, MemberCardDisplay> memberCards = new HashMap<>();
+    public HashMap<AbstractMember, MemberFieldDisplay> memberFields = new HashMap<>();
+
+    public BattleStage() {
+        this(WakTower.game.battle);
+    }
     
     public BattleStage(AbstractBattle battle) {
         super(WakTower.viewport);
         this.battle = battle;
+        battle.setStage(this);
         handTable = new Table();
         handTable.bottom();
-        handTable.setFillParent(true);
+        handTable.setSize(1920, 350);
+        fieldTable = new Table();
+        fieldTable.setFillParent(true);
         Drawable d = FileHandler.getUI().getDrawable("tile");
+
+        Table buttons = new Table();
+        buttons.align(Align.topLeft);
+
         TextButton b = new TextButton("DRAW", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
@@ -41,8 +58,41 @@ public class BattleStage extends Stage {
 		        return true;
 	        }
         });
-        b.setPosition(getWidth() / 2, getHeight() / 2, Align.center);
-        this.addActor(b);
+        buttons.add(b).right();
+
+        TextButton b2 = new TextButton("RESET", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        b.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                WakTower.game.battle = new TestBattle();
+                WakTower.stage = new BattleStage();
+		        return true;
+	        }
+        });
+        buttons.add(b2).right();
+
+        TextButton b3 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        b.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.exit();
+		        return true;
+	        }
+        });
+        buttons.add(b3).right();
+        buttons.row();
+
+        Label label = new Label("", new LabelStyle(FontHandler.BF_NB16, Color.WHITE)) {
+            @Override
+            public void act(float delta) {
+                setText(memberCards.toString());
+                super.act(delta);
+            }
+        };
+        label.setFillParent(true);
+        buttons.add(label).bottom();
+        buttons.setPosition(1920, 1080, Align.topRight);
+
+        this.addActor(fieldTable);
+        this.addActor(buttons);
         this.addActor(handTable);
 
         battle.turnDraw();
@@ -119,6 +169,25 @@ public class BattleStage extends Stage {
 
     }
 
+    public void updateMemberPosition() {
+        int ii = 0, jj = 0;
+        for(int i = 0; i < battle.members.size; i++) {
+            AbstractMember m = battle.members.get(i);
+            MemberFieldDisplay md = memberFields.get(m);
+            if(md == null) {
+                md = new MemberFieldDisplay(m);
+                memberFields.put(m, md);
+                fieldTable.addActor(md);
+            }
+            md.setPosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj));
+            ii++;
+            if(ii == 4) {
+                jj++;
+                ii = 0;
+            }
+        }
+    }
+
     public void updateHandPosition() {
         int s = battle.hand.size();
         if(s == 1) {
@@ -129,7 +198,7 @@ public class BattleStage extends Stage {
                 memberCards.put(m, md);
                 md.setScale(0.5f);
                 md.setRotation(-70);
-                this.addActor(md);
+                handTable.addActor(md);
                 md.setPosition(0, 0, Align.bottom);
             }
             md.setBase(960, -70, 0, 0.85f);
@@ -149,7 +218,7 @@ public class BattleStage extends Stage {
                     memberCards.put(m, mcd);
                     mcd.setScale(0.5f);
                     mcd.setRotation(-70);
-                    this.addActor(mcd);
+                    handTable.addActor(mcd);
                     mcd.setPosition(0, 0, Align.bottom);
                 }
                 br = startRotation - (r * i);
@@ -179,6 +248,12 @@ public class BattleStage extends Stage {
                 mcd.resetPosition();
             }
         }
+    }
+
+    public void removeHand(AbstractMember m) {
+        battle.hand.remove(m);
+        handTable.removeActor(memberCards.remove(m));
+        updateHandPosition();
     }
     
     public static class HandDisplayData {
