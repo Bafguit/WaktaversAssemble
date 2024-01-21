@@ -130,18 +130,18 @@ public class MemberCardDisplay extends Button {
 	        }
 
 	        public void drag (InputEvent event, float sx, float sy, int pointer) {
-                if((!drag && !overing) || ActionHandler.isRunning) cancelUse();
+                if(!drag && !overing) cancelUse();
                 else {
                     moveBy(sx - getWidth() / 2, sy - getHeight() / 2);
                     if(!member.canUse() && sy > (getHeight() * 0.75f)) {
-                        member.use();
+                        //member.use();
                         cancelUse();
                     }
                 }
 	        }
 
 	        public void dragStop (InputEvent event, float sx, float sy, int pointer) {
-                if(md.getY(Align.center) > 350 && WakTower.game.battle.members.size < WakTower.game.memberLimit) {
+                if(md.getY(Align.center) > 350 && WakTower.game.battle.members.size < WakTower.game.memberLimit && !ActionHandler.isRunning) {
                     ActionHandler.bot(new SummonMemberAction(md));
                     addAction(Actions.fadeOut(0.25f));
                 } else {

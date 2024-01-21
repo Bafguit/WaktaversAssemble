@@ -12,9 +12,11 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.WakTower;
@@ -49,7 +51,7 @@ public class BattleStage extends Stage {
         Drawable d = FileHandler.getUI().getDrawable("tile");
 
         Table buttons = new Table();
-        buttons.align(Align.topLeft);
+        buttons.align(Align.topRight);
 
         TextButton b = new TextButton("DRAW", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b.addListener(new InputListener() {
@@ -61,7 +63,7 @@ public class BattleStage extends Stage {
         buttons.add(b).right();
 
         TextButton b2 = new TextButton("RESET", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
-        b.addListener(new InputListener() {
+        b2.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.game.battle = new TestBattle();
                 WakTower.stage = new BattleStage();
@@ -71,7 +73,7 @@ public class BattleStage extends Stage {
         buttons.add(b2).right();
 
         TextButton b3 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
-        b.addListener(new InputListener() {
+        b3.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.exit();
 		        return true;
@@ -80,14 +82,14 @@ public class BattleStage extends Stage {
         buttons.add(b3).right();
         buttons.row();
 
-        Label label = new Label("", new LabelStyle(FontHandler.BF_NB16, Color.WHITE)) {
+        TextArea label = new TextArea("", new TextFieldStyle(FontHandler.BF_NB16, Color.WHITE, null, null, null)) {
             @Override
             public void act(float delta) {
-                setText(memberCards.toString());
+                setText(WakTower.getLog());
                 super.act(delta);
             }
         };
-        label.setFillParent(true);
+        label.setSize(300, 200);
         buttons.add(label).bottom();
         buttons.setPosition(1920, 1080, Align.topRight);
 
@@ -225,21 +227,23 @@ public class BattleStage extends Stage {
                 bx = startX + (285 - pad) * i;
                 int sf = s / 2;
                 float pd = -60, alpha = 0.5f;
-                if(s % 2 == 0) {
-                    if(i < sf) {
-                        alpha = ((float) i) / (float)(sf - 1);
-                        pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
+                if(s > 2) {
+                    if(s % 2 == 0) {
+                        if(i < sf) {
+                            alpha = ((float) i) / (float)(sf - 1);
+                            pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
+                        } else {
+                            alpha = ((float)i - sf) / (float)(sf - 1);
+                            pd -= Interpolation.pow2In.apply(0, hMax, alpha);
+                        }
                     } else {
-                        alpha = ((float)i - sf) / (float)(sf - 1);
-                        pd -= Interpolation.pow2In.apply(0, hMax, alpha);
-                    }
-                } else {
-                    if(i < sf) {
-                        alpha = ((float) i) / (float)sf;
-                        pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
-                    } else {
-                        alpha = ((float)i - sf) / (float)sf;
-                        pd -= Interpolation.pow2In.apply(0, hMax, alpha);
+                        if(i < sf) {
+                            alpha = ((float) i) / (float)sf;
+                            pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
+                        } else {
+                            alpha = ((float)i - sf) / (float)sf;
+                            pd -= Interpolation.pow2In.apply(0, hMax, alpha);
+                        }
                     }
                 }
                 by = pd;

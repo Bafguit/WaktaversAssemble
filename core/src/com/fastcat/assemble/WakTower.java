@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Logger;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.SkeletonRenderer;
@@ -25,6 +26,8 @@ import io.github.zumikua.webploader.common.WebPLoaderNativeInterface;
 import io.github.zumikua.webploader.common.WebPPixmapFactory;
 
 public class WakTower extends ApplicationAdapter {
+
+	private static String log = "";
 
 	public static WakTower application;
 
@@ -81,6 +84,15 @@ public class WakTower extends ApplicationAdapter {
 		uiData = DataHandler.getInstance().uiData.get("loading");
 		
 		stage = new LoadingStage();
+	}
+
+	public static String getLog() {
+		return log;
+	}
+
+	public static String log(String text) {
+		log += "\n" + text;
+		return log;
 	}
 
 	private void load() {

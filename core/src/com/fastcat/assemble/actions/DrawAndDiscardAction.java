@@ -23,7 +23,7 @@ public class DrawAndDiscardAction extends AbstractAction implements OnTempScreen
         if(duration == baseDuration) {
             WakTower.game.battle.draw(amount);
         } else if(duration <= 1 && run) {
-            run = false;
+            //run = false;
             //todo DiscardScreen (Temp)
         }
     }
