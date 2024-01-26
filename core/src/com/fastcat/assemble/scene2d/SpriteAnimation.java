@@ -26,7 +26,7 @@ import java.util.HashMap;
 
 import org.checkerframework.common.subtyping.qual.Bottom;
 
-public class SpriteAnimation extends Image {
+public class SpriteAnimation extends Table {
 
     private final HashMap<String, SpriteAnimationData> animations = new HashMap<>();
     private final Array<OnAnimationFinished> animationFinishedListeners = new Array<>();
@@ -48,6 +48,7 @@ public class SpriteAnimation extends Image {
         this.type = type;
         generateAnimationData();
         setDefault();
+        setZIndex(10);
     }
 
     public SpriteAnimation(String id) {
@@ -145,7 +146,9 @@ public class SpriteAnimation extends Image {
 
         if(hasAnimation) {
             Drawable frame = current.getFrame(timer);
-            setDrawable(frame);
+            setBackground(frame);
+            setSize(frame.getMinWidth(), frame.getMinHeight());
+            setOrigin(Align.bottom);
             if(isRunning) tickDuration(delta);
             //throw new RuntimeException(frame.getX() + ", " + frame.getY() + ", " + frame.getScaleX());
         }
@@ -181,7 +184,7 @@ public class SpriteAnimation extends Image {
     public class SpriteAnimationData {
 
         private final TextureAtlas skin;
-        private final Drawable[] frames;
+        private final SpriteDrawable[] frames;
         private float duration, frameDuration, timescale = 1.0f;
         private boolean isLoop;
         private Vector2 axis;
@@ -191,12 +194,16 @@ public class SpriteAnimation extends Image {
         public SpriteAnimationData(String key, TextureAtlas sprites, float duration, boolean isLoop, Vector2 axis) {
             this.key = key;
             this.skin = sprites;
-            Array<Drawable> ds = new Array<>();
-            for(int i = 0; i < sprites.getRegions().size; i++) {
-                AtlasRegion s = sprites.findRegion(Integer.toString(i));
-                ds.add(new TextureRegionDrawable(s));
+            //Array<Drawable> ds = new Array<>();
+            int size = sprites.getRegions().size;
+            frames = new SpriteDrawable[size];
+            for(int i = 0; i < size; i++) {
+                Sprite s = sprites.createSprite(Integer.toString(i));
+                SpriteDrawable trd = new SpriteDrawable(s);
+                frames[i] = trd;
+                //ds.add(trd);
             }
-            frames = ds.toArray(Drawable.class);
+            //frames = ds.toArray(SpriteDrawable.class);
             frameDuration = duration;
             this.duration = frameDuration * frames.length;
             this.isLoop = isLoop;

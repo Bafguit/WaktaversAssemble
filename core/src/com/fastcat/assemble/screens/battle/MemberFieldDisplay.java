@@ -31,26 +31,29 @@ public class MemberFieldDisplay extends Table {
         setOrigin(Align.bottom);
         animation = member.animation;
         tile = new Image(FileHandler.getTexture("ui/memberTile"));
+        //tile.setFillParent(false);
+
         add(animation).bottom();
         row();
+
         add(tile).bottom().padTop(-(tile.getHeight() / 2));
-        label = new Label("", new LabelStyle(FontHandler.BF_NB16, Color.WHITE));
         row();
+        
+        label = new Label(member.name, new LabelStyle(FontHandler.BF_NB16, Color.WHITE));
         add(label).bottom();
     }
 
     @Override
     public void act(float delta) {
-        //SpriteAnimationData d = animation.getCurrent();
-        Drawable d = animation.getDrawable();
-        label.setText(d != null ? (d.toString() + "|" + d.getLeftWidth() + "|" + d.getRightWidth()) : "NULL");
+        //Drawable d = animation.getBackground();
+        label.setText(member.getName());
         super.act(delta);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         Color c = tile.getColor();
-        tile.setColor(c.r, c.b, c.g, showTile ? 1 : 0);
+        //tile.setColor(c.r, c.b, c.g, showTile ? 1 : 0);
         super.draw(batch, parentAlpha);
     }
     

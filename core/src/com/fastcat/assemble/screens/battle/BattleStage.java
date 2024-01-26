@@ -90,7 +90,7 @@ public class BattleStage extends Stage {
             }
         };
         label.setSize(300, 200);
-        buttons.add(label).bottom();
+        buttons.add(label).bottom().colspan(3);
         buttons.setPosition(1920, 1080, Align.topRight);
 
         this.addActor(fieldTable);
