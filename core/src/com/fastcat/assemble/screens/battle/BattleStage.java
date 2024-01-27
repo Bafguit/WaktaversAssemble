@@ -181,7 +181,7 @@ public class BattleStage extends Stage {
                 memberFields.put(m, md);
                 fieldTable.addActor(md);
             }
-            md.setPosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj));
+            md.setPosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj), Align.bottom);
             ii++;
             if(ii == 4) {
                 jj++;

@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -41,6 +43,8 @@ public class SpriteAnimation extends Table {
     private boolean isRunning = true;
     private SpriteAnimationType type;
 
+    private Image hbar;
+
     public Vector2 pos = new Vector2(), size = new Vector2();
 
     public SpriteAnimation(String id, SpriteAnimationType type) {
@@ -63,6 +67,11 @@ public class SpriteAnimation extends Table {
 
     private final void setDefault() {
         setOrigin(Align.bottom);
+        hbar = new Image();
+        hbar.setSize(256, 256);
+        hbar.setOrigin(Align.bottom);
+        addActor(hbar);
+        //add(hbar).center().bottom().pad(10);
         //add(render).bottom();
         //row();
         //추가
@@ -146,9 +155,11 @@ public class SpriteAnimation extends Table {
 
         if(hasAnimation) {
             Drawable frame = current.getFrame(timer);
-            setBackground(frame);
-            setSize(frame.getMinWidth(), frame.getMinHeight());
-            setOrigin(Align.bottom);
+            //hbar.setBackground(frame);
+            hbar.setDrawable(frame);
+            hbar.setSize(frame.getMinWidth(), frame.getMinHeight());
+            hbar.setScale(scale);
+            hbar.setPosition(getOriginX(), getOriginY(), Align.bottom);
             if(isRunning) tickDuration(delta);
             //throw new RuntimeException(frame.getX() + ", " + frame.getY() + ", " + frame.getScaleX());
         }

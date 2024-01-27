@@ -255,7 +255,7 @@ public abstract class AbstractMember implements Cloneable {
                 return s;
             case "D":
                 a = calculatedDef();
-                s = FontHandler.getColorKey(a < baseAtk ? "r" : a > baseAtk ? "g" :  "b");
+                s = FontHandler.getColorKey(a < baseDef ? "r" : a > baseDef ? "g" :  "b");
                 s += a + FontHandler.getColorKey("w");
                 return s;
             case "V":
