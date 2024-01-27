@@ -8,12 +8,9 @@ import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeType.Bitmap;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.handlers.FontHandler.FontData;
 import com.fastcat.assemble.interfaces.OnScaleUpdated;
 
 import java.util.regex.Matcher;

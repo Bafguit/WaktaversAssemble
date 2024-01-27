@@ -1,12 +1,9 @@
 package com.fastcat.assemble.screens.battle;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
@@ -19,10 +16,7 @@ import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
-import com.fastcat.assemble.members.Hikiking;
-import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
-import com.fastcat.assemble.utils.FastCatUtils;
 
 public class BattleScreen extends AbstractScreen {
 

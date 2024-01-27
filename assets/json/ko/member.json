@@ -68,7 +68,7 @@
   "Jururu": {
     "name": "주르르",
     "desc": "&y<[지속]> 다음 멤버 하나를 {V}번 강화합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Isedol",
       "Nobles"
@@ -104,7 +104,7 @@
   "Freeter": {
     "name": "프리터",
     "desc": "&y<[지속]> 공격받을 때마다 해당 적에게 {V} 대미지를 입힙니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Badass",
       "Guardian"
@@ -113,7 +113,7 @@
   "Duksu": {
     "name": "이덕수 할아바이",
     "desc": "체력이 가장 높은 적에게 {A} 대미지를 입힙니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Competitor",
       "OldMan"
@@ -149,7 +149,7 @@
   "Kimchimandu": {
     "name": "김치만두번영택사스가",
     "desc": "&y<[지속]> 우왁굳이 받는 대미지가 {V} 감소합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "Kiddo"
@@ -168,7 +168,7 @@
   "Haku": {
     "name": "하쿠0089",
     "desc": "이번 턴 동안 무작위 적의 대미지를 {V} 감소시킵니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Kiddo",
       "Machinary"
@@ -177,7 +177,7 @@
   "Chunsik": {
     "name": "곽춘식",
     "desc": "체력이 가장 낮은 적에게 {A} 대미지를 입힙니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Competitor",
       "Guardian"
@@ -195,7 +195,7 @@
   "Rusuk": {
     "name": "해루석",
     "desc": "&y<[지속]> 앞선 멤버 하나를 {V}번 강화합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Crazy",
       "MainVocal"
@@ -231,7 +231,7 @@
   "Wakpago": {
     "name": "왁파고",
     "desc": "&y<[지속]> 우왁굳이 얻는 방어도와 보호막이 {V} 증가합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "Machinary"
@@ -249,7 +249,7 @@
   "BusinessKim": {
     "name": "비즈니스킴",
     "desc": "모든 적에게 {A} 대미지를 입힙니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Expert",
       "Nobles"
@@ -303,7 +303,7 @@
   "Gilbert": {
     "name": "철도왕 길버트",
     "desc": "모든 적에게 &y<손상>과 &y<화상>을 {V} 부여합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Expert",
       "Machinary"
@@ -312,7 +312,7 @@
   "Sullivan": {
     "name": "캡틴 설리반",
     "desc": "무작위 적에게 피해를 {A} 주고 골드를 {V} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Competitor",
       "Villain"
@@ -348,7 +348,7 @@
   "Seyong": {
     "name": "미미짱짱세용",
     "desc": "무작위 적에게 &y<혼란>을 {V} 부여합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Crazy",
       "Magician"
@@ -356,7 +356,7 @@
   },
   "Jentoo": {
     "name": "사랑전도사 젠투",
-    "desc": "보유한 방어도만큼 무작위 적에게 대미지를 입힙니다.",
+    "desc": "무작위 적에게 보유한 방어도만큼 대미지를 입힙니다.",
     "flavor": "",
     "synergy": [
       "Doormat",

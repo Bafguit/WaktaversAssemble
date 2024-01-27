@@ -5,6 +5,7 @@ import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractStatus;
+import com.fastcat.assemble.utils.TargetType;
 
 public class ApplyStatusAction extends AbstractAction {
 
@@ -19,6 +20,11 @@ public class ApplyStatusAction extends AbstractAction {
     public ApplyStatusAction(AbstractEntity target, AbstractStatus status, boolean isFast) {
         super(isFast ? 0.1f : 0.5f);
         this.target.add(target);
+        this.status = status;
+    }
+
+    public ApplyStatusAction(TargetType type, AbstractStatus status, boolean isFast) {
+        super(type, isFast ? 0.1f : 0.5f);
         this.status = status;
     }
 

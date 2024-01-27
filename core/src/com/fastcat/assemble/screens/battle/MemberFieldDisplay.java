@@ -2,12 +2,9 @@ package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.abstracts.AbstractMember;
@@ -53,7 +50,7 @@ public class MemberFieldDisplay extends Table {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color c = tile.getColor();
+        //Color c = tile.getColor();
         //tile.setColor(c.r, c.b, c.g, showTile ? 1 : 0);
         super.draw(batch, parentAlpha);
     }

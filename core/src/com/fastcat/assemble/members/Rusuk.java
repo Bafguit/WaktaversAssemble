@@ -6,8 +6,6 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 
 public class Rusuk extends AbstractMember {
 
-    private AbstractMember nextMember;
-
     public Rusuk() {
         super("Rusuk");
         setValue(1, 1);

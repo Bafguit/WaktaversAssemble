@@ -53,12 +53,12 @@ public final class SoundHandler implements Disposable {
         FileHandle fileHandle = Gdx.files.internal(url);
         return Gdx.audio.newSound(fileHandle);
     }
-
+/*
     private static Music getMusic(String url) {
         FileHandle fileHandle = Gdx.files.internal(url);
         return Gdx.audio.newMusic(fileHandle);
     }
-
+*/
     public static Sound playSfx(String key) {
         Sound s = sfx.get(key);
         if (s != null) {

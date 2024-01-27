@@ -6,6 +6,7 @@ import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.utils.TargetType;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
 public class Machinary extends AbstractSynergy {
@@ -23,7 +24,7 @@ public class Machinary extends AbstractSynergy {
             for(int i = 0; i < memberCount; i++) {
                 boolean b = WakTower.game.battleRandom.randomBoolean();
                 if(b) ActionHandler.next(new GainBlockAction(WakTower.game.player, m, true));
-                else ActionHandler.next(new DamageAction(new DamageInfo(m, null, DamageType.REFLECT), true));
+                else ActionHandler.next(new DamageAction(new DamageInfo(m, null, DamageType.REFLECT), TargetType.RANDOM, true));
             }
         }
     }

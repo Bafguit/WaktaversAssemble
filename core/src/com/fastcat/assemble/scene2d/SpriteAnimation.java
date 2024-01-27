@@ -1,32 +1,22 @@
 package com.fastcat.assemble.scene2d;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.interfaces.OnAnimationFinished;
 
 import java.util.HashMap;
-
-import org.checkerframework.common.subtyping.qual.Bottom;
 
 public class SpriteAnimation extends Table {
 
@@ -35,6 +25,7 @@ public class SpriteAnimation extends Table {
     private OnAnimationFinished singlAnimationTimer;
     private float singleTimer;
     private boolean singleTimerEnded;
+    private boolean flip = false;
 
     private String id;
     private SpriteAnimationData current;
@@ -65,16 +56,20 @@ public class SpriteAnimation extends Table {
         setDefault();
     }
 
+    public void flip() {
+        setFlip(true);
+    }
+
+    public void setFlip(boolean flip) {
+        this.flip = flip;
+    }
+
     private final void setDefault() {
         setOrigin(Align.bottom);
         hbar = new Image();
         hbar.setSize(256, 256);
         hbar.setOrigin(Align.bottom);
         addActor(hbar);
-        //add(hbar).center().bottom().pad(10);
-        //add(render).bottom();
-        //row();
-        //추가
     }
 
     public void setAnimation(String key) {
@@ -155,19 +150,21 @@ public class SpriteAnimation extends Table {
 
         if(hasAnimation) {
             Drawable frame = current.getFrame(timer);
-            //hbar.setBackground(frame);
             hbar.setDrawable(frame);
-            hbar.setSize(frame.getMinWidth(), frame.getMinHeight());
+            float w = frame.getMinWidth(), h = frame.getMinHeight();
+            hbar.setSize(w, h);
             hbar.setScale(scale);
-            hbar.setPosition(getOriginX(), getOriginY(), Align.bottom);
+            if(flip) hbar.setPosition(getOriginX() - w + current.axis.x, getOriginY() - current.axis.y);
+            else hbar.setPosition(getOriginX() - current.axis.x, getOriginY() - current.axis.y);
             if(isRunning) tickDuration(delta);
-            //throw new RuntimeException(frame.getX() + ", " + frame.getY() + ", " + frame.getScaleX());
         }
         super.act(delta);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        Color c = hbar.getColor();
+        hbar.setColor(c.r, c.g, c.b, alpha);
         super.draw(batch, parentAlpha);
     }
 
@@ -195,7 +192,7 @@ public class SpriteAnimation extends Table {
     public class SpriteAnimationData {
 
         private final TextureAtlas skin;
-        private final SpriteDrawable[] frames;
+        private final TextureRegionDrawable[] frames;
         private float duration, frameDuration, timescale = 1.0f;
         private boolean isLoop;
         private Vector2 axis;
@@ -207,10 +204,10 @@ public class SpriteAnimation extends Table {
             this.skin = sprites;
             //Array<Drawable> ds = new Array<>();
             int size = sprites.getRegions().size;
-            frames = new SpriteDrawable[size];
+            frames = new TextureRegionDrawable[size];
             for(int i = 0; i < size; i++) {
-                Sprite s = sprites.createSprite(Integer.toString(i));
-                SpriteDrawable trd = new SpriteDrawable(s);
+                TextureRegion s = sprites.findRegion(Integer.toString(i));
+                TextureRegionDrawable trd = new TextureRegionDrawable(s);
                 frames[i] = trd;
                 //ds.add(trd);
             }

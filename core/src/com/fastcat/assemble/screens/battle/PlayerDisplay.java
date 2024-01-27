@@ -8,13 +8,10 @@ import com.fastcat.assemble.abstracts.AbstractPlayer;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
 import com.fastcat.assemble.utils.HealthBar;
 
 public class PlayerDisplay extends AbstractUI implements OnStatusUpdated {
-
-    private final FontHandler.FontData font = FontHandler.TURN_CHANGE.cpy();
 
     public AbstractPlayer player;
     public LinkedList<StatusDisplay> status;

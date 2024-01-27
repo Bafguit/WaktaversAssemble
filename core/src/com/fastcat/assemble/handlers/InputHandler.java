@@ -130,7 +130,7 @@ public final class InputHandler {
 
     public void update() {
         int gx = Gdx.input.getX(), gy = Gdx.input.getY(), sw = Gdx.graphics.getWidth(), sh = Gdx.graphics.getHeight();
-        float sx = (float) sw / 1920.0f, sy = (float) sh / 1080.0f;
+        //float sx = (float) sw / 1920.0f, sy = (float) sh / 1080.0f;
         /*if(sx > 0) scaleX = sx;
         if(sy > 0) scaleY = sy;
         float a = ((float) sh) / ((float) sw);

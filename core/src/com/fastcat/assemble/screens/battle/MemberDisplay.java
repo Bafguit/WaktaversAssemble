@@ -6,22 +6,18 @@ import static com.fastcat.assemble.handlers.FontHandler.getHexColor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.utils.Disposable;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractUI.SubText.SubWay;
-import com.fastcat.assemble.actions.SummonMemberAction;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.InputHandler;
-import com.fastcat.assemble.handlers.ScreenHandler;
 import com.fastcat.assemble.screens.battle.SynergyDisplay.SynergyDisplayType;
 import java.util.regex.Matcher;
 
-public class MemberDisplay extends AbstractUI implements Disposable {
+public class MemberDisplay extends AbstractUI {
 
     private final FontHandler.FontData fontName = FontHandler.CARD_DESC.cpy();
     private final FontHandler.FontData fontDesc = FontHandler.CARD_DESC.cpy();

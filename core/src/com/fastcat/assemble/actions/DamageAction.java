@@ -9,17 +9,12 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.utils.TargetType;
 
 public class DamageAction extends AbstractAction {
 
     public DamageInfo info;
     public AbstractMember member;
-
-    // Random enemy or Player
-    public DamageAction(DamageInfo info) {
-        super(0.5f);
-        this.info = info;
-    }
 
     // Specific
     public DamageAction(DamageInfo info, AbstractEntity target) {
@@ -33,9 +28,9 @@ public class DamageAction extends AbstractAction {
         this.info = info;
     }
 
-    // Random enemy or Player
-    public DamageAction(DamageInfo info, boolean isFast) {
-        super(isFast ? 0.2f : 0.5f);
+    // Target Type
+    public DamageAction(DamageInfo info, TargetType target) {
+        super(target, 0.5f);
         this.info = info;
     }
 
@@ -47,6 +42,12 @@ public class DamageAction extends AbstractAction {
 
     // Several
     public DamageAction(DamageInfo info, Array<AbstractEntity> target, boolean isFast) {
+        super(target, isFast ? 0.2f : 0.5f);
+        this.info = info;
+    }
+
+    // Target Type
+    public DamageAction(DamageInfo info, TargetType target, boolean isFast) {
         super(target, isFast ? 0.2f : 0.5f);
         this.info = info;
     }

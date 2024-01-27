@@ -3,6 +3,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.handlers.ActionHandler;
+import com.fastcat.assemble.utils.TargetType;
 
 public abstract class AbstractAction implements Cloneable {
 
@@ -10,7 +11,7 @@ public abstract class AbstractAction implements Cloneable {
 
     public AbstractEntity source;
     public Array<AbstractEntity> target = new Array<>();
-    public AbstractCard.CardTarget tar = AbstractCard.CardTarget.NONE;
+    public TargetType tar = TargetType.NONE;
     public boolean isDone = false;
     public boolean run = true;
     public float baseDuration = DUR_DEFAULT;
@@ -24,7 +25,7 @@ public abstract class AbstractAction implements Cloneable {
         applySetting();
     }
 
-    public AbstractAction(AbstractCard.CardTarget target, float duration) {
+    public AbstractAction(TargetType target, float duration) {
         tar = target;
         this.duration = duration;
         baseDuration = this.duration;
@@ -51,7 +52,7 @@ public abstract class AbstractAction implements Cloneable {
             if (duration <= 0) isDone = true;
             else if (duration == baseDuration)
                 if (preAction != null) target = preAction.target;
-                //else if (tar != AbstractCard.CardTarget.NONE) target = AbstractSkill.getTargets(actor, tar);
+                else if (tar != TargetType.NONE) target = tar.getTargets();
             updateAction();
             if(run) TickDuration();
         }

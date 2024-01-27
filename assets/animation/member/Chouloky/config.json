@@ -2,25 +2,25 @@
     "idle": {
       "frameDuration": 0.067,
       "isLoop": true,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 128,
+      "axisY": 20
     },
     "summon": {
       "frameDuration": 0.067,
       "isLoop": false,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 128,
+      "axisY": 20
     },
     "skill": {
       "frameDuration": 0.067,
       "isLoop": false,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 128,
+      "axisY": 20
     },
     "exit": {
       "frameDuration": 0.067,
       "isLoop": false,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 128,
+      "axisY": 20
     }
   }

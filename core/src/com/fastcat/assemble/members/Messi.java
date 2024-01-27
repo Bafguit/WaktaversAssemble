@@ -4,6 +4,7 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
 import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.utils.TargetType;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
 public class Messi extends AbstractMember {
@@ -23,6 +24,6 @@ public class Messi extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL)));
+        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM));
     }
 }

@@ -3,15 +3,11 @@ package com.fastcat.assemble.effects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
-import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 
-import static com.badlogic.gdx.graphics.Color.alpha;
 import static com.fastcat.assemble.handlers.FontHandler.renderCenter;
 
 public class TurnChangeEffect extends AbstractEffect {

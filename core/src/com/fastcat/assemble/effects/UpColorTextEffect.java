@@ -7,7 +7,6 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 
 import static com.fastcat.assemble.handlers.FontHandler.renderCenter;
 

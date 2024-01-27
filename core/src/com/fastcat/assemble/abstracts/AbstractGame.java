@@ -5,10 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.GroupHandler;
-import com.fastcat.assemble.members.Gosegu;
-import com.fastcat.assemble.members.Hikiking;
-import com.fastcat.assemble.members.Jingburger;
-import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {

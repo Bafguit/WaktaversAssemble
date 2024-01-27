@@ -4,12 +4,9 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.actions.StartBattleAction;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
-import com.fastcat.assemble.interfaces.OnIncreaseWakDamage;
 import com.fastcat.assemble.screens.battle.BattleStage;
 import com.fastcat.assemble.synergies.Badass;
 import com.fastcat.assemble.synergies.Cat;
@@ -32,7 +29,6 @@ import com.fastcat.assemble.synergies.Timid;
 import com.fastcat.assemble.synergies.Villain;
 import com.fastcat.assemble.utils.FastCatUtils;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 public abstract class AbstractBattle implements Cloneable {

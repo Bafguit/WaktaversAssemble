@@ -1,6 +1,5 @@
 package com.fastcat.assemble.screens.battle;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +9,6 @@ import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.utils.Vector2i;
 
 public class TurnEndButton extends AbstractUI {
@@ -20,7 +18,6 @@ public class TurnEndButton extends AbstractUI {
     private final Sprite disabledImg;
 
     private Vector2i[] p = new Vector2i[3];
-    private int pc = 0;
 
     public TurnEndButton() {
         super(FileHandler.getTexture("ui/tile"));

@@ -12,7 +12,6 @@ import com.fastcat.assemble.handlers.FontHandler.FontData;
 public class SynergyDisplay extends AbstractUI {
 
     private static final String HINT = FontHandler.getHexColor(Color.GRAY);
-    private static final String HINT_2 = FontHandler.getHexColor(Color.LIGHT_GRAY);
     private static final String WHITE = FontHandler.getHexColor(Color.WHITE);
     private static final FontData NAME = FontHandler.SYN_NAME;
     private static final FontData AMOUNT = FontHandler.SYN_DESC;

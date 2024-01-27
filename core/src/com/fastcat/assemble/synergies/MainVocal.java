@@ -7,7 +7,6 @@ import com.fastcat.assemble.abstracts.AbstractSynergy;
 public class MainVocal extends AbstractSynergy {
 
     private static MainVocal instance;
-    private int preUpgrade = 0;
 
     private MainVocal() {
         super("MainVocal");

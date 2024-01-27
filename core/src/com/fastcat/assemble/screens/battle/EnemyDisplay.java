@@ -8,13 +8,10 @@ import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
-import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
 import com.fastcat.assemble.utils.HealthBar;
 
 public class EnemyDisplay extends AbstractUI implements OnStatusUpdated {
-
-    private final FontHandler.FontData font = FontHandler.TURN_CHANGE.cpy();
 
     public AbstractEnemy enemy;
     public LinkedList<StatusDisplay> status;

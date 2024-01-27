@@ -1,7 +1,5 @@
 package com.fastcat.assemble.members;
 
-import com.badlogic.gdx.utils.Array;
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.utils.DamageInfo;
 
