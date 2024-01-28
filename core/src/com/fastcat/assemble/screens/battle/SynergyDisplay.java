@@ -1,113 +1,95 @@
 package com.fastcat.assemble.screens.battle;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
+import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip.TextTooltipStyle;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
-import com.fastcat.assemble.abstracts.AbstractUI;
-import com.fastcat.assemble.abstracts.AbstractUI.SubText.SubWay;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.FontHandler.FontData;
 
-public class SynergyDisplay extends AbstractUI {
+public class SynergyDisplay extends Table {
 
+    private static final BitmapFont FONT_NAME = FontHandler.BF_SYN_NAME;
+    private static final BitmapFont FONT_DESC = FontHandler.BF_SYN_DESC;
     private static final String HINT = FontHandler.getHexColor(Color.GRAY);
     private static final String WHITE = FontHandler.getHexColor(Color.WHITE);
-    private static final FontData NAME = FontHandler.SYN_NAME;
-    private static final FontData AMOUNT = FontHandler.SYN_DESC;
+    private static final String NAME = FontHandler.getColorKey("y");
 
-    public final SynergyDisplayType type;
-    public AbstractSynergy synergy;
+    private final AbstractSynergy synergy;
 
-    private TempUI nameBg;
+    private Image image;
+    private TextTooltip tooltip;
 
-    public MemberDisplay member;
-
-    public SynergyDisplay(SynergyDisplayType type) {
-        super(FileHandler.getTexture("ui/synergyIcon"));
-        clickable = false;
-        this.type = type;
-        nameBg = new TempUI(FileHandler.getPng("ui/synergyNameBg"));
-        nameBg.basis = BasisType.CENTER_LEFT;
-        if(type == SynergyDisplayType.grade) {
-            overOnlyOne = false;
-        }
-    }
-
-    public SynergyDisplay(AbstractSynergy s, SynergyDisplayType type) {
-        this(type);
-        setSynergy(s);
-    }
-    
-    public void setSynergy(AbstractSynergy s) {
+    public SynergyDisplay(AbstractSynergy s) {
         synergy = s;
-        subs = new SubText(synergy.name, synergy.desc);
-    }
 
-    @Override
-    protected void updateButton() {
-        if(over) {
-            subTexts = getSubText();
-        } else subTexts = null;
-        nameBg.setPosition(originX, originY);
-        nameBg.update();
-    }
+        align(Align.left);
 
-    @Override
-    protected SubText getSubText() {
-        subs.name = synergy.name;
-        int l = synergy.gradeAmount.length;
-        subs.desc = synergy.desc;
-        if(l > 1) {
-            subs.desc += "\n";
+        image = new Image(synergy.img) {
+            @Override
+            public void act(float delta) {
+                setDrawable(synergy.gradeImg[synergy.grade]);
+                super.act(delta);
+            }
+        };
+        String txt = NAME + synergy.name + WHITE + "\n\n" + synergy.desc;
+        if(synergy.gradeAmount.length > 1) {
+            txt += "\n";
             for(int i = 0; i < synergy.gradeAmount.length; i++) {
                 int amt = synergy.gradeAmount[i];
-                if(synergy.grade == i + (amt == 1 ? 0 : 1)) subs.desc += "\n(" + amt + ") " + synergy.gradeDesc[i];
-                else subs.desc += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
+                if(synergy.grade == i + (amt == 1 ? 0 : 1)) txt += "\n(" + amt + ") " + synergy.gradeDesc[i];
+                else txt += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
             }
         }
-        return subs;
-    }
 
-    @Override
-    protected void renderUi(SpriteBatch sb) {
-        if(synergy != null) {
-            if(type == SynergyDisplayType.card) {
-                subInt = 10;
-                subWay = SubWay.UP;
-                sb.draw(synergy.img, x, y, width, height);
-            } else if(type == SynergyDisplayType.grade) {
-                subInt = originWidth * 2f;
-                subWay = SubWay.RIGHT;
-                sb.draw(nameBg.img, x + width * 1.06f, nameBg.y, nameBg.width, nameBg.height);
-                sb.draw(synergy.gradeImg[synergy.grade], x, y, width, height);
-                FontHandler.renderLineLeft(sb, NAME, synergy.name, x + width * 1.1f, y + height * 0.75f, width * 3);
+        if(tooltip != null) image.removeListener(tooltip);
+        TextTooltipStyle tts = new TextTooltipStyle(new LabelStyle(FontHandler.BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
+        tooltip = new TextTooltip(txt, tts);
+        tooltip.setInstant(true);
+        tooltip.getContainer().pad(14);
+        image.addListener(tooltip);
+
+        Table text = new Table();
+        text.left();
+
+        Label name = new Label("", new LabelStyle(FONT_NAME, Color.WHITE.cpy())) {
+            @Override
+            public void act(float delta) {
+                setText(synergy.name);
+                super.act(delta);
+            }
+        };
+        Label desc = new Label("", new LabelStyle(FONT_DESC, Color.WHITE.cpy())) {
+            @Override
+            public void act(float delta) {
                 int next;
                 if(synergy.grade < synergy.gradeImg.length - 1) {
                     next = synergy.gradeAmount[synergy.gradeAmount[0] < 2 ? synergy.grade + 1 : synergy.grade];
                 } else {
                     next = synergy.gradeAmount[synergy.gradeAmount.length - 1];
                 }
-                FontHandler.renderLineLeft(sb, AMOUNT, synergy.memberCount + " / " + next, x + width * 1.1f, y + height * 0.26f, width * 3);
+                setText(synergy.memberCount + " / " + next);
+                super.act(delta);
             }
-        }
+        };
+        
+        text.add(name).expand().center().left().pad(2);
+        text.row();
+        text.add(desc).expand().center().left().pad(2);
+
+        this.add(image);
+        this.add(text);
     }
 
-    public float compareTo(SynergyDisplay sd) {
-        int cg = synergy.gradeAmount[0], ng = sd.synergy.gradeAmount[0];
-        int g1 = synergy.getGrade(), g2 = sd.synergy.getGrade();
-        float cc = 0, nc = 0;
-
-        if(cg == 1) cc = ((g1 + 1) / synergy.gradeAmount.length);
-        else if(cg >= 2) cc = ((g1) / synergy.gradeAmount.length);
-
-        if(ng == 1) nc = ((g2 + 1) / sd.synergy.gradeAmount.length);
-        else if(ng >= 2) nc = ((g2) / sd.synergy.gradeAmount.length);
-
-        return nc - cc;
+    public AbstractSynergy getSynergy() {
+        return synergy;
     }
 
-    public enum SynergyDisplayType {
-        card, grade
-    }
+    
 }

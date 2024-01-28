@@ -7,7 +7,6 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.screens.battle.BattleScreen;
 import com.fastcat.assemble.screens.battle.BattleStage;
 
 public class StartGameButton extends AbstractUI {

@@ -3,6 +3,7 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.actions.SynergyFlashAction;
@@ -18,8 +19,8 @@ public abstract class AbstractSynergy {
     public final String[] gradeDesc;
     public final int[] gradeAmount;
     public final int maxGrade;
-    public final Sprite img;
-    public final Sprite[] gradeImg;
+    public final TextureRegionDrawable img;
+    public final TextureRegionDrawable[] gradeImg;
     public int baseMemCount, memberCount, grade, counter, globalCount;
     public int priority = 0;
     public Array<AbstractMember> members;
@@ -31,11 +32,11 @@ public abstract class AbstractSynergy {
         desc = data.desc;
         gradeDesc = data.gradeDesc;
         gradeAmount = data.gradeAmount;
-        img = new Sprite(data.img);
+        img = new TextureRegionDrawable(data.img);
         maxGrade = gradeDesc.length;
-        gradeImg = new Sprite[data.gradeImg.length];
+        gradeImg = new TextureRegionDrawable[data.gradeImg.length];
         for(int i = 0; i < gradeImg.length; i++) {
-            gradeImg[i] = new Sprite(data.gradeImg[i]);
+            gradeImg[i] = new TextureRegionDrawable(data.gradeImg[i]);
         }
         globalCount = 0;
         baseMemCount = memberCount = grade = counter = 0;
@@ -108,8 +109,8 @@ public abstract class AbstractSynergy {
         public final String id, name, desc;
         public final String[] gradeDesc;
         public final int[] gradeAmount;
-        public final Sprite img;
-        public final Sprite[] gradeImg;
+        public final TextureRegionDrawable img;
+        public final TextureRegionDrawable[] gradeImg;
 
         public SynergyData(String id, JsonValue json) {
             this.id = id;
@@ -118,14 +119,12 @@ public abstract class AbstractSynergy {
             gradeDesc = json.get("gradeDesc").asStringArray();
             gradeAmount = json.get("gradeAmount").asIntArray();
             TextureAtlas a = FileHandler.getAtlas("image/synergy/synergy");
-            img = a.createSprite(id, -1);
-            img.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-            gradeImg = new Sprite[gradeAmount[0] < 2 ? gradeAmount.length : gradeAmount.length + 1];
-            if(gradeAmount[0] == 0) gradeImg[0] = new Sprite(img);
+            img = new TextureRegionDrawable(a.findRegion(id, -1));
+            gradeImg = new TextureRegionDrawable[gradeAmount[0] < 2 ? gradeAmount.length : gradeAmount.length + 1];
+            if(gradeAmount[0] == 0) gradeImg[0] = new TextureRegionDrawable(img);
             else {
                 for(int i = 0; i < gradeImg.length; i++) {
-                    Sprite s = a.createSprite(id, i);
-                    s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+                    TextureRegionDrawable s = new TextureRegionDrawable(a.findRegion(id, i));
                     gradeImg[i] = s;
                 }
             }

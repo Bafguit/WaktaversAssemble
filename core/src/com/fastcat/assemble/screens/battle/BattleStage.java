@@ -1,6 +1,7 @@
 package com.fastcat.assemble.screens.battle;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -16,21 +17,29 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
+import com.fastcat.assemble.handlers.SynergyHandler;
 
 public class BattleStage extends Stage {
 
     private Table handTable;
     private Table fieldTable;
+    private Table synergyTable;
+
+    public SynergyDisplay[] synergies;
 
     public final AbstractBattle battle;
     public HashMap<AbstractMember, MemberCardDisplay> memberCards = new HashMap<>();
     public HashMap<AbstractMember, MemberFieldDisplay> memberFields = new HashMap<>();
+
+    private HashMap<AbstractSynergy, SynergyDisplay> synergyMap = new HashMap<>();
 
     public BattleStage() {
         this(WakTower.game.battle);
@@ -38,13 +47,34 @@ public class BattleStage extends Stage {
     
     public BattleStage(AbstractBattle battle) {
         super(WakTower.viewport);
+
         this.battle = battle;
+
+        synergies = new SynergyDisplay[19];
+
+        int c = 0;
+        for(JsonValue v : FileHandler.getInstance().jsonMap.get("synergy")) {
+            SynergyDisplay s = new SynergyDisplay(SynergyHandler.getSynergyInstance(v.name));
+            synergies[c++] = s;
+            synergyMap.put(s.getSynergy(), s);
+        }
+
         battle.setStage(this);
+
         handTable = new Table();
         handTable.bottom();
         handTable.setSize(1920, 350);
+
         fieldTable = new Table();
         fieldTable.setFillParent(true);
+
+        synergyTable = new Table();
+        synergyTable.setOrigin(Align.topLeft);
+        synergyTable.align(Align.topLeft);
+        synergyTable.setPosition(0, 810);
+
+        updateSynergy();
+
         Drawable d = FileHandler.getUI().getDrawable("tile");
 
         Table buttons = new Table();
@@ -91,81 +121,44 @@ public class BattleStage extends Stage {
         buttons.setPosition(1920, 1080, Align.topRight);
 
         this.addActor(fieldTable);
-        this.addActor(buttons);
+        this.addActor(synergyTable);
         this.addActor(handTable);
+        this.addActor(buttons);
 
         battle.turnDraw();
-        /*
-        int i = 0, s = battle.hand.size();
-        if(s == 1) {
-            AbstractMember m = battle.hand.get(0);
-            MemberCardDisplay mcd = new MemberCardDisplay(m);
-            handTable.add(mcd).bottom();
-            memberCards.put(m, mcd);
-        } else {
-            float g = (float)(s - 2) / (float)(WakTower.game.maxHand - 2);
-            float pad = Interpolation.linear.apply(80, 120, g);
-            float r = 7 - Interpolation.pow2InInverse.apply(0, 4, g);
-            float startRotation = r * (s - 1) / 2;
-            final float hMax = Interpolation.pow2In.apply(0, 80, g);
-            for(AbstractMember m : battle.hand) {
-                MemberCardDisplay mcd = new MemberCardDisplay(m);
-                mcd.setOrigin(Align.bottom);
-                if(s > 1) mcd.setRotation(startRotation - (r * i));
-                Cell<MemberCardDisplay> c = handTable.add(mcd).bottom();
-                if(i > 0) c.padLeft(-pad);
-                int sf = s / 2;
-                float pd = -70, alpha = 0.5f;
-                if(s % 2 == 0) {
-                    if(i < sf) {
-                        alpha = ((float) i) / (float)(sf - 1);
-                        pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
-                    } else {
-                        alpha = ((float)i - sf) / (float)(sf - 1);
-                        pd -= Interpolation.pow2In.apply(0, hMax, alpha);
-                    }
-                } else {
-                    if(i < sf) {
-                        alpha = ((float) i) / (float)sf;
-                        pd -= (hMax - Interpolation.pow2Out.apply(0, hMax, alpha));
-                    } else {
-                        alpha = ((float)i - sf) / (float)sf;
-                        pd -= Interpolation.pow2In.apply(0, hMax, alpha);
-                    }
-                }
-                c.padBottom(pd);
-                mcd.memberName.setText(pd + ", " + alpha);
-                memberCards.put(m, mcd);
-                i++;
-            }
-        }
-
-        MemberCardDisplay md = new MemberCardDisplay(new Gosegu());
-        md.setOrigin(Align.bottom);
-        md.setRotation(9);
-        handTable.add(md).bottom().padBottom(-75);
-
-        md = new MemberCardDisplay(new Jingburger());
-        md.setOrigin(Align.bottom);
-        md.setRotation(3);
-        handTable.add(md).bottom().padBottom(-50).padLeft(-30);
-
-        md = new MemberCardDisplay(new Victory());
-        md.setOrigin(Align.bottom);
-        md.setRotation(-3);
-        handTable.add(md).bottom().padBottom(-50).padLeft(-30);
-
-        md = new MemberCardDisplay(new Ine());
-        md.setOrigin(Align.bottom);
-        md.setRotation(-9);
-        handTable.add(md).bottom().padBottom(-75).padLeft(-30);
-*/
         setDebugAll(true);
         Gdx.input.setInputProcessor(this);
     }
 
     public void addMemberCardInHand(AbstractMember member) {
 
+    }
+
+    public void updateAll() {
+        updateSynergy();
+        updateMemberPosition();
+        updateHandPosition();
+    }
+
+    public void updateSynergy() {
+        synergyTable.clearChildren();
+
+        LinkedList<SynergyDisplay> list = new LinkedList<>();
+        for(SynergyDisplay s1 : synergyMap.values()) {
+            if(s1.getSynergy().memberCount > 0) {
+                int j = 0;
+                for(j = 0; j < list.size(); j++) {
+                    SynergyDisplay sn = list.get(j);
+                    if(s1.getSynergy().priority > sn.getSynergy().priority) break;
+                }
+                list.add(j, s1);
+            }
+        }
+
+        for(SynergyDisplay sd : list) {
+            synergyTable.add(sd).padTop(4);
+            synergyTable.row();
+        }
     }
 
     public void updateMemberPosition() {
