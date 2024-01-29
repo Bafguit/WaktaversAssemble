@@ -7,7 +7,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip.TextTooltipStyle;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -22,6 +21,7 @@ public class SynergyDisplay extends Table {
     private static final String NAME = FontHandler.getColorKey("y");
 
     private final AbstractSynergy synergy;
+    private final TextTooltipStyle tts;
 
     private Image image;
     private TextTooltip tooltip;
@@ -29,7 +29,9 @@ public class SynergyDisplay extends Table {
     public SynergyDisplay(AbstractSynergy s) {
         synergy = s;
 
-        align(Align.left);
+        left();
+        tts = new TextTooltipStyle(new LabelStyle(FontHandler.BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
+        tts.wrapWidth = 240;
 
         image = new Image(synergy.img) {
             @Override
@@ -38,7 +40,9 @@ public class SynergyDisplay extends Table {
                 super.act(delta);
             }
         };
+
         String txt = NAME + synergy.name + WHITE + "\n\n" + synergy.desc;
+
         if(synergy.gradeAmount.length > 1) {
             txt += "\n";
             for(int i = 0; i < synergy.gradeAmount.length; i++) {
@@ -47,9 +51,6 @@ public class SynergyDisplay extends Table {
                 else txt += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
             }
         }
-
-        if(tooltip != null) image.removeListener(tooltip);
-        TextTooltipStyle tts = new TextTooltipStyle(new LabelStyle(FontHandler.BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
         tooltip = new TextTooltip(txt, tts);
         tooltip.setInstant(true);
         tooltip.getContainer().pad(14);
@@ -79,17 +80,34 @@ public class SynergyDisplay extends Table {
             }
         };
         
-        text.add(name).expand().center().left().pad(2);
+        text.add(name).expand().center().left().padLeft(2);
         text.row();
-        text.add(desc).expand().center().left().pad(2);
+        text.add(desc).expand().center().left().padLeft(2);
 
-        this.add(image);
-        this.add(text);
+        this.add(image).left().width(36).height(36);
+        this.add(text).left();
     }
 
     public AbstractSynergy getSynergy() {
         return synergy;
     }
 
-    
+    @Override
+    public void act(float delta) {
+        String txt = NAME + synergy.name + WHITE + "\n\n" + synergy.desc;
+        if(synergy.gradeAmount.length > 1) {
+            txt += "\n";
+            for(int i = 0; i < synergy.gradeAmount.length; i++) {
+                int amt = synergy.gradeAmount[i];
+                if(synergy.grade == i + (amt == 1 ? 0 : 1)) txt += "\n(" + amt + ") " + synergy.gradeDesc[i];
+                else txt += HINT + "\n(" + amt + ") " + synergy.gradeDesc[i] + WHITE;
+            }
+        }
+        
+        Label l = new Label(txt, tts.label);
+        l.setWrap(true);
+        tooltip.getContainer().setActor(l);
+        
+        super.act(delta);
+    }
 }

@@ -71,7 +71,7 @@ public class BattleStage extends Stage {
         synergyTable = new Table();
         synergyTable.setOrigin(Align.topLeft);
         synergyTable.align(Align.topLeft);
-        synergyTable.setPosition(0, 810);
+        synergyTable.setPosition(0, 900);
 
         updateSynergy();
 
@@ -99,25 +99,24 @@ public class BattleStage extends Stage {
         });
         buttons.add(b2).right();
 
-        TextButton b3 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        TextButton b3 = new TextButton("DEBUG", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b3.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                setDebugAll(!isDebugAll());
+		        return true;
+	        }
+        });
+        buttons.add(b3).right();
+
+        TextButton b4 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        b4.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 Gdx.app.exit();
 		        return true;
 	        }
         });
-        buttons.add(b3).right();
-        buttons.row();
+        buttons.add(b4).right();
 
-        TextArea label = new TextArea("", new TextFieldStyle(FontHandler.BF_NB16, Color.WHITE, null, null, null)) {
-            @Override
-            public void act(float delta) {
-                setText(WakTower.getLog());
-                super.act(delta);
-            }
-        };
-        label.setSize(300, 200);
-        buttons.add(label).bottom().colspan(3);
         buttons.setPosition(1920, 1080, Align.topRight);
 
         this.addActor(fieldTable);
@@ -156,7 +155,7 @@ public class BattleStage extends Stage {
         }
 
         for(SynergyDisplay sd : list) {
-            synergyTable.add(sd).padTop(4);
+            synergyTable.add(sd).padTop(4).left();
             synergyTable.row();
         }
     }
