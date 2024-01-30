@@ -25,6 +25,8 @@ public abstract class AbstractSynergy {
     public int priority = 0;
     public Array<AbstractMember> members;
 
+    public boolean isOver = false;
+
     public AbstractSynergy(String id) {
         this.id = id;
         data = DataHandler.getInstance().synergyData.get(id);

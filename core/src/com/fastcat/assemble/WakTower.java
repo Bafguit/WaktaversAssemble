@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TooltipManager;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -80,6 +81,7 @@ public class WakTower extends ApplicationAdapter {
 		uiData = DataHandler.getInstance().uiData.get("loading");
 		
 		stage = new LoadingStage();
+		TooltipManager.getInstance().animations = false;
 	}
 
 	public static String getLog() {

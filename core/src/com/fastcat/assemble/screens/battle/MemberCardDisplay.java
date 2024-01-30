@@ -44,6 +44,7 @@ public class MemberCardDisplay extends Button {
     private final Image memberFrame;
     private final Table imageRoot;
     private final Image descBg;
+    private final boolean isViewer;
     private final Label memberDesc;
     public final Label memberName;
 
@@ -63,6 +64,10 @@ public class MemberCardDisplay extends Button {
     private float overScale = 0.95f;
 
     public MemberCardDisplay(AbstractMember member) {
+        this(member, false);
+    }
+
+    public MemberCardDisplay(AbstractMember member, boolean isViewer) {
 		super(FileHandler.getUI().getDrawable("cardBg"));
         setName("memberCardDisplay");
         setTransform(true);
@@ -72,6 +77,7 @@ public class MemberCardDisplay extends Button {
         root.align(Align.center);
         add(root);
 
+        this.isViewer = isViewer;
         this.member = member;
 
         memberImage = new Table(FileHandler.getMember());
@@ -114,6 +120,15 @@ public class MemberCardDisplay extends Button {
         synergies = new SynergyIcon[member.synergy.length];
         for(int i = 0; i < member.synergy.length; i++) {
             SynergyIcon sc = new SynergyIcon(member, i);
+            sc.addListener(new InputListener() {
+                public void enter (InputEvent event, float mx, float my, int pointer, @Null Actor fromActor) {
+                    sc.synergy.isOver = true;
+                }
+    
+                public void exit (InputEvent event, float mx, float my, int pointer, @Null Actor toActor) {
+                    sc.synergy.isOver = false;
+                }
+            });
             c = root.add(sc).center().right().width(33.6f).height(33.6f).padTop(14);
             synergies[i] = sc;
         }
@@ -149,6 +164,7 @@ public class MemberCardDisplay extends Button {
                 }
 	        }
         };
+        if(!isViewer) {
         addListener(dragListener);
         addListener(new InputListener() {
 	        public void enter (InputEvent event, float mx, float my, int pointer, @Null Actor fromActor) {
@@ -198,8 +214,12 @@ public class MemberCardDisplay extends Button {
                 }
 	        }
         });
-
+        }
         setOrigin(Align.bottom);
+        if(isViewer) {
+            baseScale = 0.8f;
+            setScale(0.8f);
+        }
     }
 
     private void cancelUse() {
@@ -237,9 +257,10 @@ public class MemberCardDisplay extends Button {
         matcher = FontHandler.VAR_PATTERN.matcher(text);
         while (matcher.find()) {
             String mt = matcher.group(1);
-            text = matcher.replaceFirst(member.getKeyValue(mt));
+            text = matcher.replaceFirst(isViewer ? member.tempClone.getKeyValue(mt) : member.getKeyValue(mt));
             matcher = FontHandler.VAR_PATTERN.matcher(text);
         }
+        memberName.setText(isViewer ? member.tempClone.getName() : member.getName());
         memberDesc.setText(text);
         
 		super.act(delta);
@@ -247,10 +268,12 @@ public class MemberCardDisplay extends Button {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        Color c = memberDesc.getColor();
-        memberDesc.setColor(c.r, c.b, c.g, timer);
-        c = imageRoot.getColor();
-        imageRoot.setColor(c.r, c.b, c.g, timer);
+        if(!isViewer) {
+            Color c = memberDesc.getColor();
+            memberDesc.setColor(c.r, c.b, c.g, timer);
+            c = imageRoot.getColor();
+            imageRoot.setColor(c.r, c.b, c.g, timer);
+        }
         super.draw(batch, parentAlpha);
     }
 
@@ -262,11 +285,13 @@ public class MemberCardDisplay extends Button {
     }
 
     public void resetPosition() {
-        ParallelAction action = new ParallelAction();
-        action.addAction(Actions.moveToAligned(baseX, baseY, Align.bottom, 0.1f, Interpolation.circle));
-        action.addAction(Actions.scaleTo(baseScale, baseScale, 0.1f, Interpolation.circle));
-        action.addAction(Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle));
-        addAction(action);
+        if(!isViewer) {
+            ParallelAction action = new ParallelAction();
+            action.addAction(Actions.moveToAligned(baseX, baseY, Align.bottom, 0.1f, Interpolation.circle));
+            action.addAction(Actions.scaleTo(baseScale, baseScale, 0.1f, Interpolation.circle));
+            action.addAction(Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle));
+            addAction(action);
+        }
     }
 
     private static class SynergyIcon extends Image {
@@ -274,6 +299,8 @@ public class MemberCardDisplay extends Button {
         private static final String HINT = FontHandler.getHexColor(Color.GRAY);
         private static final String WHITE = FontHandler.getHexColor(Color.WHITE);
         private static final String NAME = FontHandler.getColorKey("y");
+
+        private final TextTooltipStyle tts;
 
         private AbstractMember owner;
         private AbstractSynergy synergy;
@@ -284,8 +311,15 @@ public class MemberCardDisplay extends Button {
             super();
             owner = m;
             this.index = index;
+
+            tts = new TextTooltipStyle(new LabelStyle(BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
+            tts.wrapWidth = 240;
+            tooltip = new TextTooltip("", tts);
+            tooltip.setInstant(true);
+            tooltip.getContainer().pad(14);
             setSynergy(owner.synergy[index]);
             setName("synergyIcon");
+            addListener(tooltip);
         }
 
         @Override
@@ -308,12 +342,9 @@ public class MemberCardDisplay extends Button {
                 }
             }
 
-            if(tooltip != null) removeListener(tooltip);
-            TextTooltipStyle tts = new TextTooltipStyle(new LabelStyle(BF_SUB_DESC, Color.WHITE), FileHandler.getUI().getDrawable("tile"));
-            tooltip = new TextTooltip(text, tts);
-            tooltip.setInstant(true);
-            tooltip.getContainer().pad(14);
-            addListener(tooltip);
+            Label l = new Label(text, tts.label);
+            l.setWrap(true);
+            tooltip.getContainer().setActor(l);
         }
     }
 }

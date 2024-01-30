@@ -43,7 +43,6 @@ public class SpriteAnimation extends Table {
         this.type = type;
         generateAnimationData();
         setDefault();
-        setZIndex(10);
     }
 
     public SpriteAnimation(String id) {
