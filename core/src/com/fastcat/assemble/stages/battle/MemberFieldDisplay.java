@@ -1,9 +1,8 @@
-package com.fastcat.assemble.screens.battle;
+package com.fastcat.assemble.stages.battle;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Tooltip;
@@ -14,7 +13,7 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.scene2d.SpriteAnimation;
+import com.fastcat.assemble.uis.SpriteAnimation;
 
 public class MemberFieldDisplay extends Table {
 
@@ -48,16 +47,17 @@ public class MemberFieldDisplay extends Table {
 
         add(tile).center().bottom().padTop(-(tile.getMinHeight() / 2)).width(tile.getMinWidth()).height(tile.getMinHeight());
         row();
-
-        add(overTile).center().bottom().padTop(-overTile.getMinHeight()).width(overTile.getMinWidth()).height(overTile.getMinHeight());
-        row();
         
         label = new Label(member.name, new LabelStyle(FontHandler.BF_NB16, Color.WHITE));
-        add(label).center().bottom().expandX().padTop(-30);
+        add(label).center().bottom().expandX().padTop(-50);
 
-        animation.setZIndex(10);
-        label.setZIndex(11);
-        overTile.setZIndex(12);
+        animation.setZIndex(1);
+        label.setZIndex(2);
+        overTile.setZIndex(3);
+    }
+
+    public Tooltip<MemberCardDisplay> getTooltip() {
+        return tooltip;
     }
 
     @Override

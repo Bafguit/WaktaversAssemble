@@ -11,8 +11,8 @@ import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
 import com.fastcat.assemble.abstracts.AbstractRelic.RelicData;
 import com.fastcat.assemble.abstracts.AbstractStatus.StatusData;
 import com.fastcat.assemble.abstracts.AbstractSynergy.SynergyData;
-import com.fastcat.assemble.scene2d.SpriteAnimation;
-import com.fastcat.assemble.scene2d.SpriteAnimation.SpriteAnimationType;
+import com.fastcat.assemble.uis.SpriteAnimation;
+import com.fastcat.assemble.uis.SpriteAnimation.SpriteAnimationType;
 
 import java.util.HashMap;
 

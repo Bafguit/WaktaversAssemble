@@ -10,13 +10,13 @@ import com.fastcat.assemble.handlers.EffectHandler;
 import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.interfaces.OnHealthUpdated;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
-import com.fastcat.assemble.scene2d.SpriteAnimation;
-import com.fastcat.assemble.scene2d.SpriteAnimation.SpriteAnimationType;
 import com.fastcat.assemble.synergies.Badass;
 import com.fastcat.assemble.synergies.Doormat;
 import com.fastcat.assemble.synergies.Kiddo;
 import com.fastcat.assemble.synergies.Nunna;
 import com.fastcat.assemble.synergies.OldMan;
+import com.fastcat.assemble.uis.SpriteAnimation;
+import com.fastcat.assemble.uis.SpriteAnimation.SpriteAnimationType;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
 

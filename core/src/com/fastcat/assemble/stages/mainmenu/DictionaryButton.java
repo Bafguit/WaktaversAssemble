@@ -1,18 +1,18 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.stages.mainmenu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
-public class SettingButton extends AbstractUI {
+public class DictionaryButton extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.MAIN;
     private final FontHandler.FontData fontGrey = FontHandler.MAIN_GREY;
 
-    public SettingButton() {
-        super(FileHandler.getTexture("ui/tile"), 960, 300, 200, 80);
-        setData("settingButton");
+    public DictionaryButton() {
+        super(FileHandler.getTexture("ui/tile"), 960, 400, 200, 80);
+        setData("dictionaryButton");
     }
 
     @Override

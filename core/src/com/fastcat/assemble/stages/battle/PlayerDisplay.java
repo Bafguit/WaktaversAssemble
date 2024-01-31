@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.battle;
+package com.fastcat.assemble.stages.battle;
 
 import java.util.Iterator;
 import java.util.LinkedList;

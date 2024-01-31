@@ -7,7 +7,7 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
-import com.fastcat.assemble.screens.battle.BattleStage;
+import com.fastcat.assemble.stages.battle.BattleStage;
 import com.fastcat.assemble.synergies.Badass;
 import com.fastcat.assemble.synergies.Cat;
 import com.fastcat.assemble.synergies.Competitor;

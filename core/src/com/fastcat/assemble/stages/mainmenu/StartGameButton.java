@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.stages.mainmenu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;
@@ -7,7 +7,7 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.screens.battle.BattleStage;
+import com.fastcat.assemble.stages.battle.BattleStage;
 
 public class StartGameButton extends AbstractUI {
 

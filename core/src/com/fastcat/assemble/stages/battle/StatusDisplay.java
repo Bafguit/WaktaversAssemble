@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.battle;
+package com.fastcat.assemble.stages.battle;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstracts.AbstractStatus;

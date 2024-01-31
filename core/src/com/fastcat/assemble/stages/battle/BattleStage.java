@@ -1,21 +1,21 @@
-package com.fastcat.assemble.screens.battle;
+package com.fastcat.assemble.stages.battle;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Tooltip;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
@@ -26,8 +26,11 @@ import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
+import com.fastcat.assemble.uis.TopBar;
 
 public class BattleStage extends Stage {
+
+    private final TopBar topBar;
 
     private Table handTable;
     private Table fieldTable;
@@ -38,6 +41,7 @@ public class BattleStage extends Stage {
     public final AbstractBattle battle;
     public HashMap<AbstractMember, MemberCardDisplay> memberCards = new HashMap<>();
     public HashMap<AbstractMember, MemberFieldDisplay> memberFields = new HashMap<>();
+    public HashMap<AbstractMember, Button> overTiles = new HashMap<>();
 
     private HashMap<AbstractSynergy, SynergyDisplay> synergyMap = new HashMap<>();
 
@@ -47,6 +51,8 @@ public class BattleStage extends Stage {
     
     public BattleStage(AbstractBattle battle) {
         super(WakTower.viewport);
+
+        topBar = new TopBar();
 
         this.battle = battle;
 
@@ -73,6 +79,9 @@ public class BattleStage extends Stage {
         synergyTable.align(Align.topLeft);
         synergyTable.setPosition(0, 900);
 
+        for(AbstractSynergy s : WakTower.game.battle.synergy) {
+            s.reset();
+        }
         updateSynergy();
 
         Drawable d = FileHandler.getUI().getDrawable("tile");
@@ -122,6 +131,9 @@ public class BattleStage extends Stage {
         this.addActor(fieldTable);
         this.addActor(synergyTable);
         this.addActor(handTable);
+
+        this.addActor(topBar);
+
         this.addActor(buttons);
 
         battle.turnDraw();
@@ -161,6 +173,7 @@ public class BattleStage extends Stage {
     }
 
     public void updateMemberPosition() {
+        fieldTable.clearChildren();
         int ii = 0, jj = 0;
         for(int i = 0; i < battle.members.size; i++) {
             AbstractMember m = battle.members.get(i);
@@ -168,9 +181,31 @@ public class BattleStage extends Stage {
             if(md == null) {
                 md = new MemberFieldDisplay(m);
                 memberFields.put(m, md);
-                fieldTable.addActor(md);
             }
+            fieldTable.addActor(md);
             md.setPosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj), Align.bottom);
+            ii++;
+            if(ii == 4) {
+                jj++;
+                ii = 0;
+            }
+        }
+
+        ii = 0;
+        jj = 0;
+        for(int i = 0; i < battle.members.size; i++) {
+            AbstractMember m = battle.members.get(i);
+            Button overTile = overTiles.get(m);
+            if(overTile == null) {
+                Tooltip<MemberCardDisplay> tooltip = new Tooltip<MemberCardDisplay>(new MemberCardDisplay(m, true));
+                //tooltip.setInstant(true);
+                overTile = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/memberTile")));
+                overTile.addListener(tooltip);
+                overTile.setColor(1, 1, 1, 0);
+                overTiles.put(m, overTile);
+            }
+            fieldTable.addActor(overTile);
+            overTile.setPosition(840 - (70 * jj) - 210 * ii, 620 - (90 * jj), Align.bottom);
             ii++;
             if(ii == 4) {
                 jj++;

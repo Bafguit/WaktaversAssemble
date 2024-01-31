@@ -2,8 +2,8 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.screens.battle.BattleStage;
-import com.fastcat.assemble.screens.battle.MemberCardDisplay;
+import com.fastcat.assemble.stages.battle.BattleStage;
+import com.fastcat.assemble.stages.battle.MemberCardDisplay;
 
 public class SummonMemberAction extends AbstractAction {
 

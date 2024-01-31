@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.battle;
+package com.fastcat.assemble.stages.battle;
 
 import static com.badlogic.gdx.graphics.Color.WHITE;
 import static com.fastcat.assemble.handlers.FontHandler.BF_CARD_DESC;

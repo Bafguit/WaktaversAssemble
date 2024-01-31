@@ -12,7 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
-import com.fastcat.assemble.scene2d.SpriteAnimation;
+import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.utils.SkinAtlasLoader;
 import com.fastcat.assemble.utils.TextureAtlasFilterLoader;
 import com.fastcat.assemble.utils.WebpPixmapLoader;
@@ -104,6 +104,7 @@ public class FileHandler {
         assetManager.load("image/ui/hb_yet_mid.webp", Pixmap.class);
         assetManager.load("image/ui/hb_yet_right.webp", Pixmap.class);
         assetManager.load("image/ui/synergyNameBg.png", Pixmap.class);
+        assetManager.load("image/ui/topbar.png", Pixmap.class);
     }
 
     private void generateMember() {

@@ -1,18 +1,18 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.stages.mainmenu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
-public class LoadGameButton extends AbstractUI {
+public class SettingButton extends AbstractUI {
 
     private final FontHandler.FontData font = FontHandler.MAIN;
     private final FontHandler.FontData fontGrey = FontHandler.MAIN_GREY;
 
-    public LoadGameButton() {
-        super(FileHandler.getTexture("ui/tile"), 960, 500, 200, 80);
-        setData("loadGameButton");
+    public SettingButton() {
+        super(FileHandler.getTexture("ui/tile"), 960, 300, 200, 80);
+        setData("settingButton");
     }
 
     @Override

@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens.mainmenu;
+package com.fastcat.assemble.stages.mainmenu;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.fastcat.assemble.WakTower;

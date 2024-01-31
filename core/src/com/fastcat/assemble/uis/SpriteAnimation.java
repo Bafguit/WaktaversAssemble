@@ -1,4 +1,4 @@
-package com.fastcat.assemble.scene2d;
+package com.fastcat.assemble.uis;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;

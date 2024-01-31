@@ -16,8 +16,8 @@ import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;
-import com.fastcat.assemble.screens.LoadingStage;
-import com.fastcat.assemble.screens.mainmenu.MainMenuScreen;
+import com.fastcat.assemble.stages.LoadingStage;
+import com.fastcat.assemble.stages.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import io.github.zumikua.webploader.common.WebPLoaderFactory;
 import io.github.zumikua.webploader.common.WebPLoaderNativeInterface;
@@ -81,7 +81,11 @@ public class WakTower extends ApplicationAdapter {
 		uiData = DataHandler.getInstance().uiData.get("loading");
 		
 		stage = new LoadingStage();
-		TooltipManager.getInstance().animations = false;
+		TooltipManager m = TooltipManager.getInstance();
+		m.animations = false;
+		m.initialTime = 0.2f;
+		m.resetTime = 0.1f;
+		
 	}
 
 	public static String getLog() {

@@ -1,4 +1,4 @@
-package com.fastcat.assemble.screens;
+package com.fastcat.assemble.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -14,7 +14,7 @@ import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.screens.battle.BattleStage;
+import com.fastcat.assemble.stages.battle.BattleStage;
 
 public class LoadingStage extends Stage {
 
