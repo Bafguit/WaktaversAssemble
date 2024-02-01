@@ -26,12 +26,6 @@ public class RelicButton extends Table {
         setTransform(false);
 
         button = new Button(relic.img);
-        button.addListener(new InputListener() {
-            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                //TODO Open RelicInfoStage
-		        return true;
-	        }
-        });
 
         label = new Label(Integer.toString(relic.counter), new LabelStyle(FontHandler.BF_B24, Color.WHITE)) {
             public void act(float delta) {
@@ -43,9 +37,19 @@ public class RelicButton extends Table {
         //label.setWidth(76);
         label.setAlignment(Align.bottomRight);
 
+        Button b = new Button(relic.img);
+        b.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                //TODO Open RelicInfoStage
+		        return true;
+	        }
+        });
+
         add(button).center();
         row();
         add(label).align(Align.bottomRight).padTop(-label.getMinHeight() - 2).padRight(2);
+        row();
+        add(b).center().padTop(-b.getMinHeight());
     }
     
 }

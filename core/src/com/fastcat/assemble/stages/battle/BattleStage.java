@@ -26,12 +26,14 @@ import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
+import com.fastcat.assemble.stages.deckviewer.DeckViewerStage;
 import com.fastcat.assemble.uis.TopBar;
 
 public class BattleStage extends Stage {
 
     private final TopBar topBar;
 
+    private Table background;
     private Table handTable;
     private Table fieldTable;
     private Table synergyTable;
@@ -51,6 +53,10 @@ public class BattleStage extends Stage {
     
     public BattleStage(AbstractBattle battle) {
         super(WakTower.viewport);
+
+        background = new Table();
+        background.setBackground(new TextureRegionDrawable(FileHandler.getPng("bg/way_lab")));
+        background.setFillParent(true);
 
         topBar = new TopBar();
 
@@ -87,7 +93,7 @@ public class BattleStage extends Stage {
         Drawable d = FileHandler.getUI().getDrawable("tile");
 
         Table buttons = new Table();
-        buttons.align(Align.topRight);
+        buttons.align(Align.bottomRight);
 
         TextButton b = new TextButton("DRAW", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b.addListener(new InputListener() {
@@ -102,7 +108,8 @@ public class BattleStage extends Stage {
         b2.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.game.battle = new TestBattle();
-                WakTower.stage = new BattleStage();
+                WakTower.application.battleStage = new BattleStage();
+                WakTower.stage = WakTower.application.battleStage;
 		        return true;
 	        }
         });
@@ -117,17 +124,27 @@ public class BattleStage extends Stage {
         });
         buttons.add(b3).right();
 
-        TextButton b4 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        TextButton b4 = new TextButton("DECK", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b4.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                Gdx.app.exit();
+                WakTower.stage = new DeckViewerStage();
 		        return true;
 	        }
         });
         buttons.add(b4).right();
 
-        buttons.setPosition(1920, 1080, Align.topRight);
+        TextButton b5 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        b5.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                Gdx.app.exit();
+		        return true;
+	        }
+        });
+        buttons.add(b5).right();
 
+        buttons.setPosition(1920, 0, Align.bottomRight);
+
+        this.addActor(background);
         this.addActor(fieldTable);
         this.addActor(synergyTable);
         this.addActor(handTable);
@@ -138,6 +155,10 @@ public class BattleStage extends Stage {
 
         battle.turnDraw();
         setDebugAll(true);
+        focus();
+    }
+
+    public void focus() {
         Gdx.input.setInputProcessor(this);
     }
 

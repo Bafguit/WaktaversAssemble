@@ -56,6 +56,7 @@ public class MemberCardDisplay extends Button {
     private float timer = 0;
 
     public AbstractMember member;
+    public boolean isTemp = true;
 
     private DragListener dragListener;
     private boolean over = false;
@@ -257,10 +258,10 @@ public class MemberCardDisplay extends Button {
         matcher = FontHandler.VAR_PATTERN.matcher(text);
         while (matcher.find()) {
             String mt = matcher.group(1);
-            text = matcher.replaceFirst(isViewer ? member.tempClone.getKeyValue(mt) : member.getKeyValue(mt));
+            text = matcher.replaceFirst(isViewer && isTemp ? member.tempClone.getKeyValue(mt) : member.getKeyValue(mt));
             matcher = FontHandler.VAR_PATTERN.matcher(text);
         }
-        memberName.setText(isViewer ? member.tempClone.getName() : member.getName());
+        memberName.setText(isViewer && isTemp ? member.tempClone.getName() : member.getName());
         memberDesc.setText(text);
         
 		super.act(delta);

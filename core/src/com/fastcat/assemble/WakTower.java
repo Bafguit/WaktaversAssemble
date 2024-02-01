@@ -17,6 +17,7 @@ import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.stages.LoadingStage;
+import com.fastcat.assemble.stages.battle.BattleStage;
 import com.fastcat.assemble.stages.mainmenu.MainMenuScreen;
 import com.fastcat.assemble.utils.FillViewport;
 import io.github.zumikua.webploader.common.WebPLoaderFactory;
@@ -48,6 +49,8 @@ public class WakTower extends ApplicationAdapter {
 	public static AbstractUI subText;
 	public AbstractScreen screen;
 	public Array<AbstractScreen> tempScreen = new Array<>();
+
+	public BattleStage battleStage;
 
 	public SpriteBatch sb;
 

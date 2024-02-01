@@ -1,615 +1,246 @@
-
 synergy.png
-size: 2048, 512
-format: RGBA8888
-filter: Nearest, Nearest
-repeat: none
+	size: 1024, 512
+	filter: Linear, Linear
+	repeat: none
 Badass
-  rotate: false
-  xy: 296, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 677, 272, 133, 133
 Badass
-  rotate: false
-  xy: 1374, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 677, 272, 133, 133
 Badass
-  rotate: false
-  xy: 1668, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 677, 272, 133, 133
 Cat
-  rotate: false
-  xy: 786, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 812, 272, 133, 133
 Cat
-  rotate: false
-  xy: 1472, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 812, 272, 133, 133
 Competitor
-  rotate: false
-  xy: 100, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 137, 2, 133, 133
 Competitor
-  rotate: false
-  xy: 492, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 4
+	bounds: 137, 2, 133, 133
 Competitor
-  rotate: false
-  xy: 884, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
+	bounds: 137, 2, 133, 133
 Competitor
-  rotate: false
-  xy: 1080, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 1
+	bounds: 137, 2, 133, 133
 Competitor
-  rotate: false
-  xy: 1276, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 2
+	bounds: 137, 2, 133, 133
 Competitor
-  rotate: false
-  xy: 1472, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 137, 2, 133, 133
 Crazy
-  rotate: false
-  xy: 100, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 2, 2, 133, 133
 Crazy
-  rotate: false
-  xy: 198, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 4
+	bounds: 2, 2, 133, 133
 Crazy
-  rotate: false
-  xy: 492, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 3
+	bounds: 2, 2, 133, 133
 Crazy
-  rotate: false
-  xy: 786, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 2
+	bounds: 2, 2, 133, 133
 Crazy
-  rotate: false
-  xy: 1374, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
+	index: 1
+	bounds: 2, 2, 133, 133
 Crazy
-  rotate: false
-  xy: 1472, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 0
+	bounds: 2, 2, 133, 133
 Cutey
-  rotate: false
-  xy: 1178, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 677, 2, 133, 133
 Cutey
-  rotate: false
-  xy: 1668, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 677, 2, 133, 133
 Doormat
-  rotate: false
-  xy: 198, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 137, 137, 133, 133
 Doormat
-  rotate: false
-  xy: 394, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 137, 137, 133, 133
 Doormat
-  rotate: false
-  xy: 590, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 137, 137, 133, 133
 Doormat
-  rotate: false
-  xy: 1080, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	bounds: 137, 137, 133, 133
 Doormat
-  rotate: false
-  xy: 1374, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 2
+	bounds: 137, 137, 133, 133
 Expert
-  rotate: false
-  xy: 394, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 542, 137, 133, 133
 Expert
-  rotate: false
-  xy: 394, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	bounds: 542, 137, 133, 133
 Expert
-  rotate: false
-  xy: 884, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 1
+	bounds: 542, 137, 133, 133
 Expert
-  rotate: false
-  xy: 1472, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 0
+	bounds: 542, 137, 133, 133
 Expert
-  rotate: false
-  xy: 1668, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 4
+	bounds: 542, 137, 133, 133
 Expert
-  rotate: false
-  xy: 1668, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
+	index: 2
+	bounds: 542, 137, 133, 133
 Guardian
-  rotate: false
-  xy: 296, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 407, 2, 133, 133
 Guardian
-  rotate: false
-  xy: 590, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	bounds: 407, 2, 133, 133
 Guardian
-  rotate: false
-  xy: 982, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 0
+	bounds: 407, 2, 133, 133
 Guardian
-  rotate: false
-  xy: 1472, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 2
+	bounds: 407, 2, 133, 133
 Guardian
-  rotate: false
-  xy: 1570, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
+	index: 4
+	bounds: 407, 2, 133, 133
 Guardian
-  rotate: false
-  xy: 1570, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 407, 2, 133, 133
 Isedol
-  rotate: false
-  xy: 590, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 542, 2, 133, 133
 Isedol
-  rotate: false
-  xy: 492, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 2
+	bounds: 542, 2, 133, 133
 Isedol
-  rotate: false
-  xy: 1178, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	bounds: 542, 2, 133, 133
 Isedol
-  rotate: false
-  xy: 1374, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 0
+	bounds: 542, 2, 133, 133
 Kiddo
-  rotate: false
-  xy: 198, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 272, 137, 133, 133
 Kiddo
-  rotate: false
-  xy: 296, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 0
+	bounds: 272, 137, 133, 133
 Kiddo
-  rotate: false
-  xy: 688, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 2
+	bounds: 272, 137, 133, 133
 Kiddo
-  rotate: false
-  xy: 884, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 3
+	bounds: 272, 137, 133, 133
 Kiddo
-  rotate: false
-  xy: 982, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	bounds: 272, 137, 133, 133
 Machinary
-  rotate: false
-  xy: 100, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 542, 272, 133, 133
 Machinary
-  rotate: false
-  xy: 786, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 2
+	bounds: 542, 272, 133, 133
 Machinary
-  rotate: false
-  xy: 982, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	bounds: 542, 272, 133, 133
 Machinary
-  rotate: false
-  xy: 1080, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 3
+	bounds: 542, 272, 133, 133
 Machinary
-  rotate: false
-  xy: 1178, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 0
+	bounds: 542, 272, 133, 133
 Magician
-  rotate: false
-  xy: 2, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 2, 272, 133, 133
 Magician
-  rotate: false
-  xy: 492, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 2, 272, 133, 133
 Magician
-  rotate: false
-  xy: 688, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 2
+	bounds: 2, 272, 133, 133
 Magician
-  rotate: false
-  xy: 1080, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	bounds: 2, 272, 133, 133
 Magician
-  rotate: false
-  xy: 1276, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 4
+	bounds: 2, 272, 133, 133
 Magician
-  rotate: false
-  xy: 1276, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
+	index: 0
+	bounds: 2, 272, 133, 133
 MainVocal
-  rotate: false
-  xy: 296, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 407, 137, 133, 133
 MainVocal
-  rotate: false
-  xy: 590, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 4
+	bounds: 407, 137, 133, 133
 MainVocal
-  rotate: false
-  xy: 884, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 407, 137, 133, 133
 MainVocal
-  rotate: false
-  xy: 688, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 3
+	bounds: 407, 137, 133, 133
 MainVocal
-  rotate: false
-  xy: 1080, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 2
+	bounds: 407, 137, 133, 133
 MainVocal
-  rotate: false
-  xy: 1766, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 4
+	index: 0
+	bounds: 407, 137, 133, 133
 MindMaster
-  rotate: false
-  xy: 688, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 677, 137, 133, 133
 Nobles
-  rotate: false
-  xy: 296, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 2
+	bounds: 407, 272, 133, 133
 Nobles
-  rotate: false
-  xy: 590, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	bounds: 407, 272, 133, 133
 Nobles
-  rotate: false
-  xy: 982, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 0
+	bounds: 407, 272, 133, 133
 Nobles
-  rotate: false
-  xy: 1178, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 407, 272, 133, 133
 Nobles
-  rotate: false
-  xy: 1570, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 1
+	bounds: 407, 272, 133, 133
 Nunna
-  rotate: false
-  xy: 2, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 2, 137, 133, 133
 Nunna
-  rotate: false
-  xy: 100, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 2
+	bounds: 2, 137, 133, 133
 Nunna
-  rotate: false
-  xy: 786, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 3
+	bounds: 2, 137, 133, 133
 Nunna
-  rotate: false
-  xy: 884, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 0
+	bounds: 2, 137, 133, 133
 Nunna
-  rotate: false
-  xy: 1178, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 1
+	bounds: 2, 137, 133, 133
 OldMan
-  rotate: false
-  xy: 2, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 3
+	bounds: 137, 272, 133, 133
 OldMan
-  rotate: false
-  xy: 394, 394
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 137, 272, 133, 133
 OldMan
-  rotate: false
-  xy: 492, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 2
+	bounds: 137, 272, 133, 133
 OldMan
-  rotate: false
-  xy: 1276, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 1
+	bounds: 137, 272, 133, 133
 OldMan
-  rotate: false
-  xy: 1570, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 137, 272, 133, 133
 Timid
-  rotate: false
-  xy: 2, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 2
+	bounds: 272, 272, 133, 133
 Timid
-  rotate: false
-  xy: 198, 198
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	index: 3
+	bounds: 272, 272, 133, 133
 Timid
-  rotate: false
-  xy: 688, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	bounds: 272, 272, 133, 133
 Timid
-  rotate: false
-  xy: 982, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 3
+	index: 1
+	bounds: 272, 272, 133, 133
 Timid
-  rotate: false
-  xy: 1374, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 0
+	bounds: 272, 272, 133, 133
 Villain
-  rotate: false
-  xy: 2, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: -1
+	bounds: 272, 2, 133, 133
 Villain
-  rotate: false
-  xy: 100, 100
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 0
+	index: 2
+	bounds: 272, 2, 133, 133
 Villain
-  rotate: false
-  xy: 198, 2
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 2
+	index: 1
+	bounds: 272, 2, 133, 133
 Villain
-  rotate: false
-  xy: 1276, 296
-  size: 96, 96
-  orig: 96, 96
-  offset: 0, 0
-  index: 1
+	index: 0
+	bounds: 272, 2, 133, 133

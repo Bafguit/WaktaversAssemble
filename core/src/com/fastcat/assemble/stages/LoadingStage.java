@@ -44,7 +44,8 @@ public class LoadingStage extends Stage {
             clear();
             WakTower.game = new AbstractGame();
             WakTower.game.battle = new TestBattle();
-            WakTower.stage = new BattleStage(WakTower.game.battle);
+            WakTower.application.battleStage = new BattleStage();
+            WakTower.stage = WakTower.application.battleStage;
         }
     }
 }
