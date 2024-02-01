@@ -183,7 +183,7 @@ public class BattleStage extends Stage {
                 memberFields.put(m, md);
             }
             fieldTable.addActor(md);
-            md.setPosition(840 - (70 * jj) - 210 * ii, 600 - (90 * jj), Align.bottom);
+            md.setPosition(840 - (70 * jj) - 210 * ii, 500 - (90 * jj), Align.bottom);
             ii++;
             if(ii == 4) {
                 jj++;
@@ -205,7 +205,7 @@ public class BattleStage extends Stage {
                 overTiles.put(m, overTile);
             }
             fieldTable.addActor(overTile);
-            overTile.setPosition(840 - (70 * jj) - 210 * ii, 620 - (90 * jj), Align.bottom);
+            overTile.setPosition(840 - (70 * jj) - 210 * ii, 500 - (90 * jj), Align.bottom);
             ii++;
             if(ii == 4) {
                 jj++;

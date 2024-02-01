@@ -1,12 +1,19 @@
 package com.fastcat.assemble.uis;
 
+import java.util.HashMap;
+
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 
@@ -14,6 +21,8 @@ public class TopBar extends Table {
 
     private final Table barTable;
     private final Table relicTable;
+
+    private HashMap<AbstractRelic, RelicButton> relicMap = new HashMap<>();
 
     public TopBar() {
         this.align(Align.topLeft);
@@ -33,9 +42,20 @@ public class TopBar extends Table {
 
         relicTable = new Table();
 
-        this.add(barTable).expandX().height(96).align(Align.left);
+        this.add(barTable).expandX().height(80).align(Align.left);
         this.row();
-        this.add(relicTable).expandX().height(96).align(Align.left);
+        this.add(relicTable).expandX().height(80).align(Align.left);
+
+        updateRelic();
+    }
+
+    public void updateRelic() {
+        for(AbstractRelic r : WakTower.game.relics) {
+            if(relicMap.get(r) == null) {
+                RelicButton b = new RelicButton(r);
+                relicTable.add(b).left();
+            }
+        }
     }
     
 }

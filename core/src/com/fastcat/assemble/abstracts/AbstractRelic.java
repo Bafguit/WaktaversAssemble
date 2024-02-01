@@ -2,6 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.DataHandler;
@@ -13,7 +14,7 @@ public abstract class AbstractRelic {
     public final RelicData data;
     public String id, name, desc, flavor;
     public int counter = -1;
-    public Sprite img;
+    public TextureRegionDrawable img;
     public boolean isDone = false;
     public RelicRarity rarity;
 
@@ -23,7 +24,7 @@ public abstract class AbstractRelic {
         name = data.name;
         desc = data.desc;
         flavor = data.flavor;
-        img = new Sprite(data.img);
+        img = new TextureRegionDrawable(data.img);
         rarity = data.rarity;
     }
 
@@ -103,7 +104,7 @@ public abstract class AbstractRelic {
             name = json.getString("name");
             desc = json.getString("desc");
             flavor = json.getString("flavor");
-            img = FileHandler.getTexture("relic/" + id);
+            img = FileHandler.getPng("relic/" + id);
             rarity = RelicRarity.valueOf(json.getString("rarity"));
         }
     }

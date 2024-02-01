@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.GroupHandler;
+import com.fastcat.assemble.relics.TestRelic;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -59,6 +60,8 @@ public class AbstractGame {
         energyStart = 3;
         energyCharge = 1;
         energyMax = 3;
+
+        relics.add(new TestRelic());
     }
 
     public void update() {

@@ -109,7 +109,7 @@ public class FileHandler {
 
     private void generateMember() {
         for(JsonValue v : jsonMap.get("relic")) {
-            assetManager.load("image/relic/" + v.name + ".webp", Pixmap.class);
+            assetManager.load("image/relic/" + v.name + ".png", Pixmap.class);
         }
 
         for(JsonValue v : jsonMap.get("status")) {
@@ -119,9 +119,8 @@ public class FileHandler {
         //assetManager.load("image/member/member.atlas", TextureAtlas.class);
         assetManager.load("image/member/member.atlas", Skin.class);
         assetManager.load("image/synergy/synergy.atlas", Skin.class);
-
-        /*assetManager.load("atlas/relic.atlas", TextureAtlas.class);
-        assetManager.load("atlas/status.atlas", TextureAtlas.class);*/
+        //assetManager.load("atlas/relic.atlas", TextureAtlas.class);
+        //assetManager.load("atlas/status.atlas", TextureAtlas.class);
     }
 
     private void generateAnimationSprites() {
