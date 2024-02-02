@@ -12,7 +12,7 @@ public class Sullivan extends AbstractMember {
 
     public Sullivan() {
         super("Sullivan");
-        setAtk(6, 2);
+        setAtk(6, 1);
         setValue(3, 1);
     }
 
@@ -26,7 +26,7 @@ public class Sullivan extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM, true));
-        next(new GainGoldAction(value));
+        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.RANDOM, true));
+        next(new GainGoldAction(tempClone.calculateValue()));
     }
 }

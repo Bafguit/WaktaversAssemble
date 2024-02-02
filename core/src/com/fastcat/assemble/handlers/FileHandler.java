@@ -9,7 +9,9 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.uis.SpriteAnimation;
@@ -176,11 +178,11 @@ public class FileHandler {
         return atlas.createSprite(id);
     }
 
-    public static Sprite getMember(String id) {
+    public static TextureRegionDrawable getMember(String id) {
         Skin atlas = instance.assetManager.get("image/member/member.atlas", Skin.class);
-        Sprite s = new Sprite(atlas.getRegion(id));
+        TextureRegion s = atlas.getRegion(id);
         s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        return s;
+        return new TextureRegionDrawable(s);
     }
 
     public static Sprite getStatus(String id) {

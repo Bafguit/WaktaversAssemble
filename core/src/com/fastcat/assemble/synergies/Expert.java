@@ -10,7 +10,8 @@ public class Expert extends AbstractSynergy {
         super("Expert");
     }
 
-    public float muliplyExpertEffect() {
+    @Override
+    public float muliplyEffect() {
         if(grade == 1) return 1.5f;
         else if(grade == 2) return 1.75f;
         else if(grade == 3) return 2.25f;

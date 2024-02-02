@@ -1,5 +1,6 @@
 package com.fastcat.assemble.members;
 
+import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
@@ -12,7 +13,7 @@ public class Freeter extends AbstractMember {
 
     public Freeter() {
         super("Freeter");
-        setAtk(3, 2);
+        setValue(3, 2);
     }
 
     public void damageTaken(DamageInfo info) {
@@ -26,7 +27,7 @@ public class Freeter extends AbstractMember {
     protected void useMember() {
         if(info.source != null && !info.source.isPlayer) {
             next(new MemberSkillAnimationAction(this));
-            next(new DamageAction(new DamageInfo(this, DamageType.REFLECT), info.source, true));
+            next(new DamageAction(new DamageInfo(this.tempClone.calculateValue(), WakTower.game.player, DamageType.REFLECT), info.source, true));
         }
     }
 }

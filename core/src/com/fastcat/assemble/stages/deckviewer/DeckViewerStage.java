@@ -32,13 +32,12 @@ public class DeckViewerStage extends AbstractStage {
         deckTable = new Table();
         updateDeck();
         scroll = new ScrollPane(deckTable);
-        scroll.setSize(1600, 800);
         setScrollFocus(scroll);
 
 
         TopBar topBar = new TopBar();
         
-        root.add(scroll).center().bottom();
+        root.add(scroll).center().bottom().expand();
         root.align(Align.bottom);
         root.setSize(1920, 1000);
 
@@ -70,7 +69,7 @@ public class DeckViewerStage extends AbstractStage {
 
             Cell<MemberCardDisplay> c = deckTable.add(md);
             if(i > 0) c.padLeft(15);
-            if(j > 0) c.padTop(15);
+            c.padTop(j == 0 ? 80 : 15);
 
             if(i < 4) i++;
             else {

@@ -1,6 +1,7 @@
 package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
@@ -32,7 +33,7 @@ public abstract class AbstractMember implements Cloneable {
     public String name;
     public String desc;
     public String flavor;
-    public Sprite img;
+    public TextureRegionDrawable img;
     public int upgradeCount = 0;
     public int upgradeLimit = 1;
     public int atk, baseAtk, upAtk, def, baseDef, upDef;
@@ -90,7 +91,6 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractSynergy s : synergy) {
             s.addMember(this);
         }
-        newTemp();
         onSummon();
     }
     
@@ -130,10 +130,17 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractStatus s : WakTower.game.player.status) {
             s.onSummon(this);
         }
+        
         onSummoned();
+
+        for(AbstractMember m : WakTower.game.battle.members) {
+            if(m != this) m.onAfterSummon(this);
+        }
     }
 
     public void onSummon(AbstractMember m) {}
+
+    public void onAfterSummon(AbstractMember m) {}
 
     protected void onSummoned() {}
 
@@ -218,11 +225,11 @@ public abstract class AbstractMember implements Cloneable {
 
             baseValue += upValue;
             if(baseValue < 0) baseValue = 0;
-            value = baseValue;
+            calculateValue();
 
             baseValue2 += upValue2;
             if(baseValue2 < 0) baseValue2 = 0;
-            value2 = baseValue2;
+            calculateValue2();
         }
     }
 
@@ -298,6 +305,10 @@ public abstract class AbstractMember implements Cloneable {
             a *= s.multiplyAtk();
         }
 
+        for(AbstractSynergy s : synergy) {
+            a *= s.muliplyEffect();
+        }
+
         atk = a;
         return a;
     }
@@ -325,8 +336,28 @@ public abstract class AbstractMember implements Cloneable {
             d *= s.multiplyDef();
         }
 
+        for(AbstractSynergy s : synergy) {
+            d *= s.muliplyEffect();
+        }
+
         def = d;
         return d;
+    }
+
+    public int calculateValue() {
+        value = baseValue;
+        for(AbstractSynergy s : synergy) {
+            value *= s.muliplyEffect();
+        }
+        return value;
+    }
+
+    public int calculateValue2() {
+        value2 = baseValue2;
+        for(AbstractSynergy s : synergy) {
+            value2 *= s.muliplyEffect();
+        }
+        return value2;
     }
 
     public boolean hasSynergy(AbstractSynergy s) {
@@ -348,7 +379,7 @@ public abstract class AbstractMember implements Cloneable {
         for(AbstractRelic rl : WakTower.game.relics) {
             r += rl.repeatAmount(this) - 1;
         }
-        for(AbstractSynergy s : WakTower.game.battle.synergy) {
+        for(AbstractSynergy s : synergy) {
             r += s.repeatAmount(this) - 1;
         }
         for(int i = 0; i < r; i++) {
@@ -373,6 +404,7 @@ public abstract class AbstractMember implements Cloneable {
             e.printStackTrace();
             return null;
         }
+        m.animation = this.animation;
         return m;
     }
 

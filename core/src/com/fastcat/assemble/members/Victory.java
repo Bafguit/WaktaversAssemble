@@ -23,22 +23,22 @@ public class Victory extends AbstractMember implements OnIncreaseMemberDamage {
 
     @Override
     public void onSummon(AbstractMember m) {
-        while(true) {
-            if(!WakTower.game.battle.turnMemberDamage.remove(this)) break;
-        }
+        use();
+    }
+
+    @Override
+    public void onAfterSummon(AbstractMember m) {
         use();
     }
 
     @Override
     public void onExit() {
-        while(true) {
-            if(!WakTower.game.battle.turnMemberDamage.remove(this)) break;
-        }
+        WakTower.game.battle.turnMemberDamage.remove(this);
     }
 
     @Override
     public int increaseMemberDamage() {
-        return value;
+        return tempClone.calculateValue();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Victory extends AbstractMember implements OnIncreaseMemberDamage {
             next(new MemberVictoryAction(this));
             summoned = false;
         } else {
-            WakTower.game.battle.turnMemberDamage.add(this);
+            if(WakTower.game.battle.turnMemberDamage.remove(this)) WakTower.game.battle.turnMemberDamage.add(this);
         }
     }
 

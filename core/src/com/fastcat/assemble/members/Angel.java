@@ -22,6 +22,6 @@ public class Angel extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBlockAction(WakTower.game.player, this));
+        next(new GainBlockAction(WakTower.game.player, this.tempClone));
     }
 }

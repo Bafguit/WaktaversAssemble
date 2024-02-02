@@ -9,7 +9,7 @@ public class Ine extends AbstractMember {
 
     public Ine() {
         super("Ine");
-        setDef(5, 3);
+        setDef(5, 2);
     }
 
     @Override
@@ -22,6 +22,6 @@ public class Ine extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBarrierAction(WakTower.game.player, this));
+        next(new GainBarrierAction(WakTower.game.player, this.tempClone));
     }
 }

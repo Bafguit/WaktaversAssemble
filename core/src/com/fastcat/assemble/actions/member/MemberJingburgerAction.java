@@ -24,7 +24,7 @@ public class MemberJingburgerAction extends AbstractAction {
                 if(m == jingburger) break;
                 else cnt++;
             }
-            WakTower.game.player.gainBlock(jingburger.calculatedDef() * cnt);
+            WakTower.game.player.gainBlock(jingburger.tempClone.calculatedDef() * cnt);
             //todo block effect
         }
     }

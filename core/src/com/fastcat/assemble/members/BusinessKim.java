@@ -11,7 +11,7 @@ public class BusinessKim extends AbstractMember {
 
     public BusinessKim() {
         super("BusinessKim");
-        setAtk(8, 3);
+        setAtk(8, 2);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class BusinessKim extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.ALL_ENEMY));
+        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.ALL_ENEMY));
     }
 }

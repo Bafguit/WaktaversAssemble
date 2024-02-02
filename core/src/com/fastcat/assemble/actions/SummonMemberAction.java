@@ -20,8 +20,8 @@ public class SummonMemberAction extends AbstractAction {
             BattleStage stage = WakTower.game.battle.getStage();
             stage.removeHand(member.member);
             WakTower.game.battle.members.add(member.member);
-            stage.updateMemberPosition();
             member.member.summon();
+            stage.updateMemberPosition();
             stage.updateSynergy();
             //EffectHandler.add(new UpColorTextEffect(member.getX(), member.getY() + 100, MathUtils.random(1, 100), Color.CYAN));
         }

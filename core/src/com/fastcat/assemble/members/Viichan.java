@@ -26,8 +26,8 @@ public class Viichan extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
+        next(new MemberSkillAnimationAction(this.tempClone));
         next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM));
-        next(new IncreaseAtkAction(this, value));
+        next(new IncreaseAtkAction(this, calculateValue()));
     }
 }

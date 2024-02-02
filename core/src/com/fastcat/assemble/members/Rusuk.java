@@ -19,12 +19,18 @@ public class Rusuk extends AbstractMember {
     }
 
     @Override
+    protected void onSummoned() {
+        use();
+    }
+
+    @Override
     protected void useMember() {
         Array<AbstractMember> ms = WakTower.game.battle.members;
         for(int i = 0; i < ms.size; i++) {
             AbstractMember m = ms.get(i);
             if(m == this && i > 0) {
-                ms.get(i - 1).upgradeTemp(value);
+                AbstractMember pre = ms.get(i - 1);
+                pre.upgradeTemp(tempClone.calculateValue());
                 break;
             }
         }

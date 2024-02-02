@@ -14,29 +14,9 @@ public class Kimchimandu extends AbstractMember {
     }
 
     public int damageTake(DamageInfo info) {
-        return info.damage - value;
+        return info.damage - tempClone.calculateValue();
     }
 
     @Override
-    protected void onSummoned() {
-        value = 0;
-        summoned = true;
-        use();
-    }
-
-    @Override
-    public void onSummon(AbstractMember m) {
-        value = 0;
-        use();
-    }
-
-    @Override
-    protected void useMember() {
-        if(summoned) {
-            //todo value increase action
-            summoned = false;
-        } else {
-            value += baseValue;
-        }
-    }
+    protected void useMember() {}
 }

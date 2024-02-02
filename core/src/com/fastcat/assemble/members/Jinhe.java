@@ -10,7 +10,7 @@ public class Jinhe extends AbstractMember {
 
     public Jinhe() {
         super("Jinhe");
-        setAtk(7, 0);
+        setDef(7, 0);
         setValue(2, 1);
     }
 
@@ -26,6 +26,6 @@ public class Jinhe extends AbstractMember {
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
         next(new GainBlockAction(WakTower.game.player, this));
-        next(new IncreaseDefAction(this, value));
+        next(new IncreaseDefAction(this, calculateValue()));
     }
 }

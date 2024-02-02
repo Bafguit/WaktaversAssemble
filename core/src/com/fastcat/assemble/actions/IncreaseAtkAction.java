@@ -17,6 +17,7 @@ public class IncreaseAtkAction extends AbstractAction {
     protected void updateAction() {
         if(isDone) {
             member.baseAtk += amount;
+            if(member.tempClone != null) member.tempClone.baseAtk += amount;
         }
     }
 }

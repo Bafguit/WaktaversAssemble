@@ -11,7 +11,7 @@ public class Messi extends AbstractMember {
 
     public Messi() {
         super("Messi");
-        setAtk(6, 3);
+        setAtk(6, 2);
     }
 
     @Override
@@ -24,6 +24,6 @@ public class Messi extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM));
+        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.RANDOM));
     }
 }

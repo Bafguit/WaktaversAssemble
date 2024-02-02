@@ -90,6 +90,10 @@ public abstract class AbstractSynergy {
     public int repeatAmount(AbstractMember m) {
         return 1;
     }
+    
+    public float muliplyEffect() {
+        return 1f;
+    }
 
     public void reset() {
         members.clear();

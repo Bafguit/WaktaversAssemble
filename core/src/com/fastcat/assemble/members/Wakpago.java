@@ -23,22 +23,22 @@ public class Wakpago extends AbstractMember implements OnIncreaseMemberDef {
 
     @Override
     public void onSummon(AbstractMember m) {
-        while(true) {
-            if(!WakTower.game.battle.turnMemberDef.remove(this)) break;
-        }
+        use();
+    }
+
+    @Override
+    public void onAfterSummon(AbstractMember m) {
         use();
     }
 
     @Override
     public void onExit() {
-        while(true) {
-            if(!WakTower.game.battle.turnMemberDef.remove(this)) break;
-        }
+        WakTower.game.battle.turnMemberDef.remove(this);
     }
 
     @Override
     public int increaseMemberDef() {
-        return value;
+        return tempClone.calculateValue();
     }
 
     @Override
@@ -47,7 +47,7 @@ public class Wakpago extends AbstractMember implements OnIncreaseMemberDef {
             next(new MemberWakpagoAction(this));
             summoned = false;
         } else {
-            WakTower.game.battle.turnMemberDef.add(this);
+            if(!WakTower.game.battle.turnMemberDef.remove(this)) WakTower.game.battle.turnMemberDef.add(this);
         }
     }
 

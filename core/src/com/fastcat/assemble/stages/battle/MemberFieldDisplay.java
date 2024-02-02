@@ -37,7 +37,7 @@ public class MemberFieldDisplay extends Table {
         tile = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/memberTile")));
         overTile = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/memberTile")));
 
-        tooltip = new Tooltip<MemberCardDisplay>(new MemberCardDisplay(m, true));
+        tooltip = new Tooltip<MemberCardDisplay>(new MemberCardDisplay(m.tempClone, true));
         tooltip.setInstant(true);
         overTile.addListener(tooltip);
         overTile.setColor(1, 1, 1, 0);

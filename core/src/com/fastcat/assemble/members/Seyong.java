@@ -20,7 +20,7 @@ public class Seyong extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
+        next(new MemberSkillAnimationAction(this.tempClone));
         //next(new ApplyStatusAction(TargetType.RANDOM, null, false));
         //TODO Status 추가
     }

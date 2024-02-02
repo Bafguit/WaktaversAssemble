@@ -3,7 +3,12 @@ package com.fastcat.assemble.actions.member;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.actions.DamageAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Lilpa;
+import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.utils.TargetType;
+import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
 public class MemberLilpaAction extends AbstractAction {
 
@@ -24,7 +29,9 @@ public class MemberLilpaAction extends AbstractAction {
                 if(m == lilpa) break;
                 else cnt++;
             }
-            //todo attack
+            for(int i = 0; i < cnt; i++) {
+                ActionHandler.next(new DamageAction(new DamageInfo(lilpa.tempClone, DamageType.NORMAL), TargetType.RANDOM, true));
+            }
         }
     }
 }

@@ -17,6 +17,7 @@ public class IncreaseDefAction extends AbstractAction {
     protected void updateAction() {
         if(isDone) {
             member.baseDef += amount;
+            if(member.tempClone != null) member.tempClone.baseDef += amount;
         }
     }
 }

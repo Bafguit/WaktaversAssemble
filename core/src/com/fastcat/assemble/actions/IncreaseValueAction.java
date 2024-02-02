@@ -16,7 +16,8 @@ public class IncreaseValueAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(isDone) {
-            member.value += amount;
+            member.baseValue += amount;
+            if(member.tempClone != null) member.tempClone.baseValue += amount;
         }
     }
 }

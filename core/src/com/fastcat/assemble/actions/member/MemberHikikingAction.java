@@ -24,7 +24,7 @@ public class MemberHikikingAction extends AbstractAction implements OnAnimationF
             member.animation.setAnimation("skill_0");
             member.animation.setSingleAnimationListener(this, 0.06f);
             amount = WakTower.game.battle.enemies.size();
-            for(int i = 0; i < member.value; i++) {
+            for(int i = 0; i < member.tempClone.calculateValue(); i++) {
                 AbstractEnemy e = WakTower.game.battle.enemies.get(WakTower.game.battleRandom.random(0, amount - 1));
                 target.add(e);
             }
@@ -50,7 +50,7 @@ public class MemberHikikingAction extends AbstractAction implements OnAnimationF
 
     @Override
     public void onSingleFinished(String key) {
-        DamageInfo info = new DamageInfo(member.calculatedAtk(), WakTower.game.player, DamageInfo.DamageType.NORMAL);
+        DamageInfo info = new DamageInfo(member.tempClone.calculatedAtk(), WakTower.game.player, DamageInfo.DamageType.NORMAL);
         target.get(count++).takeDamage(info);
         member.animation.addAnimationFinishedListener(this);
     }

@@ -8,7 +8,7 @@ public class Gosegu extends AbstractMember {
 
     public Gosegu() {
         super("Gosegu");
-        setValue(2, 1);
+        setValue(1, 1);
     }
 
     public void startOfTurn(boolean isPlayer) {
@@ -20,6 +20,6 @@ public class Gosegu extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DrawAndDiscardAction(value));
+        next(new DrawAndDiscardAction(tempClone.calculateValue()));
     }
 }

@@ -1,5 +1,6 @@
 package com.fastcat.assemble.synergies;
 
+import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 
 public class Isedol extends AbstractSynergy {
@@ -10,7 +11,8 @@ public class Isedol extends AbstractSynergy {
         super("Isedol");
     }
 
-    public int repeatAmount() {
+    @Override
+    public int repeatAmount(AbstractMember m) {
         if(grade == 1) return 2;
         else if(grade == 2) return 3;
         else return 1;
