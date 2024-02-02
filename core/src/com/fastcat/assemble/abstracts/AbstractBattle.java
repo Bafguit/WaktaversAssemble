@@ -60,7 +60,7 @@ public abstract class AbstractBattle implements Cloneable {
         Array<AbstractMember> mm = new Array<AbstractMember>(WakTower.game.deck);
         FastCatUtils.staticShuffle(mm, WakTower.game.battleRandom, AbstractMember.class);
         for(AbstractMember m : mm) {
-            drawPile.addLast(m.cpy());
+            drawPile.addLast(m.duplicate());
         }
         setEnemy();
         phase = BattlePhase.battleStart;

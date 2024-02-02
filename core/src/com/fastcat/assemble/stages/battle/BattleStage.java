@@ -32,8 +32,6 @@ import com.fastcat.assemble.uis.TopBar;
 
 public class BattleStage extends AbstractStage {
 
-    private final TopBar topBar;
-
     private Table handTable;
     private Table fieldTable;
     private Table synergyTable;
@@ -53,8 +51,6 @@ public class BattleStage extends AbstractStage {
     
     public BattleStage(AbstractBattle battle) {
         super(FileHandler.getPng("bg/way_lab"));
-
-        topBar = new TopBar();
 
         this.battle = battle;
 

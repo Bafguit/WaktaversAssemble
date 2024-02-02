@@ -408,6 +408,14 @@ public abstract class AbstractMember implements Cloneable {
         return m;
     }
 
+    public AbstractMember duplicate() {
+        AbstractMember m = cpy();
+        m.animation = this.animation.cpy();
+        m.img = new TextureRegionDrawable(this.img);
+
+        return m;
+    }
+
     public static class MemberData {
         public final String id;
         public final String name;

@@ -107,6 +107,8 @@ public class FileHandler {
         assetManager.load("image/ui/hb_yet_right.webp", Pixmap.class);
         assetManager.load("image/ui/synergyNameBg.png", Pixmap.class);
         assetManager.load("image/ui/topbar.png", Pixmap.class);
+        assetManager.load("image/ui/checkbox_on.png", Pixmap.class);
+        assetManager.load("image/ui/checkbox_off.png", Pixmap.class);
 
         //BG
         assetManager.load("image/bg/way_lab.png", Pixmap.class);

@@ -17,14 +17,14 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.BattleStage;
 
-public class LoadingStage extends AbstractStage {
+public class LoadingStage extends Stage {
 
     private final UIData data;
     private final Table root;
     private final Label label;
     
     public LoadingStage() {
-        super();
+        super(WakTower.viewport);
         data = DataHandler.getInstance().uiData.get("loading");
         root = new Table();
         this.addActor(root);

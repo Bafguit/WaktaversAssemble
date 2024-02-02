@@ -19,6 +19,7 @@ import com.fastcat.assemble.members.Lilpa;
 import com.fastcat.assemble.members.Messi;
 import com.fastcat.assemble.members.Sullivan;
 import com.fastcat.assemble.members.Rusuk;
+import com.fastcat.assemble.members.Seyong;
 import com.fastcat.assemble.members.Sophia;
 import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.members.Viichan;
@@ -52,6 +53,7 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new Duksu());
         a.add(new Chunsik());
         a.add(new Hodd());
+        a.add(new Seyong());
         a.add(new Sophia());
         a.add(new Victory());
         a.add(new Jinhe());

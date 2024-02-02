@@ -44,9 +44,9 @@ public class WakTower extends ApplicationAdapter {
 	public static float tick;
 	public static boolean fading;
 
-	public static AbstractStage stage;
+	public static Stage stage;
 
-	public static LinkedList<AbstractStage> stages = new LinkedList<>();
+	public static LinkedList<Stage> stages = new LinkedList<>();
 
 	public static WebPPixmapFactory pixmapFactory;
 	public static WebPLoaderFactory webpFactory;
@@ -108,6 +108,7 @@ public class WakTower extends ApplicationAdapter {
 	private void load() {
 		DataHandler.getInstance().loadAsync();
 		//game = new AbstractGame();
+		GroupHandler.initialize();
 	}
 
 	private void act(float delta) {
@@ -118,9 +119,9 @@ public class WakTower extends ApplicationAdapter {
 		}
 
 		if(stages.size() > 0) {
-			stages.getLast().focusInput();
+			Gdx.input.setInputProcessor(stages.getLast());
 		} else if(stage != null) {
-			stage.focusInput();
+			Gdx.input.setInputProcessor(stage);
 		}
 
 		if(stage != null) {
@@ -161,7 +162,7 @@ public class WakTower extends ApplicationAdapter {
 		if(stage != null) stage.draw();
 
 		if(stages.size() > 0) {
-			for(AbstractStage s : stages) {
+			for(Stage s : stages) {
 				s.draw();
 			}
 		}

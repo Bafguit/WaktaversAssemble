@@ -18,6 +18,7 @@ import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.MemberCardDisplay;
+import com.fastcat.assemble.stages.cardviewer.MemberViewerStage;
 import com.fastcat.assemble.uis.TopBar;
 
 public class DeckViewerStage extends AbstractStage {
@@ -33,18 +34,15 @@ public class DeckViewerStage extends AbstractStage {
         updateDeck();
         scroll = new ScrollPane(deckTable);
         setScrollFocus(scroll);
-
-
-        TopBar topBar = new TopBar();
         
         root.add(scroll).center().bottom().expand();
         root.align(Align.bottom);
         root.setSize(1920, 1000);
 
+        DeckViewerStage ss = this;
+
         Drawable d = FileHandler.getUI().getDrawable("tile");
         TextButton b = new TextButton("CLOSE", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
-
-        DeckViewerStage ss = this;
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.stages.remove(ss);
@@ -66,6 +64,14 @@ public class DeckViewerStage extends AbstractStage {
             MemberCardDisplay md = new MemberCardDisplay(m, true);
             md.setScale(1);
             md.isTemp = false;
+            md.addListener(new InputListener() {
+                public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                    return scroll.isDragging();
+                }
+                public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                    WakTower.stages.add(new MemberViewerStage(m));
+                }
+            });
 
             Cell<MemberCardDisplay> c = deckTable.add(md);
             if(i > 0) c.padLeft(15);
