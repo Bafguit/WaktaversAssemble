@@ -9,6 +9,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractGame;
+import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.DataHandler;
@@ -16,14 +17,14 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.BattleStage;
 
-public class LoadingStage extends Stage {
+public class LoadingStage extends AbstractStage {
 
     private final UIData data;
     private final Table root;
     private final Label label;
     
     public LoadingStage() {
-        super(WakTower.viewport);
+        super();
         data = DataHandler.getInstance().uiData.get("loading");
         root = new Table();
         this.addActor(root);
@@ -32,7 +33,6 @@ public class LoadingStage extends Stage {
         label.setAlignment(Align.center);
         root.add(label).expand().center();
         setDebugAll(true);
-        Gdx.input.setInputProcessor(this);
     }
 
     @Override

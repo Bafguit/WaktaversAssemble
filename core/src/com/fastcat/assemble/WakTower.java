@@ -1,5 +1,7 @@
 package com.fastcat.assemble;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractScreen;
+import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;
@@ -41,7 +44,9 @@ public class WakTower extends ApplicationAdapter {
 	public static float tick;
 	public static boolean fading;
 
-	public static Stage stage;
+	public static AbstractStage stage;
+
+	public static LinkedList<AbstractStage> stages = new LinkedList<>();
 
 	public static WebPPixmapFactory pixmapFactory;
 	public static WebPLoaderFactory webpFactory;
@@ -112,8 +117,20 @@ public class WakTower extends ApplicationAdapter {
 			game.update();
 		}
 
+		if(stages.size() > 0) {
+			stages.getLast().focusInput();
+		} else if(stage != null) {
+			stage.focusInput();
+		}
+
 		if(stage != null) {
 			stage.act(delta);
+		}
+
+		if(stages.size() > 0) {
+			for(Stage s : stages) {
+				s.act(delta);
+			}
 		}
 	}
 
@@ -142,6 +159,13 @@ public class WakTower extends ApplicationAdapter {
 		super.render();
 
 		if(stage != null) stage.draw();
+
+		if(stages.size() > 0) {
+			for(AbstractStage s : stages) {
+				s.draw();
+			}
+		}
+
 		if(game != null) game.render(sb);
 
 		sb.end();

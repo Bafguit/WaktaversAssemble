@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -29,11 +30,10 @@ import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.stages.deckviewer.DeckViewerStage;
 import com.fastcat.assemble.uis.TopBar;
 
-public class BattleStage extends Stage {
+public class BattleStage extends AbstractStage {
 
     private final TopBar topBar;
 
-    private Table background;
     private Table handTable;
     private Table fieldTable;
     private Table synergyTable;
@@ -52,11 +52,7 @@ public class BattleStage extends Stage {
     }
     
     public BattleStage(AbstractBattle battle) {
-        super(WakTower.viewport);
-
-        background = new Table();
-        background.setBackground(new TextureRegionDrawable(FileHandler.getPng("bg/way_lab")));
-        background.setFillParent(true);
+        super(FileHandler.getPng("bg/way_lab"));
 
         topBar = new TopBar();
 
@@ -127,7 +123,7 @@ public class BattleStage extends Stage {
         TextButton b4 = new TextButton("DECK", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b4.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                WakTower.stage = new DeckViewerStage();
+                WakTower.stages.add(new DeckViewerStage());
 		        return true;
 	        }
         });
@@ -144,7 +140,6 @@ public class BattleStage extends Stage {
 
         buttons.setPosition(1920, 0, Align.bottomRight);
 
-        this.addActor(background);
         this.addActor(fieldTable);
         this.addActor(synergyTable);
         this.addActor(handTable);
@@ -155,11 +150,6 @@ public class BattleStage extends Stage {
 
         battle.turnDraw();
         setDebugAll(true);
-        focus();
-    }
-
-    public void focus() {
-        Gdx.input.setInputProcessor(this);
     }
 
     public void addMemberCardInHand(AbstractMember member) {

@@ -14,32 +14,41 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.MemberCardDisplay;
+import com.fastcat.assemble.uis.TopBar;
 
-public class DeckViewerStage extends Stage {
+public class DeckViewerStage extends AbstractStage {
 
     private Table root;
     private Table deckTable;
     private ScrollPane scroll;
 
     public DeckViewerStage() {
+        super(FileHandler.getTexture("bg/half"));
         root = new Table();
         deckTable = new Table();
         updateDeck();
         scroll = new ScrollPane(deckTable);
         scroll.setSize(1600, 800);
+        setScrollFocus(scroll);
+
+
+        TopBar topBar = new TopBar();
+        
         root.add(scroll).center().bottom();
         root.align(Align.bottom);
-        root.setSize(1920, 1080);
+        root.setSize(1920, 1000);
 
         Drawable d = FileHandler.getUI().getDrawable("tile");
         TextButton b = new TextButton("CLOSE", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+
+        DeckViewerStage ss = this;
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                WakTower.stage = WakTower.application.battleStage;
-                WakTower.application.battleStage.focus();
+                WakTower.stages.remove(ss);
 		        return true;
 	        }
         });
@@ -47,12 +56,8 @@ public class DeckViewerStage extends Stage {
 
         this.addActor(root);
         this.addActor(b);
+        this.addActor(topBar);
         setDebugAll(true);
-        focus();
-    }
-
-    public void focus() {
-        Gdx.input.setInputProcessor(this);
     }
 
     private void updateDeck() {
