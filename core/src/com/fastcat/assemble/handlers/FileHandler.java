@@ -125,7 +125,7 @@ public class FileHandler {
         }
 
         //assetManager.load("image/member/member.atlas", TextureAtlas.class);
-        assetManager.load("image/member/member.atlas", Skin.class);
+        assetManager.load("image/member/member.atlas", TextureAtlas.class);
         assetManager.load("image/synergy/synergy.atlas", Skin.class);
         //assetManager.load("atlas/relic.atlas", TextureAtlas.class);
         //assetManager.load("atlas/status.atlas", TextureAtlas.class);
@@ -181,10 +181,8 @@ public class FileHandler {
     }
 
     public static TextureRegionDrawable getMember(String id) {
-        Skin atlas = instance.assetManager.get("image/member/member.atlas", Skin.class);
-        TextureRegion s = atlas.getRegion(id);
-        s.getTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        return new TextureRegionDrawable(s);
+        TextureAtlas atlas = instance.assetManager.get("image/member/member.atlas", TextureAtlas.class);
+        return new TextureRegionDrawable(atlas.findRegion(id));
     }
 
     public static Sprite getStatus(String id) {
@@ -203,8 +201,8 @@ public class FileHandler {
         return instance.assetManager.get("image/synergy/synergy.atlas", Skin.class);
     }
 
-    public static Skin getMember() {
-        return instance.assetManager.get("image/member/member.atlas", Skin.class);
+    public static TextureAtlas getMember() {
+        return instance.assetManager.get("image/member/member.atlas", TextureAtlas.class);
     }
 
     public static Skin getUI() {

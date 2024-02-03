@@ -32,7 +32,6 @@ public class LoadingStage extends Stage {
         label = new Label(data.text[0], new LabelStyle(FontHandler.BF_NB30, Color.WHITE.cpy()));
         label.setAlignment(Align.center);
         root.add(label).expand().center();
-        setDebugAll(true);
     }
 
     @Override

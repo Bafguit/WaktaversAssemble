@@ -101,6 +101,12 @@ public abstract class AbstractSynergy {
         grade = getGrade();
     }
 
+    public void resetAll() {
+        members.clear();
+        memberCount = getActualMemberCount();
+        grade = getGrade();
+    }
+
     public void endOfTurn(boolean isPlayer) {}
 
     public void endOfBattle() {}

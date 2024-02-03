@@ -27,6 +27,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.TextTooltip.TextTooltipStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.DragListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Null;
 import com.fastcat.assemble.WakTower;
@@ -81,8 +82,8 @@ public class MemberCardDisplay extends Button {
         this.isViewer = isViewer;
         this.member = member;
 
-        memberImage = new Table(FileHandler.getMember());
-        memberImage.setBackground(member.id);
+        memberImage = new Table();
+        memberImage.setBackground(member.img);
         memberImage.setFillParent(true);
         memberImage.setTouchable(Touchable.disabled);
 

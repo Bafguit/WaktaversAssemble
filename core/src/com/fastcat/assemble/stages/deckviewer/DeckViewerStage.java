@@ -1,6 +1,7 @@
 package com.fastcat.assemble.stages.deckviewer;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -54,7 +55,6 @@ public class DeckViewerStage extends AbstractStage {
         this.addActor(root);
         this.addActor(b);
         this.addActor(topBar);
-        setDebugAll(true);
     }
 
     private void updateDeck() {
@@ -65,17 +65,21 @@ public class DeckViewerStage extends AbstractStage {
             md.setScale(1);
             md.isTemp = false;
             md.addListener(new InputListener() {
+                public Vector2 touchXY = new Vector2();
+
                 public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                    return scroll.isDragging();
+                    touchXY.set(x, y);
+                    return true;
                 }
                 public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                    WakTower.stages.add(new MemberViewerStage(m));
+                    if(touchXY.x == x && touchXY.y == y) WakTower.stages.add(new MemberViewerStage(m));
                 }
             });
 
             Cell<MemberCardDisplay> c = deckTable.add(md);
             if(i > 0) c.padLeft(15);
-            c.padTop(j == 0 ? 80 : 15);
+            if(j == 0) c.padTop(95);
+            c.padBottom(15);
 
             if(i < 4) i++;
             else {

@@ -59,6 +59,8 @@ public class WakTower extends ApplicationAdapter {
 
 	public SpriteBatch sb;
 
+	public static boolean debug = true;
+
 	private boolean isLoaded = false;
 
 	private UIData uiData;

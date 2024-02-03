@@ -20,7 +20,7 @@ public abstract class AbstractStage extends Stage {
         super(WakTower.viewport);
         background.setFillParent(true);
         this.addActor(background);
-        
+        setDebugAll(WakTower.debug);
     }
 
     public AbstractStage(Drawable background) {

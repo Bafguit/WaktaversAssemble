@@ -22,51 +22,46 @@ import com.fastcat.assemble.stages.battle.MemberCardDisplay;
 
 public class MemberViewerStage extends AbstractStage {
 
-    private final Container<MemberCardDisplay> view;
-
     private MemberCardDisplay normal;
     private MemberCardDisplay upgraded;
+
+    private CheckBox checkBox;
 
     private Table root;
 
     public MemberViewerStage(AbstractMember member) {
         super(FileHandler.getTexture("bg/half"));
-        view = new Container<>();
 
-        CheckBox checkBox = new CheckBox("강화 보기", new CheckBoxStyle(new TextureRegionDrawable(FileHandler.getPng("ui/checkbox_off")), new TextureRegionDrawable(FileHandler.getPng("ui/checkbox_on")), FontHandler.BF_NB30, Color.WHITE));
+        checkBox = new CheckBox("강화 보기", new CheckBoxStyle(new TextureRegionDrawable(FileHandler.getPng("ui/checkbox_off")), new TextureRegionDrawable(FileHandler.getPng("ui/checkbox_on")), FontHandler.BF_NB30, Color.WHITE));
         checkBox.addListener(new InputListener() {
 	        public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                checkBox.toggle();
+                toggle();
                 return true;
 	        }
             public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
-                checkBox.toggle();
-                if(checkBox.isChecked()) view.setActor(upgraded);
-                else view.setActor(normal);
             }
         });
         checkBox.setChecked(member.upgradeCount > 0);
+        checkBox.setPosition(960, 160, Align.center);
 
         if(member.upgradeCount > 0) {
             normal = new MemberCardDisplay(GroupHandler.getMember(member.id), true);
             upgraded = new MemberCardDisplay(member, true);
-            normal.isTemp = false;
-            upgraded.isTemp = false;
-            //normal.setScale(2);
-            //upgraded.setScale(2);
-            view.setActor(upgraded);
         } else {
             normal = new MemberCardDisplay(member, true);
             AbstractMember up = member.cpy();
             up.upgrade();
             upgraded = new MemberCardDisplay(up, true);
-            normal.isTemp = false;
-            upgraded.isTemp = false;
-            //normal.setScale(2);
-            //upgraded.setScale(2);
-            view.setActor(normal);
         }
+        normal.isTemp = false;
+        upgraded.isTemp = false;
+        normal.setPosition(960, 440, Align.center);
+        upgraded.setPosition(960, 440, Align.center);
+        normal.setScale(1.5f);
+        upgraded.setScale(1.5f);
 
-        view.setScale(2);
+        //view.setScale(2);
         
         MemberViewerStage ss = this;
         Drawable d = FileHandler.getUI().getDrawable("tile");
@@ -81,14 +76,17 @@ public class MemberViewerStage extends AbstractStage {
 
         root = new Table();
         root.setSize(1920, 1000);
-        root.add(view).center();
-        root.row();
-        root.add(checkBox).center().padTop(30);
+        toggle();
 
         this.addActor(root);
         this.addActor(b);
         this.addActor(topBar);
-        setDebugAll(true);
+    }
+
+    private void toggle() {
+        root.clearChildren();
+        root.addActor(checkBox.isChecked() ? upgraded : normal);
+        root.addActor(checkBox);
     }
     
 }

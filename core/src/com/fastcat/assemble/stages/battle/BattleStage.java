@@ -76,9 +76,9 @@ public class BattleStage extends AbstractStage {
         synergyTable.setOrigin(Align.topLeft);
         synergyTable.align(Align.topLeft);
         synergyTable.setPosition(0, 900);
-
+        
         for(AbstractSynergy s : WakTower.game.battle.synergy) {
-            s.reset();
+            s.resetAll();
         }
         updateSynergy();
 
@@ -110,20 +110,21 @@ public class BattleStage extends AbstractStage {
         TextButton b3 = new TextButton("DEBUG", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b3.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                setDebugAll(!isDebugAll());
+                WakTower.debug = !WakTower.debug;
+                setDebugAll(WakTower.debug);
 		        return true;
 	        }
         });
         buttons.add(b3).right();
 
-        TextButton b4 = new TextButton("DECK", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
+        /*TextButton b4 = new TextButton("DECK", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b4.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.stages.add(new DeckViewerStage());
 		        return true;
 	        }
         });
-        buttons.add(b4).right();
+        buttons.add(b4).right();*/
 
         TextButton b5 = new TextButton("EXIT", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b5.addListener(new InputListener() {
@@ -145,7 +146,6 @@ public class BattleStage extends AbstractStage {
         this.addActor(buttons);
 
         battle.turnDraw();
-        setDebugAll(true);
     }
 
     public void addMemberCardInHand(AbstractMember member) {
