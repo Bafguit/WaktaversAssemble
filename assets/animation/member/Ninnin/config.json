@@ -12,7 +12,7 @@
       "axisY": 20
     },
     "skill": {
-      "frameDuration": 0.067,
+      "frameDuration": 1,
       "isLoop": false,
       "axisX": 128,
       "axisY": 20

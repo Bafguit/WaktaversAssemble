@@ -218,7 +218,7 @@ public class SpriteAnimation extends Table {
         }
 
         public Drawable getFrame(float time) {
-            return getFrame((int) (time / frameDuration));
+            return getFrame((int) (frames.length * (time / duration)));
         }
 
         public Drawable getFrame(int number) {

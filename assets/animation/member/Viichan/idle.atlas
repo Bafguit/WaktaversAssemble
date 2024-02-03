@@ -1,6 +1,40 @@
 idle.png
-size:512,512
-filter:Linear,Linear
-repeat:none
+	size: 2048, 1024
+	filter: Linear, Linear
+	repeat: none
 0
-bounds:2,2,256,256
+	bounds: 1034, 518, 256, 256
+1
+	bounds: 260, 260, 256, 256
+10
+	bounds: 518, 260, 256, 256
+11
+	bounds: 2, 518, 256, 256
+12
+	bounds: 776, 2, 256, 256
+13
+	bounds: 518, 518, 256, 256
+14
+	bounds: 1292, 260, 256, 256
+15
+	bounds: 518, 2, 256, 256
+16
+	bounds: 260, 518, 256, 256
+17
+	bounds: 1292, 518, 256, 256
+2
+	bounds: 1034, 2, 256, 256
+3
+	bounds: 776, 518, 256, 256
+4
+	bounds: 2, 260, 256, 256
+5
+	bounds: 1034, 260, 256, 256
+6
+	bounds: 260, 2, 256, 256
+7
+	bounds: 1550, 518, 256, 256
+8
+	bounds: 776, 260, 256, 256
+9
+	bounds: 2, 2, 256, 256
