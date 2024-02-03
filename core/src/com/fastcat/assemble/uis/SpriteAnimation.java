@@ -75,6 +75,7 @@ public class SpriteAnimation extends Table {
         isRunning = true;
         timer = 0f;
         current = animations.get(key);
+        next.clear();
     }
 
     private void generateAnimationData() {
@@ -115,6 +116,10 @@ public class SpriteAnimation extends Table {
         singleTimerEnded = false;
     }
 
+    public float getTimer() {
+        return timer;
+    }
+
     @Override
     public void act(float delta) {
         boolean hasAnimation = true;
@@ -153,8 +158,10 @@ public class SpriteAnimation extends Table {
             float w = frame.getMinWidth(), h = frame.getMinHeight();
             hbar.setSize(w, h);
             hbar.setScale(scale);
+
             if(flip) hbar.setPosition(getOriginX() - w + current.axis.x, getOriginY() - current.axis.y);
             else hbar.setPosition(getOriginX() - current.axis.x, getOriginY() - current.axis.y);
+            
             if(isRunning) tickDuration(delta);
         }
         super.act(delta);
@@ -172,10 +179,10 @@ public class SpriteAnimation extends Table {
     }
 
     private void tickDuration(float delta) {
-        timer += delta * current.timescale;
         if(timer >= current.duration) {
             timer -= current.duration;
         }
+        timer += delta * current.timescale;
     }
 
     public SpriteAnimation cpy() {
@@ -218,7 +225,7 @@ public class SpriteAnimation extends Table {
         }
 
         public Drawable getFrame(float time) {
-            return getFrame((int) (frames.length * (time / duration)));
+            return getFrame((int) ((float)frames.length * (time / duration)));
         }
 
         public Drawable getFrame(int number) {

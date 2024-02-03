@@ -80,7 +80,8 @@ public class MemberViewerStage extends AbstractStage {
 
         this.addActor(root);
         this.addActor(b);
-        this.addActor(topBar);
+        
+        afterInitial(true);
     }
 
     private void toggle() {

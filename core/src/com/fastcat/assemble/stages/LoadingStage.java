@@ -16,15 +16,16 @@ import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.BattleStage;
+import com.fastcat.assemble.stages.mainmenu.MainMenuStage;
 
-public class LoadingStage extends Stage {
+public class LoadingStage extends AbstractStage {
 
     private final UIData data;
     private final Table root;
     private final Label label;
     
     public LoadingStage() {
-        super(WakTower.viewport);
+        super();
         data = DataHandler.getInstance().uiData.get("loading");
         root = new Table();
         this.addActor(root);
@@ -41,10 +42,7 @@ public class LoadingStage extends Stage {
         super.act(delta);
         if(p >= 1) {
             clear();
-            WakTower.game = new AbstractGame();
-            WakTower.game.battle = new TestBattle();
-            WakTower.application.battleStage = new BattleStage();
-            WakTower.stage = WakTower.application.battleStage;
+            WakTower.stage = new MainMenuStage();
         }
     }
 }

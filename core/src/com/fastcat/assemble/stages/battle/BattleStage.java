@@ -141,9 +141,9 @@ public class BattleStage extends AbstractStage {
         this.addActor(synergyTable);
         this.addActor(handTable);
 
-        this.addActor(topBar);
-
         this.addActor(buttons);
+        
+        afterInitial(true);
 
         battle.turnDraw();
     }

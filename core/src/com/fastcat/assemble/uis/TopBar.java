@@ -21,6 +21,8 @@ import com.fastcat.assemble.stages.deckviewer.DeckViewerStage;
 
 public class TopBar extends Table {
 
+    private static DeckViewerStage deckViewer;
+
     private final Table barTable;
     private final Table relicTable;
 
@@ -44,8 +46,20 @@ public class TopBar extends Table {
         TextButton b4 = new TextButton("DECK", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b4.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                WakTower.stages.add(new DeckViewerStage());
-		        return true;
+                if(deckViewer == null) {
+                    deckViewer = new DeckViewerStage() {
+                        public void onRemoved() {
+                            TopBar.deckViewer = null;
+                        }
+                    };
+                    WakTower.stages.add(deckViewer);
+                    return true;
+                } else if(WakTower.stages.getLast() == deckViewer) {
+                    WakTower.stages.remove(deckViewer);
+                    deckViewer.onRemoved();
+                    return true;
+                }
+		        return false;
 	        }
         });
 

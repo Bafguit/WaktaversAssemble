@@ -48,6 +48,7 @@ public class MemberFieldDisplay extends Table {
         add(tile).center().bottom().padTop(-(tile.getMinHeight() / 2)).width(tile.getMinWidth()).height(tile.getMinHeight());
         row();
         
+        //라벨은 불필요
         label = new Label(member.name, new LabelStyle(FontHandler.BF_NB16, Color.WHITE));
         add(label).center().bottom().expandX().padTop(-50);
 

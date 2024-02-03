@@ -3,4 +3,4 @@ summon.png
 	filter: Linear, Linear
 	repeat: none
 0
-	bounds: 2, 2, 256, 256
+	bounds: 2, 8, 256, 250

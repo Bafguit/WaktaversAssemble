@@ -14,12 +14,23 @@ public abstract class AbstractStage extends Stage {
 
     private final Table background = new Table();
 
-    public final TopBar topBar = new TopBar();
+    public TopBar topBar;
 
     public AbstractStage() {
         super(WakTower.viewport);
         background.setFillParent(true);
         this.addActor(background);
+    }
+
+    public void afterInitial() {
+        setDebugAll(WakTower.debug);
+    }
+
+    public void afterInitial(boolean useTopBar) {
+        if(useTopBar) {
+            topBar = new TopBar();
+            this.addActor(topBar);
+        }
         setDebugAll(WakTower.debug);
     }
 
@@ -39,4 +50,6 @@ public abstract class AbstractStage extends Stage {
     public void setBackground(Drawable image) {
         background.setBackground(image);
     }
+
+    public void onRemoved() {}
 }

@@ -47,6 +47,7 @@ public class DeckViewerStage extends AbstractStage {
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.stages.remove(ss);
+                onRemoved();
 		        return true;
 	        }
         });
@@ -54,7 +55,8 @@ public class DeckViewerStage extends AbstractStage {
 
         this.addActor(root);
         this.addActor(b);
-        this.addActor(topBar);
+        
+        afterInitial(true);
     }
 
     private void updateDeck() {

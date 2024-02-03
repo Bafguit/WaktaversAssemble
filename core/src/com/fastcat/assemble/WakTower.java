@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,6 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TooltipManager;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.crashinvaders.vfx.VfxManager;
+import com.crashinvaders.vfx.effects.FxaaEffect;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractScreen;
@@ -58,6 +61,9 @@ public class WakTower extends ApplicationAdapter {
 	public BattleStage battleStage;
 
 	public SpriteBatch sb;
+	public VfxManager vfxManager;
+
+	private FxaaEffect fxaa;
 
 	public static boolean debug = true;
 
@@ -82,6 +88,9 @@ public class WakTower extends ApplicationAdapter {
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1920, 1080);
 		camera.update();
+		vfxManager = new VfxManager(Pixmap.Format.RGBA8888);
+		fxaa = new FxaaEffect();
+		vfxManager.addEffect(fxaa);
 
 		viewport = new FillViewport(1920, 1080);
 		viewport.setCamera(camera);
@@ -147,11 +156,14 @@ public class WakTower extends ApplicationAdapter {
 			}
 		}
 
-		ScreenUtils.clear(0, 0, 0, 1);
-
 		tick = Gdx.graphics.getDeltaTime();
 
 		act(tick);
+
+		ScreenUtils.clear(0, 0, 0, 1);
+
+        /*vfxManager.cleanUpBuffers();
+        vfxManager.beginInputCapture();*/
 
 		sb.setProjectionMatrix(camera.combined);
 		sb.enableBlending();
@@ -172,10 +184,16 @@ public class WakTower extends ApplicationAdapter {
 		if(game != null) game.render(sb);
 
 		sb.end();
+		
+        /*vfxManager.endInputCapture();
+        vfxManager.applyEffects();
+        vfxManager.renderToScreen();*/
 	}
 	
 	@Override
 	public void dispose () {
 		sb.dispose();
+		vfxManager.dispose();
+		fxaa.dispose();
 	}
 }

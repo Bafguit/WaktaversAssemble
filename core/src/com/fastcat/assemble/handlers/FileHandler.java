@@ -113,6 +113,7 @@ public class FileHandler {
         //BG
         assetManager.load("image/bg/way_lab.png", Pixmap.class);
         assetManager.load("image/bg/half.webp", Pixmap.class);
+        assetManager.load("image/bg/cat.webp", Pixmap.class);
     }
 
     private void generateMember() {

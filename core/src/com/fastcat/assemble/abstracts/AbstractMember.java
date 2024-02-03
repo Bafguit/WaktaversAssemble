@@ -92,6 +92,7 @@ public abstract class AbstractMember implements Cloneable {
             s.addMember(this);
         }
         onSummon();
+        animation.addAnimation("idle");
     }
     
     public void onDrawn() {
