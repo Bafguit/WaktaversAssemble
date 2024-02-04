@@ -122,8 +122,6 @@ public class SpriteAnimation extends Table {
 
     @Override
     public void act(float delta) {
-        boolean hasAnimation = true;
-
         if(current != null) {
             if(singlAnimationTimer != null && !singleTimerEnded && timer >= singleTimer) {
                 singlAnimationTimer.onSingleFinished(current.key);
@@ -143,16 +141,12 @@ public class SpriteAnimation extends Table {
                     isRunning = false;
                 }
             }
-        } else {
-            if(next.size > 0) {
-                timer = 0f;
-                current = next.removeFirst();
-            } else {
-                hasAnimation = false;
-            }
+        } else if(next.size > 0) {
+            timer = 0f;
+            current = next.removeFirst();
         }
 
-        if(hasAnimation) {
+        if(current != null) {
             Drawable frame = current.getFrame(timer);
             hbar.setDrawable(frame);
             float w = frame.getMinWidth(), h = frame.getMinHeight();

@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.MoveToAction;
 import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
+import com.badlogic.gdx.scenes.scene2d.actions.RemoveActorAction;
+import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Cell;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -293,6 +295,17 @@ public class MemberCardDisplay extends Button {
             action.addAction(Actions.scaleTo(baseScale, baseScale, 0.1f, Interpolation.circle));
             action.addAction(Actions.rotateTo(baseRotation, 0.1f, Interpolation.circle));
             addAction(action);
+        }
+    }
+
+    public void discardPosition() {
+        if(!isViewer) {
+            ParallelAction action = new ParallelAction();
+            action.addAction(Actions.moveToAligned(1920, 0, Align.bottom, 0.3f, Interpolation.linear));
+            action.addAction(Actions.scaleTo(0.5f, 0.5f, 0.3f, Interpolation.linear));
+            action.addAction(Actions.rotateTo(-110, 0.3f, Interpolation.linear));
+            SequenceAction sequence = new SequenceAction(action, new RemoveActorAction());
+            addAction(sequence);
         }
     }
 

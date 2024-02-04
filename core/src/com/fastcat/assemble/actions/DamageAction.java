@@ -56,33 +56,22 @@ public class DamageAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             if(info.member != null) info.damage = info.member.calculatedAtk();
-            if(target.size == 0) {
-                AbstractEntity ent = WakTower.game.player;
-                if(info.source == null || info.source.isPlayer) {
-                    Array<AbstractEntity> entities = new Array<>();
-                    for(AbstractEnemy e : WakTower.game.battle.enemies) {
-                        if(e.isAlive()) entities.add(e);
+            if(target.size > 0) {
+                for(AbstractRelic item : WakTower.game.relics) {
+                    item.onAttack(info, target);
+                }
+                for(AbstractMember c : WakTower.game.battle.members) {
+                    c.onAttack(info, target);
+                }
+                if(info.source != null) {
+                    for(AbstractStatus s : info.source.status) {
+                        s.onAttack(info, target);
                     }
-                    int r = WakTower.game.battleRandom.random(entities.size - 1);
-                    ent = entities.get(r);
                 }
-                target.add(ent);
-            }
 
-            for(AbstractRelic item : WakTower.game.relics) {
-                item.onAttack(info, target);
-            }
-            for(AbstractMember c : WakTower.game.battle.members) {
-                c.onAttack(info, target);
-            }
-            if(info.source != null) {
-                for(AbstractStatus s : info.source.status) {
-                    s.onAttack(info, target);
+                for(AbstractEntity e : target) {
+                    e.takeDamage(info.cpy());
                 }
-            }
-
-            for(AbstractEntity e : target) {
-                e.takeDamage(info.cpy());
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.fastcat.assemble.stages.battle;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
@@ -42,6 +43,7 @@ public class BattleStage extends AbstractStage {
     private Table fieldTable;
     private Table synergyTable;
     private Table enemyTable;
+    private Table discardTable;
 
     public SynergyDisplay[] synergies;
     public LinkedList<AbstractEnemy> enemies;
@@ -51,6 +53,8 @@ public class BattleStage extends AbstractStage {
     public HashMap<AbstractMember, MemberFieldDisplay> memberFields = new HashMap<>();
     public HashMap<AbstractMember, Button> overTiles = new HashMap<>();
     public HashMap<AbstractEnemy, Table> enemyHealth = new HashMap<>();
+
+    public HashMap<AbstractMember, MemberCardDisplay> discardMembers = new HashMap<>();
 
     private HashMap<AbstractSynergy, SynergyDisplay> synergyMap = new HashMap<>();
 
@@ -78,6 +82,9 @@ public class BattleStage extends AbstractStage {
         handTable = new Table();
         handTable.bottom();
         handTable.setSize(1920, 350);
+
+        discardTable = new Table();
+        discardTable.setFillParent(true);
 
         fieldTable = new Table();
         fieldTable.setFillParent(true);
@@ -175,6 +182,7 @@ public class BattleStage extends AbstractStage {
         this.addActor(turnEnd);
         this.addActor(synergyTable);
         this.addActor(handTable);
+        this.addActor(discardTable);
 
         this.addActor(buttons);
         
@@ -344,9 +352,43 @@ public class BattleStage extends AbstractStage {
     }
 
     public void removeHand(AbstractMember m) {
-        battle.hand.remove(m);
-        handTable.removeActor(memberCards.remove(m));
-        updateHandPosition();
+        if(battle.hand.remove(m)) {
+            handTable.removeActor(memberCards.remove(m));
+            updateHandPosition();
+        }
+    }
+
+    public void discardHand(AbstractMember m) {
+        if(battle.hand.remove(m)) {
+            battle.discardPile.add(m);
+            MemberCardDisplay md = memberCards.remove(m);
+            discardTable.addActor(md);
+            updateHandPosition();
+            md.discardPosition();
+        }
+    }
+
+    public void discardField(AbstractMember m) {
+        battle.discardPile.add(m);
+        MemberFieldDisplay mf = memberFields.get(m);
+        MemberCardDisplay md = new MemberCardDisplay(m);
+        md.setScale(0.85f);
+        md.setPosition(mf.getX(), mf.getY());
+        discardTable.addActor(md);
+        md.discardPosition();
+    }
+
+    public void discardAll() {
+        Iterator<AbstractMember> hand = battle.hand.iterator();
+        while (hand.hasNext()) {
+            AbstractMember m = hand.next();
+            hand.remove();
+            battle.discardPile.add(m);
+            MemberCardDisplay md = memberCards.remove(m);
+            discardTable.addActor(md);
+            updateHandPosition();
+            md.discardPosition();
+        }
     }
     
     public static class HandDisplayData {

@@ -49,32 +49,42 @@ public class HealthBar extends Table implements OnHealthUpdated {
         hbLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_left")));
         hbMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_mid")));
         hbRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_right")));
+
         yetMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_mid")));
         yetRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_right")));
         yetLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_left")));
         float h = (entity.health - 1) / (entity.maxHealth - 1);
         this.width = width * h;
-        yetWidth = width;
+        yetWidth = this.width;
         entity.healthBar = this;
+
+        Table bg = new Table();
+        bg.add(bgLeft).left();
+        bg.add(bgMid).width(width).left();
+        bg.add(bgRight).left();
+
+        Table hb = new Table();
+        hb.add(hbLeft).left();
+        hb.add(hbMid).width(yetWidth).left();
+        hb.add(hbRight).left();
+
+        Table yet = new Table();
+        yet.add(yetLeft).left();
+        yet.add(yetMid).width(yetWidth).left();
+        yet.add(yetRight).left();
 
         maxWidth = width;
 
         text = new Label(entity.health + "/" + entity.maxHealth, new LabelStyle(FontHandler.BF_HEALTH, Color.WHITE));
         text.setAlignment(Align.center);
 
-        this.add(bgLeft).left();
-        this.add(bgMid).width(width).left();
-        this.add(bgRight).left();
+        this.add(bg).left();
         this.row();
-        this.add(yetLeft).left().padTop(-16);
-        this.add(yetMid).width(width).left().padTop(-16);
-        this.add(yetRight).left().padTop(-16);
+        this.add(yet).left().padTop(-16);
         this.row();
-        this.add(hbLeft).left().padTop(-16);
-        this.add(hbMid).width(width).left().padTop(-16);
-        this.add(hbRight).left().padTop(-16);
+        this.add(hb).left().padTop(-16);
         this.row();
-        this.add(text).colspan(3).height(16).padTop(-16).width(width).center();
+        this.add(text).height(16).padTop(-16).width(width).center();
     }
 
     @Override
@@ -87,10 +97,10 @@ public class HealthBar extends Table implements OnHealthUpdated {
             yetMid.setWidth(yetWidth);
 
             if(timer > 0) {
-                timer -= delta / 2;
+                timer -= delta;
                 if(timer <= 0) timer = 0;
             } else if(yetWidth > width) {
-                yetWidth -= 60 * InputHandler.scaleX * delta;
+                yetWidth -= 100 * delta;
             }
             
             if(yetWidth <= width) yetWidth = width;

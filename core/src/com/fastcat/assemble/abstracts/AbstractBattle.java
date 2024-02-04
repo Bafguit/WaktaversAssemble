@@ -120,6 +120,14 @@ public abstract class AbstractBattle implements Cloneable {
         if(stage != null) stage.updateHandPosition();
     }
 
+    public void discard(AbstractMember m) {
+
+    }
+
+    public void discardAll() {
+        
+    }
+
     public boolean isPlayerTurn() {
         return WakTower.game.battle.phase == BattlePhase.playerTurn;
     }
@@ -157,6 +165,7 @@ public abstract class AbstractBattle implements Cloneable {
                     s.members.remove(m);
                     s.update();
                 }
+                stage.discardField(m);
             }
         }
         stage.updateSynergy();

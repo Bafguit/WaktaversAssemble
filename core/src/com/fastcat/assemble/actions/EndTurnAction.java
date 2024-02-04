@@ -22,6 +22,8 @@ public class EndTurnAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(isDone) {
+            if(isPlayer) WakTower.application.battleStage.discardAll();
+
             for(AbstractSynergy s : WakTower.game.battle.synergy) {
                 s.endOfTurn(isPlayer);
             }
