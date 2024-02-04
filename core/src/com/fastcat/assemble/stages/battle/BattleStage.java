@@ -24,7 +24,10 @@ import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
+import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
+import com.fastcat.assemble.actions.EndTurnAction;
 import com.fastcat.assemble.battles.TestBattle;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
@@ -148,8 +151,28 @@ public class BattleStage extends AbstractStage {
 
         buttons.setPosition(1920, 0, Align.bottomRight);
 
+        Button turnEnd = new Button(new TextureRegionDrawable(FileHandler.getPng("ui/button"))) {
+            public void act(float delta) {
+                this.setDisabled(WakTower.game.battle.phase != BattlePhase.playerTurn);
+            }
+        };
+        turnEnd.addListener(new InputListener() {
+            public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+        
+            /** Called when a mouse button or a finger touch goes up anywhere, but only if touchDown previously returned true for the mouse
+             * button or touch. The touchUp event is always {@link Event#handle() handled}.
+             * @see InputEvent */
+            public void touchUp (InputEvent event, float x, float y, int pointer, int button) {
+                ActionHandler.next(new EndTurnAction(true));
+            }
+        });
+        turnEnd.setPosition(1700, 400, Align.center);
+
         this.addActor(enemyTable);
         this.addActor(fieldTable);
+        this.addActor(turnEnd);
         this.addActor(synergyTable);
         this.addActor(handTable);
 

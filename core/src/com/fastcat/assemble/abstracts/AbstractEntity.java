@@ -18,6 +18,7 @@ import com.fastcat.assemble.synergies.OldMan;
 import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.uis.SpriteAnimation.SpriteAnimationType;
 import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.utils.HealthBar;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
 import java.util.Iterator;
@@ -35,6 +36,8 @@ public abstract class AbstractEntity {
     public LinkedList<AbstractStatus> status = new LinkedList<>();
     public Array<OnStatusUpdated> statusUpdatedListener = new Array<>();
     public Array<OnHealthUpdated> healthUpdatedListener = new Array<>();
+
+    public HealthBar healthBar;
 
     public AbstractEntity(String id, boolean isPlayer) {
         this.id = id;
@@ -120,6 +123,7 @@ public abstract class AbstractEntity {
                     o.onHealthUpdated(amount);
                 }
             }
+            if(healthBar != null) healthBar.onHealthUpdated(amount);
             if(isPlayer) {
                 for(AbstractRelic item : WakTower.game.relics) {
                     item.onHealed(amount);
@@ -195,13 +199,16 @@ public abstract class AbstractEntity {
                 }
             }
         }
-        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.GOLD));
+        //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.GOLD));
+        animation.setAnimation("hit");
+        animation.addAnimation("idle");
         health -= info.damage;
         if(healthUpdatedListener.size > 0) {
             for(OnHealthUpdated o : healthUpdatedListener) {
                 o.onHealthUpdated(-info.damage);
             }
         }
+        if(healthBar != null) healthBar.onHealthUpdated(-info.damage);
         if(health <= 0) die();
 
         if(info.type != DamageType.LOSE) {
@@ -238,6 +245,7 @@ public abstract class AbstractEntity {
                 o.onHealthUpdated(-amount);
             }
         }
+        if(healthBar != null) healthBar.onHealthUpdated(-amount);
         if(health < 0) die();
     }
 

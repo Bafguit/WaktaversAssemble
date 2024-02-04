@@ -1,5 +1,7 @@
 package com.fastcat.assemble.synergies;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
@@ -14,8 +16,8 @@ public class Competitor extends AbstractSynergy {
         super("Competitor");
     }
 
-    private AbstractMember getWinner(Array<AbstractMember> chars) {
-        return chars.get(WakTower.game.battleRandom.random(0, chars.size - 1));
+    private AbstractMember getWinner(LinkedList<AbstractMember> chars) {
+        return chars.get(WakTower.game.battleRandom.random(0, chars.size() - 1));
     }
 
     @Override

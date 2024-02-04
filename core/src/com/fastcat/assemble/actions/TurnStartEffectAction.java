@@ -20,7 +20,7 @@ public class TurnStartEffectAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            EffectHandler.add(new TurnChangeEffect(isPlayer));
+            //EffectHandler.add(new TurnChangeEffect(isPlayer));
         } else if(duration <= 1 && !done) {
             for(AbstractMember member : WakTower.game.battle.members) {
                 if(!member.hasSynergy("Cat")) member.animation.setAnimation("exit");
@@ -30,6 +30,7 @@ public class TurnStartEffectAction extends AbstractAction {
         
         if(isDone) {
             WakTower.game.battle.clearMember();
+            WakTower.application.battleStage.updateMemberPosition();
         }
     }
 }

@@ -2,6 +2,7 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
@@ -15,6 +16,7 @@ public class EndTurnAction extends AbstractAction {
     public EndTurnAction(boolean isPlayer) {
         super(0f);
         this.isPlayer = isPlayer;
+        WakTower.game.battle.phase = BattlePhase.intermission;
     }
 
     @Override
@@ -33,7 +35,7 @@ public class EndTurnAction extends AbstractAction {
                 status.endOfTurn(isPlayer);
             }
 
-            ActionHandler.bot(new StartTurnAction(false));
+            ActionHandler.bot(new StartTurnAction(!isPlayer));
         }
     }
 }

@@ -1,5 +1,7 @@
 package com.fastcat.assemble.abstracts;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -23,7 +25,7 @@ public abstract class AbstractSynergy {
     public final TextureRegionDrawable[] gradeImg;
     public int baseMemCount, memberCount, grade, counter, globalCount;
     public int priority = 0;
-    public Array<AbstractMember> members;
+    public LinkedList<AbstractMember> members;
 
     public boolean isOver = false;
 
@@ -42,7 +44,7 @@ public abstract class AbstractSynergy {
         }
         globalCount = 0;
         baseMemCount = memberCount = grade = counter = 0;
-        members = new Array<>();
+        members = new LinkedList<>();
     }
 
     public void addMember(AbstractMember m) {
@@ -57,8 +59,8 @@ public abstract class AbstractSynergy {
     }
 
     public int getActualMemberCount() {
-        int c = members.size;
-        for(int i = 0; i < members.size; i++) {
+        int c = members.size();
+        for(int i = 0; i < members.size(); i++) {
             AbstractMember m = members.get(i);
             for(int j = 0; j < i; j++) {
                 if(m.id.equals(members.get(j).id)) {

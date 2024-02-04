@@ -23,7 +23,7 @@ import com.fastcat.assemble.interfaces.OnHealthUpdated;
 public class HealthBar extends Table implements OnHealthUpdated {
 
     private static final FontData font = FontHandler.HEALTH;
-    private Button line, hbMid, hbLeft, hbRight;
+    private Button hbMid, hbLeft, hbRight;
     private Button yetMid, yetRight, yetLeft;
     private Label text;
 
@@ -39,7 +39,13 @@ public class HealthBar extends Table implements OnHealthUpdated {
 
     public HealthBar(AbstractEntity entity, final float width) {
         this.entity = entity;
-        line = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_line")));
+        Button bgLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_left")));
+        Button bgMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_mid")));
+        Button bgRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_right")));
+        bgLeft.setColor(0.5f, 0.5f, 0.5f, 1);
+        bgMid.setColor(0.5f, 0.5f, 0.5f, 1);
+        bgRight.setColor(0.5f, 0.5f, 0.5f, 1);
+
         hbLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_left")));
         hbMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_mid")));
         hbRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_right")));
@@ -49,16 +55,20 @@ public class HealthBar extends Table implements OnHealthUpdated {
         float h = (entity.health - 1) / (entity.maxHealth - 1);
         this.width = width * h;
         yetWidth = width;
-        entity.healthUpdatedListener.add(this);
+        entity.healthBar = this;
 
         maxWidth = width;
 
         text = new Label(entity.health + "/" + entity.maxHealth, new LabelStyle(FontHandler.BF_HEALTH, Color.WHITE));
         text.setAlignment(Align.center);
 
-        this.add(yetLeft).left();
-        this.add(yetMid).width(width).left();
-        this.add(yetRight).left();
+        this.add(bgLeft).left();
+        this.add(bgMid).width(width).left();
+        this.add(bgRight).left();
+        this.row();
+        this.add(yetLeft).left().padTop(-16);
+        this.add(yetMid).width(width).left().padTop(-16);
+        this.add(yetRight).left().padTop(-16);
         this.row();
         this.add(hbLeft).left().padTop(-16);
         this.add(hbMid).width(width).left().padTop(-16);

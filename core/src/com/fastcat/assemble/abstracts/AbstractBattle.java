@@ -151,8 +151,15 @@ public abstract class AbstractBattle implements Cloneable {
         ArrayIterator<AbstractMember> itr = members.iterator();
         while (itr.hasNext()) {
             AbstractMember m = itr.next();
-            if(!m.id.equals("Cat")) itr.remove();
+            if(!m.hasSynergy("Cat")) {
+                itr.remove();
+                for(AbstractSynergy s : m.synergy) {
+                    s.members.remove(m);
+                    s.update();
+                }
+            }
         }
+        stage.updateSynergy();
     }
 
     protected abstract void setEnemy();

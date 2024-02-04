@@ -109,6 +109,7 @@ public class FileHandler {
         assetManager.load("image/ui/topbar.png", Pixmap.class);
         assetManager.load("image/ui/checkbox_on.png", Pixmap.class);
         assetManager.load("image/ui/checkbox_off.png", Pixmap.class);
+        assetManager.load("image/ui/button.png", Pixmap.class);
 
         //BG
         assetManager.load("image/bg/way_lab.png", Pixmap.class);

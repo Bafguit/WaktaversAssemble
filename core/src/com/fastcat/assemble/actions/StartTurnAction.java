@@ -26,8 +26,7 @@ public class StartTurnAction extends AbstractAction {
     protected void updateAction() {
         if(isDone) {
             if(!isNew) ActionHandler.next(new TurnStartEffectAction(isPlayer));
-            if(isPlayer) ActionHandler.next(new ChargeEnergyAction(isNew));
-            ActionHandler.next(new DrawCardAction(WakTower.game.drawAmount));
+            if(isPlayer) ActionHandler.next(new DrawCardAction(WakTower.game.drawAmount));
             
             for(AbstractRelic relic : WakTower.game.relics) {
                 relic.startOfTurn(isPlayer);
@@ -39,7 +38,8 @@ public class StartTurnAction extends AbstractAction {
                 status.startOfTurn(isPlayer);
             }
             
-            ActionHandler.bot(new ChangePhaseAction(BattlePhase.playerTurn));
+            ActionHandler.bot(new ChangePhaseAction(isPlayer ? BattlePhase.enemyTurn : BattlePhase.playerTurn));
+            if(!isPlayer) ActionHandler.bot(new EnemyTurnAction());
         }
     }
 }
