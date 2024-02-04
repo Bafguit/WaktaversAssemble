@@ -1,6 +1,6 @@
 hit.png
-	size: 2048, 2048
-	filter: Linear, Linear
-	repeat: none
+size:512,512
+filter:Linear,Linear
+repeat:none
 0
-	bounds: 2, 2, 1280, 1280
+bounds:2,2,360,360

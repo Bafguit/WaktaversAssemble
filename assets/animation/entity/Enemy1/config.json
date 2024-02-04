@@ -1,20 +1,32 @@
 {
     "idle": {
-      "frameDuration": 0.1,
+      "frameDuration": 0.067,
       "isLoop": true,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 180,
+      "axisY": 20
     },
     "hit": {
-      "frameDuration": 0.1,
+      "frameDuration": 1,
       "isLoop": false,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 180,
+      "axisY": 20
     },
     "die": {
-      "frameDuration": 0.1,
+      "frameDuration": 1,
       "isLoop": false,
-      "axisX": 160,
-      "axisY": 30
+      "axisX": 180,
+      "axisY": 20
+    },
+    "skill": {
+      "frameDuration": 1,
+      "isLoop": false,
+      "axisX": 180,
+      "axisY": 20
+    },
+    "attack": {
+      "frameDuration": 1,
+      "isLoop": false,
+      "axisX": 180,
+      "axisY": 20
     }
   }
