@@ -1,9 +1,15 @@
 package com.fastcat.assemble.utils;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractUI.BasisType;
@@ -17,84 +23,68 @@ import com.fastcat.assemble.interfaces.OnHealthUpdated;
 public class HealthBar extends Table implements OnHealthUpdated {
 
     private static final FontData font = FontHandler.HEALTH;
-    private TempUI line, hbMid, hbLeft, hbRight;
-    private Sprite yetMid, yetRight, yetLeft;
+    private Button line, hbMid, hbLeft, hbRight;
+    private Button yetMid, yetRight, yetLeft;
+    private Label text;
+
+    private final float maxWidth;
 
     public AbstractEntity entity;
     public float x, y, width, yetWidth;
     public float timer, tick;
 
     public HealthBar(AbstractEntity entity) {
+        this(entity, 280);
+    }
+
+    public HealthBar(AbstractEntity entity, final float width) {
         this.entity = entity;
-        line = new TempUI(FileHandler.getTexture("ui/hb_line"));
-        line.basis = BasisType.CENTER_LEFT;
-        hbLeft = new TempUI(FileHandler.getTexture("ui/hb_left"));
-        hbLeft.basis = BasisType.CENTER_LEFT;
-        hbMid = new TempUI(FileHandler.getTexture("ui/hb_mid"));
-        hbMid.basis = BasisType.CENTER_LEFT;
-        hbRight = new TempUI(FileHandler.getTexture("ui/hb_right"));
-        hbRight.basis = BasisType.CENTER_LEFT;
-        yetMid = new Sprite(FileHandler.getTexture("ui/hb_yet_mid"));
-        yetRight = new Sprite(FileHandler.getTexture("ui/hb_yet_right"));
-        yetLeft = new Sprite(FileHandler.getTexture("ui/hb_yet_left"));
+        line = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_line")));
+        hbLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_left")));
+        hbMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_mid")));
+        hbRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_right")));
+        yetMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_mid")));
+        yetRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_right")));
+        yetLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_left")));
         float h = (entity.health - 1) / (entity.maxHealth - 1);
-        width = hbMid.width * h;
+        this.width = width * h;
         yetWidth = width;
         entity.healthUpdatedListener.add(this);
-    }
-    
-    public HealthBar(AbstractEntity entity, float x, float y) {
-        this(entity);
-        setPosition(x, y);
-    }
 
-    public void setPosition(float x, float y) {
-        this.x = x - line.originWidth / 2;
-        this.y = y;
-        line.setPosition(this.x, this.y);
-        hbLeft.setPosition(this.x + 2, this.y);
-        hbMid.setPosition(this.x + 10, this.y);
-    }
+        maxWidth = width;
 
-    public void update() {
-        line.update();
-        hbMid.update();
-        hbLeft.update();
-        hbRight.update();
-    }
+        text = new Label(entity.health + "/" + entity.maxHealth, new LabelStyle(FontHandler.BF_HEALTH, Color.WHITE));
+        text.setAlignment(Align.center);
 
-    public void render(SpriteBatch sb) {
-        if(entity.health > 0) {
-            float h = (entity.health - 1) / (entity.maxHealth - 1);
-            width = hbMid.width * h;
-
-            sb.draw(yetMid, hbMid.x, hbMid.y, yetWidth, hbMid.height);
-            sb.draw(yetLeft, hbLeft.x, hbLeft.y, hbLeft.width, hbLeft.height);
-            sb.draw(yetRight, hbMid.x + yetWidth, hbLeft.y, hbRight.width, hbRight.height);
-
-            sb.draw(hbLeft.img, hbLeft.x, hbLeft.y, hbLeft.width, hbLeft.height);
-            sb.draw(hbMid.img, hbMid.x, hbMid.y, width, hbMid.height);
-            sb.draw(hbRight.img, hbMid.x + width, hbLeft.y, hbRight.width, hbRight.height);
-            
-            sb.draw(line.img, line.x, line.y, line.width, line.height);
-
-            FontHandler.renderCenter(sb, font, entity.health + "/" + entity.maxHealth, line.x, line.y + line.height * 0.5f, line.width);
-
-            if(timer > 0) {
-                timer -= WakTower.tick / 2;
-                if(timer <= 0) timer = 0;
-            } else if(yetWidth > width) {
-                yetWidth -= 60 * InputHandler.scaleX * WakTower.tick;
-            }
-            
-            if(yetWidth <= width) yetWidth = width;
-        }
-        
+        this.add(yetLeft).left();
+        this.add(yetMid).width(width).left();
+        this.add(yetRight).left();
+        this.row();
+        this.add(hbLeft).left().padTop(-16);
+        this.add(hbMid).width(width).left().padTop(-16);
+        this.add(hbRight).left().padTop(-16);
+        this.row();
+        this.add(text).colspan(3).height(16).padTop(-16).width(width).center();
     }
 
     @Override
     public void act(float delta) {
+        if(entity.health > 0) {
+            float h = (entity.health - 1) / (entity.maxHealth - 1);
+            width = maxWidth * h;
 
+            hbMid.setWidth(width);
+            yetMid.setWidth(yetWidth);
+
+            if(timer > 0) {
+                timer -= delta / 2;
+                if(timer <= 0) timer = 0;
+            } else if(yetWidth > width) {
+                yetWidth -= 60 * InputHandler.scaleX * delta;
+            }
+            
+            if(yetWidth <= width) yetWidth = width;
+        }
         super.act(delta);
     }
 
@@ -110,6 +100,7 @@ public class HealthBar extends Table implements OnHealthUpdated {
 
     @Override
     public void onHealthUpdated(int amount) {
+        text.setText(entity.health + "/" + entity.maxHealth);
         yetReset();
     }
 }

@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
@@ -28,20 +29,25 @@ import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.stages.deckviewer.DeckViewerStage;
+import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.uis.TopBar;
+import com.fastcat.assemble.utils.HealthBar;
 
 public class BattleStage extends AbstractStage {
 
     private Table handTable;
     private Table fieldTable;
     private Table synergyTable;
+    private Table enemyTable;
 
     public SynergyDisplay[] synergies;
+    public LinkedList<AbstractEnemy> enemies;
 
     public final AbstractBattle battle;
     public HashMap<AbstractMember, MemberCardDisplay> memberCards = new HashMap<>();
     public HashMap<AbstractMember, MemberFieldDisplay> memberFields = new HashMap<>();
     public HashMap<AbstractMember, Button> overTiles = new HashMap<>();
+    public HashMap<AbstractEnemy, Table> enemyHealth = new HashMap<>();
 
     private HashMap<AbstractSynergy, SynergyDisplay> synergyMap = new HashMap<>();
 
@@ -55,6 +61,7 @@ public class BattleStage extends AbstractStage {
         this.battle = battle;
 
         synergies = new SynergyDisplay[19];
+        enemies = WakTower.game.battle.enemies;
 
         int c = 0;
         for(JsonValue v : FileHandler.getInstance().jsonMap.get("synergy")) {
@@ -76,6 +83,10 @@ public class BattleStage extends AbstractStage {
         synergyTable.setOrigin(Align.topLeft);
         synergyTable.align(Align.topLeft);
         synergyTable.setPosition(0, 900);
+
+        enemyTable = new Table();
+        enemyTable.setFillParent(true);
+        updateEnemies();
         
         for(AbstractSynergy s : WakTower.game.battle.synergy) {
             s.resetAll();
@@ -137,6 +148,7 @@ public class BattleStage extends AbstractStage {
 
         buttons.setPosition(1920, 0, Align.bottomRight);
 
+        this.addActor(enemyTable);
         this.addActor(fieldTable);
         this.addActor(synergyTable);
         this.addActor(handTable);
@@ -154,6 +166,7 @@ public class BattleStage extends AbstractStage {
 
     public void updateAll() {
         updateSynergy();
+        updateEnemies();
         updateMemberPosition();
         updateHandPosition();
     }
@@ -176,6 +189,28 @@ public class BattleStage extends AbstractStage {
         for(SynergyDisplay sd : list) {
             synergyTable.add(sd).padTop(4).left();
             synergyTable.row();
+        }
+    }
+
+    public void updateEnemies() {
+        enemyTable.clearChildren();
+        int sz = enemies.size();
+        for(int i = 0; i < sz; i++) {
+            AbstractEnemy e = enemies.get(i);
+            EnemyDisplay ed = new EnemyDisplay(e);
+            float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 420;
+            ed.setPosition(x, y, Align.bottom);
+            enemyTable.addActor(ed);
+        }
+
+        for(int i = 0; i < sz; i++) {
+            AbstractEnemy e = enemies.get(i);
+            if(e.isAlive()) {
+                HealthBar hb = new HealthBar(e, 180);
+                float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 420;
+                hb.setPosition(x, y - hb.getMinHeight(), Align.top);
+                enemyTable.addActor(hb);
+            }
         }
     }
 

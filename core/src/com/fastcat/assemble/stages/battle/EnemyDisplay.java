@@ -12,31 +12,36 @@ import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
+import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.utils.HealthBar;
 
 public class EnemyDisplay extends Table implements OnStatusUpdated {
 
-    private Table statusTable;
+    private final AbstractEnemy enemy;
 
-    public AbstractEnemy enemy;
-    public LinkedList<StatusDisplay> status;
-    public HealthBar healthBar;
+    private Table statusTable;
+    private SpriteAnimation animation;
+    private LinkedList<StatusDisplay> status;
+    private HealthBar healthBar;
 
     public EnemyDisplay(AbstractEnemy enemy) {
+        statusTable = new Table();
         status = new LinkedList<>();
         this.enemy = enemy;
         this.enemy.statusUpdatedListener.add(this);
-        healthBar = new HealthBar(this.enemy);
+
+        animation = this.enemy.animation;
+
+        this.addActor(animation);
+
         this.enemy.animation.setAnimation("idle");
-        statusTable = new Table();
-        statusTable.align(Align.topLeft);
         updateStatus();
     }
 
     @Override
     public void setPosition(float x, float y) {
         super.setPosition(x, y);
-        healthBar.setPosition(x, y);
+
     }
 
     private void updateStatus() {
