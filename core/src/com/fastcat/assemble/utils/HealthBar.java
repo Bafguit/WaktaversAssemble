@@ -26,6 +26,7 @@ public class HealthBar extends Table implements OnHealthUpdated {
     private Button hbMid, hbLeft, hbRight;
     private Button yetMid, yetRight, yetLeft;
     private Label text;
+    private Table hb, yet;
 
     private final float maxWidth;
 
@@ -54,26 +55,28 @@ public class HealthBar extends Table implements OnHealthUpdated {
         yetRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_right")));
         yetLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_left")));
         float h = (entity.health - 1) / (entity.maxHealth - 1);
+        maxWidth = width;
         this.width = width * h;
         yetWidth = this.width;
         entity.healthBar = this;
 
         Table bg = new Table();
+        bg.align(Align.left);
         bg.add(bgLeft).left();
         bg.add(bgMid).width(width).left();
         bg.add(bgRight).left();
 
-        Table hb = new Table();
+        hb = new Table();
+        hb.align(Align.left);
         hb.add(hbLeft).left();
         hb.add(hbMid).width(yetWidth).left();
         hb.add(hbRight).left();
 
-        Table yet = new Table();
+        yet = new Table();
+        yet.align(Align.left);
         yet.add(yetLeft).left();
         yet.add(yetMid).width(yetWidth).left();
         yet.add(yetRight).left();
-
-        maxWidth = width;
 
         text = new Label(entity.health + "/" + entity.maxHealth, new LabelStyle(FontHandler.BF_HEALTH, Color.WHITE));
         text.setAlignment(Align.center);
@@ -90,11 +93,20 @@ public class HealthBar extends Table implements OnHealthUpdated {
     @Override
     public void act(float delta) {
         if(entity.health > 0) {
-            float h = (entity.health - 1) / (entity.maxHealth - 1);
+            float h = (float) (entity.health - 1) / (float) (entity.maxHealth - 1);
             width = maxWidth * h;
 
-            hbMid.setWidth(width);
-            yetMid.setWidth(yetWidth);
+            hb.clearChildren();
+            hb.align(Align.left);
+            hb.add(hbLeft).left();
+            hb.add(hbMid).width(width).left();
+            hb.add(hbRight).left();
+    
+            yet.clearChildren();
+            yet.align(Align.left);
+            yet.add(yetLeft).left();
+            yet.add(yetMid).width(yetWidth).left();
+            yet.add(yetRight).left();
 
             if(timer > 0) {
                 timer -= delta;
@@ -104,6 +116,10 @@ public class HealthBar extends Table implements OnHealthUpdated {
             }
             
             if(yetWidth <= width) yetWidth = width;
+        } else {
+            width = 0;
+            hb.clearChildren();
+            yet.clearChildren();
         }
         super.act(delta);
     }

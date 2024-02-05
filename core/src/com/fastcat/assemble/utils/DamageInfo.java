@@ -23,7 +23,11 @@ public class DamageInfo {
     }
 
     public DamageInfo cpy() {
-        if(member != null) return new DamageInfo(member, type);
+        if(member != null) {
+            DamageInfo ni = new DamageInfo(member, type);
+            ni.damage = this.damage;
+            return ni;
+        }
         else return new DamageInfo(damage, source, type);
     }
 

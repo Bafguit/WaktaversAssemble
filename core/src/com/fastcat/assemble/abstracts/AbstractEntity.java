@@ -158,7 +158,7 @@ public abstract class AbstractEntity {
             for(AbstractStatus s : status) {
                 info.damage = s.damageTake(info);
             }
-           if(info.damage <= 0) return;
+            if(info.damage <= 0) return;
             float td = 1f;
             for(AbstractRelic item : WakTower.game.relics) {
                 td *= item.damageTakeMultiply(info);
@@ -203,6 +203,7 @@ public abstract class AbstractEntity {
         animation.setAnimation("hit");
         animation.addAnimation("idle");
         health -= info.damage;
+        if(health <= 0) health = 0;
         if(healthUpdatedListener.size > 0) {
             for(OnHealthUpdated o : healthUpdatedListener) {
                 o.onHealthUpdated(-info.damage);
