@@ -16,7 +16,7 @@ public class GainBlockAction extends AbstractAction {
     }
 
     public GainBlockAction(AbstractEntity target, int blockAmount, boolean isFast) {
-        super(target, isFast ? 0.3f : 1.0f);
+        super(target, isFast ? 0.15f : 0.5f);
         amount = blockAmount;
     }
 
@@ -25,7 +25,7 @@ public class GainBlockAction extends AbstractAction {
     }
 
     public GainBlockAction(AbstractEntity target, AbstractMember member, boolean isFast) {
-        super(target, isFast ? 0.3f : 1.0f);
+        super(target, isFast ? 0.15f : 0.5f);
         from = member;
     }
 

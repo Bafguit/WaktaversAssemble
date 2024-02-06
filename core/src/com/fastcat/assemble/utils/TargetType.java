@@ -16,8 +16,10 @@ public enum TargetType {
             for(AbstractEnemy e : WakTower.game.battle.enemies) {
                 if(e.isAlive()) entities.add(e);
             }
-            int r = WakTower.game.battleRandom.random(entities.size - 1);
-            targets.add(entities.get(r));
+            if(entities.size > 0) {
+                int r = WakTower.game.battleRandom.random(entities.size - 1);
+                targets.add(entities.get(r));
+            }
         } else if(this == ALL_ENEMY) {
             for(AbstractEnemy e : WakTower.game.battle.enemies) {
                 if(e.isAlive()) targets.add(e);

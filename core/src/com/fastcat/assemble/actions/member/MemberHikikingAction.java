@@ -1,57 +1,34 @@
 package com.fastcat.assemble.actions.member;
 
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractEnemy;
-import com.fastcat.assemble.interfaces.OnAnimationFinished;
+import com.fastcat.assemble.actions.DamageAction;
+import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.utils.TargetType;
+import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
-public class MemberHikikingAction extends AbstractAction implements OnAnimationFinished {
+public class MemberHikikingAction extends AbstractAction {
 
     public Hikiking member;
 
-    private int count = 0;
+    private int count = 0, index = 0;
 
     public MemberHikikingAction(Hikiking member) {
-        super(2f);
+        super(0f);
         this.member = member;
+        count = member.tempClone.calculateValue();
     }
 
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            member.animation.setAnimation("skill_0");
-            member.animation.setSingleAnimationListener(this, 0.06f);
-            amount = WakTower.game.battle.enemies.size();
-            for(int i = 0; i < member.tempClone.calculateValue(); i++) {
-                AbstractEnemy e = WakTower.game.battle.enemies.get(WakTower.game.battleRandom.random(0, amount - 1));
-                target.add(e);
+            for(int i = 0; i < count; i++) {
+                ActionHandler.set(new MemberSkillAnimationAction(member, "skill_" + index % 2));
+                ActionHandler.set(new DamageAction(new DamageInfo(member.tempClone, DamageType.NORMAL), TargetType.RANDOM, true));
+                index++;
             }
         }
-    }
-
-    @Override
-    public void onAnimationFinished(String key) {
-        if(count < amount) {
-            duration += 0.15f;
-            if(key.equals("skill_0") || key.equals("skill_1b")) {
-                member.animation.addAnimation("skill_1a");
-                member.animation.setSingleAnimationListener(this, 0.06f);
-            } else {
-                member.animation.addAnimation("skill_1b");
-                member.animation.setSingleAnimationListener(this, 0.06f);
-            }
-        } else {
-            member.animation.addAnimation("skill_2");
-            member.animation.addAnimation("idle");
-        }
-    }
-
-    @Override
-    public void onSingleFinished(String key) {
-        DamageInfo info = new DamageInfo(member.tempClone.calculatedAtk(), WakTower.game.player, DamageInfo.DamageType.NORMAL);
-        target.get(count++).takeDamage(info);
-        member.animation.addAnimationFinishedListener(this);
     }
 }

@@ -293,25 +293,27 @@ public abstract class AbstractMember implements Cloneable {
             a = s.calculateAtk(a);
         }
 
+        float m = 1.0f;
+
         for(OnIncreaseGlobalDamage g : WakTower.game.battle.turnGlobalDamage) {
-            a *= g.multiplyGlobalDamage();
+            m *= g.multiplyGlobalDamage();
         }
         for(OnIncreaseMemberDamage g : WakTower.game.battle.turnMemberDamage) {
-            a *= g.multiplyMemberDamage();
+            m *= g.multiplyMemberDamage();
         }
         for(AbstractRelic r : WakTower.game.relics) {
-            a *= r.multiplyAtk();
+            m *= r.multiplyAtk();
         }
         for(AbstractStatus s : WakTower.game.player.status) {
-            a *= s.multiplyAtk();
+            m *= s.multiplyAtk();
         }
 
         for(AbstractSynergy s : synergy) {
-            a *= s.muliplyEffect();
+            m *= s.muliplyEffect();
         }
 
-        atk = a;
-        return a;
+        atk = (int) (a * m);
+        return atk;
     }
 
     public int calculatedDef() {
@@ -327,37 +329,41 @@ public abstract class AbstractMember implements Cloneable {
             d = s.calculateDef(d);
         }
 
+        float m = 1.0f;
+
         for(OnIncreaseMemberDef g : WakTower.game.battle.turnMemberDef) {
-            d *= g.multiplyMemberDef();
+            m *= g.multiplyMemberDef();
         }
         for(AbstractRelic r : WakTower.game.relics) {
-            d *= r.multiplyDef();
+            m *= r.multiplyDef();
         }
         for(AbstractStatus s : WakTower.game.player.status) {
-            d *= s.multiplyDef();
+            m *= s.multiplyDef();
         }
 
         for(AbstractSynergy s : synergy) {
-            d *= s.muliplyEffect();
+            m *= s.muliplyEffect();
         }
 
-        def = d;
-        return d;
+        def = (int) (d * m);
+        return def;
     }
 
     public int calculateValue() {
-        value = baseValue;
+        float m = 1.0f;
         for(AbstractSynergy s : synergy) {
-            value *= s.muliplyEffect();
+            m *= s.muliplyEffect();
         }
+        value = (int) (baseValue * m);
         return value;
     }
 
     public int calculateValue2() {
-        value2 = baseValue2;
+        float m = 1.0f;
         for(AbstractSynergy s : synergy) {
-            value2 *= s.muliplyEffect();
+            m *= s.muliplyEffect();
         }
+        value2 = (int) (baseValue2 * m);
         return value2;
     }
 

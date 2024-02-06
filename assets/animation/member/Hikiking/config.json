@@ -11,8 +11,14 @@
       "axisX": 128,
       "axisY": 20
     },
-    "skill": {
-      "frameDuration": 1,
+    "skill_0": {
+      "frameDuration": 0.5,
+      "isLoop": false,
+      "axisX": 128,
+      "axisY": 20
+    },
+    "skill_1": {
+      "frameDuration": 0.5,
       "isLoop": false,
       "axisX": 128,
       "axisY": 20

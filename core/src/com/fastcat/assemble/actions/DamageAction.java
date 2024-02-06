@@ -36,19 +36,19 @@ public class DamageAction extends AbstractAction {
 
     // Specific
     public DamageAction(DamageInfo info, AbstractEntity target, boolean isFast) {
-        super(target, isFast ? 0.2f : 0.5f);
+        super(target, isFast ? 0.15f : 0.5f);
         this.info = info;
     }
 
     // Several
     public DamageAction(DamageInfo info, Array<AbstractEntity> target, boolean isFast) {
-        super(target, isFast ? 0.2f : 0.5f);
+        super(target, isFast ? 0.15f : 0.5f);
         this.info = info;
     }
 
     // Target Type
     public DamageAction(DamageInfo info, TargetType target, boolean isFast) {
-        super(target, isFast ? 0.2f : 0.5f);
+        super(target, isFast ? 0.15f : 0.5f);
         this.info = info;
     }
 

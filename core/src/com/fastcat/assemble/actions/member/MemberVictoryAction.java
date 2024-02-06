@@ -9,7 +9,7 @@ public class MemberVictoryAction extends AbstractAction {
     public Victory victory;
 
     public MemberVictoryAction(Victory victory) {
-        super(2f);
+        super(0.5f);
         this.victory = victory;
     }
 

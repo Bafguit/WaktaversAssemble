@@ -9,7 +9,7 @@ public class MemberWakpagoAction extends AbstractAction {
     public Wakpago victory;
 
     public MemberWakpagoAction(Wakpago victory) {
-        super(2f);
+        super(0.5f);
         this.victory = victory;
     }
 

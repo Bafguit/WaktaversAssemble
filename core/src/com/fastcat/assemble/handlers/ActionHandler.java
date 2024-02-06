@@ -15,12 +15,14 @@ public final class ActionHandler {
 
     private final Queue<AbstractAction> actionList = new Queue<>();
     private final Queue<AbstractAction> nextActions = new Queue<>();
+    private final Queue<AbstractAction> setActions = new Queue<>();
     private AbstractAction current;
 
     public static void clear() {
         if(game != null) {
             game.actionHandler.actionList.clear();
             game.actionHandler.nextActions.clear();
+            game.actionHandler.setActions.clear();
         }
     }
 
@@ -29,12 +31,23 @@ public final class ActionHandler {
             ActionHandler a = game.actionHandler;
             a.actionList.clear();
             a.nextActions.clear();
+            a.setActions.clear();
             a.current = null;
         }
     }
 
     public static void add(AbstractEffect effect) {
         effectHandler.addEffect(effect);
+    }
+
+    public static void set(AbstractAction action) {
+        if(game != null) {
+            if(game.actionHandler.current != null) {
+                game.actionHandler.setActions.addLast(action);
+            } else {
+                game.actionHandler.actionList.addLast(action);
+            }
+        }
     }
 
     public static void next(AbstractAction action) {
@@ -64,7 +77,9 @@ public final class ActionHandler {
             }
             if(current.isDone) {
                 current = null;
-                if (nextActions.size > 0) {
+                if (setActions.size > 0) {
+                    current = setActions.removeFirst();
+                } else if (nextActions.size > 0) {
                     current = nextActions.removeFirst();
                 } else if (actionList.size > 0) {
                     current = actionList.removeFirst();
