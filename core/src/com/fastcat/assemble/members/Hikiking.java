@@ -8,7 +8,7 @@ public class Hikiking extends AbstractMember {
     public Hikiking() {
         super("Hikiking");
         setAtk(2, 0);
-        setValue(4, 1);
+        setValue(3, 1);
     }
 
     @Override

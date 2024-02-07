@@ -7,7 +7,7 @@ public class Lilpa extends AbstractMember {
 
     public Lilpa() {
         super("Lilpa");
-        setAtk(4, 1);
+        setAtk(3, 1);
     }
 
     @Override

@@ -11,7 +11,7 @@ public class Magician extends AbstractSynergy {
     }
 
     public int increaseMemberDamage() {
-        return grade == 1 ? 2 : grade == 2 ? 3 : grade == 3 ? 5 : grade == 4 ? 10 : 0;
+        return grade == 1 ? 2 : grade == 2 ? 4 : grade == 3 ? 8 : 0;
     }
 
     public static Magician getInstance() {

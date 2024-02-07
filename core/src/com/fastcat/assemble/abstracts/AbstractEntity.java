@@ -41,7 +41,7 @@ public abstract class AbstractEntity {
 
     public AbstractEntity(String id, boolean isPlayer) {
         this.id = id;
-        data = DataHandler.getInstance().entityData.get(id);
+        data = (isPlayer ? DataHandler.getInstance().memberData : DataHandler.getInstance().enemyData).get(id);
         name = data.name;
         desc = data.desc;
         health = maxHealth = data.health;
@@ -265,12 +265,21 @@ public abstract class AbstractEntity {
         public final int health;
         public final SpriteAnimation animation;
 
-        public EntityData(String id, JsonValue json) {
+        public String[] synergy;
+        public String flavor;
+
+        public EntityData(String id, SpriteAnimationType type, JsonValue json) {
             this.id = id;
             name = json.getString("name");
             desc = json.getString("desc");
             health = json.getInt("health");
-            animation = new SpriteAnimation(id, SpriteAnimationType.entity);
+            animation = new SpriteAnimation(id, type);
+
+            JsonValue j = json.get("synergy");
+            if(j != null) synergy = j.asStringArray();
+            else synergy = new String[0];
+
+            flavor = json.getString("flavor", "");
         }
 
         private EntityData(String id, String name, String desc, int health, SpriteAnimation anim) {

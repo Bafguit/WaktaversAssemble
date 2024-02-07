@@ -4,12 +4,13 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.utils.TargetType;
 
 public class Angel extends AbstractMember {
 
     public Angel() {
         super("Angel");
-        setDef(5, 3);
+        setDef(5, 2);
     }
 
     @Override
@@ -22,6 +23,6 @@ public class Angel extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBlockAction(WakTower.game.player, this.tempClone));
+        next(new GainBlockAction(TargetType.SELF, this.tempClone));
     }
 }

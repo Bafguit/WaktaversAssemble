@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
@@ -18,14 +19,14 @@ import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.utils.DamageInfo;
 
 
-public abstract class AbstractMember implements Cloneable {
+public abstract class AbstractMember extends AbstractEntity implements Cloneable {
 
     private static final String[] MIND_MASTER_SYNERGY = new String[] {
         "Guardian", "Crazy", "Expert", "Magician", "MainVocal", "Machinary",
         "Doormat", "Villain", "Kiddo", "Nobles", "Timid"
     };
 
-    public final MemberData data;
+    public final EntityData data;
 
     public AbstractMember tempClone;
 
@@ -45,6 +46,7 @@ public abstract class AbstractMember implements Cloneable {
     public AbstractSynergy[] synergy;
 
     public AbstractMember(String id) {
+        super(id, true);
         this.id = id;
         data = DataHandler.getInstance().memberData.get(id);
         name = data.name;
@@ -421,23 +423,5 @@ public abstract class AbstractMember implements Cloneable {
         m.img = new TextureRegionDrawable(this.img);
 
         return m;
-    }
-
-    public static class MemberData {
-        public final String id;
-        public final String name;
-        public final String desc;
-        public final String flavor;
-        public final SpriteAnimation animation;
-        public final String[] synergy;
-
-        public MemberData(String id, JsonValue json) {
-            this.id = id;
-            name = json.getString("name");
-            desc = json.getString("desc");
-            flavor = json.getString("flavor");
-            animation = DataHandler.getInstance().animation.get(id);
-            synergy = json.get("synergy").asStringArray();
-        }
     }
 }

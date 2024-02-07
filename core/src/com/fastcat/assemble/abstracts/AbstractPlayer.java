@@ -16,7 +16,7 @@ import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
 import com.fastcat.assemble.members.Lilpa;
-import com.fastcat.assemble.members.Messi;
+import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Sullivan;
 import com.fastcat.assemble.members.Rusuk;
 import com.fastcat.assemble.members.Seyong;
@@ -34,7 +34,7 @@ public class AbstractPlayer extends AbstractEntity {
     public Array<AbstractMember> getStartDeck() {
         Array<AbstractMember> a = new Array<>();
         
-        a.add(new Messi());
+        a.add(new Wakgood());
         a.add(new Angel());
         a.add(new Ine());
         a.add(new Jingburger());

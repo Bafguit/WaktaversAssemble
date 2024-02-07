@@ -2,36 +2,100 @@ package com.fastcat.assemble.utils;
 
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractEntity;
+import com.fastcat.assemble.abstracts.AbstractSynergy;
 
 public enum TargetType {
-    RANDOM, ALL, ALL_ENEMY, HP_HIGH, HP_LOW, PLAYER, NONE;
-
-    public Array<AbstractEntity> getTargets() {
-        Array<AbstractEntity> targets = new Array<>();
-
-        if(this == RANDOM) {
+    RANDOM {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
             Array<AbstractEntity> entities = new Array<>();
-            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            if(source != null && !source.isPlayer) {
+                for(AbstractEntity e : WakTower.game.battle.members) {
+                    if(e.isAlive()) entities.add(e);
+                }
+            } else {
+                for(AbstractEntity e : WakTower.game.battle.enemies) {
+                    if(e.isAlive()) entities.add(e);
+                }
+            }
+            if(entities.size > 0) {
+                int r = WakTower.game.battleRandom.random(entities.size - 1);
+                targets.add(entities.get(r));
+            }
+            return targets;
+        }
+    }, 
+    RANDOM_MEMBER {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
+            Array<AbstractEntity> entities = new Array<>();
+            for(AbstractEntity e : WakTower.game.battle.members) {
                 if(e.isAlive()) entities.add(e);
             }
             if(entities.size > 0) {
                 int r = WakTower.game.battleRandom.random(entities.size - 1);
                 targets.add(entities.get(r));
             }
-        } else if(this == ALL_ENEMY) {
-            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            return targets;
+        }
+    }, 
+    RANDOM_ENEMY {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
+            Array<AbstractEntity> entities = new Array<>();
+            for(AbstractEntity e : WakTower.game.battle.enemies) {
+                if(e.isAlive()) entities.add(e);
+            }
+            if(entities.size > 0) {
+                int r = WakTower.game.battleRandom.random(entities.size - 1);
+                targets.add(entities.get(r));
+            }
+            return targets;
+        }
+    }, 
+    ALL {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
+            for(AbstractEntity e : WakTower.game.battle.members) {
                 if(e.isAlive()) targets.add(e);
             }
-        } else if(this == ALL) {
-            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            for(AbstractEntity e : WakTower.game.battle.enemies) {
                 if(e.isAlive()) targets.add(e);
             }
-            targets.add(WakTower.game.player);
-        } else if(this == HP_HIGH) {
+            return targets;
+        }
+    },
+    ALL_MEMBER {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
+            for(AbstractEntity e : WakTower.game.battle.members) {
+                if(e.isAlive()) targets.add(e);
+            }
+            return targets;
+        }
+    },
+    ALL_ENEMY {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
+            for(AbstractEntity e : WakTower.game.battle.enemies) {
+                if(e.isAlive()) targets.add(e);
+            }
+            return targets;
+        }
+    },
+    HP_HIGH {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
             int h = 0;
-            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            for(AbstractEntity e : ((source != null && !source.isPlayer) ? WakTower.game.battle.members : WakTower.game.battle.enemies)) {
                 if(e.isAlive()) {
                     if(e.health > h) {
                         targets.clear();
@@ -42,15 +106,21 @@ public enum TargetType {
                     }
                 }
             }
-        } else if(this == HP_LOW) {
+            return targets;
+        }
+    },
+    HP_LOW {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
             int h = 0;
-            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            for(AbstractEntity e : ((source != null && !source.isPlayer) ? WakTower.game.battle.members : WakTower.game.battle.enemies)) {
                 if(e.isAlive() && e.health > h) {
                     h = e.health;
                 }
             }
 
-            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            for(AbstractEntity e : ((source != null && !source.isPlayer) ? WakTower.game.battle.members : WakTower.game.battle.enemies)) {
                 if(e.isAlive()) {
                     if(e.health < h) {
                         targets.clear();
@@ -61,10 +131,20 @@ public enum TargetType {
                     }
                 }
             }
-        } else if(this == PLAYER) {
-            targets.add(WakTower.game.player);
+            return targets;
         }
+    },
+    SELF {
+        @Override
+        public Array<AbstractEntity> getTargets(AbstractEntity source) {
+            Array<AbstractEntity> targets = new Array<>();
+            if(source != null) targets.add(source);
+            return targets;
+        }
+    },
+    NONE;
 
-        return targets;
+    public Array<AbstractEntity> getTargets(AbstractEntity source) {
+        return new Array<>();
     }
 }

@@ -11,7 +11,7 @@ public class Chunsik extends AbstractMember {
 
     public Chunsik() {
         super("Chunsik");
-        setAtk(12, 3);
+        setAtk(9, 3);
     }
 
     @Override

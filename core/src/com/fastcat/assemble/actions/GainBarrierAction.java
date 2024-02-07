@@ -6,26 +6,27 @@ import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
+import com.fastcat.assemble.utils.TargetType;
 
 public class GainBarrierAction extends AbstractAction {
 
     public AbstractMember from;
 
-    public GainBarrierAction(AbstractEntity target, AbstractMember member) {
+    public GainBarrierAction(TargetType target, AbstractMember member) {
         this(target, member, false);
     }
 
-    public GainBarrierAction(AbstractEntity target, AbstractMember member, boolean isFast) {
-        super(target, isFast ? 0.3f : 1.0f);
+    public GainBarrierAction(TargetType target, AbstractMember member, boolean isFast) {
+        super(target, isFast ? 0.15f : 0.5f);
         from = member;
     }
 
-    public GainBarrierAction(AbstractEntity target, int blockAmount) {
+    public GainBarrierAction(TargetType target, int blockAmount) {
         this(target, blockAmount, false);
     }
 
-    public GainBarrierAction(AbstractEntity target, int blockAmount, boolean isFast) {
-        super(target, isFast ? 0.3f : 1.0f);
+    public GainBarrierAction(TargetType target, int blockAmount, boolean isFast) {
+        super(target, isFast ? 0.15f : 0.5f);
         amount = blockAmount;
     }
 

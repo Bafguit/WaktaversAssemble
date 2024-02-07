@@ -11,7 +11,7 @@ public class BusinessKim extends AbstractMember {
 
     public BusinessKim() {
         super("BusinessKim");
-        setAtk(8, 2);
+        setAtk(6, 2);
     }
 
     @Override

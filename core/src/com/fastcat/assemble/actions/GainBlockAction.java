@@ -6,25 +6,26 @@ import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
+import com.fastcat.assemble.utils.TargetType;
 
 public class GainBlockAction extends AbstractAction {
 
     public AbstractMember from;
 
-    public GainBlockAction(AbstractEntity target, int blockAmount) {
+    public GainBlockAction(TargetType target, int blockAmount) {
         this(target, blockAmount, false);
     }
 
-    public GainBlockAction(AbstractEntity target, int blockAmount, boolean isFast) {
+    public GainBlockAction(TargetType target, int blockAmount, boolean isFast) {
         super(target, isFast ? 0.15f : 0.5f);
         amount = blockAmount;
     }
 
-    public GainBlockAction(AbstractEntity target, AbstractMember member) {
+    public GainBlockAction(TargetType target, AbstractMember member) {
         this(target, member, false);
     }
 
-    public GainBlockAction(AbstractEntity target, AbstractMember member, boolean isFast) {
+    public GainBlockAction(TargetType target, AbstractMember member, boolean isFast) {
         super(target, isFast ? 0.15f : 0.5f);
         from = member;
     }

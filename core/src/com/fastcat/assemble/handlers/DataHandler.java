@@ -1,6 +1,5 @@
 package com.fastcat.assemble.handlers;
 
-import com.fastcat.assemble.abstracts.AbstractMember;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractRelic;
@@ -21,9 +20,9 @@ public class DataHandler {
     private static DataHandler instance;
 
     public final HashMap<String, AbstractUI.UIData> uiData = new HashMap<>();
-    public final HashMap<String, AbstractEntity.EntityData> entityData = new HashMap<>();
+    public final HashMap<String, AbstractEntity.EntityData> enemyData = new HashMap<>();
     public final HashMap<String, AbstractRelic.RelicData> relicData = new HashMap<>();
-    public final HashMap<String, AbstractMember.MemberData> memberData = new HashMap<>();
+    public final HashMap<String, AbstractEntity.EntityData> memberData = new HashMap<>();
     public final HashMap<String, AbstractSynergy.SynergyData> synergyData = new HashMap<>();
     public final HashMap<String, AbstractStatus.StatusData> statusData = new HashMap<>();
     public final HashMap<String, SpriteAnimation> animation = new HashMap<>();
@@ -58,7 +57,7 @@ public class DataHandler {
         //member data
         JsonValue json = FileHandler.getInstance().jsonMap.get("member");
         for(JsonValue v : json) {
-            memberData.put(v.name, new AbstractMember.MemberData(v.name, v));
+            memberData.put(v.name, new AbstractEntity.EntityData(v.name, SpriteAnimationType.member, v));
         }
 
         //relic data
@@ -76,7 +75,7 @@ public class DataHandler {
         //entity data
         json = FileHandler.getInstance().jsonMap.get("entity");
         for(JsonValue v : json) {
-            entityData.put(v.name, new EntityData(v.name, v));
+            enemyData.put(v.name, new EntityData(v.name, SpriteAnimationType.entity, v));
         }
 
         //status data

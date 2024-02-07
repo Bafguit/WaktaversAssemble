@@ -12,9 +12,9 @@ public class Doormat extends AbstractSynergy {
     }
 
     public int damageTake(DamageInfo info) {
-        if(grade == 1) return info.damage - 2;
+        if(grade == 1) return info.damage - 1;
         else if(grade == 2) return info.damage - 3;
-        else if(grade == 3) return info.damage - 5;
+        else if(grade == 3) return info.damage - 6;
         else return info.damage;
     }
 

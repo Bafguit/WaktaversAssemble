@@ -9,6 +9,8 @@ public abstract class AbstractAction implements Cloneable {
 
     protected static final float DUR_DEFAULT = 0.5f;
 
+    private AbstractSynergy synergyTarget;
+
     public AbstractEntity source;
     public Array<AbstractEntity> target = new Array<>();
     public TargetType tar = TargetType.NONE;
@@ -52,7 +54,11 @@ public abstract class AbstractAction implements Cloneable {
             if (duration <= 0) isDone = true;
             else if (duration == baseDuration)
                 if (preAction != null) target = preAction.target;
-                else if (tar != TargetType.NONE) target = tar.getTargets();
+                else if(synergyTarget != null) {
+                    for(AbstractEntity e : synergyTarget.members) {
+                        if(e.isAlive()) target.add(e);
+                    }
+                } else if (tar != TargetType.NONE) target = tar.getTargets(source);
             updateAction();
             if(run) TickDuration();
         }
@@ -60,6 +66,11 @@ public abstract class AbstractAction implements Cloneable {
 
     public final void render(SpriteBatch sb) {
         renderAction(sb);
+    }
+
+    public final AbstractAction setSynergy(AbstractSynergy s) {
+        synergyTarget = s;
+        return this;
     }
 
     protected void applySetting() {

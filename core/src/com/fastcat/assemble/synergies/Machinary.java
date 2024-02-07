@@ -23,8 +23,8 @@ public class Machinary extends AbstractSynergy {
             int m = getMachinaryNumber();
             for(int i = 0; i < memberCount; i++) {
                 boolean b = WakTower.game.battleRandom.randomBoolean();
-                if(b) ActionHandler.next(new GainBlockAction(WakTower.game.player, m, true));
-                else ActionHandler.next(new DamageAction(new DamageInfo(m, null, DamageType.REFLECT), TargetType.RANDOM, true));
+                if(b) ActionHandler.next(new GainBlockAction(TargetType.RANDOM_MEMBER, m, true));
+                else ActionHandler.next(new DamageAction(new DamageInfo(m, null, DamageType.REFLECT), TargetType.RANDOM_ENEMY, true));
             }
         }
     }

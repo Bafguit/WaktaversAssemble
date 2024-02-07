@@ -4,6 +4,7 @@ import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.handlers.ActionHandler;
+import com.fastcat.assemble.utils.TargetType;
 
 public class Guardian extends AbstractSynergy {
 
@@ -18,7 +19,7 @@ public class Guardian extends AbstractSynergy {
         super.endOfTurn(isPlayer);
         if(grade > 0) {
             flash();
-            ActionHandler.next(new GainBlockAction(WakTower.game.player, grade == 1 ? 5 : grade == 2 ? 12 : grade == 3 ? 25 : 50, true));
+            ActionHandler.next(new GainBlockAction(TargetType.NONE, grade == 1 ? 5 : grade == 2 ? 9 : 15, true).setSynergy(this));
         }
     }
 

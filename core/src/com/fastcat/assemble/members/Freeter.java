@@ -13,7 +13,7 @@ public class Freeter extends AbstractMember {
 
     public Freeter() {
         super("Freeter");
-        setValue(3, 2);
+        setValue(3, 1);
     }
 
     public void damageTaken(DamageInfo info) {

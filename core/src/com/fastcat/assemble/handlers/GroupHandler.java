@@ -19,7 +19,7 @@ import com.fastcat.assemble.members.Jinhe;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
 import com.fastcat.assemble.members.Lilpa;
-import com.fastcat.assemble.members.Messi;
+import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Rusuk;
 import com.fastcat.assemble.members.Seyong;
 import com.fastcat.assemble.members.Sophia;
@@ -43,7 +43,7 @@ public class GroupHandler {
     }
 
     private static void addMembers() {
-        memberGroup.put("Messi", new Messi());
+        memberGroup.put("Messi", new Wakgood());
         memberGroup.put("Angel", new Angel());
         memberGroup.put("Jingburger", new Jingburger());
         memberGroup.put("Gosegu", new Gosegu());

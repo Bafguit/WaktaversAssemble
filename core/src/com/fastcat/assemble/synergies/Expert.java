@@ -12,10 +12,9 @@ public class Expert extends AbstractSynergy {
 
     @Override
     public float muliplyEffect() {
-        if(grade == 1) return 1.5f;
+        if(grade == 1) return 1.35f;
         else if(grade == 2) return 1.75f;
-        else if(grade == 3) return 2.25f;
-        else if(grade == 4) return 3f;
+        else if(grade == 3) return 2.35f;
         else return 1f;
     }
 
