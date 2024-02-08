@@ -53,6 +53,7 @@ public class BattleStage extends AbstractStage {
     public HashMap<AbstractMember, MemberFieldDisplay> memberFields = new HashMap<>();
     public HashMap<AbstractMember, Button> overTiles = new HashMap<>();
     public HashMap<AbstractEnemy, Table> enemyHealth = new HashMap<>();
+    public HashMap<AbstractMember, Table> memberHealth = new HashMap<>();
 
     public HashMap<AbstractMember, MemberCardDisplay> discardMembers = new HashMap<>();
 
@@ -229,7 +230,7 @@ public class BattleStage extends AbstractStage {
         for(int i = 0; i < sz; i++) {
             AbstractEnemy e = enemies.get(i);
             EnemyDisplay ed = new EnemyDisplay(e);
-            float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 420;
+            float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
             ed.setPosition(x, y, Align.bottom);
             enemyTable.addActor(ed);
         }
@@ -237,8 +238,8 @@ public class BattleStage extends AbstractStage {
         for(int i = 0; i < sz; i++) {
             AbstractEnemy e = enemies.get(i);
             if(e.isAlive()) {
-                HealthBar hb = new HealthBar(e, 180);
-                float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 420;
+                HealthBar hb = new HealthBar(e, 150);
+                float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
                 hb.setPosition(x, y - hb.getMinHeight(), Align.top);
                 enemyTable.addActor(hb);
             }
@@ -248,7 +249,7 @@ public class BattleStage extends AbstractStage {
     public void updateMemberPosition() {
         fieldTable.clearChildren();
         int ii = 0, jj = 0;
-        for(int i = 0; i < battle.members.size; i++) {
+        for(int i = 0; i < battle.members.size(); i++) {
             AbstractMember m = battle.members.get(i);
             MemberFieldDisplay md = memberFields.get(m);
             if(md == null) {
@@ -256,9 +257,9 @@ public class BattleStage extends AbstractStage {
                 memberFields.put(m, md);
             }
             fieldTable.addActor(md);
-            md.setPosition(840 - (70 * jj) - 210 * ii, 500 - (90 * jj), Align.bottom);
+            md.setPosition(840 - (85 * jj) - 210 * ii, 540 - (110 * jj), Align.bottom);
             ii++;
-            if(ii == 4) {
+            if(ii == 3) {
                 jj++;
                 ii = 0;
             }
@@ -266,7 +267,23 @@ public class BattleStage extends AbstractStage {
 
         ii = 0;
         jj = 0;
-        for(int i = 0; i < battle.members.size; i++) {
+        for(int i = 0; i < battle.members.size(); i++) {
+            AbstractMember e = battle.members.get(i);
+            if(e.isAlive()) {
+                HealthBar hb = new HealthBar(e, 100);
+                hb.setPosition(840 - (85 * jj) - 210 * ii, 540 - (110 * jj), Align.top);
+                fieldTable.addActor(hb);
+            }
+            ii++;
+            if(ii == 3) {
+                jj++;
+                ii = 0;
+            }
+        }
+
+        ii = 0;
+        jj = 0;
+        for(int i = 0; i < battle.members.size(); i++) {
             AbstractMember m = battle.members.get(i);
             Button overTile = overTiles.get(m);
             if(overTile == null) {
@@ -275,12 +292,11 @@ public class BattleStage extends AbstractStage {
                 overTile = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/memberTile")));
                 overTile.addListener(tooltip);
                 overTile.setColor(1, 1, 1, 0);
-                overTiles.put(m, overTile);
             }
             fieldTable.addActor(overTile);
-            overTile.setPosition(840 - (70 * jj) - 210 * ii, 500 - (90 * jj), Align.bottom);
+            overTile.setPosition(840 - (85 * jj) - 210 * ii, 540 - (110 * jj), Align.bottom);
             ii++;
-            if(ii == 4) {
+            if(ii == 3) {
                 jj++;
                 ii = 0;
             }
@@ -370,7 +386,7 @@ public class BattleStage extends AbstractStage {
 
     public void discardField(AbstractMember m) {
         battle.discardPile.add(m);
-        MemberFieldDisplay mf = memberFields.get(m);
+        MemberFieldDisplay mf = memberFields.remove(m);
         MemberCardDisplay md = new MemberCardDisplay(m);
         md.setScale(0.85f);
         md.setPosition(mf.getX(), mf.getY());

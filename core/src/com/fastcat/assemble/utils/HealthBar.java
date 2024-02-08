@@ -4,10 +4,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.WakTower;
@@ -22,17 +25,13 @@ import com.fastcat.assemble.interfaces.OnHealthUpdated;
 
 public class HealthBar extends Table implements OnHealthUpdated {
 
-    private static final FontData font = FontHandler.HEALTH;
-    private Button hbMid, hbLeft, hbRight;
-    private Button yetMid, yetRight, yetLeft;
-    private Label text;
-    private Table hb, yet;
+    private static final String BLUE = FontHandler.getColorKey("b");
+    private static final String GREEN = FontHandler.getColorKey("g");
 
-    private final float maxWidth;
+    private ProgressBar hb, yet;
+    private Label text;
 
     public AbstractEntity entity;
-    public float x, y, width, yetWidth;
-    public float timer, tick;
 
     public HealthBar(AbstractEntity entity) {
         this(entity, 280);
@@ -40,103 +39,61 @@ public class HealthBar extends Table implements OnHealthUpdated {
 
     public HealthBar(AbstractEntity entity, final float width) {
         this.entity = entity;
-        Button bgLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_left")));
-        Button bgMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_mid")));
-        Button bgRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_right")));
-        bgLeft.setColor(0.5f, 0.5f, 0.5f, 1);
-        bgMid.setColor(0.5f, 0.5f, 0.5f, 1);
-        bgRight.setColor(0.5f, 0.5f, 0.5f, 1);
-
-        hbLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_left")));
-        hbMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_mid")));
-        hbRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_right")));
-
-        yetMid = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_mid")));
-        yetRight = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_right")));
-        yetLeft = new Button(new TextureRegionDrawable(FileHandler.getTexture("ui/hb_yet_left")));
-        float h = (entity.health - 1) / (entity.maxHealth - 1);
-        maxWidth = width;
-        this.width = width * h;
-        yetWidth = this.width;
+        Button bg = new Button(new TextureRegionDrawable(FileHandler.getPng("ui/hb")));
+        hb = new ProgressBar(0, this.entity.maxHealth, 1, false, new ProgressBarStyle(new TextureRegionDrawable(FileHandler.getPng("ui/hb")), null));
+        hb.setWidth(width);
+        hb.setTouchable(Touchable.disabled);
+        yet = new ProgressBar(0, this.entity.maxHealth, 1, false, new ProgressBarStyle(new TextureRegionDrawable(FileHandler.getPng("ui/hb_yet")), null));
+        yet.setWidth(width);
+        yet.setTouchable(Touchable.disabled);
+        yet.setAnimateDuration(1);
+        Button block = new Button(new TextureRegionDrawable(FileHandler.getPng("ui/hb_block"))) {
+            AbstractEntity ent = entity;
+            
+            public void act(float delta) {
+                if(ent.block > 0) setColor(1,1,1,1);
+                else setColor(1,1,1,0);
+            }
+        };
+        Button barrier = new Button(new TextureRegionDrawable(FileHandler.getPng("ui/hb_barrier"))) {
+            AbstractEntity ent = entity;
+            
+            public void act(float delta) {
+                if(ent.barrier > 0) setColor(1,1,1,1);
+                else setColor(1,1,1,0);
+            }
+        };
+        bg.setColor(0.5f, 0.5f, 0.5f, 1);
         entity.healthBar = this;
 
-        Table bg = new Table();
-        bg.align(Align.left);
-        bg.add(bgLeft).left();
-        bg.add(bgMid).width(width).left();
-        bg.add(bgRight).left();
+        String t = entity.health + "/" + entity.maxHealth;
+        if(entity.barrier > 0) t += GREEN + " +" + entity.barrier;
+        if(entity.block > 0) t += BLUE + " +" + entity.block;
 
-        hb = new Table();
-        hb.align(Align.left);
-        hb.add(hbLeft).left();
-        hb.add(hbMid).width(yetWidth).left();
-        hb.add(hbRight).left();
-
-        yet = new Table();
-        yet.align(Align.left);
-        yet.add(yetLeft).left();
-        yet.add(yetMid).width(yetWidth).left();
-        yet.add(yetRight).left();
-
-        text = new Label(entity.health + "/" + entity.maxHealth, new LabelStyle(FontHandler.BF_HEALTH, Color.WHITE));
+        text = new Label(t, new LabelStyle(FontHandler.BF_HEALTH, Color.WHITE));
         text.setAlignment(Align.center);
 
-        this.add(bg).left();
+        this.add(bg).width(width);
         this.row();
-        this.add(yet).left().padTop(-16);
+        this.add(yet).width(width).padTop(-8);
         this.row();
-        this.add(hb).left().padTop(-16);
+        this.add(hb).width(width).padTop(-8);
         this.row();
-        this.add(text).height(16).padTop(-16).width(width).center();
-    }
-
-    @Override
-    public void act(float delta) {
-        if(entity.health > 0) {
-            float h = (float) (entity.health - 1) / (float) (entity.maxHealth - 1);
-            width = maxWidth * h;
-
-            hb.clearChildren();
-            hb.align(Align.left);
-            hb.add(hbLeft).left();
-            hb.add(hbMid).width(width).left();
-            hb.add(hbRight).left();
-    
-            yet.clearChildren();
-            yet.align(Align.left);
-            yet.add(yetLeft).left();
-            yet.add(yetMid).width(yetWidth).left();
-            yet.add(yetRight).left();
-
-            if(timer > 0) {
-                timer -= delta;
-                if(timer <= 0) timer = 0;
-            } else if(yetWidth > width) {
-                yetWidth -= 100 * delta;
-            }
-            
-            if(yetWidth <= width) yetWidth = width;
-        } else {
-            width = 0;
-            hb.clearChildren();
-            yet.clearChildren();
-        }
-        super.act(delta);
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha) {
-
-        super.draw(batch, parentAlpha);
-    }
-
-    private void yetReset() {
-        timer = 1f;
+        this.add(block).width(width + 2).padTop(-9).padLeft(-1);
+        this.row();
+        this.add(barrier).width(width).padTop(-9);
+        this.row();
+        this.add(text).height(16).padTop(-13).width(width).center();
     }
 
     @Override
     public void onHealthUpdated(int amount) {
-        text.setText(entity.health + "/" + entity.maxHealth);
-        yetReset();
+        hb.setValue(entity.health);
+        //hb.updateVisualValue();
+        yet.setValue(entity.health);
+        String t = entity.health + "/" + entity.maxHealth;
+        if(entity.barrier > 0) t += GREEN + " +" + entity.barrier;
+        if(entity.block > 0) t += BLUE + " +" + entity.block;
+        text.setText(t);
     }
 }

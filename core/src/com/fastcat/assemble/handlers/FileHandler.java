@@ -98,13 +98,10 @@ public class FileHandler {
         assetManager.load("image/ui/sub_top.png", Pixmap.class);
         assetManager.load("image/ui/sub_mid.png", Pixmap.class);
         assetManager.load("image/ui/sub_bot.png", Pixmap.class);
-        assetManager.load("image/ui/hb_left.webp", Pixmap.class);
-        assetManager.load("image/ui/hb_mid.webp", Pixmap.class);
-        assetManager.load("image/ui/hb_right.webp", Pixmap.class);
-        assetManager.load("image/ui/hb_line.webp", Pixmap.class);
-        assetManager.load("image/ui/hb_yet_left.webp", Pixmap.class);
-        assetManager.load("image/ui/hb_yet_mid.webp", Pixmap.class);
-        assetManager.load("image/ui/hb_yet_right.webp", Pixmap.class);
+        assetManager.load("image/ui/hb.png", Pixmap.class);
+        assetManager.load("image/ui/hb_block.png", Pixmap.class);
+        assetManager.load("image/ui/hb_barrier.png", Pixmap.class);
+        assetManager.load("image/ui/hb_yet.png", Pixmap.class);
         assetManager.load("image/ui/synergyNameBg.png", Pixmap.class);
         assetManager.load("image/ui/topbar.png", Pixmap.class);
         assetManager.load("image/ui/checkbox_on.png", Pixmap.class);

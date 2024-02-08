@@ -1,5 +1,7 @@
 package com.fastcat.assemble.members;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
@@ -26,10 +28,10 @@ public class Jururu extends AbstractMember {
 
     @Override
     protected void useMember() {
-        Array<AbstractMember> ms = WakTower.game.battle.members;
-        for(int i = 0; i < ms.size; i++) {
+        LinkedList<AbstractMember> ms = WakTower.game.battle.members;
+        for(int i = 0; i < ms.size(); i++) {
             AbstractMember m = ms.get(i);
-            if(m == this && i + 1 < ms.size) {
+            if(m == this && i + 1 < ms.size()) {
                 AbstractMember next = ms.get(i + 1);
                 next.upgradeTemp(tempClone.calculateValue());
                 break;

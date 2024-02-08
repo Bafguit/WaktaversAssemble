@@ -22,7 +22,6 @@ public class EnemyDisplay extends Table implements OnStatusUpdated {
     private Table statusTable;
     private SpriteAnimation animation;
     private LinkedList<StatusDisplay> status;
-    private HealthBar healthBar;
 
     public EnemyDisplay(AbstractEnemy enemy) {
         statusTable = new Table();

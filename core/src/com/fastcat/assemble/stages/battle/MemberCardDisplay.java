@@ -160,7 +160,7 @@ public class MemberCardDisplay extends Button {
 	        }
 
 	        public void dragStop (InputEvent event, float sx, float sy, int pointer) {
-                if(md.getY(Align.center) > 350 && WakTower.game.battle.members.size < WakTower.game.memberLimit && !ActionHandler.isRunning) {
+                if(md.getY(Align.center) > 350 && WakTower.game.battle.members.size() < WakTower.game.memberLimit && !ActionHandler.isRunning) {
                     ActionHandler.bot(new SummonMemberAction(md));
                     addAction(Actions.fadeOut(0.25f));
                 } else {

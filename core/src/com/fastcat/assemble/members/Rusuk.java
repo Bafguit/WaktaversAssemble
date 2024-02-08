@@ -1,5 +1,7 @@
 package com.fastcat.assemble.members;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
@@ -25,8 +27,8 @@ public class Rusuk extends AbstractMember {
 
     @Override
     protected void useMember() {
-        Array<AbstractMember> ms = WakTower.game.battle.members;
-        for(int i = 0; i < ms.size; i++) {
+        LinkedList<AbstractMember> ms = WakTower.game.battle.members;
+        for(int i = 0; i < ms.size(); i++) {
             AbstractMember m = ms.get(i);
             if(m == this && i > 0) {
                 AbstractMember pre = ms.get(i - 1);

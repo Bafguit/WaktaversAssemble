@@ -29,7 +29,9 @@ import com.fastcat.assemble.synergies.Timid;
 import com.fastcat.assemble.synergies.Villain;
 import com.fastcat.assemble.utils.FastCatUtils;
 
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 public abstract class AbstractBattle implements Cloneable {
 
@@ -46,7 +48,7 @@ public abstract class AbstractBattle implements Cloneable {
     public LinkedList<OnIncreaseMemberDef> turnMemberDef = new LinkedList<>();
 
     public LinkedList<AbstractEnemy> enemies = new LinkedList<>();
-    public Array<AbstractMember> members = new Array<>();
+    public LinkedList<AbstractMember> members = new LinkedList<>();
 
     public Queue<AbstractMember> drawPile = new Queue<>();
     public Array<AbstractMember> discardPile = new Array<>();
@@ -156,7 +158,7 @@ public abstract class AbstractBattle implements Cloneable {
     }
 
     public void clearMember() {
-        ArrayIterator<AbstractMember> itr = members.iterator();
+        Iterator<AbstractMember> itr = members.iterator();
         while (itr.hasNext()) {
             AbstractMember m = itr.next();
             if(!m.hasSynergy("Cat")) {
