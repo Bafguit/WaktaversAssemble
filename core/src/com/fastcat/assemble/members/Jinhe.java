@@ -27,6 +27,6 @@ public class Jinhe extends AbstractMember {
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
         next(new GainBlockAction(TargetType.SELF, this));
-        next(new IncreaseDefAction(this, calculateValue()));
+        next(new IncreaseDefAction(this, tempClone.calculateValue()));
     }
 }

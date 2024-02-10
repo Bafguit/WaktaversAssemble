@@ -33,7 +33,7 @@ public class AbstractGame {
 
     public AbstractBattle battle;
     public int gold;
-    public int floorNum, floorMax, drawAmount, maxHand, memberLimit, energyStart, energyCharge, energyMax;
+    public int floorNum, floorMax, drawAmount, maxHand, memberLimit;
 
     public AbstractGame() {
         relics = new Array<>();
@@ -56,10 +56,7 @@ public class AbstractGame {
         floorMax = 30;
         drawAmount = 5;
         maxHand = 10;
-        memberLimit = 8;
-        energyStart = 3;
-        energyCharge = 1;
-        energyMax = 3;
+        memberLimit = 6;
 
         relics.add(new TestRelic());
     }

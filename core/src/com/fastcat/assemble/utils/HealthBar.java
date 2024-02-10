@@ -85,7 +85,7 @@ public class HealthBar extends Widget implements OnHealthUpdated {
         yet.draw(batch, x, y, 0, 0, width, height, yetHealth, 1, 0);
         hb.draw(batch, x, y, 0, 0, width, height, health, 1, 0);
         if(entity.block <= 0) batch.setColor(c.r, c.g, c.b, 0);
-        block.draw(batch, x - (1.5f * wScale), y - (1.5f * wScale), 0, 0, width, height, 1, 1, 0);
+        block.draw(batch, x, y, 0, 0, width, height, 1, 1, 0);
         if(entity.barrier <= 0) batch.setColor(c.r, c.g, c.b, 0);
         else batch.setColor(c.r, c.g, c.b, c.a);
         barrier.draw(batch, x, y, 0, 0, width, height, 1, 1, 0);

@@ -345,7 +345,7 @@
   },
   "Sullivan": {
     "name": "캡틴 설리반",
-    "desc": "무작위 적에게 피해를 {A} 주고 골드를 {V} 얻습니다.",
+    "desc": "무작위 적에게 {A} 대미지를 입히고 골드를 {V} 얻습니다.",
     "flavor": "done",
     "synergy": [
       "Competitor",

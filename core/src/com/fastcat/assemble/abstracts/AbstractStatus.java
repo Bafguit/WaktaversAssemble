@@ -102,7 +102,8 @@ public abstract class AbstractStatus {
             name = json.getString("name");
             desc = json.getString("desc");
             exDesc = json.get("exDesc").asStringArray();
-            img = FileHandler.getTexture("status/" + id);
+            //TODO
+            img = FileHandler.getTexture("status/Status");
         }
     }
 }

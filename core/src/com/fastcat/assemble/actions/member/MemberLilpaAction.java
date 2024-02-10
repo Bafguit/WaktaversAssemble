@@ -15,7 +15,7 @@ public class MemberLilpaAction extends AbstractAction {
     public Lilpa lilpa;
 
     public MemberLilpaAction(Lilpa lilpa) {
-        super(1f);
+        super(0f);
         this.lilpa = lilpa;
     }
 

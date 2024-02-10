@@ -119,9 +119,11 @@ public class FileHandler {
             assetManager.load("image/relic/" + v.name + ".png", Pixmap.class);
         }
 
-        for(JsonValue v : jsonMap.get("status")) {
+        /*for(JsonValue v : jsonMap.get("status")) {
             assetManager.load("image/status/" + v.name + ".webp", Pixmap.class);
-        }
+        }*/
+
+        assetManager.load("image/status/Status.webp", Pixmap.class);
 
         //assetManager.load("image/member/member.atlas", TextureAtlas.class);
         assetManager.load("image/member/member.atlas", TextureAtlas.class);

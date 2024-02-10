@@ -10,7 +10,7 @@ public class MemberJingburgerAction extends AbstractAction {
     public Jingburger jingburger;
 
     public MemberJingburgerAction(Jingburger jingburger) {
-        super(1f);
+        super(0.5f);
         this.jingburger = jingburger;
     }
 
@@ -24,7 +24,7 @@ public class MemberJingburgerAction extends AbstractAction {
                 if(m == jingburger) break;
                 else cnt++;
             }
-            WakTower.game.player.gainBlock(jingburger.tempClone.calculatedDef() * cnt);
+            jingburger.gainBlock(jingburger.tempClone.calculatedDef() * cnt);
             //todo block effect
         }
     }
