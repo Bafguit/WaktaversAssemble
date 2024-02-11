@@ -1,6 +1,5 @@
 package com.fastcat.assemble.members;
 
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;

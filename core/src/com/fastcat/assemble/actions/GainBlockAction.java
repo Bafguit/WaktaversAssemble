@@ -11,6 +11,15 @@ import com.fastcat.assemble.utils.TargetType;
 
 public class GainBlockAction extends AbstractAction {
 
+    public GainBlockAction(AbstractEntity target, int blockAmount) {
+        this(target, blockAmount, false);
+    }
+
+    public GainBlockAction(AbstractEntity target, int blockAmount, boolean isFast) {
+        super(target, isFast ? 0.15f : 0.5f);
+        amount = blockAmount;
+    }
+
     public GainBlockAction(TargetType target, int blockAmount) {
         this(target, blockAmount, false);
     }

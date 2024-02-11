@@ -3,7 +3,10 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.members.Angel;
 import com.fastcat.assemble.members.BusinessKim;
+import com.fastcat.assemble.members.CallyCarly;
 import com.fastcat.assemble.members.Chunsik;
+import com.fastcat.assemble.members.Dokohyeji;
+import com.fastcat.assemble.members.Dopamine;
 import com.fastcat.assemble.members.Duksu;
 import com.fastcat.assemble.members.Freeter;
 import com.fastcat.assemble.members.Gilbert;
@@ -17,6 +20,7 @@ import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
 import com.fastcat.assemble.members.Lilpa;
+import com.fastcat.assemble.members.Pungsin;
 import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Sullivan;
 import com.fastcat.assemble.members.Rusuk;
@@ -26,6 +30,7 @@ import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.members.Viichan;
 import com.fastcat.assemble.members.Jinhe;
 import com.fastcat.assemble.members.Wakpago;
+import com.fastcat.assemble.members.Yungter;
 
 public class AbstractPlayer extends AbstractEntity {
     public AbstractPlayer() {
@@ -60,6 +65,11 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new Jinhe());
         a.add(new Jentoo());
         a.add(new Wakpago());
+        a.add(new Yungter());
+        a.add(new Dopamine());
+        a.add(new CallyCarly());
+        a.add(new Dokohyeji());
+        a.add(new Pungsin());
 
         return a;
     }

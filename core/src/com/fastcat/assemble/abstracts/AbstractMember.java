@@ -39,6 +39,7 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
     public int upgradeLimit = 1;
     public int atk, baseAtk, upAtk, def, baseDef, upDef;
     public int value, baseValue, upValue, value2, baseValue2, upValue2;
+    public float effect = 1.0f;
     public boolean remain = false;
     public boolean instant = false, passive = false;
     public SpriteAnimation animation;
@@ -267,7 +268,7 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
             a = s.calculateAtk(a);
         }
 
-        float m = 1.0f;
+        float m = effect;
 
         for(OnIncreaseGlobalDamage g : WakTower.game.battle.turnGlobalDamage) {
             m *= g.multiplyGlobalDamage();
@@ -303,7 +304,7 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
             d = s.calculateDef(d);
         }
 
-        float m = 1.0f;
+        float m = effect;
 
         for(OnIncreaseMemberDef g : WakTower.game.battle.turnMemberDef) {
             m *= g.multiplyMemberDef();
@@ -324,7 +325,7 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
     }
 
     public int calculateValue() {
-        float m = 1.0f;
+        float m = effect;
         for(AbstractSynergy s : synergy) {
             m *= s.muliplyEffect();
         }
@@ -333,7 +334,7 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
     }
 
     public int calculateValue2() {
-        float m = 1.0f;
+        float m = effect;
         for(AbstractSynergy s : synergy) {
             m *= s.muliplyEffect();
         }

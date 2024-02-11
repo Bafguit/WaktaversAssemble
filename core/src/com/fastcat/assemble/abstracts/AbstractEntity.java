@@ -138,12 +138,12 @@ public abstract class AbstractEntity {
         }
     }
 
-    public final void takeDamage(DamageInfo info) {
+    public final int takeDamage(DamageInfo info) {
         if(isPlayer) {
             boolean kiddo = Kiddo.getInstance().isEvaded();
             if(kiddo) {
                 //evade effect
-                return;
+                return 0;
             }
         }
         boolean fromEnemy = info.source != null && !info.source.isPlayer && isPlayer;
@@ -158,7 +158,7 @@ public abstract class AbstractEntity {
             for(AbstractStatus s : status) {
                 info.damage = s.damageTake(info);
             }
-            if(info.damage <= 0) return;
+            if(info.damage <= 0) return 0;
             float td = 1f;
             for(AbstractRelic item : WakTower.game.relics) {
                 td *= item.damageTakeMultiply(info);
@@ -170,14 +170,14 @@ public abstract class AbstractEntity {
                 td *= s.damageTakeMultiply(info);
             }
             info.damage = (int)(info.damage * td);
-            if(info.damage <= 0) return;
+            if(info.damage <= 0) return 0;
             boolean ignore = !isPlayer && info.source != null && info.source.isPlayer && Badass.getInstance().ignoreDef(info);
             if(!ignore) {
                 if(block > 0) {
                     if(info.damage <= block) {
                         EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.CYAN));
                         block -= info.damage;
-                        return;
+                        return 0;
                     } else {
                         EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -block, Color.CYAN));
                         info.damage -= block;
@@ -188,7 +188,7 @@ public abstract class AbstractEntity {
                     if(info.damage <= barrier) {
                         EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.SALMON));
                         barrier -= info.damage;
-                        return;
+                        return 0;
                     } else {
                         EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -barrier, Color.SALMON));
                         info.damage -= barrier;
@@ -227,6 +227,8 @@ public abstract class AbstractEntity {
                 }
             }
         }
+
+        return info.damage;
     }
 
     public final void loseHealth(int amount) {

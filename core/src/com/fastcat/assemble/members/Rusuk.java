@@ -2,7 +2,6 @@ package com.fastcat.assemble.members;
 
 import java.util.LinkedList;
 
-import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractMember;
 

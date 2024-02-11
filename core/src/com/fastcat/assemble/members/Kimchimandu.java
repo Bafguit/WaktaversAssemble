@@ -1,22 +1,25 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.utils.DamageInfo;
+import com.fastcat.assemble.actions.GainBarrierAction;
+import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.utils.TargetType;
 
 public class Kimchimandu extends AbstractMember {
 
-    private boolean summoned = true;
-
     public Kimchimandu() {
         super("Kimchimandu");
-        setValue(2, 1);
-        passive = true;
-    }
-
-    public int damageTake(DamageInfo info) {
-        return info.damage - tempClone.calculateValue();
+        setValue(3, 1);
     }
 
     @Override
-    protected void useMember() {}
+    public void endOfTurn(boolean isPlayer) {
+        if(isPlayer) use();
+    }
+
+    @Override
+    protected void useMember() {
+        next(new MemberSkillAnimationAction(this));
+        next(new GainBarrierAction(TargetType.SELF, this.tempClone));
+    }
 }

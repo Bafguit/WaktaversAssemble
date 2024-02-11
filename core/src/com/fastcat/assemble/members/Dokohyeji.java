@@ -1,19 +1,18 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.GainBlockAction;
-import com.fastcat.assemble.actions.IncreaseDefAction;
+import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.TargetType;
+import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
-public class Jinhe extends AbstractMember {
+public class Dokohyeji extends AbstractMember {
 
-    public Jinhe() {
-        super("Jinhe");
-        setDef(5, 0);
-        setValue(2, 1);
+    public Dokohyeji() {
+        super("Dokohyeji");
+        setValue(5, 2);
     }
-
 
     @Override
     public void endOfTurn(boolean isPlayer) {
@@ -25,7 +24,6 @@ public class Jinhe extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBlockAction(TargetType.SELF, this));
-        next(new IncreaseDefAction(this, tempClone.calculateValue()));
+        next(new DamageAction(new DamageInfo(tempClone.calculateValue(), DamageType.LOSE), TargetType.RANDOM_ENEMY, false));
     }
 }

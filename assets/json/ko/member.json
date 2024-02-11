@@ -144,7 +144,7 @@
   },
   "Gwonmin": {
     "name": "권민",
-    "desc": "[지속] 적이 얻는 방어도가 {V} 감소합니다.",
+    "desc": "&y<[지속]> 적이 얻는 방어도가 {V} 감소합니다.",
     "flavor": "done",
     "synergy": [
       "Expert",
@@ -155,7 +155,7 @@
   "Yungter": {
     "name": "융터르",
     "desc": "다음 멤버의 효과가 {V}% 증가합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Expert",
       "MindMaster"
@@ -175,7 +175,7 @@
   "Dopamine": {
     "name": "도파민 박사",
     "desc": "활성화된 시너지 하나당 무작위 적에게 {A} 대미지를 주거나 방어도를 {D} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "Expert",
@@ -206,7 +206,7 @@
   "CallyCarly": {
     "name": "캘리칼리 데이비슨",
     "desc": "무작위 적에게 {A} 대미지를 주고, 막히지 않은 만큼 방어도를 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Badass",
       "Villain"
@@ -226,7 +226,7 @@
   "Dokohyeji": {
     "name": "독고혜지",
     "desc": "무작위 적이 체력을 {V} 잃습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Competitor",
       "Kiddo"
@@ -235,8 +235,8 @@
   },
   "Pungsin": {
     "name": "풍신",
-    "desc": "[지속] 멤버가 방어도를 얻을 때마다 무작위 적에게 {A} 대미지를 줍니다.",
-    "flavor": "",
+    "desc": "&y<[지속]> 멤버가 방어도를 얻을 때마다 무작위 적에게 {A} 대미지를 줍니다.",
+    "flavor": "done",
     "synergy": [
       "OldMan",
       "Magician"
@@ -245,7 +245,7 @@
   },
   "Bujeong": {
     "name": "부정형인간",
-    "desc": "[지속] 모든 멤버가 {v}% 확률로 적의 공격을 회피합니다.",
+    "desc": "&y<[지속]> 모든 멤버가 {v}% 확률로 적의 공격을 회피합니다.",
     "flavor": "",
     "synergy": [
       "Doormat",
@@ -285,7 +285,7 @@
   },
   "Ninnin": {
     "name": "닌닌",
-    "desc": "[지속] 적이 공격할 때마다 해당 적에게 {A} 대미지를 줍니다.",
+    "desc": "&y<[지속]> 적이 공격할 때마다 해당 적에게 {A} 대미지를 줍니다.",
     "flavor": "",
     "synergy": [
       "Kiddo",
@@ -295,7 +295,7 @@
   },
   "Kkekki": {
     "name": "아이 쓰께끼",
-    "desc": "[지속] 적에게 받는 대미지가 {V}% 감소합니다.",
+    "desc": "&y<[지속]> 적에게 받는 대미지가 {V}% 감소합니다.",
     "flavor": "",
     "synergy": [
       "Guardian",
@@ -355,7 +355,7 @@
   },
   "Sirian": {
     "name": "시리안 레인",
-    "desc": "[지속] 다른 멤버가 적을 공격할 때마다 방어도를 {V} 얻습니다.",
+    "desc": "&y<[지속]> 다른 멤버가 적을 공격할 때마다 방어도를 {V} 얻습니다.",
     "flavor": "",
     "synergy": [
       "Expert",
@@ -365,7 +365,7 @@
   },
   "Kreaze": {
     "name": "크리즈",
-    "desc": "[즉발] 체력을 {V} 회복합니다.",
+    "desc": "&y<[즉발]> 체력을 {V} 회복합니다.",
     "flavor": "",
     "synergy": [
       "Guardian",

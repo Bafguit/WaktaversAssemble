@@ -3,7 +3,10 @@ package com.fastcat.assemble.actions.member;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.actions.GainBlockAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Jingburger;
+import com.fastcat.assemble.utils.TargetType;
 
 public class MemberJingburgerAction extends AbstractAction {
 
@@ -24,7 +27,9 @@ public class MemberJingburgerAction extends AbstractAction {
                 if(m == jingburger) break;
                 else cnt++;
             }
-            jingburger.gainBlock(jingburger.tempClone.calculatedDef() * cnt);
+            for(int i = 0; i < cnt; i++) {
+                ActionHandler.set(new GainBlockAction(TargetType.SELF, jingburger.tempClone, true));
+            }
             //todo block effect
         }
     }

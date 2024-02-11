@@ -1,13 +1,14 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.member.MemberDopamineAction;
 
-public class Seyong extends AbstractMember {
+public class Dopamine extends AbstractMember {
 
-    public Seyong() {
-        super("Seyong");
-        setValue(2, 1);
+    public Dopamine() {
+        super("Dopamine");
+        setAtk(3, 1);
+        setDef(3, 1);
     }
 
     public void endOfTurn(boolean isPlayer) {
@@ -18,7 +19,6 @@ public class Seyong extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this.tempClone));
-        
+        next(new MemberDopamineAction(this));
     }
 }

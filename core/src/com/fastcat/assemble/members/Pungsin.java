@@ -7,23 +7,26 @@ import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.TargetType;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
-public class Gilbert extends AbstractMember {
+public class Pungsin extends AbstractMember {
 
-    public Gilbert() {
-        super("Gilbert");
-        setValue(3, 1);
+    public Pungsin() {
+        super("Pungsin");
+        setAtk(3, 1);
+        passive = true;
     }
 
     @Override
-    public void startOfTurn(boolean isPlayer) {
-        if(isPlayer) {
-            use();
-        }
+    public void onGainedBlock(int amount) {
+        set(new DamageAction(new DamageInfo(tempClone, DamageType.NORMAL), TargetType.RANDOM_ENEMY));
+    }
+
+    @Override
+    protected void onSummoned() {
+        use();
     }
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(tempClone.calculateValue(), DamageType.LOSE), TargetType.ALL_ENEMY, false));
+        next(new MemberSkillAnimationAction(this, 0.3f));
     }
 }

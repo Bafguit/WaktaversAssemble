@@ -1,7 +1,6 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.ApplyStatusAction;
 import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
