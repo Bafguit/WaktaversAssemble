@@ -152,9 +152,9 @@ public abstract class AbstractEntity {
                 info.damage = item.damageTake(info);
             }
             if(fromEnemy) info.damage = Doormat.getInstance().damageTake(info);
-            for(AbstractMember c : WakTower.game.battle.members) {
-                info.damage = c.damageTake(info);
-            }
+            
+            info.damage = damageTake(info);
+
             for(AbstractStatus s : status) {
                 info.damage = s.damageTake(info);
             }
@@ -165,9 +165,7 @@ public abstract class AbstractEntity {
             }
             if(!isPlayer) td *= Nunna.getInstance().damageMultiply();
             else if(fromEnemy) td *= OldMan.getInstance().damageMultiply();
-            for(AbstractMember c : WakTower.game.battle.members) {
-                td *= c.damageTakeMultiply(info);
-            }
+            td *= damageTakeMultiply(info);
             for(AbstractStatus s : status) {
                 td *= s.damageTakeMultiply(info);
             }
@@ -216,21 +214,14 @@ public abstract class AbstractEntity {
             for(AbstractRelic item : WakTower.game.relics) {
                 item.onDamage(info, this);
             }
-            for(AbstractMember c : WakTower.game.battle.members) {
-                c.onDamage(info, this);
-            }
             if(info.source != null) {
+                info.source.onDamage(info, this);
                 for(AbstractStatus s : status) {
                     s.onDamage(info, this);
                 }
             }
-            for(AbstractRelic item : WakTower.game.relics) {
-                item.damageTaken(info);
-            }
-            for(AbstractMember c : WakTower.game.battle.members) {
-                c.damageTaken(info);
-            }
             if(health > 0) {
+                this.damageTaken(info);
                 for(AbstractStatus s : status) {
                     s.damageTaken(info);
                 }
@@ -249,6 +240,38 @@ public abstract class AbstractEntity {
         if(healthBar != null) healthBar.onHealthUpdated(-amount);
         if(health < 0) die();
     }
+
+    public int damageTake(DamageInfo info) {
+        return info.damage;
+    }
+    
+    public void onAttack(DamageInfo info, Array<AbstractEntity> target) {}
+
+    public void onDamage(DamageInfo info, AbstractEntity target) {}
+    
+    public int onGainBlock(int amount) {
+        return amount;
+    }
+    
+    public int onGainBarrier(int amount) {
+        return amount;
+    }
+    
+    public void onGainedBlock(int amount) {}
+    
+    public void onGainedBarrier(int amount) {}
+    
+    public int onHeal(int amount) {
+        return amount;
+    }
+    
+    public void onHealed(int amount) {}
+
+    public float damageTakeMultiply(DamageInfo info) {
+        return 1f;
+    }
+
+    public void damageTaken(DamageInfo info) {}
 
     public final void die() {
         

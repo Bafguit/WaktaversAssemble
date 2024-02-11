@@ -11,7 +11,7 @@ public class Duksu extends AbstractMember {
 
     public Duksu() {
         super("Duksu");
-        setAtk(9, 3);
+        setAtk(9, 2);
     }
 
     @Override

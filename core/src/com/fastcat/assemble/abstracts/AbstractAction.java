@@ -91,16 +91,20 @@ public abstract class AbstractAction implements Cloneable {
         }
     }
 
-    protected void addToBot(AbstractAction action) {
-        ActionHandler.bot(action);
+    public void bot() {
+        ActionHandler.bot(this);
     }
 
-    protected void addToTop(AbstractAction action) {
-        ActionHandler.top(action);
+    public void top() {
+        ActionHandler.top(this);
     }
 
-    protected void addToNext(AbstractAction action) {
-        ActionHandler.next(action);
+    public void next() {
+        ActionHandler.next(this);
+    }
+
+    public void set() {
+        ActionHandler.set(this);
     }
 
     @Override

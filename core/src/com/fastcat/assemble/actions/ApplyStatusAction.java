@@ -12,19 +12,19 @@ public class ApplyStatusAction extends AbstractAction {
     private final AbstractStatus status;
 
     public ApplyStatusAction(Array<AbstractEntity> target, AbstractStatus status, boolean isFast) {
-        super(isFast ? 0.1f : 0.5f);
+        super(isFast ? 0.15f : 0.5f);
         this.target = target;
         this.status = status;
     }
 
     public ApplyStatusAction(AbstractEntity target, AbstractStatus status, boolean isFast) {
-        super(isFast ? 0.1f : 0.5f);
+        super(isFast ? 0.15f : 0.5f);
         this.target.add(target);
         this.status = status;
     }
 
     public ApplyStatusAction(TargetType type, AbstractStatus status, boolean isFast) {
-        super(type, isFast ? 0.1f : 0.5f);
+        super(type, isFast ? 0.15f : 0.5f);
         this.status = status;
     }
 

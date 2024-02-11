@@ -172,48 +172,20 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
 
     public void endOfTurn(boolean isPlayer) {}
 
-    public int damageTake(DamageInfo info) {
-        return info.damage;
-    }
-    
-    public void onAttack(DamageInfo info, Array<AbstractEntity> target) {}
-
-    public void onDamage(DamageInfo info, AbstractEntity target) {}
-    
-    public int onGainBlock(int amount) {
-        return amount;
-    }
-    
-    public int onGainBarrier(int amount) {
-        return amount;
-    }
-    
-    public void onGainedBlock(int amount) {}
-    
-    public void onGainedBarrier(int amount) {}
-    
-    public int onHeal(int amount) {
-        return amount;
-    }
-    
-    public void onHealed(int amount) {}
-
-    public float damageTakeMultiply(DamageInfo info) {
-        return 1f;
-    }
-
-    public void damageTaken(DamageInfo info) {}
-
     protected final void bot(AbstractAction action) {
-        ActionHandler.bot(action);
+        action.bot();
     }
 
     protected final void top(AbstractAction action) {
-        ActionHandler.top(action);
+        action.top();
     }
 
     protected final void next(AbstractAction action) {
-        ActionHandler.next(action);
+        action.next();
+    }
+
+    protected final void set(AbstractAction action) {
+        action.set();
     }
 
     public void upgrade() {

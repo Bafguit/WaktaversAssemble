@@ -5,31 +5,21 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
+import com.fastcat.assemble.actions.RemoveStatusAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.utils.DamageInfo;
 
 public abstract class AbstractStatus {
 
-    private final StatusData data;
-
     public final String id;
-    public String name, desc;
     public int amount;
-    public TextureRegionDrawable img;
     public AbstractEntity owner;
     public boolean hasAmount, canGoNegative;
 
     public AbstractStatus(String id) {
         this.id = id;
-        data = DataHandler.getInstance().statusData.get(id);
-        name = data.name;
-        desc = data.desc;
-        img = new TextureRegionDrawable(data.img);
-    }
-
-    public String getDesc() {
-        return desc;
     }
 
     public void apply(int amount) {}
@@ -92,18 +82,7 @@ public abstract class AbstractStatus {
 
     public void onSummon(AbstractMember m) {}
 
-    public static class StatusData {
-        public final String id, name, desc;
-        public final String[] exDesc;
-        public final Texture img;
-
-        public StatusData(String id, JsonValue json) {
-            this.id = id;
-            name = json.getString("name");
-            desc = json.getString("desc");
-            exDesc = json.get("exDesc").asStringArray();
-            //TODO
-            img = FileHandler.getTexture("status/Status");
-        }
+    public void remove() {
+        ActionHandler.set(new RemoveStatusAction(owner, this));
     }
 }

@@ -70,27 +70,29 @@ public final class ActionHandler {
 
     public void update() {
         isRunning = false;
-        if (current != null) {
-            isRunning = true;
-            if (!WakTower.fading) {
-                current.update();
-            }
-            if(current.isDone) {
-                current = null;
-                if (setActions.size > 0) {
-                    current = setActions.removeFirst();
-                } else if (nextActions.size > 0) {
-                    current = nextActions.removeFirst();
-                } else if (actionList.size > 0) {
-                    current = actionList.removeFirst();
+        do {
+            if (current != null) {
+                isRunning = true;
+                if (!WakTower.fading) {
+                    current.update();
+                }
+                if(current.isDone) {
+                    current = null;
+                    if (setActions.size > 0) {
+                        current = setActions.removeFirst();
+                    } else if (nextActions.size > 0) {
+                        current = nextActions.removeFirst();
+                    } else if (actionList.size > 0) {
+                        current = actionList.removeFirst();
+                    }
+                }
+            } else if(actionList.size > 0) {
+                current = actionList.removeFirst();
+                if(!WakTower.fading) {
+                    current.update();
                 }
             }
-        } else if(actionList.size > 0) {
-            current = actionList.removeFirst();
-            if(!WakTower.fading) {
-                current.update();
-            }
-        }
+        } while(current != null && current.baseDuration == 0);
 
         if(effectHandler.effectList.size > 0) {
             isRunning = true;

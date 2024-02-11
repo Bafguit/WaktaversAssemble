@@ -12,6 +12,7 @@ import com.fastcat.assemble.members.Haku;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.members.Hodd;
 import com.fastcat.assemble.members.Ine;
+import com.fastcat.assemble.members.Jentoo;
 import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
@@ -57,6 +58,7 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new Sophia());
         a.add(new Victory());
         a.add(new Jinhe());
+        a.add(new Jentoo());
         a.add(new Wakpago());
 
         return a;

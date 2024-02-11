@@ -2,9 +2,12 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.ApplyStatusAction;
+import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
-import com.fastcat.assemble.status.FlawStatus;
+import com.fastcat.assemble.status.DecreaseBlockStatus;
+import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.TargetType;
+import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
 public class Gilbert extends AbstractMember {
 
@@ -13,7 +16,8 @@ public class Gilbert extends AbstractMember {
         setValue(3, 1);
     }
 
-    public void endOfTurn(boolean isPlayer) {
+    @Override
+    public void startOfTurn(boolean isPlayer) {
         if(isPlayer) {
             use();
         }
@@ -22,7 +26,6 @@ public class Gilbert extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new ApplyStatusAction(TargetType.ALL_ENEMY, new FlawStatus(calculateValue()), false));
-        //next(new ApplyStatusAction(TargetType.ALL_ENEMY, null, false));
+        next(new DamageAction(new DamageInfo(tempClone.calculateValue(), DamageType.LOSE), TargetType.ALL_ENEMY, false));
     }
 }

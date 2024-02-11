@@ -14,6 +14,7 @@ import com.fastcat.assemble.members.Haku;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.members.Hodd;
 import com.fastcat.assemble.members.Ine;
+import com.fastcat.assemble.members.Jentoo;
 import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Jinhe;
 import com.fastcat.assemble.members.Jururu;
@@ -67,6 +68,7 @@ public class GroupHandler {
         memberGroup.put("Gilbert", new Gilbert());
         memberGroup.put("Sullivan", new Sullivan());
         memberGroup.put("Jinhe", new Jinhe());
+        memberGroup.put("Jentoo", new Jentoo());
     }
 
     public static EnemyGroup getBoss(int number) {

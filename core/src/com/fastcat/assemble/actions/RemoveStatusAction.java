@@ -19,6 +19,7 @@ public class RemoveStatusAction extends AbstractAction {
             if(target.size > 0) {
                 for(AbstractEntity e : target) {
                     e.status.remove(status);
+                    status.onRemove();
                 }
             } else isDone = true;
         }

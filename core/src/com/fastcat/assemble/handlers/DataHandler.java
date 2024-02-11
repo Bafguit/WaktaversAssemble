@@ -8,7 +8,6 @@ import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
 import com.fastcat.assemble.abstracts.AbstractRelic.RelicData;
-import com.fastcat.assemble.abstracts.AbstractStatus.StatusData;
 import com.fastcat.assemble.abstracts.AbstractSynergy.SynergyData;
 import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.uis.SpriteAnimation.SpriteAnimationType;
@@ -24,7 +23,6 @@ public class DataHandler {
     public final HashMap<String, AbstractRelic.RelicData> relicData = new HashMap<>();
     public final HashMap<String, AbstractEntity.EntityData> memberData = new HashMap<>();
     public final HashMap<String, AbstractSynergy.SynergyData> synergyData = new HashMap<>();
-    public final HashMap<String, AbstractStatus.StatusData> statusData = new HashMap<>();
     public final HashMap<String, SpriteAnimation> animation = new HashMap<>();
 
     public static DataHandler getInstance() {
@@ -76,12 +74,6 @@ public class DataHandler {
         json = FileHandler.getInstance().jsonMap.get("entity");
         for(JsonValue v : json) {
             enemyData.put(v.name, new EntityData(v.name, SpriteAnimationType.entity, v));
-        }
-
-        //status data
-        json = FileHandler.getInstance().jsonMap.get("status");
-        for(JsonValue v : json) {
-            statusData.put(v.name, new StatusData(v.name, v));
         }
     }
 }

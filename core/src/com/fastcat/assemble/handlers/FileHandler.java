@@ -82,7 +82,6 @@ public class FileHandler {
         jsonMap.put("entity", generateJson("json/" + SettingHandler.setting.language + "/entity.json"));
         jsonMap.put("relic", generateJson("json/" + SettingHandler.setting.language + "/relic.json"));
         jsonMap.put("member", generateJson("json/" + SettingHandler.setting.language + "/member.json"));
-        jsonMap.put("status", generateJson("json/" + SettingHandler.setting.language + "/status.json"));
         jsonMap.put("synergy", generateJson("json/" + SettingHandler.setting.language + "/synergy.json"));
         jsonMap.put("ui", generateJson("json/" + SettingHandler.setting.language + "/ui.json"));
     }
@@ -118,12 +117,6 @@ public class FileHandler {
         for(JsonValue v : jsonMap.get("relic")) {
             assetManager.load("image/relic/" + v.name + ".png", Pixmap.class);
         }
-
-        /*for(JsonValue v : jsonMap.get("status")) {
-            assetManager.load("image/status/" + v.name + ".webp", Pixmap.class);
-        }*/
-
-        assetManager.load("image/status/Status.webp", Pixmap.class);
 
         //assetManager.load("image/member/member.atlas", TextureAtlas.class);
         assetManager.load("image/member/member.atlas", TextureAtlas.class);
@@ -184,11 +177,6 @@ public class FileHandler {
     public static TextureRegionDrawable getMember(String id) {
         TextureAtlas atlas = instance.assetManager.get("image/member/member.atlas", TextureAtlas.class);
         return new TextureRegionDrawable(atlas.findRegion(id));
-    }
-
-    public static Sprite getStatus(String id) {
-        TextureAtlas atlas = instance.assetManager.get("atlas/status.atlas", TextureAtlas.class);
-        return atlas.createSprite(id);
     }
 
     public static Sprite getSynergy(String id) {

@@ -56,6 +56,7 @@ public class DamageAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             if(info.member != null) info.damage = info.member.calculatedAtk();
+            else if(info.source != null) info.damage = info.source.calculateDamage(info.damage);
             if(target.size > 0) {
                 for(AbstractRelic item : WakTower.game.relics) {
                     item.onAttack(info, target);

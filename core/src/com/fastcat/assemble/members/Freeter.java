@@ -25,9 +25,9 @@ public class Freeter extends AbstractMember {
 
     @Override
     protected void useMember() {
-        if(info.source != null && !info.source.isPlayer) {
-            next(new MemberSkillAnimationAction(this));
-            next(new DamageAction(new DamageInfo(this.tempClone.calculateValue(), WakTower.game.player, DamageType.REFLECT), info.source, true));
+        if(info.source != null) {
+            set(new MemberSkillAnimationAction(this));
+            set(new DamageAction(new DamageInfo(this.tempClone.calculateValue(), DamageType.REFLECT), info.source, true));
         }
     }
 }
