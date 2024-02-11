@@ -54,9 +54,9 @@ public class GainBlockAction extends AbstractAction {
                         for(AbstractRelic item : WakTower.game.relics) {
                             amt = item.onGainBlock(amt);
                         }
-                        for(AbstractMember c : WakTower.game.battle.members) {
-                            amt = c.onGainBlock(amt);
-                        }
+                    }
+                    for(AbstractMember c : WakTower.game.battle.members) {
+                        amt = c.onGainBlock(e, amt);
                     }
                     for(AbstractStatus s : e.status) {
                         amt = s.onGainBlock(amt);
@@ -67,8 +67,8 @@ public class GainBlockAction extends AbstractAction {
                         e.gainBlock(amt);
                     }
                 }
-                if(cnt == 0) isDone = true;
-            } else isDone = true;
+                if(cnt == 0) cancel();
+            } else cancel();
         }
     }
 }

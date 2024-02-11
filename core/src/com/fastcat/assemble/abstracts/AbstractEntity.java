@@ -249,7 +249,7 @@ public abstract class AbstractEntity {
 
     public void onDamage(DamageInfo info, AbstractEntity target) {}
     
-    public int onGainBlock(int amount) {
+    public int onGainBlock(AbstractEntity target, int amount) {
         return amount;
     }
     

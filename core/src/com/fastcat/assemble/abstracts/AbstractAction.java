@@ -91,6 +91,11 @@ public abstract class AbstractAction implements Cloneable {
         }
     }
 
+    protected void cancel() {
+        isDone = true;
+        baseDuration = 0;
+    }
+
     public void bot() {
         ActionHandler.bot(this);
     }

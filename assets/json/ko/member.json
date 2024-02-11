@@ -2,7 +2,7 @@
   "Wakgood": {
     "name": "우왁굳",
     "desc": "무작위 적에게 {A} 대미지를 줍니다.",
-    "flavor": "",
+    "flavor": "앙 기분 좋아~",
     "synergy": [
       "Cutey"
     ],
@@ -11,7 +11,7 @@
   "Angel": {
     "name": "엔젤",
     "desc": "방어도를 {D} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Nunna"
     ],
@@ -20,7 +20,7 @@
   "Jingburger": {
     "name": "징버거",
     "desc": "앞선 멤버 하나당 방어도를 {D} 얻습니다.",
-    "flavor": "done",
+    "flavor": "하이 부가~",
     "synergy": [
       "Isedol",
       "Nunna",
@@ -31,7 +31,7 @@
   "Gosegu": {
     "name": "고세구",
     "desc": "턴 시작 시 카드를 {V}장 뽑고 {V}장 버립니다.",
-    "flavor": "done",
+    "flavor": "하이 빵가루~",
     "synergy": [
       "Isedol",
       "Cat",
@@ -42,7 +42,7 @@
   "Lilpa": {
     "name": "릴파",
     "desc": "앞선 멤버 하나당 무작위 적에게 {A} 대미지를 줍니다.",
-    "flavor": "done",
+    "flavor": "에블바리쎄이 릴하릴하!!!",
     "synergy": [
       "Isedol",
       "MainVocal",
@@ -53,7 +53,7 @@
   "Ine": {
     "name": "아이네",
     "desc": "모든 멤버가 보호막을 {D} 얻습니다.",
-    "flavor": "done",
+    "flavor": "하이네~",
     "synergy": [
       "Isedol",
       "Magician",
@@ -64,7 +64,7 @@
   "Viichan": {
     "name": "비챤",
     "desc": "무작위 적에게 {A} 대미지를 줍니다. 발동할 때마다 {V} 증가합니다.",
-    "flavor": "done",
+    "flavor": "챤하챤하~",
     "synergy": [
       "Isedol",
       "Cutey",
@@ -84,7 +84,7 @@
   },
   "Victory": {
     "name": "빅토리",
-    "desc": "&y<[지속]> 다른 멤버의 대미지가 {V} 증가합니다.",
+    "desc": "&y<[지속]> 모든 멤버의 대미지가 {V} 증가합니다.",
     "flavor": "빅토리~",
     "synergy": [
       "Crazy",
@@ -95,7 +95,7 @@
   "Hikiking": {
     "name": "히키킹",
     "desc": "무작위 적에게 {A} 대미지를 {V}번 줍니다.",
-    "flavor": "done",
+    "flavor": "ZA WARUDO",
     "synergy": [
       "Competitor",
       "Crazy"
@@ -135,7 +135,7 @@
   "Hodd": {
     "name": "노스페라투 호드",
     "desc": "무작위 적에게 {A} 대미지를 주고 방어도를 {D} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Guardian",
       "Magician"
@@ -144,8 +144,8 @@
   },
   "Gwonmin": {
     "name": "권민",
-    "desc": "",
-    "flavor": "",
+    "desc": "[지속] 적이 얻는 방어도가 {V} 감소합니다.",
+    "flavor": "done",
     "synergy": [
       "Expert",
       "MindMaster"
@@ -154,7 +154,7 @@
   },
   "Yungter": {
     "name": "융터르",
-    "desc": "",
+    "desc": "다음 멤버의 효과가 {V}% 증가합니다.",
     "flavor": "",
     "synergy": [
       "Expert",
@@ -164,7 +164,7 @@
   },
   "Kimchimandu": {
     "name": "김치만두",
-    "desc": "&y<[지속]> 우왁굳이 받는 대미지가 {V} 감소합니다.",
+    "desc": "보호막을 {V} 얻습니다.",
     "flavor": "done",
     "synergy": [
       "Doormat",
@@ -185,7 +185,7 @@
   },
   "Haku": {
     "name": "하쿠0089",
-    "desc": "이번 턴 동안 모든 적이 입히는 대미지가 {V} 감소합니다.",
+    "desc": "이번 턴 동안 적이 주는 대미지가 {V} 감소합니다.",
     "flavor": "done",
     "synergy": [
       "Kiddo",
@@ -225,7 +225,7 @@
   },
   "Dokohyeji": {
     "name": "독고혜지",
-    "desc": "",
+    "desc": "무작위 적이 체력을 {V} 잃습니다.",
     "flavor": "",
     "synergy": [
       "Competitor",
@@ -235,7 +235,7 @@
   },
   "Pungsin": {
     "name": "풍신",
-    "desc": "",
+    "desc": "[지속] 멤버가 방어도를 얻을 때마다 무작위 적에게 {A} 대미지를 줍니다.",
     "flavor": "",
     "synergy": [
       "OldMan",
@@ -245,7 +245,7 @@
   },
   "Bujeong": {
     "name": "부정형인간",
-    "desc": "",
+    "desc": "[지속] 모든 멤버가 {v}% 확률로 적의 공격을 회피합니다.",
     "flavor": "",
     "synergy": [
       "Doormat",
@@ -255,7 +255,7 @@
   },
   "Wakpago": {
     "name": "왁파고",
-    "desc": "&y<[지속]> 우왁굳이 얻는 방어도와 보호막이 {V} 증가합니다.",
+    "desc": "&y<[지속]> 모든 멤버가 얻는 방어도와 보호막이 {V} 증가합니다.",
     "flavor": "done",
     "synergy": [
       "Doormat",
@@ -285,7 +285,7 @@
   },
   "Ninnin": {
     "name": "닌닌",
-    "desc": "무작위 적에게 {A} 대미지를 주고 &y<상처>를 {V} 부여합니다.",
+    "desc": "[지속] 적이 공격할 때마다 해당 적에게 {A} 대미지를 줍니다.",
     "flavor": "",
     "synergy": [
       "Kiddo",
@@ -295,7 +295,7 @@
   },
   "Kkekki": {
     "name": "아이 쓰께끼",
-    "desc": "",
+    "desc": "[지속] 적에게 받는 대미지가 {V}% 감소합니다.",
     "flavor": "",
     "synergy": [
       "Guardian",
@@ -305,7 +305,7 @@
   },
   "Bulgom": {
     "name": "불곰",
-    "desc": "",
+    "desc": "방어도를 {D} 만큼 {V}번 얻습니다.",
     "flavor": "",
     "synergy": [
       "Guardian",
@@ -315,13 +315,13 @@
   },
   "AmadeusChoi": {
     "name": "아마데우스 최",
-    "desc": "체력을 {D} 회복합니다.",
+    "desc": "모든 멤버의 체력을 {D} 회복합니다.",
     "flavor": "",
     "synergy": [
       "Expert",
       "MindMaster"
     ],
-    "health": 15
+    "health": 5
   },
   "Soosemi": {
     "name": "수셈이",
@@ -351,11 +351,11 @@
       "Competitor",
       "Villain"
     ],
-    "health": 15
+    "health": 10
   },
   "Sirian": {
     "name": "시리안 레인",
-    "desc": "",
+    "desc": "[지속] 다른 멤버가 적을 공격할 때마다 방어도를 {V} 얻습니다.",
     "flavor": "",
     "synergy": [
       "Expert",
@@ -365,17 +365,17 @@
   },
   "Kreaze": {
     "name": "크리즈",
-    "desc": "",
+    "desc": "[즉발] 체력을 {V} 회복합니다.",
     "flavor": "",
     "synergy": [
       "Guardian",
       "Machinary"
     ],
-    "health": 15
+    "health": 20
   },
   "Chouloky": {
     "name": "데스해머 쵸로키",
-    "desc": "무작위 적에게 {A} 대미지를 주고 &y<취약>을 {V} 부여합니다.",
+    "desc": "이번 턴 동안 적이 받는 대미지가 {V}% 증가합니다.",
     "flavor": "",
     "synergy": [
       "Kiddo",
@@ -385,7 +385,7 @@
   },
   "Seyong": {
     "name": "미미짱짱세용",
-    "desc": "무작위 적에게 &y<혼란>을 {V} 부여합니다.",
+    "desc": "손의 멤버 하나당 무작위 적에게 {A} 대미지를 줍니다.",
     "flavor": "done",
     "synergy": [
       "Crazy",
@@ -415,7 +415,7 @@
   },
   "Valentine": {
     "name": "미스 발렌타인",
-    "desc": "",
+    "desc": "무작위 적에게 {A} 대미지를 주고 보호막을 {D} 얻습니다.",
     "flavor": "",
     "synergy": [
       "Nobles",
@@ -425,7 +425,7 @@
   },
   "Charlotte": {
     "name": "성기사 샬롯",
-    "desc": "",
+    "desc": "적 하나당 방어도를 {D} 얻습니다.",
     "flavor": "",
     "synergy": [
       "Guardian",
@@ -435,12 +435,12 @@
   },
   "Butterus": {
     "name": "버터우스 3세",
-    "desc": "",
+    "desc": "골드를 {V} 얻습니다.",
     "flavor": "",
     "synergy": [
       "Nobles",
       "MindMaster"
     ],
-    "health": 15
+    "health": 5
   }
 }
