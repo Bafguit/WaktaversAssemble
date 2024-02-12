@@ -3,7 +3,6 @@ package com.fastcat.assemble.actions.member;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.members.Chouloky;
-import com.fastcat.assemble.members.Victory;
 
 public class MemberChoulokyAction extends AbstractAction {
 

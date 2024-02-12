@@ -6,7 +6,12 @@ import com.fastcat.assemble.abstracts.AbstractAction;
 public class GainGoldAction extends AbstractAction {
 
     public GainGoldAction(int gold) {
-        super(0.1f);
+        super(0.15f);
+        amount = gold;
+    }
+
+    public GainGoldAction(int gold, float duration) {
+        super(duration);
         amount = gold;
     }
 

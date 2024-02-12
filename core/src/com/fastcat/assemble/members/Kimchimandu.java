@@ -9,7 +9,7 @@ public class Kimchimandu extends AbstractMember {
 
     public Kimchimandu() {
         super("Kimchimandu");
-        setValue(3, 1);
+        setValue(4, 1);
     }
 
     @Override
@@ -20,6 +20,6 @@ public class Kimchimandu extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBarrierAction(TargetType.SELF, this.tempClone));
+        next(new GainBarrierAction(TargetType.SELF, this));
     }
 }

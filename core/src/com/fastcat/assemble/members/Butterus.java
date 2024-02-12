@@ -1,15 +1,14 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.GainBarrierAction;
+import com.fastcat.assemble.actions.GainGoldAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
-import com.fastcat.assemble.utils.TargetType;
 
-public class Ine extends AbstractMember {
+public class Butterus extends AbstractMember {
 
-    public Ine() {
-        super("Ine");
-        setDef(1, 1);
+    public Butterus() {
+        super("Butterus");
+        setValue(6, 1);
     }
 
     @Override
@@ -22,6 +21,6 @@ public class Ine extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBarrierAction(TargetType.ALL_MEMBER, this));
+        next(new GainGoldAction(tempClone.calculateValue(), 0.3f));
     }
 }

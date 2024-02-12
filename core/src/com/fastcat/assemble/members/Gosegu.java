@@ -20,6 +20,6 @@ public class Gosegu extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DrawAndDiscardAction(tempClone.calculateValue()));
+        next(new DrawAndDiscardAction(this));
     }
 }

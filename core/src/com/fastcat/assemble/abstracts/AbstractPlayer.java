@@ -6,9 +6,12 @@ import com.fastcat.assemble.members.Angel;
 import com.fastcat.assemble.members.Bujeong;
 import com.fastcat.assemble.members.Bulgom;
 import com.fastcat.assemble.members.BusinessKim;
+import com.fastcat.assemble.members.Butterus;
 import com.fastcat.assemble.members.CallyCarly;
+import com.fastcat.assemble.members.Charlotte;
 import com.fastcat.assemble.members.Chouloky;
 import com.fastcat.assemble.members.Chunsik;
+import com.fastcat.assemble.members.Dandap;
 import com.fastcat.assemble.members.Dokohyeji;
 import com.fastcat.assemble.members.Dopamine;
 import com.fastcat.assemble.members.Duksu;
@@ -31,6 +34,7 @@ import com.fastcat.assemble.members.Pungsin;
 import com.fastcat.assemble.members.Roentgenium;
 import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Sullivan;
+import com.fastcat.assemble.members.Valentine;
 import com.fastcat.assemble.members.Rusuk;
 import com.fastcat.assemble.members.Seyong;
 import com.fastcat.assemble.members.Sirian;
@@ -86,10 +90,14 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new CallyCarly());
         a.add(new Dokohyeji());
         a.add(new Pungsin());
+        a.add(new Dandap());
         a.add(new Soosemi());
         a.add(new Sirian());
         a.add(new Kreaze());
         a.add(new Chouloky());
+        a.add(new Valentine());
+        a.add(new Charlotte());
+        a.add(new Butterus());
 
         return a;
     }

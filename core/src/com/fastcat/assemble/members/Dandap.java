@@ -1,14 +1,15 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.DrawAndDiscardAction;
+import com.fastcat.assemble.actions.DiscardAllAction;
+import com.fastcat.assemble.actions.DrawCardAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
 
-public class Sophia extends AbstractMember {
+public class Dandap extends AbstractMember {
 
-    public Sophia() {
-        super("Sophia");
-        setValue(1, 1);
+    public Dandap() {
+        super("Dandap");
+        setValue(3, 1);
     }
 
     @Override
@@ -19,6 +20,7 @@ public class Sophia extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DrawAndDiscardAction(this));
+        next(new DiscardAllAction());
+        next(new DrawCardAction(this));
     }
 }

@@ -112,6 +112,10 @@ public abstract class AbstractAction implements Cloneable {
         ActionHandler.set(this);
     }
 
+    public void setTop() {
+        ActionHandler.setTop(this);
+    }
+
     @Override
     public AbstractAction clone() {
         try {

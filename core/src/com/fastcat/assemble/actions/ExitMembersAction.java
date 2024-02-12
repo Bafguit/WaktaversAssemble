@@ -14,6 +14,7 @@ public class ExitMembersAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             for(AbstractMember member : WakTower.game.battle.members) {
+                member.block = 0;
                 if(!member.hasSynergy("Cat")) {
                     member.animation.setAnimation("exit");
                     member.onExit();

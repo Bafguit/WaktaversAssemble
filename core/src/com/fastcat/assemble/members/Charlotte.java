@@ -1,16 +1,16 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.member.MemberSeyongAction;
+import com.fastcat.assemble.actions.member.MemberCharlotteAction;
 
-public class Seyong extends AbstractMember {
+public class Charlotte extends AbstractMember {
 
-    public Seyong() {
-        super("Seyong");
-        setAtk(5, 1);
-        setValue(1, 0);
+    public Charlotte() {
+        super("Charlotte");
+        setDef(3, 2);
     }
 
+    @Override
     public void endOfTurn(boolean isPlayer) {
         if(isPlayer) {
             use();
@@ -19,6 +19,6 @@ public class Seyong extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSeyongAction(this));
+        next(new MemberCharlotteAction(this));
     }
 }

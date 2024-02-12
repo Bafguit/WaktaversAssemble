@@ -50,6 +50,16 @@ public final class ActionHandler {
         }
     }
 
+    public static void setTop(AbstractAction action) {
+        if(game != null) {
+            if(game.actionHandler.current != null) {
+                game.actionHandler.setActions.addFirst(action);
+            } else {
+                game.actionHandler.actionList.addFirst(action);
+            }
+        }
+    }
+
     public static void next(AbstractAction action) {
         if(game != null) {
             if(game.actionHandler.current != null) {

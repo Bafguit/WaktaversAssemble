@@ -3,6 +3,7 @@ package com.fastcat.assemble.actions.member;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.actions.DamageAction;
+import com.fastcat.assemble.actions.DrawCardAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Seyong;
 import com.fastcat.assemble.utils.DamageInfo;
@@ -24,6 +25,7 @@ public class MemberSeyongAction extends AbstractAction {
             seyong.animation.setAnimation("skill");
             seyong.animation.addAnimation("idle");
             int cnt = WakTower.game.battle.hand.size();
+            ActionHandler.set(new DrawCardAction(seyong.tempClone.calculateValue()));
             for(int i = 0; i < cnt; i++) {
                 ActionHandler.set(new DamageAction(new DamageInfo(seyong.tempClone.calculatedAtk(), seyong, DamageType.NORMAL), TargetType.RANDOM, true));
             }

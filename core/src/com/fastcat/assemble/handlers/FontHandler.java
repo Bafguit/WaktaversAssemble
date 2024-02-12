@@ -23,6 +23,12 @@ import static com.fastcat.assemble.handlers.InputHandler.scaleY;
 
 public final class FontHandler implements Disposable {
 
+    private static final String W = getHexColor(WHITE);
+    private static final String R = getHexColor(SCARLET);
+    private static final String G = getHexColor(CHARTREUSE);
+    private static final String B = getHexColor(CYAN);
+    private static final String Y = getHexColor(YELLOW);
+
     //Font File
     private static final FreeTypeFontGenerator medium = new FreeTypeFontGenerator(Gdx.files.internal("font/bold.ttf"));
     private static final FreeTypeFontGenerator bold = new FreeTypeFontGenerator(Gdx.files.internal("font/extra.ttf"));
@@ -302,15 +308,15 @@ public final class FontHandler implements Disposable {
     public static String getColorKey(String key) {
         switch (key) {
             case "b":
-                return getHexColor(CYAN);
+                return B;
             case "g":
-                return getHexColor(CHARTREUSE);
+                return G;
             case "r":
-                return getHexColor(SCARLET);
+                return R;
             case "y":
-                return getHexColor(YELLOW);
+                return Y;
             default:
-                return getHexColor(WHITE);
+                return W;
         }
     }
 

@@ -283,6 +283,17 @@
     ],
     "health": 15
   },
+  "Dandap": {
+    "name": "단답벌레",
+    "desc": "&y<[즉발]> 패를 전부 버리고 카드를 {V}장 뽑습니다.",
+    "flavor": "done",
+    "synergy": [
+      "Crazy",
+      "Expert",
+      "Timid"
+    ],
+    "health": 15
+  },
   "Ninnin": {
     "name": "닌닌",
     "desc": "&y<[지속]> 적이 공격할 때마다 해당 적에게 {A} 대미지를 줍니다.",
@@ -385,7 +396,7 @@
   },
   "Seyong": {
     "name": "미미짱짱세용",
-    "desc": "손의 멤버 하나당 무작위 적에게 {A} 대미지를 줍니다.",
+    "desc": "카드를 {V}장 뽑고 패의 카드 하나당 무작위 적에게 {A} 대미지를 줍니다.",
     "flavor": "done",
     "synergy": [
       "Crazy",
@@ -416,7 +427,7 @@
   "Valentine": {
     "name": "미스 발렌타인",
     "desc": "무작위 적에게 {A} 대미지를 주고 보호막을 {D} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Nobles",
       "Nunna"
@@ -426,7 +437,7 @@
   "Charlotte": {
     "name": "성기사 샬롯",
     "desc": "적 하나당 방어도를 {D} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Guardian",
       "Nobles"
@@ -436,7 +447,7 @@
   "Butterus": {
     "name": "버터우스 3세",
     "desc": "골드를 {V} 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Nobles",
       "MindMaster"

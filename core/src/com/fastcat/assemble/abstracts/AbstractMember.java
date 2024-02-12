@@ -16,6 +16,11 @@ import com.fastcat.assemble.uis.SpriteAnimation;
 
 public abstract class AbstractMember extends AbstractEntity implements Cloneable {
 
+    private static final String WHITE = FontHandler.getColorKey("w");
+    private static final String BLUE = FontHandler.getColorKey("b");
+    private static final String RED = FontHandler.getColorKey("r");
+    private static final String GREEN = FontHandler.getColorKey("g");
+
     private static final String[] MIND_MASTER_SYNERGY = new String[] {
         "Guardian", "Crazy", "Expert", "Magician", "MainVocal", "Machinary",
         "Doormat", "Villain", "Kiddo", "Nobles", "Timid"
@@ -186,6 +191,10 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         action.set();
     }
 
+    protected final void setTop(AbstractAction action) {
+        action.setTop();
+    }
+
     public void upgrade() {
         if(upgradeCount < upgradeLimit) {
             upgradeCount++;
@@ -227,21 +236,23 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
     }
 
     public String getKeyValue(String key) {
+        int a;
+        String s;
         switch (key) {
             case "A":
-                int a = calculatedAtk();
-                String s = FontHandler.getColorKey(a < baseAtk ? "r" : a > baseAtk ? "g" :  "b");
-                s += a + FontHandler.getColorKey("w");
+                a = calculatedAtk();
+                s = a < baseAtk ? RED : a > baseAtk ? GREEN : BLUE;
+                s += a + WHITE;
                 return s;
             case "D":
                 a = calculatedDef();
-                s = FontHandler.getColorKey(a < baseDef ? "r" : a > baseDef ? "g" :  "b");
-                s += a + FontHandler.getColorKey("w");
+                s = a < baseDef ? RED : a > baseDef ? GREEN : BLUE;
+                s += a + WHITE;
                 return s;
             case "V":
-                return FontHandler.getColorKey("b") + value + FontHandler.getColorKey("w");
+                return BLUE + calculateValue() + WHITE;
             case "X":
-                return FontHandler.getColorKey("b") + value2 + FontHandler.getColorKey("w");
+                return BLUE + calculateValue2() + WHITE;
             default:
                 return "0";
         }
