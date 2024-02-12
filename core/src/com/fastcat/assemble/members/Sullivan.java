@@ -26,7 +26,7 @@ public class Sullivan extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.RANDOM, true));
+        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM, true));
         next(new GainGoldAction(tempClone.calculateValue()));
     }
 }

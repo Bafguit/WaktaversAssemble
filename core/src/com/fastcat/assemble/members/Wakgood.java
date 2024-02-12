@@ -24,6 +24,6 @@ public class Wakgood extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.RANDOM));
+        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM));
     }
 }

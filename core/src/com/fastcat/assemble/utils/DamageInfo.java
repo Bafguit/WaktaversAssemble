@@ -1,11 +1,11 @@
 package com.fastcat.assemble.utils;
 
-import com.fastcat.assemble.abstracts.AbstractEnemy;
+import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
 
 public class DamageInfo {
     public int damage;
-    public AbstractEnemy source;
+    public AbstractEntity source;
     public DamageType type;
     public AbstractMember member;
 
@@ -14,7 +14,7 @@ public class DamageInfo {
         this.type = type;
     }
 
-    public DamageInfo(int damage, AbstractEnemy source, DamageType type) {
+    public DamageInfo(int damage, AbstractEntity source, DamageType type) {
         this.damage = damage;
         this.source = source;
         this.type = type;

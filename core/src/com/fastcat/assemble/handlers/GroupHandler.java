@@ -9,6 +9,7 @@ import com.fastcat.assemble.members.Bujeong;
 import com.fastcat.assemble.members.Bulgom;
 import com.fastcat.assemble.members.BusinessKim;
 import com.fastcat.assemble.members.CallyCarly;
+import com.fastcat.assemble.members.Chouloky;
 import com.fastcat.assemble.members.Chunsik;
 import com.fastcat.assemble.members.Dokohyeji;
 import com.fastcat.assemble.members.Dopamine;
@@ -26,6 +27,7 @@ import com.fastcat.assemble.members.Jinhe;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
 import com.fastcat.assemble.members.Kkekki;
+import com.fastcat.assemble.members.Kreaze;
 import com.fastcat.assemble.members.Lilpa;
 import com.fastcat.assemble.members.Ninnin;
 import com.fastcat.assemble.members.Pungsin;
@@ -33,6 +35,8 @@ import com.fastcat.assemble.members.Roentgenium;
 import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Rusuk;
 import com.fastcat.assemble.members.Seyong;
+import com.fastcat.assemble.members.Sirian;
+import com.fastcat.assemble.members.Soosemi;
 import com.fastcat.assemble.members.Sophia;
 import com.fastcat.assemble.members.Sullivan;
 import com.fastcat.assemble.members.Victory;
@@ -91,6 +95,10 @@ public class GroupHandler {
         memberGroup.put("Sullivan", new Sullivan());
         memberGroup.put("Jinhe", new Jinhe());
         memberGroup.put("Jentoo", new Jentoo());
+        memberGroup.put("Soosemi", new Soosemi());
+        memberGroup.put("Sirian", new Sirian());
+        memberGroup.put("Kreaze", new Kreaze());
+        memberGroup.put("Chouloky", new Chouloky());
     }
 
     public static EnemyGroup getBoss(int number) {

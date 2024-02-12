@@ -116,8 +116,9 @@ public abstract class AbstractEntity {
 
     public final void heal(int amount) {
         if(amount > 0) {
-            EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.LIME));
+            //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.LIME));
             health += amount;
+            if(health > maxHealth) health = maxHealth;
             if(healthUpdatedListener.size > 0) {
                 for(OnHealthUpdated o : healthUpdatedListener) {
                     o.onHealthUpdated(amount);

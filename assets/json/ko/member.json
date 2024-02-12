@@ -315,7 +315,7 @@
   },
   "AmadeusChoi": {
     "name": "아마데우스 최",
-    "desc": "모든 멤버의 체력을 {D} 회복합니다.",
+    "desc": "모든 멤버의 체력을 {V} 회복합니다.",
     "flavor": "done",
     "synergy": [
       "Expert",
@@ -326,7 +326,7 @@
   "Soosemi": {
     "name": "수셈이",
     "desc": "무작위 적에게 {A} 대미지를 줍니다. 앞선 멤버 하나당 {V} 증가합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Kiddo",
       "Timid"
@@ -355,8 +355,8 @@
   },
   "Sirian": {
     "name": "시리안 레인",
-    "desc": "&y<[지속]> 다른 멤버가 적을 공격할 때마다 방어도를 {V} 얻습니다.",
-    "flavor": "",
+    "desc": "&y<[지속]> 다른 멤버가 적을 공격할 때마다 방어도를 {D} 얻습니다.",
+    "flavor": "done",
     "synergy": [
       "Expert",
       "Guardian"
@@ -366,7 +366,7 @@
   "Kreaze": {
     "name": "크리즈",
     "desc": "&y<[즉발]> 체력을 {V} 회복합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Guardian",
       "Machinary"
@@ -375,8 +375,8 @@
   },
   "Chouloky": {
     "name": "데스해머 쵸로키",
-    "desc": "이번 턴 동안 적이 받는 대미지가 {V}% 증가합니다.",
-    "flavor": "",
+    "desc": "이번 턴 동안 멤버가 주는 대미지가 {V}% 증가합니다.",
+    "flavor": "done",
     "synergy": [
       "Kiddo",
       "Villain"
@@ -396,7 +396,7 @@
   "Jentoo": {
     "name": "사랑전도사 젠투",
     "desc": "&y<[지속]> 적에게 받는 대미지가 {V} 감소합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "Guardian"
@@ -406,7 +406,7 @@
   "Jinhe": {
     "name": "진희",
     "desc": "방어도를 {D} 얻습니다. 발동할 때마다 {V} 증가합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "Magician"

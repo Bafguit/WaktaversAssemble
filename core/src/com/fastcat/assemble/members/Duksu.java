@@ -24,6 +24,6 @@ public class Duksu extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.HP_HIGH));
+        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.HP_HIGH));
     }
 }

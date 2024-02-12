@@ -23,6 +23,6 @@ public class Pungsin extends AbstractMember {
     @Override
     protected void useMember() {
         set(new MemberSkillAnimationAction(this));
-        set(new DamageAction(new DamageInfo(tempClone, DamageType.NORMAL), TargetType.RANDOM_ENEMY, true));
+        set(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM_ENEMY, true));
     }
 }

@@ -25,7 +25,7 @@ public class MemberSeyongAction extends AbstractAction {
             seyong.animation.addAnimation("idle");
             int cnt = WakTower.game.battle.hand.size();
             for(int i = 0; i < cnt; i++) {
-                ActionHandler.set(new DamageAction(new DamageInfo(seyong.tempClone, DamageType.NORMAL), TargetType.RANDOM, true));
+                ActionHandler.set(new DamageAction(new DamageInfo(seyong.tempClone.calculatedAtk(), seyong, DamageType.NORMAL), TargetType.RANDOM, true));
             }
         }
     }

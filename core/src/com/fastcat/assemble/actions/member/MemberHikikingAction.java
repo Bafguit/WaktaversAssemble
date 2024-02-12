@@ -26,7 +26,7 @@ public class MemberHikikingAction extends AbstractAction {
         if(duration == baseDuration) {
             for(int i = 0; i < count; i++) {
                 ActionHandler.set(new MemberSkillAnimationAction(member, "skill_" + index % 2));
-                ActionHandler.set(new DamageAction(new DamageInfo(member.tempClone, DamageType.NORMAL), TargetType.RANDOM, true));
+                ActionHandler.set(new DamageAction(new DamageInfo(member.tempClone.calculatedAtk(), member, DamageType.NORMAL), TargetType.RANDOM, true));
                 index++;
             }
         }

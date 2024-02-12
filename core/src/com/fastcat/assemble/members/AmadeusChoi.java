@@ -7,7 +7,7 @@ public class AmadeusChoi extends AbstractMember {
 
     public AmadeusChoi() {
         super("AmadeusChoi");
-        setDef(1, 1);
+        setValue(1, 1);
     }
 
     @Override

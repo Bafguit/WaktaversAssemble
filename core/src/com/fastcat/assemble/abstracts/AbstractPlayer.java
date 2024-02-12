@@ -7,6 +7,7 @@ import com.fastcat.assemble.members.Bujeong;
 import com.fastcat.assemble.members.Bulgom;
 import com.fastcat.assemble.members.BusinessKim;
 import com.fastcat.assemble.members.CallyCarly;
+import com.fastcat.assemble.members.Chouloky;
 import com.fastcat.assemble.members.Chunsik;
 import com.fastcat.assemble.members.Dokohyeji;
 import com.fastcat.assemble.members.Dopamine;
@@ -23,6 +24,7 @@ import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
 import com.fastcat.assemble.members.Kkekki;
+import com.fastcat.assemble.members.Kreaze;
 import com.fastcat.assemble.members.Lilpa;
 import com.fastcat.assemble.members.Ninnin;
 import com.fastcat.assemble.members.Pungsin;
@@ -31,6 +33,8 @@ import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Sullivan;
 import com.fastcat.assemble.members.Rusuk;
 import com.fastcat.assemble.members.Seyong;
+import com.fastcat.assemble.members.Sirian;
+import com.fastcat.assemble.members.Soosemi;
 import com.fastcat.assemble.members.Sophia;
 import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.members.Viichan;
@@ -82,6 +86,10 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new CallyCarly());
         a.add(new Dokohyeji());
         a.add(new Pungsin());
+        a.add(new Soosemi());
+        a.add(new Sirian());
+        a.add(new Kreaze());
+        a.add(new Chouloky());
 
         return a;
     }

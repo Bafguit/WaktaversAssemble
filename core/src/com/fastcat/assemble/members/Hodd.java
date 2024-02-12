@@ -25,7 +25,7 @@ public class Hodd extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this, 0.15f));
-        next(new DamageAction(new DamageInfo(this.tempClone, DamageType.NORMAL), TargetType.RANDOM_ENEMY, true));
+        next(new DamageAction(new DamageInfo(this, DamageType.NORMAL), TargetType.RANDOM_ENEMY, true));
         next(new GainBlockAction(TargetType.SELF, this, true));
     }
 }

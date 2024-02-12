@@ -3,25 +3,22 @@ package com.fastcat.assemble.members;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.DamageAction;
+import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
 import com.fastcat.assemble.utils.DamageInfo;
-import com.fastcat.assemble.utils.DamageInfo.DamageType;
+import com.fastcat.assemble.utils.TargetType;
 
-public class Ninnin extends AbstractMember {
+public class Sirian extends AbstractMember {
 
-    private DamageInfo info;
-
-    public Ninnin() {
-        super("Ninnin");
-        setAtk(3, 1);
+    public Sirian() {
+        super("Sirian");
+        setDef(2, 1);
         passive = true;
     }
 
     @Override
     public void onAttack(DamageInfo info, Array<AbstractEntity> target) {
-        if(info.source != null && !info.source.isPlayer) {
-            this.info = info;
+        if(info.source != null && info.source.isPlayer) {
             use();
         }
     }
@@ -29,6 +26,6 @@ public class Ninnin extends AbstractMember {
     @Override
     protected void useMember() {
         set(new MemberSkillAnimationAction(this));
-        set(new DamageAction(new DamageInfo(this, DamageType.NORMAL), info.source, true));
+        set(new GainBlockAction(TargetType.SELF, this, true));
     }
 }

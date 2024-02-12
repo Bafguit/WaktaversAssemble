@@ -3,6 +3,7 @@ package com.fastcat.assemble.actions;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
@@ -54,8 +55,8 @@ public class DamageAction extends AbstractAction {
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            if(info.member != null) info.damage = info.member.calculatedAtk();
-            else if(info.source != null) info.damage = info.source.calculateDamage(info.damage);
+            if(info.member != null) info.damage = info.member.tempClone.calculatedAtk();
+            else if(info.source != null && info.source instanceof AbstractEnemy) info.damage = ((AbstractEnemy)info.source).calculateDamage(info.damage);
             if(target.size > 0) {
                 for(AbstractRelic item : WakTower.game.relics) {
                     item.onAttack(info, target);
