@@ -3,16 +3,17 @@ package com.fastcat.assemble.members;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.member.MemberRoentgeniumAction;
 import com.fastcat.assemble.utils.TargetType;
 
-public class Angel extends AbstractMember {
+public class Roentgenium extends AbstractMember {
 
-    public Angel() {
-        super("Angel");
-        setDef(5, 2);
+    public Roentgenium() {
+        super("Roentgenium");
+        setDef(5, 1);
+        setValue(2, 1);
     }
 
-    @Override
     public void endOfTurn(boolean isPlayer) {
         if(isPlayer) {
             use();
@@ -22,6 +23,7 @@ public class Angel extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBlockAction(TargetType.SELF, this));
+        next(new GainBlockAction(TargetType.SELF, this, true));
+        next(new MemberRoentgeniumAction(this));
     }
 }

@@ -1,7 +1,10 @@
 package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.utils.Array;
+import com.fastcat.assemble.members.AmadeusChoi;
 import com.fastcat.assemble.members.Angel;
+import com.fastcat.assemble.members.Bujeong;
+import com.fastcat.assemble.members.Bulgom;
 import com.fastcat.assemble.members.BusinessKim;
 import com.fastcat.assemble.members.CallyCarly;
 import com.fastcat.assemble.members.Chunsik;
@@ -19,8 +22,11 @@ import com.fastcat.assemble.members.Jentoo;
 import com.fastcat.assemble.members.Jingburger;
 import com.fastcat.assemble.members.Jururu;
 import com.fastcat.assemble.members.Kimchimandu;
+import com.fastcat.assemble.members.Kkekki;
 import com.fastcat.assemble.members.Lilpa;
+import com.fastcat.assemble.members.Ninnin;
 import com.fastcat.assemble.members.Pungsin;
+import com.fastcat.assemble.members.Roentgenium;
 import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Sullivan;
 import com.fastcat.assemble.members.Rusuk;
@@ -58,7 +64,13 @@ public class AbstractPlayer extends AbstractEntity {
         a.add(new Gilbert());
         a.add(new Duksu());
         a.add(new Chunsik());
+        a.add(new Bujeong());
+        a.add(new Roentgenium());
+        a.add(new Ninnin());
+        a.add(new Kkekki());
         a.add(new Hodd());
+        a.add(new Bulgom());
+        a.add(new AmadeusChoi());
         a.add(new Seyong());
         a.add(new Sophia());
         a.add(new Victory());

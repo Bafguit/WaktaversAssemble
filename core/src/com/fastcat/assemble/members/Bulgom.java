@@ -5,11 +5,12 @@ import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
 import com.fastcat.assemble.utils.TargetType;
 
-public class Angel extends AbstractMember {
+public class Bulgom extends AbstractMember {
 
-    public Angel() {
-        super("Angel");
-        setDef(5, 2);
+    public Bulgom() {
+        super("Bulgom");
+        setDef(3, 1);
+        setValue(2, 0);
     }
 
     @Override
@@ -21,7 +22,9 @@ public class Angel extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
-        next(new GainBlockAction(TargetType.SELF, this));
+        next(new MemberSkillAnimationAction(this, 0.2f));
+        for(int i = 0; i < calculateValue(); i++) {
+            next(new GainBlockAction(TargetType.SELF, this, true));
+        }
     }
 }

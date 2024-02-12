@@ -4,19 +4,19 @@ import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.actions.RemoveStatusAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 
-public class DecreaseDamageStatus extends AbstractStatus {
+public class IncreaseDamageStatus extends AbstractStatus {
 
     private boolean fromEnemy;
 
-    public DecreaseDamageStatus(int amount, boolean fromEnemy) {
-        super("DecreaseDamage");
+    public IncreaseDamageStatus(int amount, boolean fromEnemy) {
+        super("IncreaseDamage");
         this.amount = amount;
         this.fromEnemy = fromEnemy;
     }
     
     @Override
     public int calculateAtk(int atk) {
-        return atk - amount;
+        return atk + amount;
     }
 
     @Override

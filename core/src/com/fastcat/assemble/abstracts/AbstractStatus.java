@@ -1,14 +1,8 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.actions.RemoveStatusAction;
 import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.handlers.DataHandler;
-import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.utils.DamageInfo;
 
 public abstract class AbstractStatus {

@@ -1,12 +1,8 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -16,7 +12,6 @@ import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
 import com.fastcat.assemble.synergies.Magician;
 import com.fastcat.assemble.uis.SpriteAnimation;
-import com.fastcat.assemble.utils.DamageInfo;
 
 
 public abstract class AbstractMember extends AbstractEntity implements Cloneable {
@@ -172,6 +167,8 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
     public void startOfTurn(boolean isPlayer) {}
 
     public void endOfTurn(boolean isPlayer) {}
+
+    public boolean isEvaded() {return false;}
 
     protected final void bot(AbstractAction action) {
         action.bot();

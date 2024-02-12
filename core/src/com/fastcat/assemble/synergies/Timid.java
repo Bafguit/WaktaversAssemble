@@ -1,6 +1,5 @@
 package com.fastcat.assemble.synergies;
 
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.actions.GainBarrierAction;
 import com.fastcat.assemble.handlers.ActionHandler;

@@ -54,6 +54,7 @@ public class TextureAtlasFilterLoader extends SynchronousAssetLoader<TextureAtla
 		return atlas;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle atlasFile, TextureAtlasParameter parameter) {
 		FileHandle imgDir = atlasFile.parent();
@@ -64,7 +65,7 @@ public class TextureAtlasFilterLoader extends SynchronousAssetLoader<TextureAtla
 			data = new TextureAtlasData(atlasFile, imgDir, false);
 		}
 
-		Array<AssetDescriptor> dependencies = new Array();
+		Array<AssetDescriptor> dependencies = new Array<>();
 		for (Page page : data.getPages()) {
 			TextureParameter params = new TextureParameter();
 			params.format = page.format;

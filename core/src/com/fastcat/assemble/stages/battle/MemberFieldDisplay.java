@@ -14,7 +14,6 @@ import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.uis.SpriteAnimation;
-import com.fastcat.assemble.utils.HealthBar;
 
 public class MemberFieldDisplay extends Table {
 

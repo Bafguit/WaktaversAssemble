@@ -47,6 +47,7 @@ public class WebpPixmapLoader extends AsynchronousAssetLoader<Pixmap, WebpPixmap
 		return pixmap;
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
 	public Array<AssetDescriptor> getDependencies (String fileName, FileHandle file, PixmapParameter parameter) {
 		return null;

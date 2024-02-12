@@ -10,7 +10,7 @@ public class Haku extends AbstractMember {
 
     public Haku() {
         super("Haku");
-        setValue(1, 1);
+        setValue(2, 1);
     }
 
     public void endOfTurn(boolean isPlayer) {
@@ -22,6 +22,6 @@ public class Haku extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new ApplyStatusAction(TargetType.ALL_ENEMY, new DecreaseDamageStatus(tempClone.calculateValue()), false));
+        next(new ApplyStatusAction(TargetType.ALL_ENEMY, new DecreaseDamageStatus(tempClone.calculateValue(), false), false));
     }
 }

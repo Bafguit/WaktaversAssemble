@@ -2,7 +2,6 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
@@ -31,7 +30,6 @@ import com.fastcat.assemble.utils.FastCatUtils;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ListIterator;
 
 public abstract class AbstractBattle implements Cloneable {
 

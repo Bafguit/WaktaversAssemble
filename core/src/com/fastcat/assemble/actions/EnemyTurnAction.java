@@ -1,7 +1,6 @@
 package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.handlers.ActionHandler;
 
 public class EnemyTurnAction extends AbstractAction {

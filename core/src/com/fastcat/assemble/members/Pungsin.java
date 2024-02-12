@@ -17,16 +17,12 @@ public class Pungsin extends AbstractMember {
 
     @Override
     public void onGainedBlock(int amount) {
-        set(new DamageAction(new DamageInfo(tempClone, DamageType.NORMAL), TargetType.RANDOM_ENEMY));
-    }
-
-    @Override
-    protected void onSummoned() {
         use();
     }
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this, 0.3f));
+        set(new MemberSkillAnimationAction(this));
+        set(new DamageAction(new DamageInfo(tempClone, DamageType.NORMAL), TargetType.RANDOM_ENEMY, true));
     }
 }

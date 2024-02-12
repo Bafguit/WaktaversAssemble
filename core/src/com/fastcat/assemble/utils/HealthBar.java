@@ -2,26 +2,14 @@ package com.fastcat.assemble.utils;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.Widget;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar.ProgressBarStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEntity;
-import com.fastcat.assemble.abstracts.AbstractUI.BasisType;
-import com.fastcat.assemble.abstracts.AbstractUI.TempUI;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
-import com.fastcat.assemble.handlers.InputHandler;
-import com.fastcat.assemble.handlers.FontHandler.FontData;
 import com.fastcat.assemble.interfaces.OnHealthUpdated;
 
 public class HealthBar extends Widget implements OnHealthUpdated {
@@ -31,7 +19,7 @@ public class HealthBar extends Widget implements OnHealthUpdated {
 
     private TextureRegionDrawable bg, hb, yet, block, barrier;
     private Label text;
-    private float yetHealth, health, timer = 0, wScale = 1;
+    private float yetHealth, health, timer = 0;
 
     public AbstractEntity entity;
 
@@ -50,7 +38,6 @@ public class HealthBar extends Widget implements OnHealthUpdated {
         health = (float) entity.health / (float) entity.maxHealth;
         setWidth(width);
         setHeight(12);
-        wScale = (float) width / 148;
 
         entity.healthBar = this;
 

@@ -3,7 +3,6 @@ package com.fastcat.assemble.utils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEntity;
-import com.fastcat.assemble.abstracts.AbstractSynergy;
 
 public enum TargetType {
     RANDOM {

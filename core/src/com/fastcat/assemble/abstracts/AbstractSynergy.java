@@ -2,11 +2,8 @@ package com.fastcat.assemble.abstracts;
 
 import java.util.LinkedList;
 
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.actions.SynergyFlashAction;
 import com.fastcat.assemble.handlers.ActionHandler;

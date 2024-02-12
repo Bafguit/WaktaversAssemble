@@ -6,9 +6,12 @@ import com.fastcat.assemble.handlers.ActionHandler;
 
 public class DecreaseBlockStatus extends AbstractStatus {
 
-    public DecreaseBlockStatus(int amount) {
+    private boolean fromEnemy;
+
+    public DecreaseBlockStatus(int amount, boolean fromEnemy) {
         super("DecreaseBlock");
         this.amount = amount;
+        this.fromEnemy = fromEnemy;
     }
     
     @Override
@@ -18,6 +21,9 @@ public class DecreaseBlockStatus extends AbstractStatus {
 
     @Override
     public void endOfTurn(boolean isPlayer) {
-        if(!isPlayer) ActionHandler.set(new RemoveStatusAction(owner, this));
+        if(!isPlayer) {
+            if(fromEnemy) fromEnemy = false;
+            else ActionHandler.set(new RemoveStatusAction(owner, this));
+        }
     }
 }

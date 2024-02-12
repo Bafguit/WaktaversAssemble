@@ -2,7 +2,6 @@ package com.fastcat.assemble.actions.member;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.actions.DamageAction;
 import com.fastcat.assemble.actions.GainBlockAction;
@@ -33,7 +32,7 @@ public class MemberDopamineAction extends AbstractAction {
             }
             for(int i = 0; i < cnt; i++) {
                 boolean b = WakTower.game.battleRandom.randomBoolean();
-                if(b) ActionHandler.set(new GainBlockAction(TargetType.SELF, dopamine.tempClone, true));
+                if(b) ActionHandler.set(new GainBlockAction(dopamine, dopamine.tempClone.calculateValue(), true));
                 else ActionHandler.set(new DamageAction(new DamageInfo(dopamine.tempClone, DamageType.NORMAL), TargetType.RANDOM_ENEMY));
             }
             //todo block effect

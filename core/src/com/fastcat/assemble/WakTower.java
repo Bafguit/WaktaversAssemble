@@ -18,7 +18,6 @@ import com.crashinvaders.vfx.effects.FxaaEffect;
 import com.esotericsoftware.spine.SkeletonRenderer;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractScreen;
-import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;

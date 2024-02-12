@@ -54,7 +54,7 @@ public class GainBlockAction extends AbstractAction {
             if(target.size > 0) {
                 int cnt = 0;
                 if(source != null) {
-                    if(source instanceof AbstractMember) amount = ((AbstractMember) source).calculatedDef();
+                    if(source instanceof AbstractMember) amount = ((AbstractMember) source).tempClone.calculatedDef();
                     else if(source instanceof AbstractEnemy) amount = ((AbstractEnemy) source).calculateDef(amount);
                 }
                 for(AbstractEntity e : target) {

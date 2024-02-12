@@ -3,7 +3,6 @@ package com.fastcat.assemble.handlers;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractRelic;
-import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;

@@ -1,15 +1,13 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.MemberSkillAnimationAction;
-import com.fastcat.assemble.utils.TargetType;
 
-public class Angel extends AbstractMember {
+public class AmadeusChoi extends AbstractMember {
 
-    public Angel() {
-        super("Angel");
-        setDef(5, 2);
+    public AmadeusChoi() {
+        super("AmadeusChoi");
+        setDef(1, 1);
     }
 
     @Override
@@ -22,6 +20,6 @@ public class Angel extends AbstractMember {
     @Override
     protected void useMember() {
         next(new MemberSkillAnimationAction(this));
-        next(new GainBlockAction(TargetType.SELF, this));
+        //TODO HealAction
     }
 }

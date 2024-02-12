@@ -141,7 +141,14 @@ public abstract class AbstractEntity {
     public final int takeDamage(DamageInfo info) {
         if(isPlayer) {
             boolean kiddo = Kiddo.getInstance().isEvaded();
-            if(kiddo) {
+            boolean bj = false;
+            for(AbstractMember c : WakTower.game.battle.members) {
+                if(c.isEvaded()) {
+                    bj = true;
+                    break;
+                }
+            }
+            if(kiddo || bj) {
                 //evade effect
                 return 0;
             }

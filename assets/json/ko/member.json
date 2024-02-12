@@ -245,8 +245,8 @@
   },
   "Bujeong": {
     "name": "부정형인간",
-    "desc": "&y<[지속]> 모든 멤버가 {v}% 확률로 적의 공격을 회피합니다.",
-    "flavor": "",
+    "desc": "&y<[지속]> 모든 멤버가 {V}% 확률로 적의 공격을 회피합니다.",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "Timid"
@@ -255,7 +255,7 @@
   },
   "Wakpago": {
     "name": "왁파고",
-    "desc": "&y<[지속]> 모든 멤버가 얻는 방어도와 보호막이 {V} 증가합니다.",
+    "desc": "&y<[지속]> 멤버가 얻는 방어도와 보호막이 {V} 증가합니다.",
     "flavor": "done",
     "synergy": [
       "Doormat",
@@ -265,8 +265,8 @@
   },
   "Roentgenium": {
     "name": "뢴트게늄",
-    "desc": "방어도를 {D} 얻고 다음 멤버의 대미지가 {V} 증가합니다.",
-    "flavor": "",
+    "desc": "방어도를 {D} 얻고 이번 턴 동안 다음 멤버의 대미지가 {V} 증가합니다.",
+    "flavor": "done",
     "synergy": [
       "Doormat",
       "MainVocal"
@@ -286,7 +286,7 @@
   "Ninnin": {
     "name": "닌닌",
     "desc": "&y<[지속]> 적이 공격할 때마다 해당 적에게 {A} 대미지를 줍니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Kiddo",
       "Timid"
@@ -296,7 +296,7 @@
   "Kkekki": {
     "name": "아이 쓰께끼",
     "desc": "&y<[지속]> 적에게 받는 대미지가 {V}% 감소합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Guardian",
       "MindMaster"
@@ -306,7 +306,7 @@
   "Bulgom": {
     "name": "불곰",
     "desc": "방어도를 {D} 만큼 {V}번 얻습니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Guardian",
       "Nobles"
@@ -316,7 +316,7 @@
   "AmadeusChoi": {
     "name": "아마데우스 최",
     "desc": "모든 멤버의 체력을 {D} 회복합니다.",
-    "flavor": "",
+    "flavor": "done",
     "synergy": [
       "Expert",
       "MindMaster"

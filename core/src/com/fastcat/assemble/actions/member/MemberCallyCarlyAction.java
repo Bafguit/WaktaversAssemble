@@ -8,7 +8,6 @@ import com.fastcat.assemble.abstracts.AbstractStatus;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.CallyCarly;
-import com.fastcat.assemble.members.Dopamine;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.TargetType;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
