@@ -2,7 +2,7 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 import com.fastcat.assemble.actions.member.MemberRoentgeniumAction;
 import com.fastcat.assemble.utils.TargetType;
 
@@ -22,7 +22,7 @@ public class Roentgenium extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
+        next(new PlayAnimationAction(this));
         next(new GainBlockAction(TargetType.SELF, this, true));
         next(new MemberRoentgeniumAction(this));
     }

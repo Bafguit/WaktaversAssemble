@@ -2,6 +2,7 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.abstracts.AbstractStatus;
@@ -32,9 +33,15 @@ public class StartTurnAction extends AbstractAction {
             }
             for(AbstractMember member : WakTower.game.battle.members) {
                 member.startOfTurn(isPlayer);
+                for(AbstractStatus status : member.status) {
+                    status.startOfTurn(isPlayer);
+                }
             }
-            for(AbstractStatus status : WakTower.game.player.status) {
-                status.startOfTurn(isPlayer);
+            for(AbstractEnemy enemy : WakTower.game.battle.enemies) {
+                enemy.startOfTurn(isPlayer);
+                for(AbstractStatus status : enemy.status) {
+                    status.startOfTurn(isPlayer);
+                }
             }
 
             if(isPlayer && !isNew) ActionHandler.next(new ExitMembersAction());

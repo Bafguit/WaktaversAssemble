@@ -1,6 +1,12 @@
 package com.fastcat.assemble.abstracts;
 
+import com.fastcat.assemble.utils.EnemyAction;
+
 public abstract class AbstractEnemy extends AbstractEntity {
+
+    public EnemyAction action;
+    protected int turn = 0;
+
     public AbstractEnemy(String id) {
         super(id, false);
     }
@@ -32,4 +38,21 @@ public abstract class AbstractEnemy extends AbstractEntity {
         def *= m;
         return def;
     }
+
+    public final void action() {
+        if(actTurn()) setTurn();
+    }
+
+    protected void setTurn() {
+        turn++;
+    }
+
+    @Override
+    public void startOfTurn(boolean isPlayer) {
+        if(isPlayer) action = getAction();
+    }
+
+    protected abstract boolean actTurn();
+
+    public abstract EnemyAction getAction();
 }

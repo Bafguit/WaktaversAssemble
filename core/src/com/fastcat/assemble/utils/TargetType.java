@@ -143,6 +143,13 @@ public enum TargetType {
     },
     NONE;
 
+    public AbstractEntity source;
+
+    public TargetType setSource(AbstractEntity entity) {
+        source = entity;
+        return this;
+    }
+
     public Array<AbstractEntity> getTargets(AbstractEntity source) {
         return new Array<>();
     }

@@ -3,7 +3,7 @@ package com.fastcat.assemble.members;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.actions.IncreaseDefAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 import com.fastcat.assemble.utils.TargetType;
 
 public class Jinhe extends AbstractMember {
@@ -24,7 +24,7 @@ public class Jinhe extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
+        next(new PlayAnimationAction(this));
         next(new GainBlockAction(TargetType.SELF, this));
         next(new IncreaseDefAction(this, tempClone.calculateValue()));
     }

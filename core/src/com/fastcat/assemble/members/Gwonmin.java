@@ -2,7 +2,7 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 
 public class Gwonmin extends AbstractMember {
 
@@ -25,6 +25,6 @@ public class Gwonmin extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this, 0.3f));
+        next(new PlayAnimationAction(this, 0.3f));
     }
 }

@@ -1,7 +1,7 @@
 package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 import com.fastcat.assemble.utils.DamageInfo;
 
 public class Kkekki extends AbstractMember {
@@ -25,6 +25,6 @@ public class Kkekki extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this, 0.3f));
+        next(new PlayAnimationAction(this, 0.3f));
     }
 }

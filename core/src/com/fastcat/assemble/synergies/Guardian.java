@@ -16,7 +16,7 @@ public class Guardian extends AbstractSynergy {
     @Override
     public void endOfTurn(boolean isPlayer) {
         super.endOfTurn(isPlayer);
-        if(grade > 0) {
+        if(isPlayer && grade > 0) {
             flash();
             ActionHandler.next(new GainBlockAction(TargetType.NONE, grade == 1 ? 5 : grade == 2 ? 9 : 15, true).setSynergy(this));
         }

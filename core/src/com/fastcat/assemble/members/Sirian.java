@@ -4,7 +4,7 @@ import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.TargetType;
 
@@ -25,7 +25,7 @@ public class Sirian extends AbstractMember {
 
     @Override
     protected void useMember() {
-        set(new MemberSkillAnimationAction(this));
+        set(new PlayAnimationAction(this));
         set(new GainBlockAction(TargetType.SELF, this, true));
     }
 }

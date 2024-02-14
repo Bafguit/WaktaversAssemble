@@ -5,11 +5,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Tooltip;
@@ -31,6 +35,7 @@ import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
+import com.fastcat.assemble.utils.EnemyAction;
 import com.fastcat.assemble.utils.HealthBar;
 
 public class BattleStage extends AbstractStage {
@@ -237,6 +242,32 @@ public class BattleStage extends AbstractStage {
                 HealthBar hb = new HealthBar(e, 150);
                 float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
                 hb.setPosition(x, y - hb.getMinHeight(), Align.top);
+
+                /*Table intent = new Table();
+                Button btn = new Button(e.action.image);
+                Label lbl = new Label("", new LabelStyle(FontHandler.BF_B24, Color.WHITE));
+
+                lbl.setAlignment(Align.bottomRight);
+
+                intent = new Table() {
+                    public Button b = btn;
+                    public Label l = lbl;
+                    public AbstractEnemy enemy = e;
+                    public void act(float delta) {
+                        EnemyAction action = enemy.action;
+                        b.setStyle(new ButtonStyle(action.image, action.image, action.image));
+                        if(action.type == EnemyAction.ActionType.ATTACK || action.type == EnemyAction.ActionType.ATTACK_BLOCK) l.setText(enemy.calculateDamage(action.amount));
+                        else if(action.type == EnemyAction.ActionType.BLOCK) l.setText(enemy.calculateDef(action.amount));
+                        this.setPosition(x, y + 15, Align.bottom);
+                    }
+                };
+
+                intent.align(Align.bottom);
+                intent.add(btn).bottom().width(64).height(64);
+                intent.row();
+                intent.add(lbl).bottom().width(64).right().padTop(-lbl.getMinHeight());
+
+                enemyTable.addActor(intent);*/
                 enemyTable.addActor(hb);
             }
         }

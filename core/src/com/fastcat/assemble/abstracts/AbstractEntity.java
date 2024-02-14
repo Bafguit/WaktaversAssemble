@@ -183,22 +183,22 @@ public abstract class AbstractEntity {
             if(!ignore) {
                 if(block > 0) {
                     if(info.damage <= block) {
-                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.CYAN));
+                        //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.CYAN));
                         block -= info.damage;
                         return 0;
                     } else {
-                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -block, Color.CYAN));
+                        //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -block, Color.CYAN));
                         info.damage -= block;
                         block = 0;
                     }
                 }
                 if(barrier > 0) {
                     if(info.damage <= barrier) {
-                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.SALMON));
+                        //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.SALMON));
                         barrier -= info.damage;
                         return 0;
                     } else {
-                        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -barrier, Color.SALMON));
+                        //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -barrier, Color.SALMON));
                         info.damage -= barrier;
                         barrier = 0;
                     }
@@ -290,6 +290,28 @@ public abstract class AbstractEntity {
     public boolean isAlive() {
         return !isDie && !isDead;
     }
+
+    protected final void bot(AbstractAction action) {
+        action.bot();
+    }
+
+    protected final void top(AbstractAction action) {
+        action.top();
+    }
+
+    protected final void next(AbstractAction action) {
+        action.next();
+    }
+
+    protected final void set(AbstractAction action) {
+        action.set();
+    }
+
+    protected final void setTop(AbstractAction action) {
+        action.setTop();
+    }
+
+    public void startOfTurn(boolean isPlayer) {}
 
     public static class EntityData {
         public final String id;

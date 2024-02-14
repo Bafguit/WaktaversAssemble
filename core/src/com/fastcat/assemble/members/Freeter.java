@@ -2,7 +2,7 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.DamageAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 import com.fastcat.assemble.utils.DamageInfo;
 import com.fastcat.assemble.utils.DamageInfo.DamageType;
 
@@ -25,7 +25,7 @@ public class Freeter extends AbstractMember {
     @Override
     protected void useMember() {
         if(info.source != null) {
-            set(new MemberSkillAnimationAction(this));
+            set(new PlayAnimationAction(this));
             set(new DamageAction(new DamageInfo(this.tempClone.calculateValue(), DamageType.REFLECT), info.source, true));
         }
     }

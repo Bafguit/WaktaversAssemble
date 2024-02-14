@@ -2,7 +2,7 @@ package com.fastcat.assemble.actions.member;
 
 import com.fastcat.assemble.abstracts.AbstractAction;
 import com.fastcat.assemble.actions.DamageAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Hikiking;
 import com.fastcat.assemble.utils.DamageInfo;
@@ -25,7 +25,7 @@ public class MemberHikikingAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             for(int i = 0; i < count; i++) {
-                ActionHandler.set(new MemberSkillAnimationAction(member, "skill_" + index % 2));
+                ActionHandler.set(new PlayAnimationAction(member, "skill_" + index % 2));
                 ActionHandler.set(new DamageAction(new DamageInfo(member.tempClone.calculatedAtk(), member, DamageType.NORMAL), TargetType.RANDOM, true));
                 index++;
             }

@@ -3,7 +3,7 @@ package com.fastcat.assemble.members;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.DiscardAllAction;
 import com.fastcat.assemble.actions.DrawCardAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 
 public class Dandap extends AbstractMember {
 
@@ -19,7 +19,7 @@ public class Dandap extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
+        next(new PlayAnimationAction(this));
         next(new DiscardAllAction());
         next(new DrawCardAction(this));
     }

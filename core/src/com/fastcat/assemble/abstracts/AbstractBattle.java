@@ -63,6 +63,9 @@ public abstract class AbstractBattle implements Cloneable {
             drawPile.addLast(m.duplicate());
         }
         setEnemy();
+        for(AbstractEnemy e : enemies) {
+            e.action = e.getAction();
+        }
         phase = BattlePhase.battleStart;
         resetSynergy();
         //ActionHandler.bot(new StartBattleAction());

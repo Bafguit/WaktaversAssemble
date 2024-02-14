@@ -2,7 +2,7 @@ package com.fastcat.assemble.members;
 
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.DrawAndDiscardAction;
-import com.fastcat.assemble.actions.MemberSkillAnimationAction;
+import com.fastcat.assemble.actions.PlayAnimationAction;
 
 public class Gosegu extends AbstractMember {
 
@@ -19,7 +19,7 @@ public class Gosegu extends AbstractMember {
 
     @Override
     protected void useMember() {
-        next(new MemberSkillAnimationAction(this));
+        next(new PlayAnimationAction(this));
         next(new DrawAndDiscardAction(this));
     }
 }

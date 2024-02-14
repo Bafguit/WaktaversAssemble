@@ -105,6 +105,12 @@ public class FileHandler {
         assetManager.load("image/ui/checkbox_on.png", Pixmap.class);
         assetManager.load("image/ui/checkbox_off.png", Pixmap.class);
         assetManager.load("image/ui/button.png", Pixmap.class);
+        assetManager.load("image/ui/attack.png", Pixmap.class);
+        assetManager.load("image/ui/block.png", Pixmap.class);
+        assetManager.load("image/ui/attack_block.png", Pixmap.class);
+        assetManager.load("image/ui/buff.png", Pixmap.class);
+        assetManager.load("image/ui/debuff.png", Pixmap.class);
+        assetManager.load("image/ui/escape.png", Pixmap.class);
 
         //BG
         assetManager.load("image/bg/way_lab.png", Pixmap.class);

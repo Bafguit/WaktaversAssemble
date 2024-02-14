@@ -169,31 +169,9 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         return name + (upgradeCount > 0 ? " +" + upgradeCount : "");
     }
 
-    public void startOfTurn(boolean isPlayer) {}
-
     public void endOfTurn(boolean isPlayer) {}
 
     public boolean isEvaded() {return false;}
-
-    protected final void bot(AbstractAction action) {
-        action.bot();
-    }
-
-    protected final void top(AbstractAction action) {
-        action.top();
-    }
-
-    protected final void next(AbstractAction action) {
-        action.next();
-    }
-
-    protected final void set(AbstractAction action) {
-        action.set();
-    }
-
-    protected final void setTop(AbstractAction action) {
-        action.setTop();
-    }
 
     public void upgrade() {
         if(upgradeCount < upgradeLimit) {
