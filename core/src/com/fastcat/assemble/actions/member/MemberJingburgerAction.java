@@ -6,6 +6,7 @@ import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Jingburger;
+import com.fastcat.assemble.utils.TargetType;
 
 public class MemberJingburgerAction extends AbstractAction {
 
@@ -27,7 +28,7 @@ public class MemberJingburgerAction extends AbstractAction {
                 else cnt++;
             }
             for(int i = 0; i < cnt; i++) {
-                ActionHandler.set(new GainBlockAction(jingburger, jingburger.tempClone.calculateValue(), true));
+                ActionHandler.set(new GainBlockAction(TargetType.SELF, jingburger, true));
             }
             //todo block effect
         }

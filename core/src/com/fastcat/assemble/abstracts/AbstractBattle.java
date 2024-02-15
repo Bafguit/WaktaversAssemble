@@ -2,7 +2,6 @@ package com.fastcat.assemble.abstracts;
 
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Queue;
-import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
@@ -31,8 +30,9 @@ import com.fastcat.assemble.utils.FastCatUtils;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public abstract class AbstractBattle implements Cloneable {
+public class AbstractBattle {
 
+    private final AbstractGame game;
     private BattleStage stage;
 
     public BattleType type;
@@ -55,14 +55,14 @@ public abstract class AbstractBattle implements Cloneable {
 
     public int energy;
 
-    public AbstractBattle(BattleType type) {
-        this.type = type;
-        Array<AbstractMember> mm = new Array<AbstractMember>(WakTower.game.deck);
-        FastCatUtils.staticShuffle(mm, WakTower.game.battleRandom, AbstractMember.class);
+    public AbstractBattle(AbstractGame game, AbstractRoom room) {
+        this.game = game;
+        Array<AbstractMember> mm = new Array<AbstractMember>(game.deck);
+        FastCatUtils.staticShuffle(mm, game.battleRandom, AbstractMember.class);
         for(AbstractMember m : mm) {
             drawPile.addLast(m.duplicate());
         }
-        setEnemy();
+        setEnemy(room);
         for(AbstractEnemy e : enemies) {
             e.action = e.getAction();
         }
@@ -80,18 +80,18 @@ public abstract class AbstractBattle implements Cloneable {
     }
 
     public void turnDraw() {
-        draw(WakTower.game.drawAmount);
+        draw(game.drawAmount);
     }
 
     public void draw(int amount) {
-        if(hand.size() < WakTower.game.maxHand) {
+        if(hand.size() < game.maxHand) {
         if(drawPile.size >= amount) {
             for(int i = 0; i < amount; i++) {
                 AbstractMember m = drawPile.removeFirst();
                 hand.add(m);
                 m.onDrawn();
                 //WakTower.battleScreen.addHand(m);
-                if(hand.size() == WakTower.game.maxHand) break;
+                if(hand.size() == game.maxHand) break;
             }
         } else {
             if(drawPile.size > 0) {
@@ -101,11 +101,11 @@ public abstract class AbstractBattle implements Cloneable {
                     hand.add(m);
                     m.onDrawn();
                     //WakTower.battleScreen.addHand(m);
-                    if(hand.size() == WakTower.game.maxHand) break;
+                    if(hand.size() == game.maxHand) break;
                 }
                 amount -= s;
             }
-            FastCatUtils.staticShuffle(discardPile, WakTower.game.battleRandom, AbstractMember.class);
+            FastCatUtils.staticShuffle(discardPile, game.battleRandom, AbstractMember.class);
             for(AbstractMember c : discardPile) {
                 drawPile.addLast(c);
             }
@@ -132,7 +132,7 @@ public abstract class AbstractBattle implements Cloneable {
     }
 
     public boolean isPlayerTurn() {
-        return WakTower.game.battle.phase == BattlePhase.playerTurn;
+        return game.battle.phase == BattlePhase.playerTurn;
     }
 
     private void resetSynergy() {
@@ -174,7 +174,12 @@ public abstract class AbstractBattle implements Cloneable {
         stage.updateSynergy();
     }
 
-    protected abstract void setEnemy();
+    public void setEnemy(AbstractRoom room) {
+        enemies.clear();
+        for(AbstractEnemy e : room.enemies) {
+            enemies.add(e.duplicate());
+        }
+    }
 
     @Override
     public AbstractBattle clone() {

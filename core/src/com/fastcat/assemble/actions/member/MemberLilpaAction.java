@@ -30,7 +30,7 @@ public class MemberLilpaAction extends AbstractAction {
                 else cnt++;
             }
             for(int i = 0; i < cnt; i++) {
-                ActionHandler.set(new DamageAction(new DamageInfo(lilpa.tempClone.calculatedAtk(), lilpa, DamageType.NORMAL), TargetType.RANDOM, true));
+                ActionHandler.set(new DamageAction(new DamageInfo(lilpa, DamageType.NORMAL), TargetType.RANDOM_ENEMY, true));
             }
         }
     }

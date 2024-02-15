@@ -26,10 +26,10 @@ import java.util.LinkedList;
 
 public abstract class AbstractEntity {
 
-    protected final EntityData data;
+    public final EntityData data;
     public final String id, name, desc;
     public final boolean isPlayer;
-    public final SpriteAnimation animation;
+    public SpriteAnimation animation;
 
     public int health, maxHealth, block, barrier;
     public boolean isDie, isDead;

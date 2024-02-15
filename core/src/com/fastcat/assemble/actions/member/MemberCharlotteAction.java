@@ -6,6 +6,7 @@ import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.actions.GainBlockAction;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.members.Charlotte;
+import com.fastcat.assemble.utils.TargetType;
 
 public class MemberCharlotteAction extends AbstractAction {
 
@@ -26,7 +27,7 @@ public class MemberCharlotteAction extends AbstractAction {
                 if(m.isAlive()) cnt++;
             }
             for(int i = 0; i < cnt; i++) {
-                ActionHandler.set(new GainBlockAction(charlotte, charlotte.tempClone.calculatedDef(), true));
+                ActionHandler.set(new GainBlockAction(TargetType.SELF, charlotte, true));
             }
         }
     }

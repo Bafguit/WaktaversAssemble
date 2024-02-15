@@ -3,7 +3,6 @@ package com.fastcat.assemble.abstracts;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
@@ -11,7 +10,6 @@ import com.fastcat.assemble.interfaces.OnIncreaseGlobalDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDamage;
 import com.fastcat.assemble.interfaces.OnIncreaseMemberDef;
 import com.fastcat.assemble.synergies.Magician;
-import com.fastcat.assemble.uis.SpriteAnimation;
 
 
 public abstract class AbstractMember extends AbstractEntity implements Cloneable {
@@ -26,32 +24,21 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         "Doormat", "Villain", "Kiddo", "Nobles", "Timid"
     };
 
-    public final EntityData data;
-
     public AbstractMember tempClone;
 
-    public String id;
-    public String name;
-    public String desc;
     public String flavor;
     public TextureRegionDrawable img;
     public int upgradeCount = 0;
-    public int upgradeLimit = 1;
     public int atk, baseAtk, upAtk, def, baseDef, upDef;
     public int value, baseValue, upValue, value2, baseValue2, upValue2;
     public float effect = 1.0f;
     public boolean remain = false;
     public boolean instant = false, passive = false;
-    public SpriteAnimation animation;
     public final AbstractSynergy[] baseSynergy;
     public AbstractSynergy[] synergy;
 
     public AbstractMember(String id) {
         super(id, true);
-        this.id = id;
-        data = DataHandler.getInstance().memberData.get(id);
-        name = data.name;
-        desc = data.desc;
         flavor = data.flavor;
         img = FileHandler.getMember(id);
         animation = data.animation.cpy();
@@ -131,9 +118,6 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         for(AbstractMember m : WakTower.game.battle.members) {
             if(m != this) m.onSummon(this);
         }
-        for(AbstractStatus s : WakTower.game.player.status) {
-            s.onSummon(this);
-        }
         
         onSummoned();
 
@@ -161,7 +145,7 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
 
     public void upgradeTemp(int amount) {
         for(int i = 0; i < amount; i++) {
-            tempClone.upgrade(false);
+            tempClone.upgrade();
         }
     }
 
@@ -174,43 +158,21 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
     public boolean isEvaded() {return false;}
 
     public void upgrade() {
-        if(upgradeCount < upgradeLimit) {
-            upgradeCount++;
+        upgradeCount++;
 
-            baseAtk += upAtk;
-            if(baseAtk < 0) baseAtk = 0;
+        baseAtk += upAtk;
+        if(baseAtk < 0) baseAtk = 0;
 
-            baseDef += upDef;
-            if(baseDef < 0) baseDef = 0;
+        baseDef += upDef;
+        if(baseDef < 0) baseDef = 0;
 
-            baseValue += upValue;
-            if(baseValue < 0) baseValue = 0;
-            calculateValue();
+        baseValue += upValue;
+        if(baseValue < 0) baseValue = 0;
+        calculateValue();
 
-            baseValue2 += upValue2;
-            if(baseValue2 < 0) baseValue2 = 0;
-            calculateValue2();
-        }
-    }
-
-    public void upgrade(boolean hasLimit) {
-        if(!hasLimit || upgradeCount < upgradeLimit) {
-            upgradeCount++;
-            
-            baseAtk += upAtk;
-            if(baseAtk < 0) baseAtk = 0;
-
-            baseDef += upDef;
-            if(baseDef < 0) baseDef = 0;
-
-            baseValue += upValue;
-            if(baseValue < 0) baseValue = 0;
-            value = baseValue;
-
-            baseValue2 += upValue2;
-            if(baseValue2 < 0) baseValue2 = 0;
-            value2 = baseValue2;
-        }
+        baseValue2 += upValue2;
+        if(baseValue2 < 0) baseValue2 = 0;
+        calculateValue2();
     }
 
     public String getKeyValue(String key) {
@@ -250,9 +212,6 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         }
         Magician mgc = Magician.getInstance();
         if(mgc.grade > 0) a += mgc.increaseMemberDamage();
-        for(AbstractStatus s : WakTower.game.player.status) {
-            a = s.calculateAtk(a);
-        }
 
         float m = effect;
 
@@ -264,9 +223,6 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         }
         for(AbstractRelic r : WakTower.game.relics) {
             m *= r.multiplyAtk();
-        }
-        for(AbstractStatus s : WakTower.game.player.status) {
-            m *= s.multiplyAtk();
         }
 
         for(AbstractSynergy s : synergy) {
@@ -286,9 +242,6 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         for(AbstractRelic r : WakTower.game.relics) {
             d = r.calculateDef(d);
         }
-        for(AbstractStatus s : WakTower.game.player.status) {
-            d = s.calculateDef(d);
-        }
 
         float m = effect;
 
@@ -297,9 +250,6 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         }
         for(AbstractRelic r : WakTower.game.relics) {
             m *= r.multiplyDef();
-        }
-        for(AbstractStatus s : WakTower.game.player.status) {
-            m *= s.multiplyDef();
         }
 
         for(AbstractSynergy s : synergy) {

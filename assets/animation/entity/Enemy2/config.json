@@ -1,0 +1,32 @@
+{
+    "idle": {
+      "frameDuration": 0.067,
+      "isLoop": true,
+      "axisX": 180,
+      "axisY": 20
+    },
+    "hit": {
+      "frameDuration": 1,
+      "isLoop": false,
+      "axisX": 180,
+      "axisY": 20
+    },
+    "die": {
+      "frameDuration": 1,
+      "isLoop": false,
+      "axisX": 180,
+      "axisY": 20
+    },
+    "skill": {
+      "frameDuration": 1,
+      "isLoop": false,
+      "axisX": 180,
+      "axisY": 20
+    },
+    "attack": {
+      "frameDuration": 1,
+      "isLoop": false,
+      "axisX": 180,
+      "axisY": 20
+    }
+  }

@@ -6,19 +6,19 @@ import com.fastcat.assemble.members.Wakpago;
 
 public class MemberWakpagoAction extends AbstractAction {
 
-    public Wakpago victory;
+    public Wakpago wakpago;
 
-    public MemberWakpagoAction(Wakpago victory) {
+    public MemberWakpagoAction(Wakpago wakpago) {
         super(0.5f);
-        this.victory = victory;
+        this.wakpago = wakpago;
     }
 
     @Override
     protected void updateAction() {
         if(duration == baseDuration) {
-            victory.animation.setAnimation("skill");
-            victory.animation.addAnimation("idle");
-            WakTower.game.battle.turnMemberDef.add(victory);
+            wakpago.animation.setAnimation("skill");
+            wakpago.animation.addAnimation("idle");
+            WakTower.game.battle.turnMemberDef.add(wakpago);
         }
     }
 }

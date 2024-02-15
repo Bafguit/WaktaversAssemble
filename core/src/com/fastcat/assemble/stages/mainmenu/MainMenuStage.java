@@ -11,7 +11,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractStage;
-import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.BattleStage;
@@ -35,7 +34,6 @@ public class MainMenuStage extends AbstractStage {
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.game = new AbstractGame();
-                WakTower.game.battle = new TestBattle();
                 WakTower.application.battleStage = new BattleStage();
                 WakTower.stage = WakTower.application.battleStage;
 		        return true;

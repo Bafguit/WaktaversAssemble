@@ -6,7 +6,7 @@
     "synergy": [
       "Cutey"
     ],
-    "health": 15
+    "health": 10
   },
   "Angel": {
     "name": "엔젤",
@@ -15,7 +15,7 @@
     "synergy": [
       "Nunna"
     ],
-    "health": 15
+    "health": 10
   },
   "Jingburger": {
     "name": "징버거",
@@ -26,7 +26,7 @@
       "Nunna",
       "Timid"
     ],
-    "health": 15
+    "health": 12
   },
   "Gosegu": {
     "name": "고세구",
@@ -37,7 +37,7 @@
       "Cat",
       "Crazy"
     ],
-    "health": 15
+    "health": 5
   },
   "Lilpa": {
     "name": "릴파",
@@ -48,7 +48,7 @@
       "MainVocal",
       "Nunna"
     ],
-    "health": 15
+    "health": 7
   },
   "Ine": {
     "name": "아이네",
@@ -59,7 +59,7 @@
       "Magician",
       "MainVocal"
     ],
-    "health": 15
+    "health": 12
   },
   "Viichan": {
     "name": "비챤",
@@ -70,7 +70,7 @@
       "Cutey",
       "Kiddo"
     ],
-    "health": 15
+    "health": 7
   },
   "Jururu": {
     "name": "주르르",
@@ -80,7 +80,7 @@
       "Isedol",
       "Nobles"
     ],
-    "health": 15
+    "health": 5
   },
   "Victory": {
     "name": "빅토리",
@@ -90,7 +90,7 @@
       "Crazy",
       "MindMaster"
     ],
-    "health": 15
+    "health": 3
   },
   "Hikiking": {
     "name": "히키킹",
@@ -100,7 +100,7 @@
       "Competitor",
       "Crazy"
     ],
-    "health": 15
+    "health": 8
   },
   "Sophia": {
     "name": "소피아",
@@ -110,7 +110,7 @@
       "Crazy",
       "Villain"
     ],
-    "health": 15
+    "health": 5
   },
   "Freeter": {
     "name": "프리터",
@@ -120,7 +120,7 @@
       "Badass",
       "Guardian"
     ],
-    "health": 15
+    "health": 10
   },
   "Duksu": {
     "name": "이덕수 할아바이",
@@ -130,7 +130,7 @@
       "Competitor",
       "OldMan"
     ],
-    "health": 15
+    "health": 9
   },
   "Hodd": {
     "name": "노스페라투 호드",
@@ -150,7 +150,7 @@
       "Expert",
       "MindMaster"
     ],
-    "health": 15
+    "health": 7
   },
   "Yungter": {
     "name": "융터르",
@@ -160,17 +160,17 @@
       "Expert",
       "MindMaster"
     ],
-    "health": 15
+    "health": 5
   },
   "Kimchimandu": {
     "name": "김치만두",
-    "desc": "보호막을 {V} 얻습니다.",
+    "desc": "보호막을 {D} 얻습니다.",
     "flavor": "done",
     "synergy": [
       "Doormat",
       "Kiddo"
     ],
-    "health": 15
+    "health": 13
   },
   "Dopamine": {
     "name": "도파민 박사",
@@ -181,7 +181,7 @@
       "Expert",
       "OldMan"
     ],
-    "health": 15
+    "health": 12
   },
   "Haku": {
     "name": "하쿠0089",
@@ -191,7 +191,7 @@
       "Kiddo",
       "Machinary"
     ],
-    "health": 15
+    "health": 8
   },
   "Chunsik": {
     "name": "곽춘식",
@@ -201,7 +201,7 @@
       "Competitor",
       "Guardian"
     ],
-    "health": 15
+    "health": 9
   },
   "CallyCarly": {
     "name": "캘리칼리 데이비슨",
@@ -211,7 +211,7 @@
       "Badass",
       "Villain"
     ],
-    "health": 15
+    "health": 12
   },
   "Rusuk": {
     "name": "해루석",
@@ -221,7 +221,7 @@
       "Crazy",
       "MainVocal"
     ],
-    "health": 15
+    "health": 5
   },
   "Dokohyeji": {
     "name": "독고혜지",
@@ -231,7 +231,7 @@
       "Competitor",
       "Kiddo"
     ],
-    "health": 15
+    "health": 7
   },
   "Pungsin": {
     "name": "풍신",
@@ -241,7 +241,7 @@
       "OldMan",
       "Magician"
     ],
-    "health": 15
+    "health": 10
   },
   "Bujeong": {
     "name": "부정형인간",
@@ -251,7 +251,7 @@
       "Doormat",
       "Timid"
     ],
-    "health": 15
+    "health": 5
   },
   "Wakpago": {
     "name": "왁파고",
@@ -261,7 +261,7 @@
       "Doormat",
       "Machinary"
     ],
-    "health": 15
+    "health": 12
   },
   "Roentgenium": {
     "name": "뢴트게늄",
@@ -271,7 +271,7 @@
       "Doormat",
       "MainVocal"
     ],
-    "health": 15
+    "health": 14
   },
   "BusinessKim": {
     "name": "비즈니스킴",
@@ -281,7 +281,7 @@
       "Expert",
       "Nobles"
     ],
-    "health": 15
+    "health": 9
   },
   "Dandap": {
     "name": "단답벌레",
@@ -292,7 +292,7 @@
       "Expert",
       "Timid"
     ],
-    "health": 15
+    "health": 5
   },
   "Ninnin": {
     "name": "닌닌",
@@ -302,7 +302,7 @@
       "Kiddo",
       "Timid"
     ],
-    "health": 15
+    "health": 10
   },
   "Kkekki": {
     "name": "아이 쓰께끼",
@@ -312,7 +312,7 @@
       "Guardian",
       "MindMaster"
     ],
-    "health": 15
+    "health": 7
   },
   "Bulgom": {
     "name": "불곰",
@@ -322,7 +322,7 @@
       "Guardian",
       "Nobles"
     ],
-    "health": 15
+    "health": 14
   },
   "AmadeusChoi": {
     "name": "아마데우스 최",
@@ -342,7 +342,7 @@
       "Kiddo",
       "Timid"
     ],
-    "health": 15
+    "health": 8
   },
   "Gilbert": {
     "name": "철도왕 길버트",
@@ -352,7 +352,7 @@
       "Expert",
       "Machinary"
     ],
-    "health": 15
+    "health": 8
   },
   "Sullivan": {
     "name": "캡틴 설리반",
@@ -362,7 +362,7 @@
       "Competitor",
       "Villain"
     ],
-    "health": 10
+    "health": 8
   },
   "Sirian": {
     "name": "시리안 레인",
@@ -372,7 +372,7 @@
       "Expert",
       "Guardian"
     ],
-    "health": 15
+    "health": 10
   },
   "Kreaze": {
     "name": "크리즈",
@@ -382,7 +382,7 @@
       "Guardian",
       "Machinary"
     ],
-    "health": 20
+    "health": 18
   },
   "Chouloky": {
     "name": "데스해머 쵸로키",
@@ -392,7 +392,7 @@
       "Kiddo",
       "Villain"
     ],
-    "health": 15
+    "health": 8
   },
   "Seyong": {
     "name": "미미짱짱세용",
@@ -402,7 +402,7 @@
       "Crazy",
       "Magician"
     ],
-    "health": 15
+    "health": 7
   },
   "Jentoo": {
     "name": "사랑전도사 젠투",
@@ -422,7 +422,7 @@
       "Doormat",
       "Magician"
     ],
-    "health": 15
+    "health": 12
   },
   "Valentine": {
     "name": "미스 발렌타인",
@@ -432,7 +432,7 @@
       "Nobles",
       "Nunna"
     ],
-    "health": 15
+    "health": 8
   },
   "Charlotte": {
     "name": "성기사 샬롯",
@@ -442,7 +442,7 @@
       "Guardian",
       "Nobles"
     ],
-    "health": 15
+    "health": 10
   },
   "Butterus": {
     "name": "버터우스 3세",
@@ -452,6 +452,6 @@
       "Nobles",
       "MindMaster"
     ],
-    "health": 5
+    "health": 3
   }
 }

@@ -2,6 +2,7 @@ package com.fastcat.assemble.actions;
 
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractRelic;
@@ -32,9 +33,14 @@ public class EndTurnAction extends AbstractAction {
             }
             for(AbstractMember member : WakTower.game.battle.members) {
                 member.endOfTurn(isPlayer);
+                for(AbstractStatus s : member.status) {
+                    s.endOfTurn(isPlayer);
+                }
             }
-            for(AbstractStatus status : WakTower.game.player.status) {
-                status.endOfTurn(isPlayer);
+            for(AbstractEnemy e : WakTower.game.battle.enemies) {
+                for(AbstractStatus s : e.status) {
+                    s.endOfTurn(isPlayer);
+                }
             }
 
             ActionHandler.bot(new StartTurnAction(!isPlayer));

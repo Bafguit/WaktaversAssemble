@@ -5,15 +5,11 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Button.ButtonStyle;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Tooltip;
@@ -25,17 +21,16 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractBattle;
 import com.fastcat.assemble.abstracts.AbstractEnemy;
+import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractMember;
 import com.fastcat.assemble.abstracts.AbstractStage;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractBattle.BattlePhase;
 import com.fastcat.assemble.actions.EndTurnAction;
-import com.fastcat.assemble.battles.TestBattle;
 import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.handlers.SynergyHandler;
-import com.fastcat.assemble.utils.EnemyAction;
 import com.fastcat.assemble.utils.HealthBar;
 
 public class BattleStage extends AbstractStage {
@@ -122,7 +117,7 @@ public class BattleStage extends AbstractStage {
         TextButton b2 = new TextButton("RESET", new TextButtonStyle(d, d, d, FontHandler.BF_NB30));
         b2.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
-                WakTower.game.battle = new TestBattle();
+                WakTower.game = new AbstractGame();
                 WakTower.application.battleStage = new BattleStage();
                 WakTower.stage = WakTower.application.battleStage;
 		        return true;

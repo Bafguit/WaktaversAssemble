@@ -1,8 +1,10 @@
 package com.fastcat.assemble.handlers;
 
-import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
-import com.fastcat.assemble.abstracts.AbstractRoom.RoomType;
+import com.fastcat.assemble.enemies.Enemy1;
+import com.fastcat.assemble.enemies.Enemy2;
+import com.fastcat.assemble.enemies.Enemy3;
 import com.fastcat.assemble.members.AmadeusChoi;
 import com.fastcat.assemble.members.Angel;
 import com.fastcat.assemble.members.Bujeong;
@@ -52,14 +54,15 @@ import java.util.HashMap;
 
 public class GroupHandler {
 
-    public static HashMap<String, EnemyGroup> monsterGroup;
     public static HashMap<String, AbstractMember> memberGroup;
+    public static HashMap<String, AbstractEnemy> enemyGroup;
 
     public static void initialize() {
-        monsterGroup = new HashMap<>();
         memberGroup = new HashMap<>();
+        enemyGroup = new HashMap<>();
 
         addMembers();
+        addEnemies();
     }
 
     private static void addMembers() {
@@ -109,8 +112,10 @@ public class GroupHandler {
         memberGroup.put("Dandap", new Dandap());
     }
 
-    public static EnemyGroup getBoss(int number) {
-        return monsterGroup.get("boss_" + number + "_" + WakTower.game.mapRandom.random(0, 2));
+    private static void addEnemies() {
+        enemyGroup.put("Enemy1", new Enemy1());
+        enemyGroup.put("Enemy2", new Enemy2());
+        enemyGroup.put("Enemy3", new Enemy3());
     }
 
     public static AbstractMember getMember(String id) {
@@ -119,11 +124,9 @@ public class GroupHandler {
         return m;
     }
 
-    public static class EnemyGroup {
-        public RoomType type;
+    public static AbstractEnemy getEnemy(String id) {
+        AbstractEnemy m = enemyGroup.get(id).duplicate();
 
-        public EnemyGroup(RoomType type) {
-            this.type = type;
-        }
+        return m;
     }
 }

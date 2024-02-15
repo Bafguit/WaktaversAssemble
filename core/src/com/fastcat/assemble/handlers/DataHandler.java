@@ -3,10 +3,12 @@ package com.fastcat.assemble.handlers;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.abstracts.AbstractEntity;
 import com.fastcat.assemble.abstracts.AbstractRelic;
+import com.fastcat.assemble.abstracts.AbstractRoom;
 import com.fastcat.assemble.abstracts.AbstractSynergy;
 import com.fastcat.assemble.abstracts.AbstractUI;
 import com.fastcat.assemble.abstracts.AbstractEntity.EntityData;
 import com.fastcat.assemble.abstracts.AbstractRelic.RelicData;
+import com.fastcat.assemble.abstracts.AbstractRoom.RoomData;
 import com.fastcat.assemble.abstracts.AbstractSynergy.SynergyData;
 import com.fastcat.assemble.uis.SpriteAnimation;
 import com.fastcat.assemble.uis.SpriteAnimation.SpriteAnimationType;
@@ -22,6 +24,7 @@ public class DataHandler {
     public final HashMap<String, AbstractRelic.RelicData> relicData = new HashMap<>();
     public final HashMap<String, AbstractEntity.EntityData> memberData = new HashMap<>();
     public final HashMap<String, AbstractSynergy.SynergyData> synergyData = new HashMap<>();
+    public final HashMap<String, AbstractRoom.RoomData> roomData = new HashMap<>();
     public final HashMap<String, SpriteAnimation> animation = new HashMap<>();
 
     public static DataHandler getInstance() {
@@ -73,6 +76,15 @@ public class DataHandler {
         json = FileHandler.getInstance().jsonMap.get("entity");
         for(JsonValue v : json) {
             enemyData.put(v.name, new EntityData(v.name, SpriteAnimationType.entity, v));
+        }
+
+        //entity data
+        json = FileHandler.getInstance().jsonMap.get("room");
+        for(JsonValue v : json) {
+            for(int i = 0; i < v.size; i++) {
+                JsonValue v2 = v.get(i);
+                roomData.put(v.name + "_" + v2.name, new RoomData(i, v2.asStringArray()));
+            }
         }
     }
 }

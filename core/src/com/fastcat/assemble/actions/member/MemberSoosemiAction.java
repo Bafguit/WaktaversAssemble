@@ -30,7 +30,7 @@ public class MemberSoosemiAction extends AbstractAction {
                 else cnt++;
             }
             int damage = soosemi.tempClone.calculatedAtk() + soosemi.tempClone.calculateValue() * cnt;
-            ActionHandler.set(new DamageAction(new DamageInfo(damage, soosemi, DamageType.NORMAL), TargetType.RANDOM));
+            ActionHandler.set(new DamageAction(new DamageInfo(damage, soosemi, DamageType.NORMAL), TargetType.RANDOM_ENEMY));
         }
     }
 }

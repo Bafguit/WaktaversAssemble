@@ -1,0 +1,34 @@
+{
+    "0": {
+        "0": [
+            "Enemy1",
+            "Enemy2"
+        ],
+        "1": [
+            "Enemy1",
+            "Enemy1",
+            "Enemy1"
+        ],
+        "2": [
+            "Enemy1",
+            "Enemy3",
+            "Enemy1"
+        ]
+    },
+    "1": {
+        "0": [
+            "Enemy2",
+            "Enemy2"
+        ],
+        "1": [
+            "Enemy2",
+            "Enemy1",
+            "Enemy2"
+        ],
+        "2": [
+            "Enemy1",
+            "Enemy2",
+            "Enemy3"
+        ]
+    }
+}

@@ -9,7 +9,7 @@ public class Kimchimandu extends AbstractMember {
 
     public Kimchimandu() {
         super("Kimchimandu");
-        setValue(4, 1);
+        setDef(4, 1);
     }
 
     @Override

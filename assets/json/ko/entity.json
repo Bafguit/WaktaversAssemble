@@ -2,6 +2,16 @@
   "Enemy1": {
     "name": "적 1",
     "desc": "설명",
+    "health": 28
+  },
+  "Enemy2": {
+    "name": "적 2",
+    "desc": "설명",
+    "health": 29
+  },
+  "Enemy3": {
+    "name": "적 3",
+    "desc": "설명",
     "health": 30
   }
 }

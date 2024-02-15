@@ -83,6 +83,7 @@ public class FileHandler {
         jsonMap.put("member", generateJson("json/" + SettingHandler.setting.language + "/member.json"));
         jsonMap.put("synergy", generateJson("json/" + SettingHandler.setting.language + "/synergy.json"));
         jsonMap.put("ui", generateJson("json/" + SettingHandler.setting.language + "/ui.json"));
+        jsonMap.put("room", generateJson("json/" + SettingHandler.setting.language + "/room.json"));
     }
 
     private void generateUI() {

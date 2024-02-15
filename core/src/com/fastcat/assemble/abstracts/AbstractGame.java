@@ -4,41 +4,81 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 import com.fastcat.assemble.handlers.ActionHandler;
-import com.fastcat.assemble.handlers.GroupHandler;
+import com.fastcat.assemble.members.AmadeusChoi;
+import com.fastcat.assemble.members.Angel;
+import com.fastcat.assemble.members.Bujeong;
+import com.fastcat.assemble.members.Bulgom;
+import com.fastcat.assemble.members.BusinessKim;
+import com.fastcat.assemble.members.Butterus;
+import com.fastcat.assemble.members.CallyCarly;
+import com.fastcat.assemble.members.Charlotte;
+import com.fastcat.assemble.members.Chouloky;
+import com.fastcat.assemble.members.Chunsik;
+import com.fastcat.assemble.members.Dandap;
+import com.fastcat.assemble.members.Dokohyeji;
+import com.fastcat.assemble.members.Dopamine;
+import com.fastcat.assemble.members.Duksu;
+import com.fastcat.assemble.members.Freeter;
+import com.fastcat.assemble.members.Gilbert;
+import com.fastcat.assemble.members.Gosegu;
+import com.fastcat.assemble.members.Haku;
+import com.fastcat.assemble.members.Hikiking;
+import com.fastcat.assemble.members.Hodd;
+import com.fastcat.assemble.members.Ine;
+import com.fastcat.assemble.members.Jentoo;
+import com.fastcat.assemble.members.Jingburger;
+import com.fastcat.assemble.members.Jinhe;
+import com.fastcat.assemble.members.Jururu;
+import com.fastcat.assemble.members.Kimchimandu;
+import com.fastcat.assemble.members.Kkekki;
+import com.fastcat.assemble.members.Kreaze;
+import com.fastcat.assemble.members.Lilpa;
+import com.fastcat.assemble.members.Ninnin;
+import com.fastcat.assemble.members.Pungsin;
+import com.fastcat.assemble.members.Roentgenium;
+import com.fastcat.assemble.members.Rusuk;
+import com.fastcat.assemble.members.Seyong;
+import com.fastcat.assemble.members.Sirian;
+import com.fastcat.assemble.members.Soosemi;
+import com.fastcat.assemble.members.Sophia;
+import com.fastcat.assemble.members.Sullivan;
+import com.fastcat.assemble.members.Valentine;
+import com.fastcat.assemble.members.Victory;
+import com.fastcat.assemble.members.Viichan;
+import com.fastcat.assemble.members.Wakgood;
+import com.fastcat.assemble.members.Wakpago;
+import com.fastcat.assemble.members.Yungter;
 import com.fastcat.assemble.relics.TestRelic;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
 
-    public String seed;
-    public long seedLong;
+    public final String seed;
+    public final long seedLong;
 
-    public ActionHandler actionHandler;
+    public final ActionHandler actionHandler;
 
-    public RandomXC publicRandom;
-    public RandomXC cardRandom;
-    public RandomXC mapRandom;
-    public RandomXC itemRandom;
-    public RandomXC charRandom;
-    public RandomXC roomRandom;
-    public RandomXC shopRandom;
-    public RandomXC diceRandom;
-    public RandomXC battleRandom;
+    public final AbstractBattle battle;
+    public final RandomXC publicRandom;
+    public final RandomXC cardRandom;
+    public final RandomXC mapRandom;
+    public final RandomXC itemRandom;
+    public final RandomXC charRandom;
+    public final RandomXC roomRandom;
+    public final RandomXC shopRandom;
+    public final RandomXC diceRandom;
+    public final RandomXC battleRandom;
 
-    public AbstractPlayer player;
     public Array<AbstractMember> deck;
     public Array<AbstractRelic> relics;
 
-    public AbstractRoom[] rooms;
-
-    public AbstractBattle battle;
+    public AbstractRoom currentRoom;
     public int gold;
-    public int floorNum, floorMax, drawAmount, maxHand, memberLimit;
+    public int stageNum, stageMax, drawAmount, maxHand, memberLimit;
 
     public AbstractGame() {
         relics = new Array<>();
-        player = new AbstractPlayer();
-        deck = player.getStartDeck();
+        deck = getStartDeck();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
         mapRandom = new RandomXC(seedLong);
@@ -52,11 +92,14 @@ public class AbstractGame {
         battleRandom = new RandomXC(seedLong);
         actionHandler = new ActionHandler();
         gold = 100;
-        floorNum = 0;
-        floorMax = 30;
+        stageNum = 0;
+        stageMax = 20;
         drawAmount = 5;
         maxHand = 10;
         memberLimit = 6;
+
+        currentRoom = AbstractRoom.getRoom(mapRandom, 0);
+        battle = new AbstractBattle(this, currentRoom);
 
         relics.add(new TestRelic());
     }
@@ -69,16 +112,63 @@ public class AbstractGame {
         actionHandler.render(sb);
     }
 
+    public Array<AbstractMember> getStartDeck() {
+        Array<AbstractMember> a = new Array<>();
+        
+        a.add(new Wakgood());
+        a.add(new Angel());
+        a.add(new Ine());
+        a.add(new Jingburger());
+        a.add(new Lilpa());
+        a.add(new Jururu());
+        a.add(new Gosegu());
+        a.add(new Viichan());
+        a.add(new Kimchimandu());
+        a.add(new Freeter());
+        a.add(new BusinessKim());
+        a.add(new Haku());
+        a.add(new Hikiking());
+        a.add(new Sullivan());
+        a.add(new Rusuk());
+        a.add(new Gilbert());
+        a.add(new Duksu());
+        a.add(new Chunsik());
+        a.add(new Bujeong());
+        a.add(new Roentgenium());
+        a.add(new Ninnin());
+        a.add(new Kkekki());
+        a.add(new Hodd());
+        a.add(new Bulgom());
+        a.add(new AmadeusChoi());
+        a.add(new Seyong());
+        a.add(new Sophia());
+        a.add(new Victory());
+        a.add(new Jinhe());
+        a.add(new Jentoo());
+        a.add(new Wakpago());
+        a.add(new Yungter());
+        a.add(new Dopamine());
+        a.add(new CallyCarly());
+        a.add(new Dokohyeji());
+        a.add(new Pungsin());
+        a.add(new Dandap());
+        a.add(new Soosemi());
+        a.add(new Sirian());
+        a.add(new Kreaze());
+        a.add(new Chouloky());
+        a.add(new Valentine());
+        a.add(new Charlotte());
+        a.add(new Butterus());
+
+        return a;
+    }
+
     public void nextRoom() {
-        if(floorNum % 10 == 9) {
-            rooms = new AbstractRoom[1];
-            rooms[0] = new AbstractRoom(GroupHandler.getBoss((++floorNum) / 10));
-        } else if(floorNum == floorMax) {
+        stageNum++;
+        if(stageNum == stageMax) {
             ending();
-        } else {
-            //int f = floorNum / 10 + 1;
-            //todo 방 무작위 생성
-            //rooms = new AbstractRoom(GroupHandler.monsterGroup.get("normal_" + f + "_" + WakTower.game.mapRandom.random(0, 9)));
+        } else if(stageNum < stageMax) {
+            currentRoom = AbstractRoom.getRoom(mapRandom, stageNum);
         }
     }
 

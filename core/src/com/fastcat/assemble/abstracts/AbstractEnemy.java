@@ -2,7 +2,7 @@ package com.fastcat.assemble.abstracts;
 
 import com.fastcat.assemble.utils.EnemyAction;
 
-public abstract class AbstractEnemy extends AbstractEntity {
+public abstract class AbstractEnemy extends AbstractEntity implements Cloneable {
 
     public EnemyAction action;
     protected int turn = 0;
@@ -55,4 +55,23 @@ public abstract class AbstractEnemy extends AbstractEntity {
     protected abstract boolean actTurn();
 
     public abstract EnemyAction getAction();
+
+    public AbstractEnemy cpy() {
+        AbstractEnemy m;
+        try {
+            m = (AbstractEnemy) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+        m.animation = this.animation;
+        return m;
+    }
+
+    public AbstractEnemy duplicate() {
+        AbstractEnemy m = cpy();
+        m.animation = this.animation.cpy();
+
+        return m;
+    }
 }
