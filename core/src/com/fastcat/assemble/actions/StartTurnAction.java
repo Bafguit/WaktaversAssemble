@@ -46,7 +46,7 @@ public class StartTurnAction extends AbstractAction {
 
             if(isPlayer && !isNew) ActionHandler.next(new ExitMembersAction());
             
-            ActionHandler.bot(new ChangePhaseAction(isPlayer ? BattlePhase.playerTurn : BattlePhase.enemyTurn));
+            ActionHandler.bot(new ChangePhaseAction(isPlayer ? BattlePhase.PLAYER_TURN : BattlePhase.ENEMY_TURN));
             if(!isPlayer) ActionHandler.bot(new EnemyTurnAction());
         }
     }

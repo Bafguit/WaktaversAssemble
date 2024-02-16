@@ -17,7 +17,7 @@ public class EndTurnAction extends AbstractAction {
     public EndTurnAction(boolean isPlayer) {
         super(0f);
         this.isPlayer = isPlayer;
-        WakTower.game.battle.phase = BattlePhase.intermission;
+        WakTower.game.battle.phase = BattlePhase.INTERMISSION;
     }
 
     @Override

@@ -157,7 +157,7 @@ public class BattleStage extends AbstractStage {
 
         Button turnEnd = new Button(new TextureRegionDrawable(FileHandler.getPng("ui/button"))) {
             public void act(float delta) {
-                this.setDisabled(WakTower.game.battle.phase != BattlePhase.playerTurn);
+                this.setDisabled(WakTower.game.battle.phase != BattlePhase.PLAYER_TURN);
             }
         };
         turnEnd.addListener(new InputListener() {

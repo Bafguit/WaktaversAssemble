@@ -1,11 +1,14 @@
 package com.fastcat.assemble.utils;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Queue;
 
 public class FastCatUtils {
 
-    public static <T> Array<T> staticShuffle(Array<T> array, RandomXC r, Class<T> cls) {
+    public static <T> Array<T> arrayShuffle(Array<T> array, RandomXC r, Class<T> cls) {
         T[] items = array.toArray(cls);
         for (int i = array.size - 1; i >= 0; --i) {
             int ii = r.random(i);
@@ -16,6 +19,44 @@ public class FastCatUtils {
         array.clear();
         array.addAll(items);
         return array;
+    }
+
+    public static <T> Queue<T> queueShuffle(Queue<T> queue, RandomXC r, Class<T> cls) {
+        Array<T> array = new Array<>();
+        for(T t : queue) {
+            array.add(t);
+        }
+        T[] items = array.toArray(cls);
+        for (int i = array.size - 1; i >= 0; --i) {
+            int ii = r.random(i);
+            T temp = items[i];
+            items[i] = items[ii];
+            items[ii] = temp;
+        }
+        queue.clear();
+        for(T m : array) {
+            queue.addLast(m);
+        }
+        return queue;
+    }
+    
+    public static <T> LinkedList<T> linkedlistShuffle(LinkedList<T> linked, RandomXC r, Class<T> cls) {
+        Array<T> array = new Array<>();
+        for(T t : linked) {
+            array.add(t);
+        }
+        T[] items = array.toArray(cls);
+        for (int i = array.size - 1; i >= 0; --i) {
+            int ii = r.random(i);
+            T temp = items[i];
+            items[i] = items[ii];
+            items[ii] = temp;
+        }
+        linked.clear();
+        for(T m : array) {
+            linked.addLast(m);
+        }
+        return linked;
     }
 
     public static float getAngle(float fromX, float fromY, float toX, float toY) {

@@ -56,7 +56,12 @@ public class DamageAction extends AbstractAction {
     protected void updateAction() {
         if(duration == baseDuration) {
             if(info.member != null) info.damage = info.member.tempClone.calculatedAtk();
-            else if(info.source != null && info.source instanceof AbstractEnemy) info.damage = ((AbstractEnemy)info.source).calculateDamage(info.damage);
+            else if(info.source != null && info.source instanceof AbstractEnemy) {
+                info.damage = ((AbstractEnemy)info.source).calculateDamage(info.damage);
+                if(target.size == 0) {
+                    //TODO 카드 타는거 만들기: 대미지 받은 만큼 손 -> 뽑을 카드 -> 버린 카드 순으로 태우기, 다 태우면 패배
+                }
+            }
             if(target.size > 0) {
                 for(AbstractRelic item : WakTower.game.relics) {
                     item.onAttack(info, target);

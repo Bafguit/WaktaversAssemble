@@ -283,7 +283,7 @@ public abstract class AbstractEntity {
 
     public void damageTaken(DamageInfo info) {}
 
-    public final void die() {
+    public void die() {
         
     }
 

@@ -28,6 +28,8 @@ public class MemberCallyCarlyAction extends AbstractAction {
             callycarly.animation.setAnimation("skill");
             callycarly.animation.addAnimation("idle");
             DamageInfo info = new DamageInfo(callycarly, DamageType.NORMAL);
+            info.damage = callycarly.tempClone.calculatedAtk();
+            
             for(AbstractRelic item : WakTower.game.relics) {
                 item.onAttack(info, target);
             }

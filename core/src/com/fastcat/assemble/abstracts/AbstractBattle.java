@@ -58,7 +58,7 @@ public class AbstractBattle {
     public AbstractBattle(AbstractGame game, AbstractRoom room) {
         this.game = game;
         Array<AbstractMember> mm = new Array<AbstractMember>(game.deck);
-        FastCatUtils.staticShuffle(mm, game.battleRandom, AbstractMember.class);
+        FastCatUtils.arrayShuffle(mm, game.battleRandom, AbstractMember.class);
         for(AbstractMember m : mm) {
             drawPile.addLast(m.duplicate());
         }
@@ -66,7 +66,7 @@ public class AbstractBattle {
         for(AbstractEnemy e : enemies) {
             e.action = e.getAction();
         }
-        phase = BattlePhase.battleStart;
+        phase = BattlePhase.BATTLE_START;
         resetSynergy();
         //ActionHandler.bot(new StartBattleAction());
     }
@@ -105,7 +105,7 @@ public class AbstractBattle {
                 }
                 amount -= s;
             }
-            FastCatUtils.staticShuffle(discardPile, game.battleRandom, AbstractMember.class);
+            FastCatUtils.arrayShuffle(discardPile, game.battleRandom, AbstractMember.class);
             for(AbstractMember c : discardPile) {
                 drawPile.addLast(c);
             }
@@ -132,7 +132,7 @@ public class AbstractBattle {
     }
 
     public boolean isPlayerTurn() {
-        return game.battle.phase == BattlePhase.playerTurn;
+        return game.battle.phase == BattlePhase.PLAYER_TURN;
     }
 
     private void resetSynergy() {
@@ -181,6 +181,17 @@ public class AbstractBattle {
         }
     }
 
+    public void endBattle() {
+        Iterator<AbstractMember> itr = discardPile.iterator();
+        while (itr.hasNext()) {
+            AbstractMember m = itr.next();
+            itr.remove();
+            m.health = 1;
+            drawPile.addLast(m);
+        }
+        FastCatUtils.queueShuffle(drawPile, game.battleRandom, AbstractMember.class);
+    }
+
     @Override
     public AbstractBattle clone() {
         try {
@@ -195,6 +206,6 @@ public class AbstractBattle {
     }
     
     public enum BattlePhase {
-        battleStart, roundStart, playerTurn, intermission, enemyTurn, roundEnd
+        BATTLE_START, ROUND_START, PLAYER_TURN, INTERMISSION, ENEMY_TURN, ROUND_END, BATTLE_END, REWARD
     }
 }

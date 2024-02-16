@@ -1,5 +1,8 @@
 package com.fastcat.assemble.abstracts;
 
+import com.fastcat.assemble.WakTower;
+import com.fastcat.assemble.actions.EndBattleAction;
+import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.utils.EnemyAction;
 
 public abstract class AbstractEnemy extends AbstractEntity implements Cloneable {
@@ -50,6 +53,15 @@ public abstract class AbstractEnemy extends AbstractEntity implements Cloneable 
     @Override
     public void startOfTurn(boolean isPlayer) {
         if(isPlayer) action = getAction();
+    }
+
+    @Override
+    public void die() {
+        super.die();
+        for(AbstractEnemy e : WakTower.game.battle.enemies) {
+            if(e.isAlive()) return;
+        }
+        ActionHandler.bot(new EndBattleAction());
     }
 
     protected abstract boolean actTurn();

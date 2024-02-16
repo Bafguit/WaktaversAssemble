@@ -306,6 +306,17 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
         afterUse();
     }
 
+    @Override
+    public void die() {
+        super.die();
+        for(AbstractMember e : WakTower.game.battle.members) {
+            if(e.isAlive()) return;
+        }
+        if(WakTower.game.battle.drawPile.size == 0 && WakTower.game.battle.discardPile.size == 0 && WakTower.game.battle.hand.size() == 0) {
+            //TODO End Game
+        }
+    }
+
     protected abstract void useMember();
 
     public void afterUse() {}
