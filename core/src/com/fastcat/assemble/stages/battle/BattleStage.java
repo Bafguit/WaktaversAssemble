@@ -41,6 +41,8 @@ public class BattleStage extends AbstractStage {
     private Table enemyTable;
     private Table discardTable;
 
+    public Table entityEffect;
+
     public SynergyDisplay[] synergies;
     public LinkedList<AbstractEnemy> enemies;
 
@@ -73,6 +75,9 @@ public class BattleStage extends AbstractStage {
             synergies[c++] = s;
             synergyMap.put(s.getSynergy(), s);
         }
+
+        entityEffect = new Table();
+        entityEffect.setFillParent(true);
 
         battle.setStage(this);
 
@@ -176,6 +181,7 @@ public class BattleStage extends AbstractStage {
 
         this.addActor(enemyTable);
         this.addActor(fieldTable);
+        this.addActor(entityEffect);
         this.addActor(turnEnd);
         this.addActor(synergyTable);
         this.addActor(handTable);
@@ -226,16 +232,17 @@ public class BattleStage extends AbstractStage {
         for(int i = 0; i < sz; i++) {
             AbstractEnemy e = enemies.get(i);
             EnemyDisplay ed = new EnemyDisplay(e);
-            float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
+            float x = 1300 + (120 * i), y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
             ed.setPosition(x, y, Align.bottom);
             enemyTable.addActor(ed);
         }
 
+        int ii = 0;
         for(int i = 0; i < sz; i++) {
             AbstractEnemy e = enemies.get(i);
             if(e.isAlive()) {
                 HealthBar hb = new HealthBar(e, 150);
-                float x = 1400, y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
+                float x = 1300 + (100 * ii), y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
                 hb.setPosition(x, y - hb.getMinHeight(), Align.top);
 
                 /*Table intent = new Table();
@@ -264,6 +271,7 @@ public class BattleStage extends AbstractStage {
 
                 enemyTable.addActor(intent);*/
                 enemyTable.addActor(hb);
+                ii++;
             }
         }
     }

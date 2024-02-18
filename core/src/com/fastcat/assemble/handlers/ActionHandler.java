@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Queue;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractAction;
-import com.fastcat.assemble.abstracts.AbstractEffect;
 
 import static com.fastcat.assemble.WakTower.game;
 
@@ -34,10 +33,6 @@ public final class ActionHandler {
             a.setActions.clear();
             a.current = null;
         }
-    }
-
-    public static void add(AbstractEffect effect) {
-        effectHandler.addEffect(effect);
     }
 
     public static void set(AbstractAction action) {
@@ -104,9 +99,7 @@ public final class ActionHandler {
             }
         } while(current != null && current.baseDuration == 0);
 
-        if(effectHandler.effectList.size > 0) {
-            isRunning = true;
-        }
+        isRunning = true;
     }
 
     public void render(SpriteBatch sb) {
@@ -117,9 +110,6 @@ public final class ActionHandler {
             for(AbstractAction a : actionList) {
                 a.render(sb);
             }
-        }
-        if(effectHandler.effectList.size > 0) {
-            effectHandler.render(sb);
         }
     }
 

@@ -1,13 +1,9 @@
 package com.fastcat.assemble.abstracts;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.WakTower;
-import com.fastcat.assemble.effects.UpColorTextEffect;
 import com.fastcat.assemble.handlers.DataHandler;
-import com.fastcat.assemble.handlers.EffectHandler;
-import com.fastcat.assemble.handlers.InputHandler;
 import com.fastcat.assemble.interfaces.OnHealthUpdated;
 import com.fastcat.assemble.interfaces.OnStatusUpdated;
 import com.fastcat.assemble.synergies.Badass;
@@ -240,7 +236,7 @@ public abstract class AbstractEntity {
     }
 
     public final void loseHealth(int amount) {
-        EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.WHITE));
+        //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.WHITE));
         health -= amount;
         if(healthUpdatedListener.size > 0) {
             for(OnHealthUpdated o : healthUpdatedListener) {

@@ -34,7 +34,6 @@ public abstract class AbstractScreen implements Screen {
             WakTower.application.sb.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         }
         render(WakTower.application.sb);
-        effectHandler.render(WakTower.application.sb);
     }
 
     public void setBg(Sprite s) {
