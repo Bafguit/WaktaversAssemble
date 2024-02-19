@@ -98,8 +98,6 @@ public final class ActionHandler {
                 }
             }
         } while(current != null && current.baseDuration == 0);
-
-        isRunning = true;
     }
 
     public void render(SpriteBatch sb) {

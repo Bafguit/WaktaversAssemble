@@ -79,6 +79,7 @@ public class MemberFieldDisplay extends Table {
             if(timer < 0) timer = 0;
         }
 
+        animation.pos.set(getX(), getY());
         //Drawable d = animation.getBackground();
         label.setText(member.getName());
         super.act(delta);

@@ -242,7 +242,7 @@ public class BattleStage extends AbstractStage {
             AbstractEnemy e = enemies.get(i);
             if(e.isAlive()) {
                 HealthBar hb = new HealthBar(e, 150);
-                float x = 1300 + (100 * ii), y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
+                float x = 1300 + (120 * ii), y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
                 hb.setPosition(x, y - hb.getMinHeight(), Align.top);
 
                 /*Table intent = new Table();

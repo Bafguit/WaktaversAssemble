@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.ParallelAction;
 import com.badlogic.gdx.scenes.scene2d.actions.SequenceAction;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
+import com.badlogic.gdx.utils.Align;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractEffect;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -27,7 +28,8 @@ public class UpColorTextEffect extends AbstractEffect {
         Label l = new Label(text, new LabelStyle(FontHandler.BF_B24, color));
 
         WakTower.application.battleStage.entityEffect.addActor(l);
-        ParallelAction pa = new ParallelAction(Actions.moveBy(x, 200, baseDuration), Actions.alpha(1, baseDuration));
+        l.setPosition(x, y, Align.center);
+        ParallelAction pa = new ParallelAction(Actions.moveBy(0, 200, baseDuration), Actions.alpha(0, baseDuration));
         SequenceAction sa = new SequenceAction(pa, Actions.removeActor(l));
         l.addAction(sa);
     }
