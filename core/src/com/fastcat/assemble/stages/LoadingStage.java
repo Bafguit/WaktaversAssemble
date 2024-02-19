@@ -1,5 +1,6 @@
 package com.fastcat.assemble.stages;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
@@ -7,7 +8,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractStage;
-import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
@@ -15,17 +15,15 @@ import com.fastcat.assemble.stages.mainmenu.MainMenuStage;
 
 public class LoadingStage extends AbstractStage {
 
-    private final UIData data;
     private final Table root;
     private final Label label;
     
     public LoadingStage() {
         super();
-        data = DataHandler.getInstance().uiData.get("loading");
         root = new Table();
         this.addActor(root);
         root.setFillParent(true);
-        label = new Label(data.text[0], new LabelStyle(FontHandler.BF_NB30, Color.WHITE.cpy()));
+        label = new Label(DataHandler.LOADING, new LabelStyle(FontHandler.BF_NB30, Color.WHITE.cpy()));
         label.setAlignment(Align.center);
         root.add(label).expand().center();
     }
@@ -33,7 +31,9 @@ public class LoadingStage extends AbstractStage {
     @Override
     public void act(float delta) {
         float p = FileHandler.getProcess();
-        label.setText(data.text[0] + "\n" + String.format("%.1f", p * 100) + "%");
+        AssetManager m = FileHandler.getInstance().assetManager;
+        String name = m.getAssetNames().size > 0 ? m.getAssetNames().peek() : "";
+        label.setText(DataHandler.LOADING + "\n\n" + name + "\n" + String.format("%.1f", p * 100) + "%");
         super.act(delta);
         if(p >= 1) {
             clear();

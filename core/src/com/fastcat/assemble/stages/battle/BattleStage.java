@@ -234,6 +234,7 @@ public class BattleStage extends AbstractStage {
             EnemyDisplay ed = new EnemyDisplay(e);
             float x = 1300 + (120 * i), y = sz == 1 ? 480 : i % 2 == 0 ? 540 : 430;
             ed.setPosition(x, y, Align.bottom);
+            e.animation.pos.set(x, y);
             enemyTable.addActor(ed);
         }
 
@@ -287,7 +288,9 @@ public class BattleStage extends AbstractStage {
                 memberFields.put(m, md);
             }
             fieldTable.addActor(md);
-            md.setPosition(840 - (85 * jj) - 210 * ii, 540 - (110 * jj), Align.bottom);
+            float x = 840 - (85 * jj) - 210 * ii, y = 540 - (110 * jj);
+            md.setPosition(x, y, Align.bottom);
+            m.animation.pos.set(x, y);
             ii++;
             if(ii == 3) {
                 jj++;

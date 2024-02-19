@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.fastcat.assemble.WakTower;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractStage;
+import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.handlers.FontHandler;
 import com.fastcat.assemble.stages.battle.BattleStage;
@@ -30,7 +31,7 @@ public class MainMenuStage extends AbstractStage {
         root.add(logo).center();
         root.row();
         
-        TextButton b = new TextButton("게임 시작", new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
+        TextButton b = new TextButton(DataHandler.GAME_START, new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
         b.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 WakTower.game = new AbstractGame();
@@ -42,7 +43,7 @@ public class MainMenuStage extends AbstractStage {
         root.add(b).center().padTop(200);
         root.row();
         
-        TextButton b2 = new TextButton("불러오기", new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
+        TextButton b2 = new TextButton(DataHandler.LOAD_GAME, new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
         b2.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 //불러오기 추가
@@ -52,7 +53,7 @@ public class MainMenuStage extends AbstractStage {
         root.add(b2).center().padTop(20);
         root.row();
         
-        TextButton b3 = new TextButton("도감", new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
+        TextButton b3 = new TextButton(DataHandler.DICTIONARY, new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
         b3.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 //도감 추가
@@ -62,7 +63,7 @@ public class MainMenuStage extends AbstractStage {
         root.add(b3).center().padTop(20);
         root.row();
         
-        TextButton b4 = new TextButton("설정", new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
+        TextButton b4 = new TextButton(DataHandler.SETTING, new TextButtonStyle(null, null, null, FontHandler.BF_NB60));
         b4.addListener(new InputListener() {
             public boolean touchDown (InputEvent event, float x, float y, int pointer, int button) {
                 //설정 추가

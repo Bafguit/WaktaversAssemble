@@ -73,7 +73,7 @@ public abstract class AbstractSynergy {
         for(int i = gradeAmount.length; i > 0; i--) {
             int a = gradeAmount[i - 1];
             if(memberCount >= a) {
-                if(a == 1) return i - 1;
+                if(gradeAmount[0] == 1) return i - 1;
                 else return i;
             }
         }

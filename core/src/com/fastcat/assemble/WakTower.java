@@ -19,7 +19,6 @@ import com.esotericsoftware.spine.SkeletonRenderer;
 import com.fastcat.assemble.abstracts.AbstractGame;
 import com.fastcat.assemble.abstracts.AbstractScreen;
 import com.fastcat.assemble.abstracts.AbstractUI;
-import com.fastcat.assemble.abstracts.AbstractUI.UIData;
 import com.fastcat.assemble.handlers.*;
 import com.fastcat.assemble.stages.LoadingStage;
 import com.fastcat.assemble.stages.battle.BattleStage;
@@ -66,10 +65,6 @@ public class WakTower extends ApplicationAdapter {
 
 	public static boolean debug = true;
 
-	private boolean isLoaded = false;
-
-	private UIData uiData;
-
 	public WakTower(WebPLoaderNativeInterface nativeInterface) {
 		webpFactory = new WebPLoaderFactory(nativeInterface);
 		pixmapFactory = webpFactory.getPixmapFactory();
@@ -96,7 +91,6 @@ public class WakTower extends ApplicationAdapter {
 		FileHandler.getInstance();
 		FontHandler.getInstance();
 		DataHandler.getInstance();
-		uiData = DataHandler.getInstance().uiData.get("loading");
 		
 		stage = new LoadingStage();
 		TooltipManager m = TooltipManager.getInstance();
@@ -150,7 +144,6 @@ public class WakTower extends ApplicationAdapter {
 		if(!FileHandler.isFinished()) {
 			FileHandler.loadAsset();
 			if(FileHandler.isFinished()) {
-				isLoaded = true;
 				load();
 			}
 		}

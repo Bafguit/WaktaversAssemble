@@ -43,6 +43,7 @@ public class EndTurnAction extends AbstractAction {
                 }
             }
 
+            ActionHandler.bot(new TurnChangeEffectAction(!isPlayer));
             ActionHandler.bot(new StartTurnAction(!isPlayer));
         }
     }

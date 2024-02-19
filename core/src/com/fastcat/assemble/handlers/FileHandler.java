@@ -112,6 +112,7 @@ public class FileHandler {
         assetManager.load("image/ui/buff.png", Pixmap.class);
         assetManager.load("image/ui/debuff.png", Pixmap.class);
         assetManager.load("image/ui/escape.png", Pixmap.class);
+        assetManager.load("image/ui/changeEffect.png", Pixmap.class);
 
         //BG
         assetManager.load("image/bg/way_lab.png", Pixmap.class);

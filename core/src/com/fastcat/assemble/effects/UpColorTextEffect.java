@@ -18,7 +18,7 @@ public class UpColorTextEffect extends AbstractEffect {
     private final Color color;
 
     public UpColorTextEffect(float x, float y, String text, Color color) {
-        super(x, y, 0.7f);
+        super(x, y, 1.2f);
         this.color = color;
         this.text = text;
     }
@@ -29,7 +29,7 @@ public class UpColorTextEffect extends AbstractEffect {
 
         WakTower.application.battleStage.entityEffect.addActor(l);
         l.setPosition(x, y, Align.center);
-        ParallelAction pa = new ParallelAction(Actions.moveBy(0, 200, baseDuration), Actions.alpha(0, baseDuration));
+        ParallelAction pa = new ParallelAction(Actions.moveBy(0, 150, baseDuration), Actions.alpha(0, baseDuration));
         SequenceAction sa = new SequenceAction(pa, Actions.removeActor(l));
         l.addAction(sa);
     }

@@ -56,4 +56,10 @@ public class EnemyDisplay extends Table {
 
         this.enemy.animation.setAnimation("idle");
     }
+
+    @Override
+    public void act(float delta) {
+        //this.enemy.animation.pos.set(getX(), getY());
+        super.act(delta);
+    }
 }

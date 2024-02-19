@@ -2,23 +2,26 @@
   "loading": [
     "리소스 불러오는 중..."
   ],
-  "turnEndButton": [
+  "turnEnd": [
     "턴 종료"
   ],
-  "gameStartButton": [
+  "gameStart": [
     "게임 시작"
   ],
-  "loadGameButton": [
+  "loadGame": [
     "불러오기"
   ],
-  "dictionaryButton": [
+  "dictionary": [
     "도감"
   ],
-  "settingButton": [
+  "setting": [
     "설정"
   ],
   "turnChangeEffect": [
     "나의 턴",
     "적 턴"
+  ],
+  "evade": [
+    "회피"
   ]
 }

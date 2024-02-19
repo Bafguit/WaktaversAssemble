@@ -19,6 +19,16 @@ public class DataHandler {
 
     private static DataHandler instance;
 
+    public static String LOADING = "리소스 불러오는 중...";
+    public static String TURN_END = "턴 종료";
+    public static String GAME_START = "게임 시작";
+    public static String LOAD_GAME = "불러오기";
+    public static String DICTIONARY = "도감";
+    public static String SETTING = "설정";
+    public static String MEMBER_TURN = "나의 턴";
+    public static String ENEMY_TURN = "적 턴";
+    public static String EVADE = "회피";
+
     public final HashMap<String, AbstractUI.UIData> uiData = new HashMap<>();
     public final HashMap<String, AbstractEntity.EntityData> enemyData = new HashMap<>();
     public final HashMap<String, AbstractRelic.RelicData> relicData = new HashMap<>();
@@ -34,6 +44,19 @@ public class DataHandler {
 
     private DataHandler() {
         loadSync();
+        setDefaultLanguage();
+    }
+
+    private void setDefaultLanguage() {
+        LOADING = uiData.get("loading").text[0];
+        TURN_END = uiData.get("turnEnd").text[0];
+        GAME_START = uiData.get("gameStart").text[0];
+        LOAD_GAME = uiData.get("loadGame").text[0];
+        DICTIONARY = uiData.get("dictionary").text[0];
+        SETTING = uiData.get("setting").text[0];
+        MEMBER_TURN = uiData.get("turnChangeEffect").text[0];
+        ENEMY_TURN = uiData.get("turnChangeEffect").text[1];
+        EVADE = uiData.get("evade").text[0];
     }
 
     public void loadSync() {

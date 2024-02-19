@@ -81,6 +81,7 @@ public abstract class AbstractEntity {
 
     public final void gainBlock(int amount) {
         if(amount > 0) {
+            EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(amount), Color.CYAN));
             block += amount;
             if(isPlayer) {
                 for(AbstractRelic item : WakTower.game.relics) {
@@ -98,6 +99,7 @@ public abstract class AbstractEntity {
 
     public final void gainBarrier(int amount) {
         if(amount > 0) {
+            EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(amount), Color.SALMON));
             barrier += amount;
             if(isPlayer) {
                 for(AbstractRelic item : WakTower.game.relics) {
@@ -115,7 +117,7 @@ public abstract class AbstractEntity {
 
     public final void heal(int amount) {
         if(amount > 0) {
-            EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y, Integer.toString(amount), Color.CHARTREUSE));
+            EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(amount), Color.CHARTREUSE));
             health += amount;
             if(health > maxHealth) health = maxHealth;
             if(healthUpdatedListener.size > 0) {
@@ -149,7 +151,7 @@ public abstract class AbstractEntity {
                 }
             }
             if(kiddo || bj) {
-                EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y, "회피", Color.WHITE));
+                EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, DataHandler.EVADE, Color.WHITE));
                 return 0;
             }
         }
@@ -182,7 +184,7 @@ public abstract class AbstractEntity {
             if(!ignore) {
                 if(block > 0) {
                     if(info.damage <= block) {
-                        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y, Integer.toString(-info.damage), Color.CYAN));
+                        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(-info.damage), Color.CYAN));
                         //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.CYAN));
                         block -= info.damage;
                         return 0;
@@ -194,7 +196,7 @@ public abstract class AbstractEntity {
                 }
                 if(barrier > 0) {
                     if(info.damage <= barrier) {
-                        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y, Integer.toString(-info.damage), Color.SALMON));
+                        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(-info.damage), Color.SALMON));
                         //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.SALMON));
                         barrier -= info.damage;
                         return 0;
@@ -206,7 +208,7 @@ public abstract class AbstractEntity {
                 }
             }
         }
-        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y, Integer.toString(-info.damage), Color.GOLD));
+        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(-info.damage), Color.GOLD));
         //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -info.damage, Color.GOLD));
         animation.setAnimation("hit");
         animation.addAnimation("idle");
@@ -242,7 +244,7 @@ public abstract class AbstractEntity {
     }
 
     public final void loseHealth(int amount) {
-        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y, Integer.toString(-amount), Color.SCARLET));
+        EffectHandler.run(new UpColorTextEffect(animation.pos.x, animation.pos.y + 100, Integer.toString(-amount), Color.SCARLET));
         //EffectHandler.add(new UpColorTextEffect(animation.pos.x, animation.pos.y + 150 * InputHandler.scaleY, -amount, Color.WHITE));
         health -= amount;
         if(healthUpdatedListener.size > 0) {

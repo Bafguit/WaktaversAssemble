@@ -14,6 +14,8 @@ public abstract class AbstractEffect {
     public AbstractEffect(float x, float y, float duration) {
         this.duration = duration;
         this.baseDuration = this.duration;
+        this.x = x;
+        this.y = y;
     }
 
     public AbstractEffect(float duration) {
