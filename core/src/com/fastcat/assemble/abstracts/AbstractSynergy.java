@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.JsonValue;
-import com.fastcat.assemble.actions.SynergyFlashAction;
-import com.fastcat.assemble.handlers.ActionHandler;
 import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 
@@ -96,14 +94,12 @@ public abstract class AbstractSynergy {
 
     public void reset() {
         members.clear();
-        memberCount = getActualMemberCount();
-        grade = getGrade();
+        update();
     }
 
     public void resetAll() {
-        members.clear();
-        memberCount = getActualMemberCount();
-        grade = getGrade();
+        baseMemCount = 0;
+        reset();
     }
 
     public void endOfTurn(boolean isPlayer) {}
@@ -113,7 +109,7 @@ public abstract class AbstractSynergy {
     public void gradeUp() {}
 
     public void flash() {
-        ActionHandler.next(new SynergyFlashAction(this));
+        //ActionHandler.next(new SynergyFlashAction(this));
     }
 
     public static class SynergyData {

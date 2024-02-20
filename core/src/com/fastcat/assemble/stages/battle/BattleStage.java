@@ -101,7 +101,7 @@ public class BattleStage extends AbstractStage {
         updateEnemies();
         
         for(AbstractSynergy s : WakTower.game.battle.synergy) {
-            s.resetAll();
+            s.reset();
         }
         updateSynergy();
 

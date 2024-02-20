@@ -1,7 +1,67 @@
 {
-  "Relic": {
-    "name": "낡은 방패",
-    "desc": "턴 시작 시 잃는 보호막의 &b<70%>가 보존됩니다.",
+  "GuardianRelic": {
+    "name": "수호자+1",
+    "desc": "수호자 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "CrazyRelic": {
+    "name": "광인+1",
+    "desc": "광인 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "ExpertRelic": {
+    "name": "전문가+1",
+    "desc": "전문가 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "MagicianRelic": {
+    "name": "마법사+1",
+    "desc": "마법사 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "TimidRelic": {
+    "name": "쭈글이+1",
+    "desc": "쭈글이 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "DoormatRelic": {
+    "name": "동네북+1",
+    "desc": "동네북 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "VillainRelic": {
+    "name": "악당+1",
+    "desc": "악당 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "KiddoRelic": {
+    "name": "애송이+1",
+    "desc": "애송이 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "NoblesRelic": {
+    "name": "노블레스+1",
+    "desc": "노블레스 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "CompetitorRelic": {
+    "name": "경쟁자+1",
+    "desc": "경쟁자 멤버 수 +1",
+    "flavor": "",
+    "rarity": "common"
+  },
+  "MainVocalRelic": {
+    "name": "메인보컬+1",
+    "desc": "메인보컬 멤버 수 +1",
     "flavor": "",
     "rarity": "common"
   }

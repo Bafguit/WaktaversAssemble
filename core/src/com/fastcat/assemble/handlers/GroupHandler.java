@@ -2,6 +2,7 @@ package com.fastcat.assemble.handlers;
 
 import com.fastcat.assemble.abstracts.AbstractEnemy;
 import com.fastcat.assemble.abstracts.AbstractMember;
+import com.fastcat.assemble.abstracts.AbstractRelic;
 import com.fastcat.assemble.enemies.Enemy1;
 import com.fastcat.assemble.enemies.Enemy2;
 import com.fastcat.assemble.enemies.Enemy3;
@@ -49,20 +50,34 @@ import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.members.Viichan;
 import com.fastcat.assemble.members.Wakpago;
 import com.fastcat.assemble.members.Yungter;
+import com.fastcat.assemble.relics.CompetitorRelic;
+import com.fastcat.assemble.relics.CrazyRelic;
+import com.fastcat.assemble.relics.DoormatRelic;
+import com.fastcat.assemble.relics.ExpertRelic;
+import com.fastcat.assemble.relics.GuardianRelic;
+import com.fastcat.assemble.relics.KiddoRelic;
+import com.fastcat.assemble.relics.MagicianRelic;
+import com.fastcat.assemble.relics.MainVocalRelic;
+import com.fastcat.assemble.relics.NoblesRelic;
+import com.fastcat.assemble.relics.TimidRelic;
+import com.fastcat.assemble.relics.VillainRelic;
 
 import java.util.HashMap;
 
 public class GroupHandler {
 
-    public static HashMap<String, AbstractMember> memberGroup;
-    public static HashMap<String, AbstractEnemy> enemyGroup;
+    private static HashMap<String, AbstractMember> memberGroup;
+    private static HashMap<String, AbstractEnemy> enemyGroup;
+    private static HashMap<String, AbstractRelic> relicGroup;
 
     public static void initialize() {
         memberGroup = new HashMap<>();
         enemyGroup = new HashMap<>();
+        relicGroup = new HashMap<>();
 
         addMembers();
         addEnemies();
+        addRelics();
     }
 
     private static void addMembers() {
@@ -118,15 +133,29 @@ public class GroupHandler {
         enemyGroup.put("Enemy3", new Enemy3());
     }
 
-    public static AbstractMember getMember(String id) {
-        AbstractMember m = memberGroup.get(id).duplicate();
+    private static void addRelics() {
+        relicGroup.put("GuardianRelic", new GuardianRelic());
+        relicGroup.put("CrazyRelic", new CrazyRelic());
+        relicGroup.put("ExpertRelic", new ExpertRelic());
+        relicGroup.put("MagicianRelic", new MagicianRelic());
+        relicGroup.put("TimidRelic", new TimidRelic());
+        relicGroup.put("DoormatRelic", new DoormatRelic());
+        relicGroup.put("VillainRelic", new VillainRelic());
+        relicGroup.put("KiddoRelic", new KiddoRelic());
+        relicGroup.put("NoblesRelic", new NoblesRelic());
+        relicGroup.put("CompetitorRelic", new CompetitorRelic());
+        relicGroup.put("MainVocalRelic", new MainVocalRelic());
+    }
 
-        return m;
+    public static AbstractMember getMember(String id) {
+        return memberGroup.get(id).duplicate();
     }
 
     public static AbstractEnemy getEnemy(String id) {
-        AbstractEnemy m = enemyGroup.get(id).duplicate();
+        return enemyGroup.get(id).duplicate();
+    }
 
-        return m;
+    public static AbstractRelic getRelic(String id) {
+        return relicGroup.get(id).duplicate();
     }
 }

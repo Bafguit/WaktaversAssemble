@@ -8,7 +8,7 @@ import com.fastcat.assemble.handlers.DataHandler;
 import com.fastcat.assemble.handlers.FileHandler;
 import com.fastcat.assemble.utils.DamageInfo;
 
-public abstract class AbstractRelic {
+public abstract class AbstractRelic implements Cloneable {
 
     public final RelicData data;
     public String id, name, desc, flavor;
@@ -91,6 +91,23 @@ public abstract class AbstractRelic {
 
     public int repeatAmount(AbstractMember m) {
         return 1;
+    }
+
+    public AbstractRelic cpy() {
+        AbstractRelic r;
+        try {
+            r = (AbstractRelic) this.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return r;
+    }
+
+    public AbstractRelic duplicate() {
+        AbstractRelic r = cpy();
+        r.img = new TextureRegionDrawable(this.img);
+        return r;
     }
 
     public static class RelicData {

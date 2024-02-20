@@ -1,9 +1,15 @@
 package com.fastcat.assemble.abstracts;
 
+import java.util.Iterator;
+import java.util.LinkedList;
+
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.JsonValue;
 import com.fastcat.assemble.handlers.ActionHandler;
+import com.fastcat.assemble.handlers.FileHandler;
+import com.fastcat.assemble.handlers.SynergyHandler;
 import com.fastcat.assemble.members.AmadeusChoi;
 import com.fastcat.assemble.members.Angel;
 import com.fastcat.assemble.members.Bujeong;
@@ -48,7 +54,7 @@ import com.fastcat.assemble.members.Viichan;
 import com.fastcat.assemble.members.Wakgood;
 import com.fastcat.assemble.members.Wakpago;
 import com.fastcat.assemble.members.Yungter;
-import com.fastcat.assemble.relics.TestRelic;
+import com.fastcat.assemble.relics.GuardianRelic;
 import com.fastcat.assemble.utils.RandomXC;
 
 public class AbstractGame {
@@ -70,14 +76,14 @@ public class AbstractGame {
     public final RandomXC battleRandom;
 
     public Array<AbstractMember> deck;
-    public Array<AbstractRelic> relics;
+    public LinkedList<AbstractRelic> relics;
 
     public AbstractRoom currentRoom;
     public int gold;
     public int stageNum, stageMax, drawAmount, maxHand, memberLimit;
 
     public AbstractGame() {
-        relics = new Array<>();
+        relics = new LinkedList<>();
         deck = getStartDeck();
         seed = generateRandomSeed();
         seedLong = seedToLong(seed);
@@ -98,10 +104,14 @@ public class AbstractGame {
         maxHand = 10;
         memberLimit = 6;
 
+        for(JsonValue v : FileHandler.getInstance().jsonMap.get("synergy")) {
+            SynergyHandler.getSynergyInstance(v.name).resetAll();
+        }
+
         currentRoom = AbstractRoom.getRoom(mapRandom, 0);
         battle = new AbstractBattle(this, currentRoom);
 
-        relics.add(new TestRelic());
+        gainRelic(new GuardianRelic());
     }
 
     public void update() {
@@ -177,6 +187,31 @@ public class AbstractGame {
     public void gainGold(int gold) {
         this.gold += gold;
         if(gold < 0) this.gold = 0;
+    }
+
+    public void gainRelic(AbstractRelic relic) {
+        relics.add(relic);
+        relic.onGain();
+    }
+
+    public boolean removeRelic(AbstractRelic relic) {
+        if(relics.remove(relic)) {
+            relic.onLose();
+            return true;
+        } else return removeRelic(relic.id);
+    }
+
+    public boolean removeRelic(String id) {
+        Iterator<AbstractRelic> itr = relics.iterator();
+        while (itr.hasNext()) {
+            AbstractRelic r = itr.next();
+            if(r.id.equals(id)) {
+                itr.remove();
+                r.onLose();
+                return true;
+            }
+        }
+        return false;
     }
 
     private static String generateRandomSeed() {
