@@ -50,12 +50,29 @@ import com.fastcat.assemble.members.Victory;
 import com.fastcat.assemble.members.Viichan;
 import com.fastcat.assemble.members.Wakpago;
 import com.fastcat.assemble.members.Yungter;
+import com.fastcat.assemble.relics.CommonRelic1;
+import com.fastcat.assemble.relics.CommonRelic2;
+import com.fastcat.assemble.relics.CommonRelic3;
+import com.fastcat.assemble.relics.CommonRelic4;
+import com.fastcat.assemble.relics.CommonRelic5;
+import com.fastcat.assemble.relics.CommonRelic6;
+import com.fastcat.assemble.relics.CommonRelic7;
+import com.fastcat.assemble.relics.CommonRelic8;
 import com.fastcat.assemble.relics.CompetitorRelic;
 import com.fastcat.assemble.relics.CrazyRelic;
 import com.fastcat.assemble.relics.DoormatRelic;
 import com.fastcat.assemble.relics.ExpertRelic;
 import com.fastcat.assemble.relics.GuardianRelic;
 import com.fastcat.assemble.relics.KiddoRelic;
+import com.fastcat.assemble.relics.LegenoRelic1;
+import com.fastcat.assemble.relics.LegenoRelic2;
+import com.fastcat.assemble.relics.LegenoRelic3;
+import com.fastcat.assemble.relics.LegenoRelic4;
+import com.fastcat.assemble.relics.LegenoRelic5;
+import com.fastcat.assemble.relics.LegenoRelic6;
+import com.fastcat.assemble.relics.LegenoRelic7;
+import com.fastcat.assemble.relics.LegenoRelic8;
+import com.fastcat.assemble.relics.LegenoRelic9;
 import com.fastcat.assemble.relics.MagicianRelic;
 import com.fastcat.assemble.relics.MainVocalRelic;
 import com.fastcat.assemble.relics.NoblesRelic;
@@ -134,6 +151,18 @@ public class GroupHandler {
     }
 
     private static void addRelics() {
+
+        //Common Relics
+        relicGroup.put("CommonRelic1", new CommonRelic1());
+        relicGroup.put("CommonRelic2", new CommonRelic2());
+        relicGroup.put("CommonRelic3", new CommonRelic3());
+        relicGroup.put("CommonRelic4", new CommonRelic4());
+        relicGroup.put("CommonRelic5", new CommonRelic5());
+        relicGroup.put("CommonRelic6", new CommonRelic6());
+        relicGroup.put("CommonRelic7", new CommonRelic7());
+        relicGroup.put("CommonRelic8", new CommonRelic8());
+
+        //Rare Relics
         relicGroup.put("GuardianRelic", new GuardianRelic());
         relicGroup.put("CrazyRelic", new CrazyRelic());
         relicGroup.put("ExpertRelic", new ExpertRelic());
@@ -145,6 +174,17 @@ public class GroupHandler {
         relicGroup.put("NoblesRelic", new NoblesRelic());
         relicGroup.put("CompetitorRelic", new CompetitorRelic());
         relicGroup.put("MainVocalRelic", new MainVocalRelic());
+
+        //Legeno Relics
+        relicGroup.put("LegenoRelic1", new LegenoRelic1());
+        relicGroup.put("LegenoRelic2", new LegenoRelic2());
+        relicGroup.put("LegenoRelic3", new LegenoRelic3());
+        relicGroup.put("LegenoRelic4", new LegenoRelic4());
+        relicGroup.put("LegenoRelic5", new LegenoRelic5());
+        relicGroup.put("LegenoRelic6", new LegenoRelic6());
+        relicGroup.put("LegenoRelic7", new LegenoRelic7());
+        relicGroup.put("LegenoRelic8", new LegenoRelic8());
+        relicGroup.put("LegenoRelic9", new LegenoRelic9());
     }
 
     public static AbstractMember getMember(String id) {

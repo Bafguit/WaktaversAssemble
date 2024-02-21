@@ -1,68 +1,163 @@
 {
+  "CommonRelic1": {
+    "name": "일반유물1",
+    "desc": "활성화된 시너지 하나당 멤버의 피해가 &b<5%> 증가합니다.",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic2": {
+    "name": "멤버의 피해가 &b<1> 증가합니다.",
+    "desc": "",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic3": {
+    "name": "일반유물3",
+    "desc": "멤버가 얻는 방어도와 보호막이 &b<1> 증가합니다.",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic4": {
+    "name": "일반유물4",
+    "desc": "획득 시 멤버 3명을 획득합니다.",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic5": {
+    "name": "일반유물5",
+    "desc": "부활하는 멤버의 체력 회복이 &b<3> 증가합니다.",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic6": {
+    "name": "일반유물6",
+    "desc": "전투 보상으로 멤버 1명을 추가로 획득합니다.",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic7": {
+    "name": "일반유물7",
+    "desc": "전투 시작 시 카드를 1장 뽑습니다.",
+    "flavor": "",
+    "rarity": "common"
+  },"CommonRelic8": {
+    "name": "일반유물8",
+    "desc": "모든 멤버의 체력이 &b<3> 증가합니다.",
+    "flavor": "",
+    "rarity": "common"
+  },
   "GuardianRelic": {
     "name": "수호자+1",
     "desc": "수호자 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "CrazyRelic": {
     "name": "광인+1",
     "desc": "광인 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "ExpertRelic": {
     "name": "전문가+1",
     "desc": "전문가 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "MagicianRelic": {
     "name": "마법사+1",
     "desc": "마법사 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "TimidRelic": {
     "name": "쭈글이+1",
     "desc": "쭈글이 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "DoormatRelic": {
     "name": "동네북+1",
     "desc": "동네북 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "VillainRelic": {
     "name": "악당+1",
     "desc": "악당 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "KiddoRelic": {
     "name": "애송이+1",
     "desc": "애송이 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "NoblesRelic": {
     "name": "노블레스+1",
     "desc": "노블레스 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "CompetitorRelic": {
     "name": "경쟁자+1",
     "desc": "경쟁자 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
   },
   "MainVocalRelic": {
     "name": "메인보컬+1",
     "desc": "메인보컬 멤버 수 +1",
     "flavor": "",
-    "rarity": "common"
+    "rarity": "rare"
+  },
+  "LegenoRelic1": {
+    "name": "레게노유물1",
+    "desc": "맨 앞의 멤버가 효과를 2번 발동합니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic2": {
+    "name": "레게노유물2",
+    "desc": "전투 시작 시 모든 멤버가 강화됩니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic3": {
+    "name": "레게노유물3",
+    "desc": "기계장치의 두 효과가 모두 발동됩니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic4": {
+    "name": "레게노유물4",
+    "desc": "악당의 전투당 골드 획득 제한이 사라집니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic5": {
+    "name": "레게노유물5",
+    "desc": "애송이의 효과가 모든 멤버에게 적용됩니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic6": {
+    "name": "레게노유물6",
+    "desc": "쭈글이의 효과가 모든 멤버에게 적용됩니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic7": {
+    "name": "레게노유물7",
+    "desc": "노블레스의 효과가 모든 멤버에게 적용됩니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic8": {
+    "name": "레게노유물8",
+    "desc": "경쟁자의 효과가 2명에게 적용됩니다.",
+    "flavor": "",
+    "rarity": "legeno"
+  },
+  "LegenoRelic9": {
+    "name": "레게노유물9",
+    "desc": "심리술사로 변신한 시너지의 멤버 수가 1 증가합니다.",
+    "flavor": "",
+    "rarity": "legeno"
   }
 }

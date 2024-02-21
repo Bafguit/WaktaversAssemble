@@ -190,9 +190,15 @@ public abstract class AbstractMember extends AbstractEntity implements Cloneable
                 s += a + WHITE;
                 return s;
             case "V":
-                return BLUE + calculateValue() + WHITE;
+                a = calculateValue();
+                s = a < baseValue ? RED : a > baseValue ? GREEN : BLUE;
+                s += a + WHITE;
+                return s;
             case "X":
-                return BLUE + calculateValue2() + WHITE;
+                a = calculateValue2();
+                s = a < baseValue2 ? RED : a > baseValue2 ? GREEN : BLUE;
+                s += a + WHITE;
+                return s;
             default:
                 return "0";
         }
